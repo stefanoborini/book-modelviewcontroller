@@ -3,20 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to modelviewcontroller's documentation!
-===============================================
+===================================
+Understanding Model-View-Controller 
+===================================
+
+------------------------
+By Stefano Borini - 2014
+------------------------
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   introduction
