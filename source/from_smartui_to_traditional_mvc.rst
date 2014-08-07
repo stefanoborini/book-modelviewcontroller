@@ -11,16 +11,14 @@ The number is increased every time the button is clicked.
 .. image:: _static/images/SmartUI.png
    :align: center
 
-We can implement this application as follows:
-
-::
+We can implement this application as follows::
 
     import sys
     from PyQt4 import QtCore, QtGui
 
     class Counter(QtGui.QPushButton):
-        def __init__(self, \*args, \*\*kwargs):
-            super(Counter, self).__init__(\*args, \*\*kwargs)
+        def __init__(self, *args, **kwargs):
+            super(Counter, self).__init__(*args, **kwargs)
             self._value = 0
             self._update()
 
@@ -87,9 +85,7 @@ continue to work, the visual part View must now be informed of changes to this
 data. The Document will therefore not only hold self._value, but also provide
 an interface to query and modify this data and a strategy to notify other
 objects when changes occur. This is expressed in the following implementation
-code:
-
-::
+code::
 
     class CounterDocument(object): 
         def __init__(self): 
@@ -100,9 +96,7 @@ In addition to the value, the self._listeners member variable holds references
 to external objects interested in being notified about changes. We use a python
 set instead of a list to prevent accidental registration of the same object
 twice. Interested objects can register and unregister through the following
-methods
-
-::
+methods :: 
 
     def register(self, listener): 
         self._listeners.add(listener) 
