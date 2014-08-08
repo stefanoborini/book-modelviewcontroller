@@ -14,7 +14,8 @@ By Stefano Borini - 2014
 Contents:
 
 .. toctree::
-    :maxdepth: 2
+   :maxdepth: 2
 
-    introduction
-    from_smartui_to_traditional_mvc
+   introduction
+   from_smartui_to_traditional_mvc
+   mvc_variations
