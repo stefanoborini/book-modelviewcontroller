@@ -14,8 +14,14 @@ requirements include:
    - alternatively, allow invalid entries, but disable the Ok button and mark the incorrect value red.
    - and so on...
 
-As you can see, the complexity of an application made of hundreds of menus, text input areas and buttons, plus all the possible logical dependencies among them can grow considerably. Unexpected interactions and strange communication patterns emerge in the form of bugs or application freezes. Keeping this communication network well organized and confined by enforcing a structure is of paramount importance.
-In this section we will examine alternative design in MVC able to deal with more complex use-case scenarios, constrained by requirements, architectural needs or self-documentation purposes.
+As you can see, the complexity of an application made of hundreds of menus,
+text input areas and buttons, plus all the possible logical dependencies among
+them can grow considerably. Unexpected interactions and strange communication
+patterns emerge in the form of bugs or application freezes. Keeping this
+communication network well organized and confined by enforcing a structure is
+of paramount importance.  In this section we will examine alternative design in
+MVC able to deal with more complex use-case scenarios, constrained by
+requirements, architectural needs or self-documentation purposes.
 
 
 Compositing Model
