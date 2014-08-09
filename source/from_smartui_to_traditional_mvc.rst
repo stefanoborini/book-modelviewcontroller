@@ -280,7 +280,8 @@ unchanged: it stores state and delivers change notifications. The visual part
 is divided into two classes, the Controller and the View. Once instantiated and
 connected, Model, View, and Controller form a so-called MVC triad.
 
-[picture]
+.. image:: _static/images/TraditionalMVC/mvc_triad.png
+   :align: center
 
 The Controller's role is to transform primary events delivered by the View into
 operations on the Model. Depending on the specifics of the application, a
@@ -328,7 +329,8 @@ triggering a call to notify() that updates the text label. The activity diagram
 in Fig. 2 shows the dance of calls presented above. Note how the Model-View
 synchronization does not involve the Controller
 
-[Picture]
+.. image:: _static/images/TraditionalMVC/activity_diagram.png
+   :align: center
 
 To initialize the MVC triad, the client code needs to create the Model and
 View, and let them be aware of each other by passing the Model to the View. ::
@@ -343,8 +345,8 @@ View, and let them be aware of each other by passing the Model to the View. ::
 
 The activity diagram in Figure 3 shows the setup code given above
 
-[picture]
-
+.. image:: _static/images/TraditionalMVC/activity_diagram_setup.png
+   :align: center
 
 An in-depth analysis of Traditional MVC roles and components
 ------------------------------------------------------------
@@ -354,9 +356,9 @@ to Document-View, then to Traditional MVC, driven by the need for additional
 flexibility, separation of concerns and clarification of the different roles.
 To summarize the scope of each role in Traditional MVC:
 
-   - Model: holds the application's state and core functionality.
-   - View: visually renders the Model to the User.
-   - Controller: mediates User actions on the GUI to drive modifications on the Model.
+   - **Model**: holds the application's state and core functionality.
+   - **View**: visually renders the Model to the User.
+   - **Controller**: mediates User actions on the GUI to drive modifications on the Model.
 
 Except for the most trivial applications, multiple classes can be active in the
 same role and are said to belong to a specific layer (i.e. Model layer, View
