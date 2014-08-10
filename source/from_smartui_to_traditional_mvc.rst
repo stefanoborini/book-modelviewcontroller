@@ -142,8 +142,8 @@ and after a few formalities, the View register itself for notifications ::
 
 When this happens, the Document adds the View as a listener. A notification is
 immediately delivered to the newly added listener so that it can update
-itself. [#]_ The notify method on the View is then called, which will query the
-current value from the Document, and update the text on the button ::
+itself. [#]_ The ``notify`` method on the View is then called, which will query
+the current value from the Document, and update the text on the button ::
 
         def notify(self):
             self.setText(unicode(self._document.value()))
@@ -153,9 +153,11 @@ Note how this method inquires the Document through its interface (calling
 associated Model's interface and must deal with the semantic level it presents.
 Through this knowledge, the View extracts data from the Model, and converts
 “Model language” into “View language” to present the data into the visual
-widgets it is composed of.  Handling of the click event from the User is
-performed in mouseReleaseEvent, as in Smart-UI. This time however, the action
-will involve the Document, again through its interface ::
+widgets it is composed of.  
+
+Handling of the click event from the User is performed in
+``mouseReleaseEvent``, as in Smart-UI. This time however, the action will
+involve the Document, again through its interface ::
 
         def mouseReleaseEvent(self, event):
             super(CounterView, self).mouseReleaseEvent(event)
@@ -273,12 +275,12 @@ With the Document-View design we successfully extracted state from an initial
 Smart-UI design. The next objective is to extract the code that converts the
 primary event (in this case, a mouse click on the button) into the execution of
 the logic that modifies the state (addition of one to the value). The final
-result of this refactoring will be a Traditional MVC design.  
+result of this refactoring will be a **Traditional MVC** design.  
 
-In Traditional MVC, the Document is called Model, and its role and structure is
+In Traditional MVC, the Document is called **Model**, and its role and structure is
 unchanged: it stores state and delivers change notifications. The visual part
-is divided into two classes, the Controller and the View. Once instantiated and
-connected, Model, View, and Controller form a so-called MVC triad.
+is divided into two classes, the **Controller** and the **View**. Once instantiated and
+connected, Model, View, and Controller form a so-called **MVC triad**.
 
 .. image:: _static/images/TraditionalMVC/mvc_triad.png
    :align: center
@@ -293,7 +295,7 @@ the Model to apply changes on ::
            self._model = model
            self._view = view
 
-The method addOne performs the specific task of transforming a primary event
+The method ``addOne`` performs the specific task of transforming a primary event
 into a Model operation, adding one to the current value.  Obviously, the
 Controller does so through the Model interface. This operation will trigger a
 Model notification to its listeners ::
@@ -303,7 +305,7 @@ Model notification to its listeners ::
 
 At initialization, the View instantiates its associated Controller, passing
 itself and the Model as parameters. As before, the View registers itself on the
-Model via Model.register ::
+Model via the ``register`` method ::
 
    class View(QtGui.QPushButton):
        def __init__(self, model):
@@ -315,7 +317,7 @@ Model via Model.register ::
 The View now depends on the Controller to modify the Model: only strictly
 GUI-related handling is done by the View. Conversion from GUI events to
 application business logic is delegated to the Controller in
-mouseReleaseEvent() ::
+``mouseReleaseEvent`` ::
 
     def mouseReleaseEvent(self, event):
         super(View, self).mouseReleaseEvent(event)  
@@ -324,10 +326,10 @@ mouseReleaseEvent() ::
     def notify(self):
         self.setText(unicode(self._model.value()))   
 
-Clicking on the View button will result in a call to Controller.addOne, in turn
-triggering a call to notify() that updates the text label. The activity diagram
-in Fig. 2 shows the dance of calls presented above. Note how the Model-View
-synchronization does not involve the Controller
+Clicking on the View button will result in a call to ``Controller.addOne``, in
+turn triggering a call to ``notify`` that updates the text label. The activity
+diagram in Fig. 2 shows the dance of calls presented above. Note how the
+Model-View synchronization does not involve the Controller
 
 .. image:: _static/images/TraditionalMVC/activity_diagram.png
    :align: center
@@ -361,7 +363,7 @@ To summarize the scope of each role in Traditional MVC:
    - **Controller**: mediates User actions on the GUI to drive modifications on the Model.
 
 Except for the most trivial applications, multiple classes can be active in the
-same role and are said to belong to a specific layer (i.e. Model layer, View
+same role and are said to belong to a specific **layer** (i.e. Model layer, View
 layer and Controller layer). Objects from these layers are composed into MVC
 Triads that give rise to the final application's behavior and aspect.  This
 design is blessed with technical advantages: 
@@ -422,42 +424,43 @@ complex network of objects with well defined interfaces. Regardless of the
 implementation, Models in Traditional MVC must provide the following three
 services: 
 
-   - Querying: to inquire about their current state, either represented by
-     high-level domain objects (Object Oriented approach), or through an IO
-     layer of routines providing access to the data (Data Oriented approach). In the
-     Object Oriented approach, the Model objects generally represents an
-     identifiable part of the domain of your application, and provide access to data
-     through a well-defined object-oriented interface. The Model can also perform
-     computation, generally of information derived or associated to the main data it
-     represents. In the Data Oriented approach, the routines “speak the domain
-     language” and have high-level semantics to access the data, generally from a
-     data storage (e.g. disk).
+**Querying**: to inquire about their current state, either represented by
+high-level domain objects (Object Oriented approach), or through an IO
+layer of routines providing access to the data (Data Oriented approach). In the
+Object Oriented approach, the Model objects generally represents an
+identifiable part of the domain of your application, and provide access to data
+through a well-defined object-oriented interface. The Model can also perform
+computation, generally of information derived or associated to the main data it
+represents. In the Data Oriented approach, the routines “speak the domain
+language” and have high-level semantics to access the data, generally from a
+data storage (e.g. disk).
 
-   - Altering: to modify the current state. The Model interface provides set
-     methods or routines to modify its state. The Model performs consistency
-     checks about the data it handles, enforcing fundamental integrity: for example,
-     it can raise an exception or ignore the passed data if a method
-     setCurrentTemperature is called passing a string instead of a float, or a
-     method setLength is called with a negative value. 
+**Altering**: to modify the current state. The Model interface provides set
+methods or routines to modify its state. The Model performs consistency
+checks about the data it handles, enforcing fundamental integrity: for example,
+it can raise an exception or ignore the passed data if a method
+setCurrentTemperature is called passing a string instead of a float, or a
+method setLength is called with a negative value. 
 
-   - Notifying: to inform interested parties that a change has occurred in its
-     state. The Model allows interested objects to register themselves for
-     notifications. When a change occurs, these objects will be notified of this
-     fact and can act accordingly, normally by synchronizing themselves against the
-     Model's new contents. 
+**Notifying**: to inform interested parties that a change has occurred in its
+state. The Model allows interested objects to register themselves for
+notifications. When a change occurs, these objects will be notified of this
+fact and can act accordingly, normally by synchronizing themselves against the
+Model's new contents. 
 
 Model objects should provide core application functionality through a clear and
 self-documented interface, exposing what can be done with the program's state.
 To operate, they can depend only on other Model objects or other components of
 the application that don't involve presentation, like an IO layer. The
-relationship among Model objects is that of a strong dependency.  On the other
-hand, a Model should not contain nor be dependent for its functionality on any
-graphical entity, nor contain formatting/visual logic for presentation (e.g.
-logic to make a negative value represented in red, or logic to present the date
-in US vs. ISO representation). Model objects should be completely unaware of
-how user interaction is handled by the application they live in, and should
-have a weak dependency toward its listeners via the notification generic
-interface. 
+relationship among Model objects is that of a **strong dependency**.  
+
+On the other hand, a Model should not contain nor be dependent for its
+functionality on any graphical entity, nor contain formatting/visual logic for
+presentation (*e.g.* logic to make a negative value represented in red, or logic
+to present the date in US vs. ISO representation). Model objects should be
+completely unaware of how user interaction is handled by the application they
+live in, and should have a **weak dependency** toward its listeners via the
+notification generic interface. 
 
 For data modification, all the Model does is to process incoming requests in
 the form of method calls.  Normally these requests are performed by
@@ -465,15 +468,16 @@ Controllers, but a Model can also change due to requests from other subsystems
 (for example, a network layer), from another Model component or because it is
 monitoring a backend (e.g. a database, or a filesystem) and the monitored
 entity changes. The only entities never allowed to issue a change request to
-the Model are the Views.  The Model should enforce integrity of the data, but
-it does not necessarily enforce validity: data might be correct (for example,
-integers for min/max values) but overall invalid for computation (for example,
-if min > max). While integrity should be enforced, storing invalid data can be
-acceptable: depending on the application, invalid data may be marked as such in
-the Model by the part of the code that detects the invalidity, so that the View
-can represent it (for example, with a red font); An invalid state might be
-needed as a stepstone to reach a valid state at the end of a set of changes
-done by the User via the UI.
+the Model are the Views.  
+
+The Model should enforce integrity of the data, but it does not necessarily
+enforce validity: data might be correct (for example, integers for min/max
+values) but overall invalid for computation (for example, if min > max). While
+integrity should be enforced, storing invalid data can be acceptable: depending
+on the application, invalid data may be marked as such in the Model by the part
+of the code that detects the invalidity, so that the View can represent it (for
+example, with a red font); An invalid state might be needed as a stepstone to
+reach a valid state at the end of a set of changes done by the User via the UI.
 
 With the above guidelines and restrictions in place, the resulting
 implementation is robust, flexible and testable: Views and Controllers are the
@@ -501,8 +505,8 @@ the Model, nor store Model data, except for caching to improve rendering
 performance. Cached data are never authoritative, and should never be pushed
 back into the Model, or handed out to other objects. 
 
-A View is generally composed out of Widgets, reusable visual building blocks
-provided by a Widget toolkit library. Examples of widgets are buttons,
+A View is generally composed out of **Widgets**, reusable visual building
+blocks provided by a Widget toolkit library. Examples of widgets are buttons,
 checkboxes, and menus. Complex interfaces are assembled from a collection of
 Widgets, hierarchically contained in dialogs, windows and other visual
 containers. This intrinsic hierarchic nesting must be factored in when we want
