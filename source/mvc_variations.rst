@@ -650,450 +650,896 @@ functionality. The View depends on both Models
 
 [picture]
 
-Obviously, the Application Model keeps registering itself on the Domain model
-class DialViewModel(BaseModel):
-   def __init__(self, engine):
-   super(DialViewModel, self).__init__()
-      self._dial_color = Qt.green
-      self._engine = engine
-      self._engine.register(self)
+Obviously, the Application Model keeps registering itself on the Domain model::
 
-   def color(self):
-      return self._dial_color
-   
-   def notify(self):
-      if self._engine.isOverRpmLimit():
-         self._dial_color = Qt.red
-      else:
+   class DialViewModel(BaseModel):
+      def __init__(self, engine):
+      super(DialViewModel, self).__init__()
          self._dial_color = Qt.green
-      self._notifyListeners()
+         self._engine = engine
+         self._engine.register(self)
 
-The dial now registers to both Models, and listens to notifications from both.
+      def color(self):
+         return self._dial_color
+      
+      def notify(self):
+         if self._engine.isOverRpmLimit():
+            self._dial_color = Qt.red
+         else:
+            self._dial_color = Qt.green
+         self._notifyListeners()
 
-class Dial(QtGui.QDial):
-<....>
-   def setModels(self, model, view_model):
-      if self._model:
-         self._model.unregister(self)
-      if self._view_model:
-         self._view_model.unregister(self)
+The dial now registers to both Models, and listens to notifications from both.::
 
-      self._model = model
-      self._view_model = view_model
+   class Dial(QtGui.QDial):
+   <....>
+      def setModels(self, model, view_model):
+         if self._model:
+            self._model.unregister(self)
+         if self._view_model:
+            self._view_model.unregister(self)
 
-      self._controller.setModel(model)
-      self._model.register(self)
-      self._view_model.register(self)
+         self._model = model
+         self._view_model = view_model
 
-   def notify(self):
-      self.setValue(self._model.rpm())  
-      palette = QtGui.QPalette() 
-      palette.setColor(QtGui.Qpalette.Button,self._view_model.color())
-      self.setPalette(palette)
+         self._controller.setModel(model)
+         self._model.register(self)
+         self._view_model.register(self)
 
-Note how the Dial cannot differentiate which of the two Models is delivering the message, and how in particular it will be potentially notified twice: once by the change in the Domain model, and another time by the change in the Application Model, in itself triggered by the previous change in the Domain model. Particular care may be needed if the notify method is time consuming.
-Another case of Application Model usage is a plot with changing scale. The state of the View (its scale and positioning) is part of a “separate model” that is pertinent only to the View. The Domain model, which holds the plot data, should not be involved in the zoom factor or plot limits.
-A side-by-side solution is frequently used to implement selection, a common GUI paradigm to operate on a data subset. Selected data normally have a different visual aspect, such as highlighting or a checkbox. This information is then used to drive operations on the specified subset. Selection has therefore a dualistic nature of holding state that is both visual and business related.
-A trivial strategy is to include selection state directly on the Domain Model, for example as a flag associated to the item. Depending on the application, this may or may not be an appropriate solution: if two Views observe the same Model, and an item is selected in one View, you might or might not want the other View to obtain this selection information. For example, a GUI allowing the user to select elements from a list, but also have a label saying “3 items selected” would work with selection on the Domain Model. If selection cannot be shared between Views, or we want to keep selection as an independent concern,   a sensible strategy is to host it as a separate side-by-side Selection Model.
+      def notify(self):
+         self.setValue(self._model.rpm())  
+         palette = QtGui.QPalette() 
+         palette.setColor(QtGui.Qpalette.Button,self._view_model.color())
+         self.setPalette(palette)
 
-One problem with a Selection Model is that it must be tolerant to changes in the Domain Model. If a selected entity is removed from the Domain Model, the selection status must be cleared of that entity. This is important, because if the Selection Model is then used to perform collective operations (for example, change the color of all selected items) an operation will be attempted on an item no-longer existing in the Domain Model. Add operations are also not immune from problems: the Selection Model might have to resize itself to match the Domain Model, so that it does not go out of bounds when inquire is performed about the selection status of the new entries. Modifications may reorder and invalidate indexes in the Domain Model, making the selection outdated. Finally, when synchronization is achieved between the Domain Model and the Selection Model, the View will be notified twice: once by the change in the Domain Model, and again by the Selection Model. 
+Note how the Dial cannot differentiate which of the two Models is delivering
+the message, and how in particular it will be potentially notified twice: once
+by the change in the Domain model, and another time by the change in the
+Application Model, in itself triggered by the previous change in the Domain
+model. Particular care may be needed if the notify method is time consuming.
+Another case of Application Model usage is a plot with changing scale. The
+state of the View (its scale and positioning) is part of a “separate model”
+that is pertinent only to the View. The Domain model, which holds the plot
+data, should not be involved in the zoom factor or plot limits.
 
-invert selection, complex selections, select all, select none.
-If data is added, removed, or modified in the model, the Selection Model must respond accordingly. For example,
+A side-by-side solution is frequently used to implement selection, a common GUI
+paradigm to operate on a data subset. Selected data normally have a different
+visual aspect, such as highlighting or a checkbox. This information is then
+used to drive operations on the specified subset. Selection has therefore a
+dualistic nature of holding state that is both visual and business related.  A
+trivial strategy is to include selection state directly on the Domain Model,
+for example as a flag associated to the item. Depending on the application,
+this may or may not be an appropriate solution: if two Views observe the same
+Model, and an item is selected in one View, you might or might not want the
+other View to obtain this selection information. For example, a GUI allowing
+the user to select elements from a list, but also have a label saying “3 items
+selected” would work with selection on the Domain Model. If selection cannot be
+shared between Views, or we want to keep selection as an independent concern,
+a sensible strategy is to host it as a separate side-by-side Selection Model.
+
+One problem with a Selection Model is that it must be tolerant to changes in
+the Domain Model. If a selected entity is removed from the Domain Model, the
+selection status must be cleared of that entity. This is important, because if
+the Selection Model is then used to perform collective operations (for example,
+change the color of all selected items) an operation will be attempted on an
+item no-longer existing in the Domain Model. Add operations are also not immune
+from problems: the Selection Model might have to resize itself to match the
+Domain Model, so that it does not go out of bounds when inquire is performed
+about the selection status of the new entries. Modifications may reorder and
+invalidate indexes in the Domain Model, making the selection outdated. Finally,
+when synchronization is achieved between the Domain Model and the Selection
+Model, the View will be notified twice: once by the change in the Domain Model,
+and again by the Selection Model. 
+
+invert selection, complex selections, select all, select none.  If data is
+added, removed, or modified in the model, the Selection Model must respond
+accordingly. For example,
 
 Qualified notification Model
-Addressed Need: provide additional details about the notification
+----------------------------
 
-Inform the View about which model actually changed
-Prevent a View refresh if the model changes on some information that is not displayed due to the state of the view
-Inform the View of what actually changed, instead of asking for a full refreshes
+**Addressed Need: provide additional details about the notification**
+
+Inform the View about which model actually changed Prevent a View refresh if
+the model changes on some information that is not displayed due to the state of
+the view Inform the View of what actually changed, instead of asking for a full
+refreshes
 
 
-The Model can send messages qualified with a subject, so to inform the views of what kind of change has occurred. OR parametrize the notify method to deliver information about the change the model has.
-Either the View register itself and lists which messages it is interested in (and only if this matches, the message is delivered) or it gets all messages and acts only on those who it is interested in. Alternatively, fragment the Model into two model objects, so that the View can connect only to the part that is relevant.
+The Model can send messages qualified with a subject, so to inform the views of
+what kind of change has occurred. OR parametrize the notify method to deliver
+information about the change the model has.  Either the View register itself
+and lists which messages it is interested in (and only if this matches, the
+message is delivered) or it gets all messages and acts only on those who it is
+interested in. Alternatively, fragment the Model into two model objects, so
+that the View can connect only to the part that is relevant.
 
-To prevent excessive refreshes with multiple changes: pass a flag to update(), or accumulate changes on the view side and refresh only after a given amount of time has passed, or add to a queue the changes, then consume the queue until no more changes are needed, then force visual refresh.
-notify() gets called with a qualified flag, the previous value and the new value.
+To prevent excessive refreshes with multiple changes: pass a flag to update(),
+or accumulate changes on the view side and refresh only after a given amount of
+time has passed, or add to a queue the changes, then consume the queue until no
+more changes are needed, then force visual refresh.  notify() gets called with
+a qualified flag, the previous value and the new value.
 
 Passive Model
-Addressed Need: Use a Model without notification features.
-Traditional MVC uses the so-called Active Model : when the Model changes in response to an action, it directly notifies its listeners of the change. This approach is excellent to deal with multiple listeners, multiple Controllers, and the need to notify about Model changes coming from external sources.
-The Active Model strategy has a counterpart in the Passive Model. A Passive Model does not inform the View of changes. Instead, the synchronization is orchestrated by the Controller (see Figure 6). Typically, the Controller performs some changes on the Model, and then informs the View to update itself. The View now inquires the Model contents as in the Active case. 
+-------------
 
-This approach has obvious shortcomings: it doesn't work if the Model can change through multiple  sources (for example, other Controllers connected to the same Model, or if the Model is a frontend to a database and another client modifies the data), nor it can handle updating of multiple listeners. As an apparent advantage, it allows to use any object as a Model without adding notification functionality on top of it, but in practice a Passive Model can always be converted into an Active one either through inheritance or by using a wrapper class satisfying the Passive Model's original interface. This wrapper will receive change requests from Controllers, delegate the change requests to the Passive Model, and finally notify the listeners. This solution is also viable for an already developed business object that knows nothing about MVC and must be made part of it.
-Despite its apparent lack of potential, a Passive implementation has its area of excellence in Web-based MVC, where the fundamental nature of the HTTP protocol prevents the Model to push notifications to the View (the web browser). In a web GUI, View and Controller are on the Client side (browser) and the Model on the server side (web server). When the User performs an action, the Controller will issue a change request to the web server, followed by a request to the View to refresh itself. The View will now issue a get request to the server to synchronize with the new Model contents.  
+**Addressed Need: Use a Model without notification features.**
+
+Traditional MVC uses the so-called Active Model : when the Model changes in
+response to an action, it directly notifies its listeners of the change. This
+approach is excellent to deal with multiple listeners, multiple Controllers,
+and the need to notify about Model changes coming from external sources.  The
+Active Model strategy has a counterpart in the Passive Model. A Passive Model
+does not inform the View of changes. Instead, the synchronization is
+orchestrated by the Controller (see Figure 6). Typically, the Controller
+performs some changes on the Model, and then informs the View to update itself.
+The View now inquires the Model contents as in the Active case. 
+
+This approach has obvious shortcomings: it doesn't work if the Model can change
+through multiple  sources (for example, other Controllers connected to the same
+Model, or if the Model is a frontend to a database and another client modifies
+the data), nor it can handle updating of multiple listeners. As an apparent
+advantage, it allows to use any object as a Model without adding notification
+functionality on top of it, but in practice a Passive Model can always be
+converted into an Active one either through inheritance or by using a wrapper
+class satisfying the Passive Model's original interface. This wrapper will
+receive change requests from Controllers, delegate the change requests to the
+Passive Model, and finally notify the listeners. This solution is also viable
+for an already developed business object that knows nothing about MVC and must
+be made part of it.  Despite its apparent lack of potential, a Passive
+implementation has its area of excellence in Web-based MVC, where the
+fundamental nature of the HTTP protocol prevents the Model to push
+notifications to the View (the web browser). In a web GUI, View and Controller
+are on the Client side (browser) and the Model on the server side (web server).
+When the User performs an action, the Controller will issue a change request to
+the web server, followed by a request to the View to refresh itself. The View
+will now issue a get request to the server to synchronize with the new Model
+contents.  
 An alternative mode to synchronize the View with the model is the following:
-- The Controller modifies the Model.
-- The controller informs the View to update itself
-- the view communicates with the model for the new database
+
+   - The Controller modifies the Model.
+   - The controller informs the View to update itself
+   - the view communicates with the model for the new database
 
 Notification looping prevention
-Addressed Need: 
-Notification messages from the Model can become problematic for a series of reason:
-the Views get informed that changes occurred, but it's in a part of the data model that is not represented by a specific View. Views must go through a refresh cycle even if no data has changed for them
-A sequence of changes is performed on the Model, forcing a refresh of all the Views at each change, while a single refresh at the end of the sequence would suffice.
-The update-change cycle lead to an infinite loop
+-------------------------------
+
+**Addressed Need:**
+
+Notification messages from the Model can become problematic for a series of
+reason: the Views get informed that changes occurred, but it's in a part of the
+data model that is not represented by a specific View. Views must go through a
+refresh cycle even if no data has changed for them
+A sequence of changes is performed on the Model, forcing a refresh of all the
+Views at each change, while a single refresh at the end of the sequence would
+suffice.  The update-change cycle lead to an infinite loop
 Consider the following case of a SpinBox containing the value 3, and the associated Model value currently set to 3 as well. When the user interacts with the SpinBox, clicking the up arrow, the following sequence of events occurs:
-1. a valueChanged() signal is issued by the SpinBox with the new value, 4. We assume the SpinBox keeps showing the old value, as it represents the Model, which at the moment contains 3. 
-2. the Controller.setValue(4) method is called, which in turn calls Model.setValue(4).
-3. the Model stores the new value 4, then issue a _notifyListeners to inform all the connected views, including the SpinBox.
-4. the SpinBox receives the notify(), which now fetches the new value from the Model and sets the new value using QSpinBox.setValue(4)
-5. the SpinBox is still containing the value 3. QSpinBox.setValue(4) triggers valueChanged() again.
-6. Controller.setValue is called again, reproducing the situation at point 2.
-With this scenario, the application is potentially entering a notification loop. A prevention strategy is to have the Model notify the listeners only if the new value differs from the currently stored one. This solution will terminate at point 3, technically performing useless Controller.setValue and Model.setValue calls. 
-A tempting alternative solution is to have the SpinBox increment its visualized value independently from the Model, thus having the View autonomous in its visualized state.  With this approach, after step 1 the SpinBox will show the number 4. The chain of events will unfold exactly in the same way until step 4. The SpinBox will now observe that the new value in the Model is the same as the one it is currently displaying, terminating the chain by not triggering a valueChanged().  Depending on the toolkit used, graphical Views may or may not behave as described, but the fundamental issue with this approach is that the View is assuming to know the next value, and setting it accordingly, without involving any logic from the Controller or Model. The Model could, for example, consider the new value 4 to be invalid and set itself to the next valid one, for example 27. This will force the View to update its graphical representation again. 
 
-Another strategy is to prevent the View from updating itself twice within the same cycle of events. A possible implementation of this strategy is to hold a flag updating on the View. The flag is set to True at step 1. The chain of events develops in the same way until step 5, where the setValue operation will check for the flag. If true, it will only update the graphical aspect of the widget, and skip the triggering of the second valueChanged() signal.
-Another strategy is to have a View that does not triggers valueChanged under certain conditions. 
+   1. a valueChanged() signal is issued by the SpinBox with the new value, 4. We assume the SpinBox keeps showing the old value, as it represents the Model, which at the moment contains 3. 
+   2. the Controller.setValue(4) method is called, which in turn calls Model.setValue(4).
+   3. the Model stores the new value 4, then issue a _notifyListeners to inform all the connected views, including the SpinBox.
+   4. the SpinBox receives the notify(), which now fetches the new value from the Model and sets the new value using QSpinBox.setValue(4)
+   5. the SpinBox is still containing the value 3. QSpinBox.setValue(4) triggers valueChanged() again.
+   6. Controller.setValue is called again, reproducing the situation at point 2.
 
-Shut down the Model notification system? not a good idea. other parties will not receive events. 
-Another alternative is to detach the View from the notification. It will not receive update notifications from the model, just set the value. It won't see changes in the model that originate from outside though.
+With this scenario, the application is potentially entering a notification
+loop. A prevention strategy is to have the Model notify the listeners only if
+the new value differs from the currently stored one. This solution will
+terminate at point 3, technically performing useless Controller.setValue and
+Model.setValue calls.  A tempting alternative solution is to have the SpinBox
+increment its visualized value independently from the Model, thus having the
+View autonomous in its visualized state.  With this approach, after step 1 the
+SpinBox will show the number 4. The chain of events will unfold exactly in the
+same way until step 4. The SpinBox will now observe that the new value in the
+Model is the same as the one it is currently displaying, terminating the chain
+by not triggering a valueChanged().  Depending on the toolkit used, graphical
+Views may or may not behave as described, but the fundamental issue with this
+approach is that the View is assuming to know the next value, and setting it
+accordingly, without involving any logic from the Controller or Model. The
+Model could, for example, consider the new value 4 to be invalid and set itself
+to the next valid one, for example 27. This will force the View to update its
+graphical representation again. 
+
+Another strategy is to prevent the View from updating itself twice within the
+same cycle of events. A possible implementation of this strategy is to hold a
+flag updating on the View. The flag is set to True at step 1. The chain of
+events develops in the same way until step 5, where the setValue operation will
+check for the flag. If true, it will only update the graphical aspect of the
+widget, and skip the triggering of the second valueChanged() signal.  Another
+strategy is to have a View that does not triggers valueChanged under certain
+conditions. 
+
+Shut down the Model notification system? not a good idea. other parties will
+not receive events.  Another alternative is to detach the View from the
+notification. It will not receive update notifications from the model, just set
+the value. It won't see changes in the model that originate from outside
+though.
 
 
-To prevent notification trashing, one can rely on transaction, to turn off notifications on the model, perform a set of changes, then triggering the notification by closing the transaction.
-When multiple independent modifications must be performed on the model in sequence, it pays off to have a method to disable and enable notifications. Without this technique, every individual change would trigger an update and force a refresh of the connected views, potentially ruining performance and exposing the user to progressive changes through the interface as each change is applied. By disabling the notifications, performing the changes, and re-enabling the notifications, a single update will be triggered.
+To prevent notification trashing, one can rely on transaction, to turn off
+notifications on the model, perform a set of changes, then triggering the
+notification by closing the transaction.  When multiple independent
+modifications must be performed on the model in sequence, it pays off to have a
+method to disable and enable notifications. Without this technique, every
+individual change would trigger an update and force a refresh of the connected
+views, potentially ruining performance and exposing the user to progressive
+changes through the interface as each change is applied. By disabling the
+notifications, performing the changes, and re-enabling the notifications, a
+single update will be triggered.
 model packing multiple changes to deliver a single refresh to the view
 controller disabling notifications of the model.
 
-
 Commands
-Addressed Need: Undo/Redo and alternative notification strategy.
-Graphical interfaces generally provide Undo/Redo capabilities. This is generally and easily implemented with the Command pattern. The controller, instead of directly performing an operation on the Model, will instantiate a Command object out of a palette of possible Commands. The command object will be instantiated by passing a reference to the Model. This object will normally have two methods execute(), and undo(). The Controller will instantiate the command, and submit it to a Tracking object. The tracking object will call execute() on the Command, and immediately push it into a stack. The Tracking will have two stacks, one for undo, and the other for redo. When the user selects undo, the Tracker will be requested to pop one command from the undo stack, call its redo() method, and push the command in the redo stack.
-Redo can be implemented by undoing the actual process, or by storing the old state and reverting it. The memento pattern is here useful to save the state of the Model before modification, but of course it can be demanding in memory occupation. 
+--------
+
+**Addressed Need: Undo/Redo and alternative notification strategy.**
+
+Graphical interfaces generally provide Undo/Redo capabilities. This is
+generally and easily implemented with the Command pattern. The controller,
+instead of directly performing an operation on the Model, will instantiate a
+Command object out of a palette of possible Commands. The command object will
+be instantiated by passing a reference to the Model. This object will normally
+have two methods execute(), and undo(). The Controller will instantiate the
+command, and submit it to a Tracking object. The tracking object will call
+execute() on the Command, and immediately push it into a stack. The Tracking
+will have two stacks, one for undo, and the other for redo. When the user
+selects undo, the Tracker will be requested to pop one command from the undo
+stack, call its redo() method, and push the command in the redo stack.  Redo
+can be implemented by undoing the actual process, or by storing the old state
+and reverting it. The memento pattern is here useful to save the state of the
+Model before modification, but of course it can be demanding in memory
+occupation. 
 
 
 
-Using the command pattern to modify the model.
-The model can be a factory for the commands.
-The command can perform notification of the listeners instead of the model.
-Another form of qualification: the model forwards the command after execution to the View. Views can analyze the command to respons appropriately.
+Using the command pattern to modify the model.  The model can be a factory for
+the commands.  The command can perform notification of the listeners instead of
+the model.  Another form of qualification: the model forwards the command after
+execution to the View. Views can analyze the command to respons appropriately.
 
 
 
 
 ModelController
-Addressed Need: 
-Objective-C style (MVA) design, or alternatively, the controller business logic is merged into the model, and at that point it becomes a simple view/model interaction. These designs are not necessarily wrong, but they tend to become brittle or defining excessive responsibility, or making it hard to change the model, the view, or the controller part if such need occurs.
-In the ModelController-View approach, the ModelController class is a Model with "GUI intelligence": it knows how to manipulate its internal data in response to GUI events, applying both consistency and business logic, while at the same time being able to satisfy requests from View. The obvious disadvantage of this approach is lack of flexibility and reuse of the Model, which becomes harder to access and test. Additionally, while the Model can be a simple, "plain old" object, the ModelController can depend on the GUI framework, since it must interact with the View and UI events, preventing its reuse outside of the GUI application. It is also difficult to handle multiple Views, because the Controller part would have to handle GUI events coming from multiple Views.
+---------------
+
+**Addressed Need:**
+
+Objective-C style (MVA) design, or alternatively, the controller business logic
+is merged into the model, and at that point it becomes a simple view/model
+interaction. These designs are not necessarily wrong, but they tend to become
+brittle or defining excessive responsibility, or making it hard to change the
+model, the view, or the controller part if such need occurs.  In the
+ModelController-View approach, the ModelController class is a Model with "GUI
+intelligence": it knows how to manipulate its internal data in response to GUI
+events, applying both consistency and business logic, while at the same time
+being able to satisfy requests from View. The obvious disadvantage of this
+approach is lack of flexibility and reuse of the Model, which becomes harder to
+access and test. Additionally, while the Model can be a simple, "plain old"
+object, the ModelController can depend on the GUI framework, since it must
+interact with the View and UI events, preventing its reuse outside of the GUI
+application. It is also difficult to handle multiple Views, because the
+Controller part would have to handle GUI events coming from multiple Views.
+
 Model-View-Adapter (MVA, Mediated MVC, Model-Mediator-View)
-Addressed Need: 
-Model-View-Adapter is a variation of Traditional MVC and common in Apple OSX Cocoa Framework. In MVA, all communication must flow through Controllers. The Model and the View don't have references to each other, and they don't exchange data or interact directly. This design is an implementation of the Mediator pattern, and for this reason Controllers are generally referred as Adapters or Mediators.
-This approach might appears excessively strict, but has some advantages: the communication network is artificially constrained, making it easier to evaluate and debug. The orchestration is heavily centralized: Controller becomes the communication hub, taking signals from either the Model objects (change notifications) or the View (user events) and delivering them to the intended receiver after transformation into an API call. For this reason, the Controller must know the API of all the Views and the Models it interacts with. On the other hand, and in strong contrast to traditional MVC, the View is now completely decoupled from the Model, and is therefore not required to be aware its API.
-With the Controller in full control on the dialog between the two remaining parties, smart tricks can be performed on the “in transit” data: for example, the Controller could be responsible for formatting,  translating or ordering the data from the Model. 
-Let's examine the code for our standard example. The Model is unchanged: stores rotations per minute information and notifies about changes.
+-----------------------------------------------------------
 
-class Engine(BaseModel):
-    def __init__(self):
-        super(Engine, self).__init__()
-        self._rpm = 0
+**Addressed Need:**
 
-    def setRpm(self, rpm):
-        if rpm < 0:
-            raise ValueError("Invalid rpm value")
+Model-View-Adapter is a variation of Traditional MVC and common in Apple OSX
+Cocoa Framework. In MVA, all communication must flow through Controllers. The
+Model and the View don't have references to each other, and they don't exchange
+data or interact directly. This design is an implementation of the Mediator
+pattern, and for this reason Controllers are generally referred as Adapters or
+Mediators.  This approach might appears excessively strict, but has some
+advantages: the communication network is artificially constrained, making it
+easier to evaluate and debug. The orchestration is heavily centralized:
+Controller becomes the communication hub, taking signals from either the Model
+objects (change notifications) or the View (user events) and delivering them to
+the intended receiver after transformation into an API call. For this reason,
+the Controller must know the API of all the Views and the Models it interacts
+with. On the other hand, and in strong contrast to traditional MVC, the View is
+now completely decoupled from the Model, and is therefore not required to be
+aware its API.
+With the Controller in full control on the dialog between the two remaining
+parties, smart tricks can be performed on the “in transit” data: for example,
+the Controller could be responsible for formatting,  translating or ordering
+the data from the Model.  Let's examine the code for our standard example. The
+Model is unchanged: stores rotations per minute information and notifies about
+changes ::
 
-        if rpm != self._rpm:
-            self._rpm = rpm
-            self._notifyListeners()
+   class Engine(BaseModel):
+       def __init__(self):
+           super(Engine, self).__init__()
+           self._rpm = 0
 
-    def rpm(self):
-        return self._rpm
+       def setRpm(self, rpm):
+           if rpm < 0:
+               raise ValueError("Invalid rpm value")
 
-The two View classes, Dial and Slider, are now unaware of the Model. Instead, they know about the Controller, and accept changes to their content through the setRpmValue() method.  A matter of taste can decide the semantic level of this method. Should it talk “domain language” (i.e. Rpm) or not (i.e. the method should just be named setValue). In any case, Views behave differently with respect to the issued value, and we don't want this difference to be handled by the Controller.
-When the user interacts with the Dial, the Controller changeRpm() method is directly invoked, in this case via the Qt Signal/Slot mechanism.
-class Dial(QtGui.QDial):
-    def __init__(self, *args, **kwargs):
-        super(Dial, self).__init__(*args, **kwargs)
-        self._controller = None
-        self.setRange(0,10000)
+           if rpm != self._rpm:
+               self._rpm = rpm
+               self._notifyListeners()
 
-    def setRpmValue(self, rpm_value):
-        self.setValue(rpm_value)
+       def rpm(self):
+           return self._rpm
 
-    def setController(self, controller):
-        self._controller = controller
-        self.connect(self, QtCore.SIGNAL("valueChanged(int)"),
-                           self._controller.changeRpm)
+The two View classes, Dial and Slider, are now unaware of the Model. Instead,
+they know about the Controller, and accept changes to their content through the
+setRpmValue() method.  A matter of taste can decide the semantic level of this
+method. Should it talk “domain language” (i.e. Rpm) or not (i.e. the method
+should just be named setValue). In any case, Views behave differently with
+respect to the issued value, and we don't want this difference to be handled by
+the Controller.  When the user interacts with the Dial, the Controller
+changeRpm() method is directly invoked, in this case via the Qt Signal/Slot
+mechanism ::
 
-For the Slider, the interface is similar, but the internal implementation is slightly different. Again, the setRpmValue allows the Controller to change the View contents. In this case however, a proper transformation of the data is performed to deal with the specifics of the Slider behavior, whose range is from 0 to 10.  
-Similarly, when the User interact with the Slider, the method _valueChanged will be invoked, which in turn will issue a call to the Controller'' changeRpm() method, after transformation of the parameter. 
-class Slider(QtGui.QSlider):
-    def __init__(self, *args, **kwargs):
-        super(Slider, self).__init__(*args, **kwargs)
-        self._controller = None
-        self.connect(self, QtCore.SIGNAL("valueChanged(int)"),
-                           self._valueChanged)
-        self.setRange(0,10)
+   class Dial(QtGui.QDial):
+       def __init__(self, *args, **kwargs):
+           super(Dial, self).__init__(*args, **kwargs)
+           self._controller = None
+           self.setRange(0,10000)
 
-    def setRpmValue(self, rpm_value):
-        self.setValue(rpm_value/1000)
+       def setRpmValue(self, rpm_value):
+           self.setValue(rpm_value)
 
-    def setController(self, controller):
-        self._controller = controller
+       def setController(self, controller):
+           self._controller = controller
+           self.connect(self, QtCore.SIGNAL("valueChanged(int)"),
+                              self._controller.changeRpm)
 
-    def _valueChanged(self, value):
-        if self._controller:
-            self._controller.changeRpm(value*1000)
+For the Slider, the interface is similar, but the internal implementation is
+slightly different. Again, the setRpmValue allows the Controller to change the
+View contents. In this case however, a proper transformation of the data is
+performed to deal with the specifics of the Slider behavior, whose range is
+from 0 to 10.  Similarly, when the User interact with the Slider, the method
+_valueChanged will be invoked, which in turn will issue a call to the
+Controller'' changeRpm() method, after transformation of the parameter::
 
-The Controller class handles the Model and the two Views accordingly. It registers for notifications on the Model, and it receives notification from the Views on its changeRpm() method, where it modifies the contents of the Model. When the Model communicates a change, it pushes the new value to the Views.
-class Controller(object):
-    def __init__(self):
-        self._views = []
-        self._model = None
+   class Slider(QtGui.QSlider):
+       def __init__(self, *args, **kwargs):
+           super(Slider, self).__init__(*args, **kwargs)
+           self._controller = None
+           self.connect(self, QtCore.SIGNAL("valueChanged(int)"),
+                              self._valueChanged)
+           self.setRange(0,10)
 
-    def setModel(self, model):
-        self._model = model
-        model.register(self)
+       def setRpmValue(self, rpm_value):
+           self.setValue(rpm_value/1000)
 
-    def addView(self, view):
-        view.setController(self)
-        self._views.append(view)
+       def setController(self, controller):
+           self._controller = controller
 
-    def changeRpm(self, rpm):
-        if self._model:
-            self._model.setRpm(rpm)
+       def _valueChanged(self, value):
+           if self._controller:
+               self._controller.changeRpm(value*1000)
 
-    def notify(self):
-        for view in self._views:
-            view.setRpmValue(self._model.rpm())
+The Controller class handles the Model and the two Views accordingly. It
+registers for notifications on the Model, and it receives notification from the
+Views on its changeRpm() method, where it modifies the contents of the Model.
+When the Model communicates a change, it pushes the new value to the Views::
+
+   class Controller(object):
+       def __init__(self):
+           self._views = []
+           self._model = None
+
+       def setModel(self, model):
+           self._model = model
+           model.register(self)
+
+       def addView(self, view):
+           view.setController(self)
+           self._views.append(view)
+
+       def changeRpm(self, rpm):
+           if self._model:
+               self._model.setRpm(rpm)
+
+       def notify(self):
+           for view in self._views:
+               view.setRpmValue(self._model.rpm())
 
 
-The pattern of communication in MVA can be represented with the following interaction diagram
+The pattern of communication in MVA can be represented with the following
+interaction diagram
+
+[picture]
 
 
 Which can be described with the following steps
-1. The View receives a User action. It calls an appropriate method on the Controller.
-2. The Controller sets the value on the Model.
-3. The Model notifies its listeners of the change, among which is the Controller itself.
-4. The Controller receives the change in its notify() method, where it updates the Views.
-5. The Views are updated to fit the new Model value
+   1. The View receives a User action. It calls an appropriate method on the Controller.
+   2. The Controller sets the value on the Model.
+   3. The Model notifies its listeners of the change, among which is the Controller itself.
+   4. The Controller receives the change in its notify() method, where it updates the Views.
+   5. The Views are updated to fit the new Model value
 
 
 Model-GUI-Mediator
-Addressed Need: 
-One problem with Model-View-Adapter is that it assumes the Views are derived classes, each implementing specific behavior. In the previous example, each View performed a specific transformation to the data before displaying: the Dial left it as is, while the Slider divided it by 1000. In the Model-GUI-Mediator, the desire is not to reimplement the toolkit's widgets, because it generally leads to proliferation of View classes. Instead, widgets are used as they are, off-the-shelf from the toolkit. The obvious consequence is that logic that is pertinent to the conversion of data for visualization must go somewhere else. The Controller seems the obvious choice, however keeping the same design as in MVA would be cumbersome: the single Controller would have to differentiate the Views, and submit properly transformed data to each View. 
-A better solution is to have different Controllers, one per each View, doing the relevant transformation. 
-The code would therefore be like the following:
-The View being an off-the-shelf component means it does not know anything about the Controller. All the signal setup is done by the individual Controllers. Also, off-the-shelf classes are not implementing the Observer pattern. 
+------------------
 
-class DialController(object):
-    def __init__(self):
-        self._view = None
-        self._model = None
+**Addressed Need:**
 
-    def setModel(self, model):
-        self._model = model
-        self._model.register(self)
+One problem with Model-View-Adapter is that it assumes the Views are derived
+classes, each implementing specific behavior. In the previous example, each
+View performed a specific transformation to the data before displaying: the
+Dial left it as is, while the Slider divided it by 1000. In the
+Model-GUI-Mediator, the desire is not to reimplement the toolkit's widgets,
+because it generally leads to proliferation of View classes. Instead, widgets
+are used as they are, off-the-shelf from the toolkit. The obvious consequence
+is that logic that is pertinent to the conversion of data for visualization
+must go somewhere else. The Controller seems the obvious choice, however
+keeping the same design as in MVA would be cumbersome: the single Controller
+would have to differentiate the Views, and submit properly transformed data to
+each View.  A better solution is to have different Controllers, one per each
+View, doing the relevant transformation.  The code would therefore be like the
+following: The View being an off-the-shelf component means it does not know
+anything about the Controller. All the signal setup is done by the individual
+Controllers. Also, off-the-shelf classes are not implementing the Observer
+pattern::
 
-    def setView(self, view):
-        self._view = view
-        self._view.setRange(0,10000)
-        self._view.connect(self._view, 
-                           QtCore.SIGNAL("valueChanged(int)"),
-                           self.changeRpm)
+   class DialController(object):
+       def __init__(self):
+           self._view = None
+           self._model = None
 
-    def changeRpm(self, rpm):
-        if self._model:
-            self._model.setRpm(rpm)
+       def setModel(self, model):
+           self._model = model
+           self._model.register(self)
 
-    def notify(self):
-        if self._view:
-            self._view.setValue(self._model.rpm())
+       def setView(self, view):
+           self._view = view
+           self._view.setRange(0,10000)
+           self._view.connect(self._view, 
+                              QtCore.SIGNAL("valueChanged(int)"),
+                              self.changeRpm)
 
+       def changeRpm(self, rpm):
+           if self._model:
+               self._model.setRpm(rpm)
 
-And for the Slider it would be 
-class SliderController(object):
-    def __init__(self):
-        self._view = None
-        self._model = None
-
-    def setModel(self, model):
-        self._model = model
-        self._model.register(self)
-
-    def setView(self, view):
-        self._view = view
-        self._view.setRange(0,10)
-        self._view.connect(self._view, 
-                           QtCore.SIGNAL("valueChanged(int)"),
-                           self.changeRpm)
-
-    def changeRpm(self, rpm):
-        if self._model:
-            self._model.setRpm(rpm*1000)
-
-    def notify(self):
-        self._view.setValue(self._model.rpm()/1000)
-
-The setup now can simply make use of off-the-shelf QDial and QSlider instances. 
+       def notify(self):
+           if self._view:
+               self._view.setValue(self._model.rpm())
 
 
-dial = QtGui.QDial(container)
-dial_controller = DialController()
-dial_controller.setView(dial)
-dial_controller.setModel(engine)
+And for the Slider it would be ::
 
-slider = QtGui.QSlider(container)
-slider_controller = SliderController()
-slider_controller.setView(slider)
-slider_controller.setModel(engine)
+   class SliderController(object):
+       def __init__(self):
+           self._view = None
+           self._model = None
 
-The Model-GUI-Mediator approach basically has the Controller adapt the off-the-shelf widget to be aware of the Model. This requires no subclassing. In a sense, Model-GUI-Mediator is similar to Document-View, but it reorganizes competences in a different way and splits the View into off-the-shelf functionality and application-contextual functionality.
+       def setModel(self, model):
+           self._model = model
+           self._model.register(self)
+
+       def setView(self, view):
+           self._view = view
+           self._view.setRange(0,10)
+           self._view.connect(self._view, 
+                              QtCore.SIGNAL("valueChanged(int)"),
+                              self.changeRpm)
+
+       def changeRpm(self, rpm):
+           if self._model:
+               self._model.setRpm(rpm*1000)
+
+       def notify(self):
+           self._view.setValue(self._model.rpm()/1000)
+
+The setup now can simply make use of off-the-shelf QDial and QSlider instances::
+
+   dial = QtGui.QDial(container)
+   dial_controller = DialController()
+   dial_controller.setView(dial)
+   dial_controller.setModel(engine)
+
+   slider = QtGui.QSlider(container)
+   slider_controller = SliderController()
+   slider_controller.setView(slider)
+   slider_controller.setModel(engine)
+
+The Model-GUI-Mediator approach basically has the Controller adapt the
+off-the-shelf widget to be aware of the Model. This requires no subclassing. In
+a sense, Model-GUI-Mediator is similar to Document-View, but it reorganizes
+competences in a different way and splits the View into off-the-shelf
+functionality and application-contextual functionality.
 
 Local Model
-Addressed Need: 
-Keep in mind that is acceptable to have multiple local models, instead of a single global model.
-Canceling modifications: local model vs global model.
+-----------
+
+**Addressed Need:**
+
+Keep in mind that is acceptable to have multiple local models, instead of a
+single global model.  Canceling modifications: local model vs global model.
 
 Model-View notification decoupling
-Addressed Need: 
-A problem carried over from the traditional MVC approach is the dependency of the Model toward the views for notification purposes. When the model changes, there's a need for the views to know this change occurred, but can we devise a strategy to prevent the model to know about the views? The answer is to decouple the dependency through a notification system, acting as an intermediate between models and views. With a notification system, we substitute the model dependency against the View with a dependency against the notification system. Qt is an example of such strategy in place: a basic strategy for Model objects is to make them derived classes of QObject. This Qt core object provides “fire and forget” notifications to the Model: Qt signals. The model does not need to know who is interested in these signals, and the bookkeeping and invocation of the listeners' methods (Qt slots) is performed by the notification system. 
-The clear advantage is that the notification system is not a GUI object, allowing the Model to be tested without involving the GUI. The model is also allowed to have multiple notification signals for different conditions. Implementing the same with the traditional MVC approach would imply FIXME
-With a notification system, interested views are notified of the occurred changes in the model, so they can update their state against the Model. 
+----------------------------------
 
-With the model not knowing details about the other roles, with the exception of a vague interface, there's no requirement for the model to understand special semantics that are not his concern, such as the “GUI talk” that the View uses. The model simply provides services about its state. it does not request services to the other roles.
-If needed, this data can eventually be persisted and retrieved from external storage, like a file on the disk or a database. We will examine design strategies for persistence later in this document.
+**Addressed Need:**
+
+A problem carried over from the traditional MVC approach is the dependency of
+the Model toward the views for notification purposes. When the model changes,
+there's a need for the views to know this change occurred, but can we devise a
+strategy to prevent the model to know about the views? The answer is to
+decouple the dependency through a notification system, acting as an
+intermediate between models and views. With a notification system, we
+substitute the model dependency against the View with a dependency against the
+notification system. Qt is an example of such strategy in place: a basic
+strategy for Model objects is to make them derived classes of QObject. This Qt
+core object provides “fire and forget” notifications to the Model: Qt signals.
+The model does not need to know who is interested in these signals, and the
+bookkeeping and invocation of the listeners' methods (Qt slots) is performed by
+the notification system.  The clear advantage is that the notification system
+is not a GUI object, allowing the Model to be tested without involving the GUI.
+The model is also allowed to have multiple notification signals for different
+conditions. Implementing the same with the traditional MVC approach would imply
+FIXME
+With a notification system, interested views are notified of the occurred
+changes in the model, so they can update their state against the Model. 
+
+With the model not knowing details about the other roles, with the exception of
+a vague interface, there's no requirement for the model to understand special
+semantics that are not his concern, such as the “GUI talk” that the View uses.
+The model simply provides services about its state. it does not request
+services to the other roles.  If needed, this data can eventually be persisted
+and retrieved from external storage, like a file on the disk or a database. We
+will examine design strategies for persistence later in this document.
+
 Application Controller
-Passive View
-Passive View is a variation of MVC where the view is completely under direction of the Controller, both for the handling of events and for the updating of the View contents. The advantage is that all application code goes in the controller, which can be tested effectively. The view is therefore normally made of standard components from a widget set, with no application-related intelligence.
+----------------------
 
-When the view is shown, it will have to update its content. However, if the view is not visible, it should not receive events, so it should either unsubscribe from the model when hidden, or mute the delivery by first checking if it's visible before proceeding to update itself. The reason is that if a view is connected to the model, and this view requires time to refresh itself, we don't want to trigger this refresh if the view is not visible to the user.
+Passive View
+------------
+Passive View is a variation of MVC where the view is completely under direction
+of the Controller, both for the handling of events and for the updating of the
+View contents. The advantage is that all application code goes in the
+controller, which can be tested effectively. The view is therefore normally
+made of standard components from a widget set, with no application-related
+intelligence.
+
+When the view is shown, it will have to update its content. However, if the
+view is not visible, it should not receive events, so it should either
+unsubscribe from the model when hidden, or mute the delivery by first checking
+if it's visible before proceeding to update itself. The reason is that if a
+view is connected to the model, and this view requires time to refresh itself,
+we don't want to trigger this refresh if the view is not visible to the user.
 
 
 Humble Dialog
-With the Humble dialog approach, the View is passive, and its contents is set from the outside by a ControllerModel object. Widgets in the View have no awareness of the Model. This approach reduces as much as possible the code that is hard to test (Graphical interaction) to an extremely thin layer of one-to-one Model-View connections that act on the widgets.
-The diffeernce with PassiveView is that in passive view the widgets are under direct control of the controller. in Humble dialog they are bound 
+-------------
+With the Humble dialog approach, the View is passive, and its contents is set
+from the outside by a ControllerModel object. Widgets in the View have no
+awareness of the Model. This approach reduces as much as possible the code that
+is hard to test (Graphical interaction) to an extremely thin layer of
+one-to-one Model-View connections that act on the widgets.  The diffeernce with
+PassiveView is that in passive view the widgets are under direct control of the
+controller. in Humble dialog they are bound 
 
 
 
 
 Widget-level vs Container-level MVC
-In our previous exploration we defined Views without much attention on the scope of their implementation. Should we have multiple minimalistic triads, where every widget is a View of its triad, or a single MVC triad whose complex View holds and manages dozen of widgets? Both approaches are possible, and they are called Widget-level and Container-level MVC, respectively.
-Widget-level MVC favors minimalistic MVC components. Each View is defined by a single widget, which is connected to the Model through a simple Controller. For example, a CheckBoxView could be connected to a simple boolean variable in the Model (True/False, honoring the state of the Checkbox) via a CheckBoxController. Similar Controllers can be setup for each widget of our graphic toolkit.
-This implementation has several advantages: the connection between the GUI component and a program variable (or set of variables) is simple and straightforward, and a relatively limited palette of generic controllers can be implemented and reused. Specialized Controllers can be developed to address specific conversions and constraints: a generic LineEdit could be connected to a Model string variable via a LineEditStringController, or to a float variable via a LineEditFloatController. The Controller would take care of validating and converting the data type (for example, from the string provided by the LineEdit to a float)
-
-
+-----------------------------------
+In our previous exploration we defined Views without much attention on the
+scope of their implementation. Should we have multiple minimalistic triads,
+where every widget is a View of its triad, or a single MVC triad whose complex
+View holds and manages dozen of widgets? Both approaches are possible, and they
+are called Widget-level and Container-level MVC, respectively.  Widget-level
+MVC favors minimalistic MVC components. Each View is defined by a single
+widget, which is connected to the Model through a simple Controller. For
+example, a CheckBoxView could be connected to a simple boolean variable in the
+Model (True/False, honoring the state of the Checkbox) via a
+CheckBoxController. Similar Controllers can be setup for each widget of our
+graphic toolkit.
+This implementation has several advantages: the connection between the GUI
+component and a program variable (or set of variables) is simple and
+straightforward, and a relatively limited palette of generic controllers can be
+implemented and reused. Specialized Controllers can be developed to address
+specific conversions and constraints: a generic LineEdit could be connected to
+a Model string variable via a LineEditStringController, or to a float variable
+via a LineEditFloatController. The Controller would take care of validating and
+converting the data type (for example, from the string provided by the LineEdit
+to a float)
 
 [FIXME add code/image]
-Although very attractive, Widget-level MVC is not without shortcomings: its infinitesimal granularity could scale badly for large applications, and conversion of data between the Model representation (e.g. float) and the View representation (e.g. string) could require reimplementation of either the View or the Model class in some toolkits. Another shortcoming is that it only acts as a data transport from View to Model and vice-versa for a specific widget. The controller may be too trivial in some cases, in particular with complex Models (e.g. multiple instances must be handled) or complex Views (e.g. different widgets that need to be analyzed by the controller at the same time).
-One possible solution to these shortcomings is to aggregate different Views into a single class and keep the MVC triads confined there. The aggregated class has its own model, and all interaction from outside happens on this local model.
-Widget-level MVC has the disadvantage that leads to class explosion if the language requires reimplementation of each specific widget. Also, it complicates design by granting a potentially excessive granularity and flexibility.
 
-On the other side of the spectrum of Widget-level MVC, Container-level focuses on Views at the level of containers, and complex Controllers. A View is, for example, a full dialog. This container holds individual widgets, that are treated not as individual views, but as a hierarchy of visual components.
+Although very attractive, Widget-level MVC is not without shortcomings: its
+infinitesimal granularity could scale badly for large applications, and
+conversion of data between the Model representation (e.g. float) and the View
+representation (e.g. string) could require reimplementation of either the View
+or the Model class in some toolkits. Another shortcoming is that it only acts
+as a data transport from View to Model and vice-versa for a specific widget.
+The controller may be too trivial in some cases, in particular with complex
+Models (e.g. multiple instances must be handled) or complex Views (e.g.
+different widgets that need to be analyzed by the controller at the same time).
+One possible solution to these shortcomings is to aggregate different Views
+into a single class and keep the MVC triads confined there. The aggregated
+class has its own model, and all interaction from outside happens on this local
+model.
+Widget-level MVC has the disadvantage that leads to class explosion if the
+language requires reimplementation of each specific widget. Also, it
+complicates design by granting a potentially excessive granularity and
+flexibility.
 
-Container level is coarse grained, and as such it could become excessively large.
+On the other side of the spectrum of Widget-level MVC, Container-level focuses
+on Views at the level of containers, and complex Controllers. A View is, for
+example, a full dialog. This container holds individual widgets, that are
+treated not as individual views, but as a hierarchy of visual components.
 
-Given the two choices, it might seem somewhat challenging to select a particular strategy. The best, as often happens, is to find the right equilibrium between fine-grained per-widget MVC and coarse-grained per-container MVC. You should generally consider aggregation in these cases:
+Container level is coarse grained, and as such it could become excessively
+large.
 
-* you have a root widget containing a complex set of child widgets.
-* you have a single widget providing an advanced functionality that is independent of the functionality of the container.
+Given the two choices, it might seem somewhat challenging to select a
+particular strategy. The best, as often happens, is to find the right
+equilibrium between fine-grained per-widget MVC and coarse-grained
+per-container MVC. You should generally consider aggregation in these cases:
+
+   * you have a root widget containing a complex set of child widgets.
+   * you have a single widget providing an advanced functionality that is independent of the functionality of the container.
+
 Is better treated as an independent view.
 
-For example, a dialog is best treated as a single view, but if you have a dialog containing different tabs, each tab content is probably better treated as an individual view. If you have a complex widget showing a document , which embeds zoom level (+/-) buttons, they are probably best implemented as either two separate views, or as a “ZoomLevel” widget as a view, never as a hidden part of the DocumentViewer View.
+For example, a dialog is best treated as a single view, but if you have a
+dialog containing different tabs, each tab content is probably better treated
+as an individual view. If you have a complex widget showing a document , which
+embeds zoom level (+/-) buttons, they are probably best implemented as either
+two separate views, or as a “ZoomLevel” widget as a view, never as a hidden
+part of the DocumentViewer View.
 
 
 Reenskaug MVC
-Trygve Reenskaug formulated MVC first in 1979. His original approach is different from modern forms of MVC. According to Reenskaug [1] [2], MVC has the following characteristics:
-The Model represents knowledge about our data. No difference here from traditional MVC
-The View visually represents the Model, selecting what is relevant and what is not from the Model. The View knows the Model and gets the information from the Model by invoking its methods. It is also responsible for modifying the Model, again by invoking Model methods. The View therefore “speaks the language” of the Model. 
-The Controller has both layouting and event handling duties: it links the User to the system by arranging and presenting the View on the screen and translating low-level user events (e.g. mouse clicks) into high-level operations onto the View. 
-The Editor is an extension to a Controller brought into existence on demand, and used to modify data in response to User action. The controller asks the View for an Editor, which is returned and presented to the User. The Editor accepts the User events, and deliver them (after translation) to the View to applying the changes to the Model.
-As you can note, there are a few important differences from traditional MVC. The first is in the roles of the Controller and the View: in Reenskaug MVC, the View is in charge of modifying the Model under instruction of the Controller and Editor, while in traditional MVC the View knows the Model but only in “read only”: all operations that modify the Model are issued by the Controller.  One advantage of Reenskaug's MVC is that User action can be emulated by replacing the standard Controller with a mock Controller performing stress-test operations, something extremely useful for testing. 
-A second difference is in the Controller: Reenskaug's Controller performs operations such as layouting the Views on the screen, converting primary events into operations on the View. The View is not supposed to know about primary events. In other words, most of the task initially assigned to a Reenskaug's Controller are now taken care of by an underlying GUI framework. This difference is a child of its time: widgets were just a form of pure visual rendering, with no functionality to receive and process events from input devices.
-The third difference is the presence of the Editor as a “View-extension helper” that the Controller uses in order to perform its task. The reason for this design is that the Controller must have a View-contextual entity to present to the User. For example, a GUI Label might require a TextEdit field as an Editor, if the text is “free form”, but a ComboBox if the label can only contain discrete values. Only the View part can know its appropriate Editor.
+-------------
+
+Trygve Reenskaug formulated MVC first in 1979. His original approach is
+different from modern forms of MVC. According to Reenskaug [1] [2], MVC has the
+following characteristics: The Model represents knowledge about our data. No
+difference here from traditional MVC The View visually represents the Model,
+selecting what is relevant and what is not from the Model. The View knows the
+Model and gets the information from the Model by invoking its methods. It is
+also responsible for modifying the Model, again by invoking Model methods. The
+View therefore “speaks the language” of the Model.  The Controller has both
+layouting and event handling duties: it links the User to the system by
+arranging and presenting the View on the screen and translating low-level user
+events (e.g. mouse clicks) into high-level operations onto the View.  The
+Editor is an extension to a Controller brought into existence on demand, and
+used to modify data in response to User action. The controller asks the View
+for an Editor, which is returned and presented to the User. The Editor accepts
+the User events, and deliver them (after translation) to the View to applying
+the changes to the Model.  As you can note, there are a few important
+differences from traditional MVC. The first is in the roles of the Controller
+and the View: in Reenskaug MVC, the View is in charge of modifying the Model
+under instruction of the Controller and Editor, while in traditional MVC the
+View knows the Model but only in “read only”: all operations that modify the
+Model are issued by the Controller.  One advantage of Reenskaug's MVC is that
+User action can be emulated by replacing the standard Controller with a mock
+Controller performing stress-test operations, something extremely useful for
+testing. 
+A second difference is in the Controller: Reenskaug's Controller performs
+operations such as layouting the Views on the screen, converting primary events
+into operations on the View. The View is not supposed to know about primary
+events. In other words, most of the task initially assigned to a Reenskaug's
+Controller are now taken care of by an underlying GUI framework. This
+difference is a child of its time: widgets were just a form of pure visual
+rendering, with no functionality to receive and process events from input
+devices.  The third difference is the presence of the Editor as a
+“View-extension helper” that the Controller uses in order to perform its task.
+The reason for this design is that the Controller must have a View-contextual
+entity to present to the User. For example, a GUI Label might require a
+TextEdit field as an Editor, if the text is “free form”, but a ComboBox if the
+label can only contain discrete values. Only the View part can know its
+appropriate Editor.
 
 
 Taligent Model-View-Presenter (MVP)
-Addressed Need: Formalize the strategies given above for modern applications.
-Until now, we saw several strategies to address modern requirements such as undo/redo, selection, and View-related state. Taligent, a subsidiary company of IBM, formalized these strategies into the so-called Taligent Model-View-Presenter architecture. An equally named, but different strategy is the Dolphin Model-View-Presenter, which will be introduced later. 
-At first, MVP seems complex, but in reality is a little step from what already introduced in the previous sections. 
+-----------------------------------
+
+**Addressed Need: Formalize the strategies given above for modern applications.**
+
+Until now, we saw several strategies to address modern requirements such as
+undo/redo, selection, and View-related state. Taligent, a subsidiary company of
+IBM, formalized these strategies into the so-called Taligent
+Model-View-Presenter architecture. An equally named, but different strategy is
+the Dolphin Model-View-Presenter, which will be introduced later.  At first,
+MVP seems complex, but in reality is a little step from what already introduced
+in the previous sections. 
 [PIC]
-The aim is to divide responsibilities in simple, testable entities while moving all logic away from the part that is most difficult to test, which is the View.
+The aim is to divide responsibilities in simple, testable entities while moving
+all logic away from the part that is most difficult to test, which is the View.
 MVP is composed of the following parts:
-A Model, whose role is purely business
-a container level View.
-Interactors, which is similar in concept to an MVC controlller. They handle user event and convert them into operations on the Model, through Command objects.
-A set of Commands encapsulating operations that can be performed on the Model, supporting undo/redo semantics.
-Selection: holds information about the subset of the Model that will be affected by the Command action.
-Presenter, which is an overarching director object orchestrating allocation, initialization and interaction of the above objects. Generally, there's a Presenter for every View.
+
+   - A Model, whose role is purely business
+   - a container level View.
+   - Interactors, which is similar in concept to an MVC controlller. They handle user event and convert them into operations on the Model, through Command objects.
+   - A set of Commands encapsulating operations that can be performed on the Model, supporting undo/redo semantics.
+   - Selection: holds information about the subset of the Model that will be affected by the Command action.
+   - Presenter, which is an overarching director object orchestrating allocation, initialization and interaction of the above objects. Generally, there's a Presenter for every View.
 
 Dolphin Model-View-Presenter
+----------------------------
 
-The Model-View-Presenter (MVP) schema is a relatively small variation of MVC which is concerned to the responsibility of handling user input and preparing the data for the view. In MVC, the user action is directly handled by the controller.  When a user clicks on a button, the click is attached to a callback residing on a controller class.  In MVP, when the user interacts, the click is handled by the view, which then forwards it to the Controller (now called Presenter). This modification is known as "Twisting the triad".  How the forwarding is done depends on the degree of coupling you allow between the View and the Presenter. If the view must invoke directly a Presenter's method, obviously it must know its interface, so it must hold a reference to it and know its interface. The alternative is that the view is oblivious to who is listening, and just broadcasts events (commands) to report the button press. The presenter observes these events and take appropriate action when triggered. As you can see, the difference is subtle, and apparently irrelevant, but it can be useful depending on the degree of coupling and self-containment of the view vs. the controller (Presenter)
+The Model-View-Presenter (MVP) schema is a relatively small variation of MVC
+which is concerned to the responsibility of handling user input and preparing
+the data for the view. In MVC, the user action is directly handled by the
+controller.  When a user clicks on a button, the click is attached to a
+callback residing on a controller class.  In MVP, when the user interacts, the
+click is handled by the view, which then forwards it to the Controller (now
+called Presenter). This modification is known as "Twisting the triad".  How the
+forwarding is done depends on the degree of coupling you allow between the View
+and the Presenter. If the view must invoke directly a Presenter's method,
+obviously it must know its interface, so it must hold a reference to it and
+know its interface. The alternative is that the view is oblivious to who is
+listening, and just broadcasts events (commands) to report the button press.
+The presenter observes these events and take appropriate action when triggered.
+As you can see, the difference is subtle, and apparently irrelevant, but it can
+be useful depending on the degree of coupling and self-containment of the view
+vs. the controller (Presenter)
 
-The presenter can be instantiated either by the client code, or directly by the view. If this is the case, the
-View must know the model, so that it can instantiate the Presenter and pass both the model and itself to it.
+The presenter can be instantiated either by the client code, or directly by the
+view. If this is the case, the View must know the model, so that it can
+instantiate the Presenter and pass both the model and itself to it.
 
 problem: Model and view are coupled, albeit loosely
 
 Model-View-ViewModel (Model-View-Binder)
-Addressed Need: 
-The MVVM is a specialization of the Presentation Model. It is rather popular in the Windows world,
-particularly WPF and Silverlight.
-MVVM has a traditional model, an active view (generally declared as a XAML description) that handles its own events internally and acts both on the Model and the ViewModel. The View and the ViewModel contents are bound together in a direct simple relationship through bindings. A checkbox on the view can be bound to a boolean field in the ViewModel. In other words, the ViewModel is the “Model of the View” intended for the representation the view has of the data. The Model, in fact, might contain a different representation of the values (for example, in the Model vision of things, that checkbox could represent the existence of a reference between two Model objects). The ViewModel is responsible of mapping its state (the boolean) to setting the reference, and vice-versa.
+----------------------------------------
+
+**Addressed Need:**
+
+The MVVM is a specialization of the Presentation Model. It is rather popular in
+the Windows world, particularly WPF and Silverlight.
+MVVM has a traditional model, an active view (generally declared as a XAML
+description) that handles its own events internally and acts both on the Model
+and the ViewModel. The View and the ViewModel contents are bound together in a
+direct simple relationship through bindings. A checkbox on the view can be
+bound to a boolean field in the ViewModel. In other words, the ViewModel is the
+“Model of the View” intended for the representation the view has of the data.
+The Model, in fact, might contain a different representation of the values (for
+example, in the Model vision of things, that checkbox could represent the
+existence of a reference between two Model objects). The ViewModel is
+responsible of mapping its state (the boolean) to setting the reference, and
+vice-versa.
 
 View-Controller-View
-Addressed Need: 
-A View-Controller-View is basically a Model-Controller-View where one of the Views is playing the part of the Model for a specific interaction. This occurs when a View must interact with another View to orchestrate its behavior. 
-A simple practical example is a Dialog for a Search functionality, and an Editor providing methods for this functionality. The two Views must interact so that when the user clicks on the “Search” button of the Dialog, the Editor is directed to perform the search. 
+--------------------
+
+**Addressed Need:**
+
+A View-Controller-View is basically a Model-Controller-View where one of the
+Views is playing the part of the Model for a specific interaction. This occurs
+when a View must interact with another View to orchestrate its behavior.  A
+simple practical example is a Dialog for a Search functionality, and an Editor
+providing methods for this functionality. The two Views must interact so that
+when the user clicks on the “Search” button of the Dialog, the Editor is
+directed to perform the search. 
+
 Visual Proxy
+------------
+
 Holub argues the following [3]:
-It is very rare for the same Model to be represented at the same time in two different ways
-Model representation is not about the model object per-se, but for some attributes.
-these attributes are generally presented in the same way regardless of where they will appear in the dialogs.
-In OO design, unrestricted access of internal state via get/set routines is a faux pas In design, thus nullifying part of the approach the controller might use to modify the Model.
-Essential separation between model and view are impossible to achieve in MVC, which does not scale well at the application level.
- Model objects should create their own UI for their own attributes, as this does not violate encapsulation as a get/set model did, and because reuse of model objects would not be compromised, both because reuse is rare if ever, and the representation of an attribute is generally implicit in the attribute itself.
+It is very rare for the same Model to be represented at the same time in two
+different ways Model representation is not about the model object per-se, but
+for some attributes.  these attributes are generally presented in the same way
+regardless of where they will appear in the dialogs.  In OO design,
+unrestricted access of internal state via get/set routines is a faux pas In
+design, thus nullifying part of the approach the controller might use to modify
+the Model.  Essential separation between model and view are impossible to
+achieve in MVC, which does not scale well at the application level.  Model
+objects should create their own UI for their own attributes, as this does not
+violate encapsulation as a get/set model did, and because reuse of model
+objects would not be compromised, both because reuse is rare if ever, and the
+representation of an attribute is generally implicit in the attribute itself.
 
 
-The controllers should be visual widgets that have read-write properties, not “stay behind” classes that are delegated. 
-Data binding
+The controllers should be visual widgets that have read-write properties, not
+“stay behind” classes that are delegated.  Data binding
+
 
 3. Hierarchic organization of Triads
-Until now, we have seen MVC applied to a single triad. This works well for individual widgets and dialogs, but how do we apply and scale MVC to an application level?
-Communication between controllers
+====================================
+
+Until now, we have seen MVC applied to a single triad. This works well for
+individual widgets and dialogs, but how do we apply and scale MVC to an
+application level?  Communication between controllers
 
 Hierarchic Model View Controller (HMVC, Recursive MVC)
-Hierarchic MVC is a strategy to apply MVC in large applications while keeping control of the granularity of data and communication. HMVC deploys a hierarchy of triads by connecting controllers. The triads work together by handling events they can handle, and forwarding them up in the hierarchy when they don't know how to handle
+------------------------------------------------------
+
+Hierarchic MVC is a strategy to apply MVC in large applications while keeping
+control of the granularity of data and communication. HMVC deploys a hierarchy
+of triads by connecting controllers. The triads work together by handling
+events they can handle, and forwarding them up in the hierarchy when they don't
+know how to handle
 
 [IMAGE]
 
 There are relevant differences when compared with traditional MVC:
-the view is responsible for handling user input events. These events are forwarded to the controller.
-The controller as usual performs modification on the model through direct method call on model objects
-To refresh the view state, the controller notifies the view that it needs refresh. The view then communicates directly with the model, pulling the data from it without involving the controller further. [4] Alternatively, the model notifies the view by providing its own state [5]
-The controller also acts as a hub in the controller hierarchy. If a controller receives an event from its associated view that cannot be handled, it is bubbled to the parent, which in turn can choose to handle it or delegate it further up or down in the tree.
-Any model at any level in the hierarchy can access data at any scope, and models can also talk to each other. Controllers at any level in the hierarchy can share these models.
-
-
+the view is responsible for handling user input events. These events are
+forwarded to the controller.  The controller as usual performs modification on
+the model through direct method call on model objects To refresh the view
+state, the controller notifies the view that it needs refresh. The view then
+communicates directly with the model, pulling the data from it without
+involving the controller further. [4] Alternatively, the model notifies the
+view by providing its own state [5] The controller also acts as a hub in the
+controller hierarchy. If a controller receives an event from its associated
+view that cannot be handled, it is bubbled to the parent, which in turn can
+choose to handle it or delegate it further up or down in the tree.  Any model
+at any level in the hierarchy can access data at any scope, and models can also
+talk to each other. Controllers at any level in the hierarchy can share these
+models.
 
 controller has another controller as view
 controller handle multiple views or multiple sub controllers
 
 
 Presentation Abstraction Control (PAC)
-PAC is an older scheme, very similar to HMVC. Similar to MVC, PAC defines a triad (Agent in PAC terminology) as follows: 
-Presentation, responsible for handling all interaction with the user, both input (mouse events)  and output (visualization)
-Abstraction, represents only data that are contextually meaningful within the triad. 
-Control, connects Presentation and Abstraction, plus acts as a communication hub in a Control-connected hierarchy of Agents. 
-Controls are responsible for forwarding the messages in transit in the hierarchy, eventually after transforming them. When an agent wants to send an event to another agent, it forwards it to its parent agent. The parent agent either handles the event or, if it does not know what to do with it, sends the event to one of its other children or to its parent,, and so on.
-At first glance, there's little or no difference between HMVC and PAC. If you think so, you are not the only one [4]. There are however certain important differences. First of all, HMVC  is based on traditional MVC, meaning that there's tight coupling between the model and the view, with the view having to inquire the model. In PAC, this communication is fully mediated by the controller. With this strategy, PAC keeps MV loose coupling, while HMVC has MV tight coupling.  
+--------------------------------------
+
+PAC is an older scheme, very similar to HMVC. Similar to MVC, PAC defines a
+triad (Agent in PAC terminology) as follows: Presentation, responsible for
+handling all interaction with the user, both input (mouse events)  and output
+(visualization) Abstraction, represents only data that are contextually
+meaningful within the triad.  Control, connects Presentation and Abstraction,
+plus acts as a communication hub in a Control-connected hierarchy of Agents.
+Controls are responsible for forwarding the messages in transit in the
+hierarchy, eventually after transforming them. When an agent wants to send an
+event to another agent, it forwards it to its parent agent. The parent agent
+either handles the event or, if it does not know what to do with it, sends the
+event to one of its other children or to its parent,, and so on.  At first
+glance, there's little or no difference between HMVC and PAC. If you think so,
+you are not the only one [4]. There are however certain important differences.
+First of all, HMVC  is based on traditional MVC, meaning that there's tight
+coupling between the model and the view, with the view having to inquire the
+model. In PAC, this communication is fully mediated by the controller. With
+this strategy, PAC keeps MV loose coupling, while HMVC has MV tight coupling.  
 The second major difference is the scope of access of the triads. In HMVC, each triad is technically allowed to access all of the model. Not so in PAC. In PAC, it can only access data that is contextually meaningful to that triad. If it needs to access something that is not at its scope, it must forward an event to the controller, which will be routed to the proper context by the hierarchy.
 
 Advanced MVC
+============
+
 Model persistence
-In some cases, the model or part of the model must be made persistent (for example, to disk) to be restored at a later stage. Which component should be responsible for the persistence?
-The most natural strategy is to let the model know how to store and retrieve itself from disk or database. This is a popular solution and goes by the name of "ActiveRecord". It is simple to use and understand, relatively flexible and intuitive, but it's not without limitation. The first, and biggest limitation is that it favors strong coupling between the model and the IO strategy: abandoning the local disk storage in favor of a remote database will force us to reimplement the IO strategy of all the model objects; A second problem is that Model objects lifetime is related to the storage backend. This makes testing the Model much harder, because the storage backend must be fully functional, or mocked; Finally, if the Model is fully in control of its persistence strategy, the client code cannot decide differently, for example, if it wants to  store the model object somewhere else.
-An alternative strategy is to delegate persistence to the controller. The controller holds a reference to the model, and to a Storage subsystem. In response to proper trigger events, the controller can pick the relevant model objects and push them to the storage subsystem. This strategy has a few advantages: the model objects are lighter and know nothing of storage strategies, which can now be changed freely by using a different Storage service, potentially to a mock object during testing. The main disadvantage is that the additional flexibility requires more a complicated interaction.
-The storage can also be in charge of additional tasks, such as search and filtering of model objects, or creation (factory) of new objects, which the storage inserts into the database and hands out to the controller.
-When it comes to data formats, there are many options, from the very simple CSV to the more complex like databases. A simple choice can be a nosql database, or a tinysql. Regardless of your choice, it's important you version your objects.
+-----------------
+
+In some cases, the model or part of the model must be made persistent (for
+example, to disk) to be restored at a later stage. Which component should be
+responsible for the persistence?  The most natural strategy is to let the model
+know how to store and retrieve itself from disk or database. This is a popular
+solution and goes by the name of "ActiveRecord". It is simple to use and
+understand, relatively flexible and intuitive, but it's not without limitation.
+The first, and biggest limitation is that it favors strong coupling between the
+model and the IO strategy: abandoning the local disk storage in favor of a
+remote database will force us to reimplement the IO strategy of all the model
+objects; A second problem is that Model objects lifetime is related to the
+storage backend. This makes testing the Model much harder, because the storage
+backend must be fully functional, or mocked; Finally, if the Model is fully in
+control of its persistence strategy, the client code cannot decide differently,
+for example, if it wants to  store the model object somewhere else.
+An alternative strategy is to delegate persistence to the controller. The
+controller holds a reference to the model, and to a Storage subsystem. In
+response to proper trigger events, the controller can pick the relevant model
+objects and push them to the storage subsystem. This strategy has a few
+advantages: the model objects are lighter and know nothing of storage
+strategies, which can now be changed freely by using a different Storage
+service, potentially to a mock object during testing. The main disadvantage is
+that the additional flexibility requires more a complicated interaction.  The
+storage can also be in charge of additional tasks, such as search and filtering
+of model objects, or creation (factory) of new objects, which the storage
+inserts into the database and hands out to the controller.
+When it comes to data formats, there are many options, from the very simple CSV
+to the more complex like databases. A simple choice can be a nosql database, or
+a tinysql. Regardless of your choice, it's important you version your objects.
 ORM models
 
 Vetoing the changes
+-------------------
 
 Model distribution
-The model can be distributed over a network and accessed through proxy classes with none or minor changes to the remaining protagonists. 
+-------------------
+The model can be distributed over a network and accessed through proxy classes
+with none or minor changes to the remaining protagonists. 
 
-sharding
+Sharding
 
 Scriptability
 Modification of the model programmatically can enable scripting
@@ -1110,24 +1556,43 @@ A view that acts on a widget knowing nothing about the model. View “adapter”
 
 
 MVC Implementations
-Qt
-Qt provides Views and associated Models, who are either tabular or hierarchical in nature.
-The framework also provides derived classes for Views, called Widgets. Widgets combine View and Model in a single class, allowing to store data directly into the view. This approach loses flexibility and ease of reuse of the data contents, but it can be convenient for some specific cases (for example, if you want to control addition and removal directly on the widget).
-Qt has delegates, that are associated to views. Delegates are responsible for handling controller tasks, and in addition control rendering and editing of these views. A delegate renders data into the view with the paint() method, and creates editors for the data with createEditor(). Default Delegates are installed on every view.
-The model contains data classified in roles. Some roles are purely data oriented, while other roles (FontRole) are view-level information. The model is therefore responsible for influencing the visual appearance of thje view through the Role mechanism. Of course, this mechanism can also be implemented by a specialized delegate who translates the Data semantic into visual semantic.
+===================
+
+Nokia Qt
+--------
+
+Qt provides Views and associated Models, who are either tabular or hierarchical
+in nature.  The framework also provides derived classes for Views, called
+Widgets. Widgets combine View and Model in a single class, allowing to store
+data directly into the view. This approach loses flexibility and ease of reuse
+of the data contents, but it can be convenient for some specific cases (for
+example, if you want to control addition and removal directly on the widget).
+Qt has delegates, that are associated to views. Delegates are responsible for
+handling controller tasks, and in addition control rendering and editing of
+these views. A delegate renders data into the view with the paint() method, and
+creates editors for the data with createEditor(). Default Delegates are
+installed on every view.  The model contains data classified in roles. Some
+roles are purely data oriented, while other roles (FontRole) are view-level
+information. The model is therefore responsible for influencing the visual
+appearance of thje view through the Role mechanism. Of course, this mechanism
+can also be implemented by a specialized delegate who translates the Data
+semantic into visual semantic.
  
 Controller: establishes connections between model and view
 Model: emits signals
-view knows the model, and are responsible for changing it. A common, general interface to the model is used to access data from the views.
-It's a traditional MVC.
+view knows the model, and are responsible for changing it. A common, general
+interface to the model is used to access data from the views.  It's a
+traditional MVC.
 Filters: model-pipe-view-controller
 MVC model: modification through slots. Notification via signals.
 
-Emitting before changing the data in the model, to track changes. But careful if the calling code is in another thread.
+Emitting before changing the data in the model, to track changes. But careful
+if the calling code is in another thread.
 
 References [8]
 
 iOS
+----
 In iOS and cocoa, the MVC is a Model View Adapter style.
 Coordinating controllers vs. mediating controllers.
 
@@ -1144,17 +1609,38 @@ Microsoft
 MFC
 
 MVC On the web
+==============
 
-On the web, the controller is responsible for handling user events, preparing the view, and pushing it to the renderer. a quite different pattern.
+On the web, the controller is responsible for handling user events, preparing
+the view, and pushing it to the renderer. a quite different pattern.
 
-MVC can also be used on the web, and plenty of web development frameworks provide for free a well designed MVC architecture, where the programmer has just to fill the empty spaces and all the web heavy lifting is taken care of. As usual, the model objects represent the business domain of our application, with the task of persistence given to the model or to another layer: they either talk to a database directly (generally, but not always, an SQL one) or through an Object-Relational Mapper to convert the Object Oriented nature of the model classes into something a relational database can digest. 
-Similarly, the Controller receives the HTTP request from the user, as dispatched by the Web framework. It is responsible for applying business logic and coordinating the other objects to display the final web page (or parts of it) to the user. In general, what the controller does at this point is to parse the request, selects the proper model objects to honor this request, selects a view appropriate for the request and let the view the task of rendering the final HTML for the browser's consumption. To do so, the view normally combines the controller-provided data with a template mechanism.
+MVC can also be used on the web, and plenty of web development frameworks
+provide for free a well designed MVC architecture, where the programmer has
+just to fill the empty spaces and all the web heavy lifting is taken care of.
+As usual, the model objects represent the business domain of our application,
+with the task of persistence given to the model or to another layer: they
+either talk to a database directly (generally, but not always, an SQL one) or
+through an Object-Relational Mapper to convert the Object Oriented nature of
+the model classes into something a relational database can digest.  Similarly,
+the Controller receives the HTTP request from the user, as dispatched by the
+Web framework. It is responsible for applying business logic and coordinating
+the other objects to display the final web page (or parts of it) to the user.
+In general, what the controller does at this point is to parse the request,
+selects the proper model objects to honor this request, selects a view
+appropriate for the request and let the view the task of rendering the final
+HTML for the browser's consumption. To do so, the view normally combines the
+controller-provided data with a template mechanism.
 
-On
-On the web, the separation between the View (the HTML and the browser as a renderer) and the Controller (the server side of the code) is strong and with a bottleneck in communication.
+On the web, the separation between the View (the HTML and the browser as a
+renderer) and the Controller (the server side of the code) is strong and with a
+bottleneck in communication.
 
-The controller can switch model or views as it sees fit, but in general it is initialized and deeply related to the view. How the controller get to know these different models or views can be done either through accessor methods (external code "pushes" the new model to the controller) or through a provider class (e.g. the controller knows where to get a model: the provider class hands it out when needed). 
-knockout.js
+The controller can switch model or views as it sees fit, but in general it is
+initialized and deeply related to the view. How the controller get to know
+these different models or views can be done either through accessor methods
+(external code "pushes" the new model to the controller) or through a provider
+class (e.g. the controller knows where to get a model: the provider class hands
+it out when needed).  knockout.js
 
 Something about REST in web mvc
 Front controller
@@ -1165,12 +1651,18 @@ To keep the view and the controller synchronized, there are two possible approac
 “push” strategy: data is pushed by the controller into the view.
 “pull” strategy: data is pulled by the view from the controller
 
-For example, suppose the user adds a comment to a forum. Once he submits the request, its comment is now accepted by a controller, which will add it to the model. The view and the model are now desynchronized. The controller now can reply by pushing the new information to the view, so that the user-submitted comment can appear. Any other comment that was added to the model will also be pushed into the view, allowing the user to see its view change as comments are added.
+For example, suppose the user adds a comment to a forum. Once he submits the
+request, its comment is now accepted by a controller, which will add it to the
+model. The view and the model are now desynchronized. The controller now can
+reply by pushing the new information to the view, so that the user-submitted
+comment can appear. Any other comment that was added to the model will also be
+pushed into the view, allowing the user to see its view change as comments are
+added.
 
-In the pull model, the view is responsible for requesting and fetching data from the controller at the end of the submit request, and synchronize its content. Pull is also generally used to fetch any kind of data 
-from the controller in response to a user request.
-
-
+In the pull model, the view is responsible for requesting and fetching data
+from the controller at the end of the submit request, and synchronize its
+content. Pull is also generally used to fetch any kind of data from the
+controller in response to a user request.
 
 spring
 
@@ -1191,20 +1683,28 @@ How to report errors in the view?
 
 Old stuff. make it into a blog post.
 
-Another, more complex example of Smart-UI application is the following simple calculator: a single window contains a display area to show the current state of the expression, and a set of buttons to input, execute, and cancel the expression
+Another, more complex example of Smart-UI application is the following simple
+calculator: a single window contains a display area to show the current state
+of the expression, and a set of buttons to input, execute, and cancel the
+expression
 
-The implementation relies on a single class, whose initializers sets the current expression text in a member variable to empty
-import sys
-from PyQt4 import QtCore, QtGui
+The implementation relies on a single class, whose initializers sets the
+current expression text in a member variable to empty import sys::
 
-class Calculator(QtGui.QWidget):
-    def __init__(self, *args, **kwargs):
-        super(Calculator, self).__init__(*args, **kwargs)
+   from PyQt4 import QtCore, QtGui
 
-        self._current_text = ""
-        self._createGUI()
+   class Calculator(QtGui.QWidget):
+       def __init__(self, *args, **kwargs):
+           super(Calculator, self).__init__(*args, **kwargs)
 
-The initializer also invokes a method to create the visual representation of the GUI, by creating widgets and layouting them in a proper arrangement, and finally using Qt mechanisms to trigger a specific method in response to mouse clicks
+           self._current_text = ""
+           self._createGUI()
+
+The initializer also invokes a method to create the visual representation of
+the GUI, by creating widgets and layouting them in a proper arrangement, and
+finally using Qt mechanisms to trigger a specific method in response to mouse
+clicks::
+
     def _createGUI(self):
         layout = QtGui.QGridLayout(self)
 
@@ -1229,7 +1729,12 @@ The initializer also invokes a method to create the visual representation of the
                              QtCore.SIGNAL("clicked()"),\
                              self.buttonClicked)
 
-The buttonClicked method translates the user action into an effective modification of the internal current_text variable, and synchronizes the displayed text. If the pressed button is the “=”, the expression is evaluated and the result is stored in the current_text  variable. If a digit is inserted, its value is appended to the current_text. 
+The buttonClicked method translates the user action into an effective
+modification of the internal current_text variable, and synchronizes the
+displayed text. If the pressed button is the “=”, the expression is evaluated
+and the result is stored in the current_text  variable. If a digit is inserted,
+its value is appended to the current_text::
+
     def buttonClicked(self):
         key = self._buttonToKey(self.sender())
 
@@ -1253,21 +1758,48 @@ The buttonClicked method translates the user action into an effective modificati
         except:
             return ""
 
-The internal variable self._current_text clearly hosts the state of the object, and it's a prime candidate for refactoring into a Model object. Similarly, the helper method _createGUI() creates the Calculator interface and is therefore clearly part of a View role
-Note how we create the output display, the buttons for the digits and the operations, and we connect all buttons to the same method self.buttonClicked. Inside this method, Qt provides the possibility to detect which button triggered its execution with the .sender() method. The method buttonClicked is now responsible for converting the button pressed into an operation to perform or a new digit to be added to the self._current_text. It also takes care to guarantee self._current_text and the display have the same content.
-The buttonClicked method is performing Controller operations, by interpreting the user event according to proper logic and modifying the contents of the internal state. It also takes care of synchronizing the model and its representation in the View (the display).
- class implements querying and altering of the internal data (stored in self._value) via the getter/setter pair value()/setValue(). It also implements notification: the register() method is called by an interested object, which passes itself as argument. The Model adds it to an internal collection (the self._listeners set) and then immediately informs it to update itself by means of the call to listener.notify(). Finally, when data is altered (via setValue), the routine _notifyListeners() is called, which in turn calls notify() on all registered listeners.
+The internal variable self._current_text clearly hosts the state of the object,
+and it's a prime candidate for refactoring into a Model object. Similarly, the
+helper method _createGUI() creates the Calculator interface and is therefore
+clearly part of a View role Note how we create the output display, the buttons
+for the digits and the operations, and we connect all buttons to the same
+method self.buttonClicked. Inside this method, Qt provides the possibility to
+detect which button triggered its execution with the .sender() method. The
+method buttonClicked is now responsible for converting the button pressed into
+an operation to perform or a new digit to be added to the self._current_text.
+It also takes care to guarantee self._current_text and the display have the
+same content.  The buttonClicked method is performing Controller operations, by
+interpreting the user event according to proper logic and modifying the
+contents of the internal state. It also takes care of synchronizing the model
+and its representation in the View (the display).  class implements querying
+and altering of the internal data (stored in self._value) via the getter/setter
+pair value()/setValue(). It also implements notification: the register() method
+is called by an interested object, which passes itself as argument. The Model
+adds it to an internal collection (the self._listeners set) and then
+immediately informs it to update itself by means of the call to
+listener.notify(). Finally, when data is altered (via setValue), the routine
+_notifyListeners() is called, which in turn calls notify() on all registered
+listeners.
 
-combining two or more roles on the same class can be an acceptable compromise, whose cost is a reduction in flexibility and clarity, and whose advantage is a more streamlined approach for simple cases. Note that mixing the roles does not imply that the code responsible for each of these roles should mix as well. it is in fact good practice to keep the code performing each role in separate routines. This simplifies both understanding and future refactoring, if the needs emerges. 
+combining two or more roles on the same class can be an acceptable compromise,
+whose cost is a reduction in flexibility and clarity, and whose advantage is a
+more streamlined approach for simple cases. Note that mixing the roles does not
+imply that the code responsible for each of these roles should mix as well. it
+is in fact good practice to keep the code performing each role in separate
+routines. This simplifies both understanding and future refactoring, if the
+needs emerges. 
 
-following the hierarchic composition of the GUI nesting. The model can be the same. In pratice, the scheme given above can be simplified by assuming a given hierarchy talks to the same model
-In J2EE, this approach is also known as Composite View.[11]
-[PIC of an example of a hierarchy with real widgets]
+following the hierarchic composition of the GUI nesting. The model can be the
+same. In pratice, the scheme given above can be simplified by assuming a given
+hierarchy talks to the same model In J2EE, this approach is also known as
+Composite View.[11] [PIC of an example of a hierarchy with real widgets]
 
 
 
-
-I will also devote attention to libraries and graphical toolkits such as Java Swing, Qt and Apple iOS, where specific implementations of MVC are provided. 
 
 Reimplement widgets to define methods for events. Annoying, proliferates classes.
-Once notified, the views are in charge of fetching the new state from the model: the view must therefore be aware of the model interface and its semantics. 
+
+Once notified, the views are in charge of fetching the new state from the
+model: the view must therefore be aware of the model interface and its
+semantics. 
+
