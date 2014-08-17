@@ -19,3 +19,10 @@ Contents:
    introduction
    from_smartui_to_traditional_mvc
    mvc_variations
+   hierarchic_mvc
+   advanced_mvc
+   mvc_implementations
+   mvc_on_the_web
+   notes
+   references
+
