@@ -263,9 +263,6 @@ the Document information and the handling of user interaction.
    A similar approach can be used in Java.
 
 
-.. silence ** in vim
-
-
 Traditional MVC
 ---------------
 

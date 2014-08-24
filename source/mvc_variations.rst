@@ -8,10 +8,15 @@ extensions and alternative design choices to satisfy the final requirements
 while keeping programming complexity as low as possible. Examples of such
 requirements include:
 
-   - a modal dialog must allow changing values, but revert them when the Cancel button is pressed.
-   - a modeless dialog allows changing values while the change is visible in another window, but must be reverted if “Restore” is pressed.
-   - prevent typing of invalid values, for example a string in a line edit supposed to accept only digits will not accept any key presses from non-digits.
-   - alternatively, allow invalid entries, but disable the Ok button and mark the incorrect value red.
+   - a modal dialog must allow changing values, but revert them when the Cancel
+     button is pressed.
+   - a modeless dialog allows changing values while the change is visible in
+     another window, but must be reverted if “Restore” is pressed.
+   - prevent typing of invalid values, for example a string in a line edit
+     supposed to accept only digits will not accept any key presses from
+     non-digits.
+   - alternatively, allow invalid entries, but disable the Ok button and mark
+     the incorrect value red.
    - and so on...
 
 As you can see, the complexity of an application made of hundreds of menus,
@@ -24,7 +29,6 @@ of paramount importance.
 In this chapter we will examine alternative design in MVC able to deal with
 more complex use-case scenarios, constrained by requirements, architectural
 needs or self-documentation purposes.
-
 
 Compositing Model
 -----------------
@@ -54,7 +58,7 @@ The code for class ``AddressBookCSV`` is here shown to illustrate the rather
 trivial interface supported by all Model objects. The common base class
 BaseModel provides notification services by implementing the well known methods
 ``register``, ``unregister``, ``notifyListeners``, and the listeners set, as shown in
-Traditional MVC ::
+Traditional MVC::
 
    class AddressBookCSV(BaseModel):
        def __init__(self, filename):
@@ -77,7 +81,7 @@ Traditional MVC ::
 
 
 The code for the View is simplified by the fact that there's no Controller. No
-modifications are allowed on our Models, so no GUI events need to be handled :: 
+modifications are allowed on our Models, so no GUI events need to be handled::
 
    class AddressBookView(QtGui.QListWidget):
        def __init__(self, model, *args, **kwargs):
@@ -91,7 +95,7 @@ after clearing it. As a general rule, this method is rather aggressive and may
 introduce flickering or loss of selection of the List items. Solving these
 issues is beyond the scope of this example. Additionally, the List does not
 need regular refresh cycles, because the Models are readonly and parsed only
-once at startup :: 
+once at startup::
 
        def notify(self):
            self.clear()
@@ -180,7 +184,6 @@ Model-Pipe-View-Controller
 --------------------------
 
 **Addressed Need: Intercept and filter the data flow between Model and View.**
-
 
 An additional need that may emerge from our addressbook application is to
 filter out names and sort them alphabetically. A possible design approach would
@@ -765,41 +768,47 @@ Passive Model
 
 **Addressed Need: Use a Model without notification features.**
 
-Traditional MVC uses the so-called Active Model : when the Model changes in
-response to an action, it directly notifies its listeners of the change. This
+Traditional MVC uses the so-called **Active Model**: when the Model changes in
+response to an action, it notifies its listeners of the occurred change. This
 approach is excellent to deal with multiple listeners, multiple Controllers,
-and the need to notify about Model changes coming from external sources.  The
-Active Model strategy has a counterpart in the Passive Model. A Passive Model
-does not inform the View of changes. Instead, the synchronization is
-orchestrated by the Controller (see Figure 6). Typically, the Controller
-performs some changes on the Model, and then informs the View to update itself.
-The View now inquires the Model contents as in the Active case. 
+and the need to notify about Model changes coming from external sources.
 
-This approach has obvious shortcomings: it doesn't work if the Model can change
-through multiple  sources (for example, other Controllers connected to the same
-Model, or if the Model is a frontend to a database and another client modifies
-the data), nor it can handle updating of multiple listeners. As an apparent
-advantage, it allows to use any object as a Model without adding notification
-functionality on top of it, but in practice a Passive Model can always be
-converted into an Active one either through inheritance or by using a wrapper
-class satisfying the Passive Model's original interface. This wrapper will
-receive change requests from Controllers, delegate the change requests to the
-Passive Model, and finally notify the listeners. This solution is also viable
-for an already developed business object that knows nothing about MVC and must
-be made part of it.  Despite its apparent lack of potential, a Passive
-implementation has its area of excellence in Web-based MVC, where the
-fundamental nature of the HTTP protocol prevents the Model to push
-notifications to the View (the web browser). In a web GUI, View and Controller
-are on the Client side (browser) and the Model on the server side (web server).
-When the User performs an action, the Controller will issue a change request to
-the web server, followed by a request to the View to refresh itself. The View
-will now issue a get request to the server to synchronize with the new Model
-contents.  
-An alternative mode to synchronize the View with the model is the following:
+The Active Model strategy has a counterpart in the **Passive Model**. A Passive
+Model does not perform notification. Instead, this task is orchestrated by the
+Controller:
 
-   - The Controller modifies the Model.
-   - The controller informs the View to update itself
-   - the view communicates with the model for the new database
+   #. The Controller modifies the Model.
+   #. The Controller informs the View to update itself.
+   #. The View now inquires the Model contents as in the Active case.
+
+[picture]
+
+A mild advantage of this approach is that any object can be used as a Model,
+even when it does not provide notification functionality. In practice, adding
+this property is trivial.
+
+On the other hand, the major shortcoming is that it doesn't work if the Model
+can change through multiple sources (for example, other Controllers connected
+to the same Model, or if the Model is a frontend to a database and another
+client modifies the data), nor it can handle updating of multiple listeners. 
+
+Despite its apparent lack of potential, a Passive implementation has its area
+of excellence in Web-based MVC, where the fundamental nature of the HTTP
+protocol prevents the Model to push notifications to the View: on the web, the
+View is delivered to the client side for rendering in the browser, and the
+Model stays on the server side. When the User performs an action, the
+Controller will issue a change request to the Model, followed by a request to
+the View to refresh itself. The View will now issue a get request to the server
+to synchronize with the new Model contents.
+
+A Passive Model can always be converted into an Active one either through
+inheritance or by using a wrapper class satisfying the Passive Model's original
+interface. This wrapper will receive change requests from Controllers, delegate
+the change requests to the Passive Model, and finally notify the listeners.
+This solution is also viable for an already developed business object that
+knows nothing about MVC and must be made part of it.  
+
+
 
 Notification looping prevention
 -------------------------------

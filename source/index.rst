@@ -11,6 +11,8 @@ Understanding Model-View-Controller
 By Stefano Borini - 2014
 ------------------------
 
+.. highlight:: python
+
 Contents:
 
 .. toctree::
