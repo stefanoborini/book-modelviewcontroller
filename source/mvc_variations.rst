@@ -1419,7 +1419,8 @@ Notification looping prevention
 **Addressed Need:**
 
 Notification messages from the Model can become problematic for a series of
-reason: 
+reason
+
    - the Views get informed that changes occurred, but it's in a part of the
      data model that is not represented by a specific View. Views must go through a
      refresh cycle even if no data has changed for them
