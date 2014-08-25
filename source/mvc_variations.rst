@@ -763,6 +763,35 @@ time has passed, or add to a queue the changes, then consume the queue until no
 more changes are needed, then force visual refresh.  notify() gets called with
 a qualified flag, the previous value and the new value.
 
+notify() gets called with a qualified flag, the previous value and the next value
+
+The view subscribes to specific events from the model, and 
+receives notifications only when those events actually occur.
+
+
+
+A model can also pass a data update object to the listeners, and the view can react
+to that update object, instead of resyncing against the new model state.
+
+can't a view fetch information from multiple models, and deliver signals to different controllers having different roles?
+
+A View can depend on different Models, but this requires the View to know which Model is delivering the notification.
+Add a note on the fact that if the model pushes information, then this information characteristics falls on the signature of the notifyObserver() methods. So, its signature must be somehow generic. The model pretends to know what the view is specifically interested in, something it might not know, so it must simply send itself, and let the view go through it, or have a protocol to specify what changed.
+
+Drawback: you may end up implementing a protocol in the notify() method.
+
+The view does not inquire the model through an interface.
+The model is closed to that. it just produces events with
+a data change object, and synchronizes through that.
+
+Advantages: 
+ - the data update object may contain logic on how to present itself on the views, especially if this rendering is trivial (e.g. pure text)
+ - if the model is on another thread, it pushes and forces the refresh of the view. In the traditional case, the view may lag behind.
+
+Disadvantages:
+ - transfer stuff that may be useless for that specific view. The view may then subscribe for specific data and receive only those in the data update object
+
+
 Passive Model
 -------------
 
@@ -816,12 +845,15 @@ Notification looping prevention
 **Addressed Need:**
 
 Notification messages from the Model can become problematic for a series of
-reason: the Views get informed that changes occurred, but it's in a part of the
-data model that is not represented by a specific View. Views must go through a
-refresh cycle even if no data has changed for them
-A sequence of changes is performed on the Model, forcing a refresh of all the
-Views at each change, while a single refresh at the end of the sequence would
-suffice.  The update-change cycle lead to an infinite loop
+reason: 
+   - the Views get informed that changes occurred, but it's in a part of the
+     data model that is not represented by a specific View. Views must go through a
+     refresh cycle even if no data has changed for them
+   - A sequence of changes is performed on the Model, forcing a refresh of all the
+     Views at each change, while a single refresh at the end of the sequence would
+     suffice.
+   - The update-change cycle lead to an infinite loop
+
 Consider the following case of a SpinBox containing the value 3, and the associated Model value currently set to 3 as well. When the user interacts with the SpinBox, clicking the up arrow, the following sequence of events occurs:
 
    1. a valueChanged() signal is issued by the SpinBox with the new value, 4. We assume the SpinBox keeps showing the old value, as it represents the Model, which at the moment contains 3. 
@@ -865,18 +897,19 @@ the value. It won't see changes in the model that originate from outside
 though.
 
 
-To prevent notification trashing, one can rely on transaction, to turn off
-notifications on the model, perform a set of changes, then triggering the
-notification by closing the transaction.  When multiple independent
-modifications must be performed on the model in sequence, it pays off to have a
-method to disable and enable notifications. Without this technique, every
-individual change would trigger an update and force a refresh of the connected
-views, potentially ruining performance and exposing the user to progressive
-changes through the interface as each change is applied. By disabling the
-notifications, performing the changes, and re-enabling the notifications, a
-single update will be triggered.
-model packing multiple changes to deliver a single refresh to the view
-controller disabling notifications of the model.
+To prevent notification trashing, one can rely on transaction, to
+turn off notifications on the model, perform a set of changes, then
+triggering the notification by closing the transaction.  When
+multiple independent modifications must be performed on the model in
+sequence, it pays off to have a method to disable and enable
+notifications. Without this technique, every individual change would
+trigger an update and force a refresh of the connected views,
+potentially ruining performance and exposing the user to progressive
+changes through the interface as each change is applied. By
+disabling the notifications, performing the changes, and re-enabling
+the notifications, a single update will be triggered.  model packing
+multiple changes to deliver a single refresh to the view controller
+disabling notifications of the model.
 
 Commands
 --------
@@ -906,6 +939,34 @@ the commands.  The command can perform notification of the listeners instead of
 the model.  Another form of qualification: the model forwards the command after
 execution to the View. Views can analyze the command to respons appropriately.
 
+a command class normally has execute() and undo() methods. it's a functor.
+
+execute does a given action. undo restores the state as it was before.
+undo can be done either by algorithmic rollback, or by just restoring a
+memento saved at execute time.
+
+The parameters are defined at instantiation time. execute accepts no parameters
+but it may return a state (success, failure). This state will be needed to decide
+what to do with the executed command (add to the undo queue or not).
+
+two stacks: undo queue and redo queue. 
+
+execute()
+push into undo
+
+at undo:
+pop from undo
+command.undo()
+push into redo
+
+at redo
+pop from redo
+command.execute()
+push into undo
+
+Association of the command to the model: the model defines and offers creation of commands.
+The command can also acts as a notification agent (e.g. syncs the view) instead of the model
+and can also act as a change object.
 
 
 
@@ -1296,6 +1357,25 @@ as an individual view. If you have a complex widget showing a document , which
 embeds zoom level (+/-) buttons, they are probably best implemented as either
 two separate views, or as a “ZoomLevel” widget as a view, never as a hidden
 part of the DocumentViewer View.
+
+
+With this approach, the application GUI is sliced into manageable parts, each handling a specific User-system interaction. The coarseness of these slices is a matter of choice, circumstances, complexity, and reuse.
+
+Push vs. pull
+-------------
+
+Defining “push-vs-pull” within the realm of MVC can lead to confusion, because it is an overloaded term. We will talk here about the 
+We will discuss of the “Push-pull” model for MVC also in the context of web frameworks.
+
+This is known as the “pull” model. The view is informed of its outdated state, and pulls information from the model. The alternative is the “push” model, where the model notifies the view and passes its new state to the view.
+
+Push model: the view register with the model and receives notification of changes.
+Pull model: the view fetches the new state from the model.
+
+Note: unclear. Also possible mixup between overloaded meaning in GUI MVC and Web MVC.
+
+
+
 
 
 Reenskaug MVC
