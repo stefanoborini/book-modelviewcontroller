@@ -83,12 +83,12 @@ Traditional MVC::
 The code for the View is simplified by the fact that there's no Controller. No
 modifications are allowed on our Models, so no GUI events need to be handled::
 
-   class AddressBookView(QtGui.QListWidget):
-       def __init__(self, model, *args, **kwargs):
-           super(QtGui.QListWidget, self).__init__(*args, **kwargs)
-           self._model = model
+    class AddressBookView(QtGui.QListWidget):
+        def __init__(self, model, *args, **kwargs):
+            super(QtGui.QListWidget, self).__init__(*args, **kwargs)
+            self._model = model
 
-           self._model.register(self)
+            self._model.register(self)
 
 The ``notify`` method extracts data from the Model and repopulates the ListWidget
 after clearing it. As a general rule, this method is rather aggressive and may
@@ -97,24 +97,26 @@ issues is beyond the scope of this example. Additionally, the List does not
 need regular refresh cycles, because the Models are readonly and parsed only
 once at startup::
 
-       def notify(self):
-           self.clear()
+    class AddressBookView(QtGui.QListWidget):
+        # ...
+        def notify(self):
+            self.clear()
 
-           for i in range(self._model.numEntries()):
-               entry = self._model.getEntry(i)
-               string = "%s (%s)" % (entry["name"], entry["phone"])
-               self.addItem(string)
+            for i in range(self._model.numEntries()):
+                entry = self._model.getEntry(i)
+                string = "%s (%s)" % (entry["name"], entry["phone"])
+                self.addItem(string)
 
 Note how the View is agnostic of the actual Model type, and can render data
-from either ``AddressBookCSV`` or ``AddressBookXML``. This is expected, as we are
-programming against an interface. The Compositing Model class AddressBook
+from either ``AddressBookCSV`` or ``AddressBookXML``. This is expected, as we
+are programming against an interface. The Compositing Model class ``AddressBook``
 implements the same interface and will therefore be rendered transparently by
-the AddressBookView. 
+the ``AddressBookView``. 
 
-The AddressBook class accepts an arbitrary number of Models at initialization,
+The ``AddressBook`` class accepts an arbitrary number of Models at initialization,
 and registers as a listener on each of them. The interface expected by
-AddressBookView is reimplemented, deriving the data from the composition of the
-submodels ::
+``AddressBookView`` is reimplemented, deriving the data from the composition of
+the submodels ::
 
    class AddressBook(BaseModel):
        def __init__(self, models):
@@ -128,8 +130,10 @@ submodels ::
 The total number of entries is trivially the sum of the number of entries
 provided by each submodel ::
 
-    def numEntries(self):
-        return sum([m.numEntries() for m in self._models])
+    class AddressBook(BaseModel):
+        # ...
+        def numEntries(self):
+            return sum([m.numEntries() for m in self._models])
 
 
 To get a specific entry, we need to map the absolute entry number to the
@@ -137,33 +141,37 @@ relative entry number in a specific submodel, keeping into account the number
 of elements in each submodel. We define the accumulate routine to compensate
 for the lack of it in python2 ::
 
-    def getEntry(self, entry_number):
-        def accumulate(l):
-            current_total = 0
-            res = []
-            for i in l:
-                current_total += i
-                res.append(current_total)
-            return res
-        accumulated = accumulate([m.numEntries() for m in self._models])
-        source_idx = map(lambda x: x <= entry_number,
-                         accumulated).index(False)
-        try:
-            return self._models[source_idx].getEntry(
-                                   entry_number - accumulated[source_idx]
-                                   )
-        except:
-            raise IndexError("Invalid entry %d" % entry_number)
+    class AddressBook(BaseModel):
+        # ...
+        def getEntry(self, entry_number):
+            def accumulate(l):
+                current_total = 0
+                res = []
+                for i in l:
+                    current_total += i
+                    res.append(current_total)
+                return res
+            accumulated = accumulate([m.numEntries() for m in self._models])
+            source_idx = map(lambda x: x <= entry_number,
+                             accumulated).index(False)
+            try:
+                return self._models[source_idx].getEntry(
+                                       entry_number - accumulated[source_idx]
+                                       )
+            except:
+                raise IndexError("Invalid entry %d" % entry_number)
 
 Finally, when any of the submodels notify a change, the Compositing Model
 should just perform a notification to its listener, in our case the
 ``AddressBookView`` ::
 
-    def notify(self):
-        self.notifyListeners()
+    class AddressBook(BaseModel):
+        # ...
+        def notify(self):
+            self.notifyListeners()
 
 The application main routine creates the three datasource models, and passes
-them to the Compositing Model AddressBook, which is then passed to the View ::
+them to the Compositing Model ``AddressBook``, which is then passed to the View ::
 
    csv1_model = AddressBookCSV("file1.csv")
    xml_model = AddressBookXML("file.xml")
@@ -466,13 +474,15 @@ Initial specifications require to control the revolution per minute (rpm) value
 through two Views: a Slider and a Dial. Two View/Controller pairs observe and
 act on a single Model 
 
-[picture]
+.. image:: _static/images/DomainModelApplicationModel/basic_layout.png
+   :align: center
 
 Suppose an additional requirement is added to this simple application: the Dial
 should be colored red for potentially damaging rpm values above 8000 rpm, and
 green otherwise.
 
-[picture]
+.. image:: _static/images/DomainModelApplicationModel/application_screenshot.png
+   :align: center
 
 We could violate Traditional MVC and add visual information to the Model,
 specifically the color ::
@@ -525,7 +535,7 @@ color should honor this semantic, not the one implied by the numerical value.
 Given the point above, it is clear that the Engine object is the only entity
 that can know what rpm value is too high. It has to provide this information,
 leaving its visual representation strategy to the View.  A better design
-provides a query method isOverRpmLimitA ::
+provides a query method ``isOverRpmLimit`` ::
 
    class Engine(BaseModel):
        <...>
@@ -550,7 +560,8 @@ With this implementation in place we can
 now extract logic and state from Dial View into the Application Model
 DialEngine. The resulting design is known as Model-Model-View-Controller
 
-[picture]
+.. image:: _static/images/DomainModelApplicationModel/model_model_view_controller.png
+   :align: center
 
 The DialEngine will handle state about the Dial color, while delegating the rpm
 value to the Domain Model. View and Controller will interact with the
@@ -567,42 +578,51 @@ the Domain Model, and initialize the color ::
 
 The accessor method for the color just returns the current value ::
 
-   def dialColor(self):
-      return self._dial_color
+   class DialEngine(BaseModel):
+        # ...
+        def dialColor(self):
+            return self._dial_color
 
 The two accessors for the rpm value trivially delegate to the Domain Model ::
 
-  def setRpm(self, rpm):
-    self._engine.setRpm(rpm)
+   class DialEngine(BaseModel):
+        # ...
+        def setRpm(self, rpm):
+            self._engine.setRpm(rpm)
 
-  def rpm(self):
-    return self._engine.rpm()
+        def rpm(self):
+            return self._engine.rpm()
 
-When the DialController issues a change to the Application Model through the
+When the ``DialController`` issues a change to the Application Model through the
 above accessor methods, this request will be forwarded and will generate a
 change notification. Both the Slider and the Application Model will receive
 this notification on their method notify. The Slider will change its position,
 and the Application Model will change its color and reissue a change
 notification ::
 
-  def notify(self):
-    if self._engine.isOverRpmLimit():  
-      self._dial_color = Qt.red
-    else: 
-      self._dial_color = Qt.green
-    self._notifyListeners() 
+   class DialEngine(BaseModel):
+        # ...
+        def notify(self):
+            if self._engine.isOverRpmLimit():  
+              self._dial_color = Qt.red
+            else: 
+              self._dial_color = Qt.green
+
+            self._notifyListeners() 
 
 The DialView will handle this notification, query the Application Model (both
 the rpm value and the color) and repaint itself. Note that changing the
 ``self._dial_color`` in ``DialEngine.setRpm``, as in ::
 
-      def setRpm(self, rpm):
-         self._engine.setRpm(rpm)
+   class DialEngine(BaseModel):
+        # ...
+        def setRpm(self, rpm):
+            self._engine.setRpm(rpm)
 
-         if self._engine.isOverRpmLimit():  
-            self._dial_color = Qt.red
-         else: 
-            self._dial_color = Qt.green
+            if self._engine.isOverRpmLimit():  
+                self._dial_color = Qt.red
+            else: 
+                self._dial_color = Qt.green
 
 
 instead of using the ``notify`` solution given before, would introduce the
@@ -610,7 +630,7 @@ following problems:
 
    - the dial color would not change as a consequence of external changes on
      the Domain Model (in our case, by the Slider)
-   - There is no guarantee that issuing self._engine.setRpm() will trigger a
+   - There is no guarantee that issuing ``self._engine.setRpm()`` will trigger a
      notification from the Domain Model, because the value might be the same.
      On the other hand, the Application Model might potentially change
      (although probably not in this example), and should trigger a notification to
@@ -636,10 +656,6 @@ information). As a drawback, it is much less reusable: multiple Views can
 interact with the same Application Model only if they agree on the visual state
 representation (e.g. we want both the Dial and the Slider red when over the rpm
 limit). 
-
-
-Work in progress from here onwards
-==================================
 
 
 Side-by-Side Application Model - Selection Model
@@ -810,7 +826,8 @@ Controller:
    #. The Controller informs the View to update itself.
    #. The View now inquires the Model contents as in the Active case.
 
-[picture]
+.. image:: _static/images/PassiveModel/passive_model.png
+   :align: center
 
 A mild advantage of this approach is that any object can be used as a Model,
 even when it does not provide notification functionality. In practice, adding
@@ -837,136 +854,6 @@ the change requests to the Passive Model, and finally notify the listeners.
 This solution is also viable for an already developed business object that
 knows nothing about MVC and must be made part of it.  
 
-
-
-Notification looping prevention
--------------------------------
-
-**Addressed Need:**
-
-Notification messages from the Model can become problematic for a series of
-reason: 
-   - the Views get informed that changes occurred, but it's in a part of the
-     data model that is not represented by a specific View. Views must go through a
-     refresh cycle even if no data has changed for them
-   - A sequence of changes is performed on the Model, forcing a refresh of all the
-     Views at each change, while a single refresh at the end of the sequence would
-     suffice.
-   - The update-change cycle lead to an infinite loop
-
-Consider the following case of a SpinBox containing the value 3, and the associated Model value currently set to 3 as well. When the user interacts with the SpinBox, clicking the up arrow, the following sequence of events occurs:
-
-   1. a valueChanged() signal is issued by the SpinBox with the new value, 4. We assume the SpinBox keeps showing the old value, as it represents the Model, which at the moment contains 3. 
-   2. the Controller.setValue(4) method is called, which in turn calls Model.setValue(4).
-   3. the Model stores the new value 4, then issue a _notifyListeners to inform all the connected views, including the SpinBox.
-   4. the SpinBox receives the notify(), which now fetches the new value from the Model and sets the new value using QSpinBox.setValue(4)
-   5. the SpinBox is still containing the value 3. QSpinBox.setValue(4) triggers valueChanged() again.
-   6. Controller.setValue is called again, reproducing the situation at point 2.
-
-With this scenario, the application is potentially entering a notification
-loop. A prevention strategy is to have the Model notify the listeners only if
-the new value differs from the currently stored one. This solution will
-terminate at point 3, technically performing useless Controller.setValue and
-Model.setValue calls.  A tempting alternative solution is to have the SpinBox
-increment its visualized value independently from the Model, thus having the
-View autonomous in its visualized state.  With this approach, after step 1 the
-SpinBox will show the number 4. The chain of events will unfold exactly in the
-same way until step 4. The SpinBox will now observe that the new value in the
-Model is the same as the one it is currently displaying, terminating the chain
-by not triggering a valueChanged().  Depending on the toolkit used, graphical
-Views may or may not behave as described, but the fundamental issue with this
-approach is that the View is assuming to know the next value, and setting it
-accordingly, without involving any logic from the Controller or Model. The
-Model could, for example, consider the new value 4 to be invalid and set itself
-to the next valid one, for example 27. This will force the View to update its
-graphical representation again. 
-
-Another strategy is to prevent the View from updating itself twice within the
-same cycle of events. A possible implementation of this strategy is to hold a
-flag updating on the View. The flag is set to True at step 1. The chain of
-events develops in the same way until step 5, where the setValue operation will
-check for the flag. If true, it will only update the graphical aspect of the
-widget, and skip the triggering of the second valueChanged() signal.  Another
-strategy is to have a View that does not triggers valueChanged under certain
-conditions. 
-
-Shut down the Model notification system? not a good idea. other parties will
-not receive events.  Another alternative is to detach the View from the
-notification. It will not receive update notifications from the model, just set
-the value. It won't see changes in the model that originate from outside
-though.
-
-
-To prevent notification trashing, one can rely on transaction, to
-turn off notifications on the model, perform a set of changes, then
-triggering the notification by closing the transaction.  When
-multiple independent modifications must be performed on the model in
-sequence, it pays off to have a method to disable and enable
-notifications. Without this technique, every individual change would
-trigger an update and force a refresh of the connected views,
-potentially ruining performance and exposing the user to progressive
-changes through the interface as each change is applied. By
-disabling the notifications, performing the changes, and re-enabling
-the notifications, a single update will be triggered.  model packing
-multiple changes to deliver a single refresh to the view controller
-disabling notifications of the model.
-
-Commands
---------
-
-**Addressed Need: Undo/Redo and alternative notification strategy.**
-
-Graphical interfaces generally provide Undo/Redo capabilities. This is
-generally and easily implemented with the Command pattern. The controller,
-instead of directly performing an operation on the Model, will instantiate a
-Command object out of a palette of possible Commands. The command object will
-be instantiated by passing a reference to the Model. This object will normally
-have two methods execute(), and undo(). The Controller will instantiate the
-command, and submit it to a Tracking object. The tracking object will call
-execute() on the Command, and immediately push it into a stack. The Tracking
-will have two stacks, one for undo, and the other for redo. When the user
-selects undo, the Tracker will be requested to pop one command from the undo
-stack, call its redo() method, and push the command in the redo stack.  Redo
-can be implemented by undoing the actual process, or by storing the old state
-and reverting it. The memento pattern is here useful to save the state of the
-Model before modification, but of course it can be demanding in memory
-occupation. 
-
-
-
-Using the command pattern to modify the model.  The model can be a factory for
-the commands.  The command can perform notification of the listeners instead of
-the model.  Another form of qualification: the model forwards the command after
-execution to the View. Views can analyze the command to respons appropriately.
-
-a command class normally has execute() and undo() methods. it's a functor.
-
-execute does a given action. undo restores the state as it was before.
-undo can be done either by algorithmic rollback, or by just restoring a
-memento saved at execute time.
-
-The parameters are defined at instantiation time. execute accepts no parameters
-but it may return a state (success, failure). This state will be needed to decide
-what to do with the executed command (add to the undo queue or not).
-
-two stacks: undo queue and redo queue. 
-
-execute()
-push into undo
-
-at undo:
-pop from undo
-command.undo()
-push into redo
-
-at redo
-pop from redo
-command.execute()
-push into undo
-
-Association of the command to the model: the model defines and offers creation of commands.
-The command can also acts as a notification agent (e.g. syncs the view) instead of the model
-and can also act as a change object.
 
 
 
@@ -1262,6 +1149,7 @@ Application Controller
 
 Passive View
 ------------
+
 Passive View is a variation of MVC where the view is completely under direction
 of the Controller, both for the handling of events and for the updating of the
 View contents. The advantage is that all application code goes in the
@@ -1523,5 +1411,135 @@ representation of an attribute is generally implicit in the attribute itself.
 
 The controllers should be visual widgets that have read-write properties, not
 “stay behind” classes that are delegated.  Data binding
+
+
+Notification looping prevention
+-------------------------------
+
+**Addressed Need:**
+
+Notification messages from the Model can become problematic for a series of
+reason: 
+   - the Views get informed that changes occurred, but it's in a part of the
+     data model that is not represented by a specific View. Views must go through a
+     refresh cycle even if no data has changed for them
+   - A sequence of changes is performed on the Model, forcing a refresh of all the
+     Views at each change, while a single refresh at the end of the sequence would
+     suffice.
+   - The update-change cycle lead to an infinite loop
+
+Consider the following case of a SpinBox containing the value 3, and the associated Model value currently set to 3 as well. When the user interacts with the SpinBox, clicking the up arrow, the following sequence of events occurs:
+
+   1. a valueChanged() signal is issued by the SpinBox with the new value, 4. We assume the SpinBox keeps showing the old value, as it represents the Model, which at the moment contains 3. 
+   2. the Controller.setValue(4) method is called, which in turn calls Model.setValue(4).
+   3. the Model stores the new value 4, then issue a _notifyListeners to inform all the connected views, including the SpinBox.
+   4. the SpinBox receives the notify(), which now fetches the new value from the Model and sets the new value using QSpinBox.setValue(4)
+   5. the SpinBox is still containing the value 3. QSpinBox.setValue(4) triggers valueChanged() again.
+   6. Controller.setValue is called again, reproducing the situation at point 2.
+
+With this scenario, the application is potentially entering a notification
+loop. A prevention strategy is to have the Model notify the listeners only if
+the new value differs from the currently stored one. This solution will
+terminate at point 3, technically performing useless Controller.setValue and
+Model.setValue calls.  A tempting alternative solution is to have the SpinBox
+increment its visualized value independently from the Model, thus having the
+View autonomous in its visualized state.  With this approach, after step 1 the
+SpinBox will show the number 4. The chain of events will unfold exactly in the
+same way until step 4. The SpinBox will now observe that the new value in the
+Model is the same as the one it is currently displaying, terminating the chain
+by not triggering a valueChanged().  Depending on the toolkit used, graphical
+Views may or may not behave as described, but the fundamental issue with this
+approach is that the View is assuming to know the next value, and setting it
+accordingly, without involving any logic from the Controller or Model. The
+Model could, for example, consider the new value 4 to be invalid and set itself
+to the next valid one, for example 27. This will force the View to update its
+graphical representation again. 
+
+Another strategy is to prevent the View from updating itself twice within the
+same cycle of events. A possible implementation of this strategy is to hold a
+flag updating on the View. The flag is set to True at step 1. The chain of
+events develops in the same way until step 5, where the setValue operation will
+check for the flag. If true, it will only update the graphical aspect of the
+widget, and skip the triggering of the second valueChanged() signal.  Another
+strategy is to have a View that does not triggers valueChanged under certain
+conditions. 
+
+Shut down the Model notification system? not a good idea. other parties will
+not receive events.  Another alternative is to detach the View from the
+notification. It will not receive update notifications from the model, just set
+the value. It won't see changes in the model that originate from outside
+though.
+
+
+To prevent notification trashing, one can rely on transaction, to
+turn off notifications on the model, perform a set of changes, then
+triggering the notification by closing the transaction.  When
+multiple independent modifications must be performed on the model in
+sequence, it pays off to have a method to disable and enable
+notifications. Without this technique, every individual change would
+trigger an update and force a refresh of the connected views,
+potentially ruining performance and exposing the user to progressive
+changes through the interface as each change is applied. By
+disabling the notifications, performing the changes, and re-enabling
+the notifications, a single update will be triggered.  model packing
+multiple changes to deliver a single refresh to the view controller
+disabling notifications of the model.
+
+Commands
+--------
+
+**Addressed Need: Undo/Redo and alternative notification strategy.**
+
+Graphical interfaces generally provide Undo/Redo capabilities. This is
+generally and easily implemented with the Command pattern. The controller,
+instead of directly performing an operation on the Model, will instantiate a
+Command object out of a palette of possible Commands. The command object will
+be instantiated by passing a reference to the Model. This object will normally
+have two methods execute(), and undo(). The Controller will instantiate the
+command, and submit it to a Tracking object. The tracking object will call
+execute() on the Command, and immediately push it into a stack. The Tracking
+will have two stacks, one for undo, and the other for redo. When the user
+selects undo, the Tracker will be requested to pop one command from the undo
+stack, call its redo() method, and push the command in the redo stack.  Redo
+can be implemented by undoing the actual process, or by storing the old state
+and reverting it. The memento pattern is here useful to save the state of the
+Model before modification, but of course it can be demanding in memory
+occupation. 
+
+
+
+Using the command pattern to modify the model.  The model can be a factory for
+the commands.  The command can perform notification of the listeners instead of
+the model.  Another form of qualification: the model forwards the command after
+execution to the View. Views can analyze the command to respons appropriately.
+
+a command class normally has execute() and undo() methods. it's a functor.
+
+execute does a given action. undo restores the state as it was before.
+undo can be done either by algorithmic rollback, or by just restoring a
+memento saved at execute time.
+
+The parameters are defined at instantiation time. execute accepts no parameters
+but it may return a state (success, failure). This state will be needed to decide
+what to do with the executed command (add to the undo queue or not).
+
+two stacks: undo queue and redo queue. 
+
+execute()
+push into undo
+
+at undo:
+pop from undo
+command.undo()
+push into redo
+
+at redo
+pop from redo
+command.execute()
+push into undo
+
+Association of the command to the model: the model defines and offers creation of commands.
+The command can also acts as a notification agent (e.g. syncs the view) instead of the model
+and can also act as a change object.
 
 

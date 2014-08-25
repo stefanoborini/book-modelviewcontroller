@@ -35,9 +35,9 @@ We can implement this application as follows::
     counter.show()
     app.exec_()
 
-The application's main and only visual component, Counter, is derived from a
-single GUI class, a Qt ``QPushButton``. The Counter class holds multiple
-responsibilities: 
+The application's main and only visual component, ``Counter``, is derived from
+a single GUI class, a Qt ``QPushButton``. The ``Counter`` class holds multiple
+responsibilities:
 
     1. Stores the current click count value in the member variable ``self._value``. 
 
@@ -73,7 +73,7 @@ design, as we imagine to scale it up:
 Document-View: dividing state from GUI
 --------------------------------------
 
-**Additional Need**: Represent the same information in two visual forms at the same time.
+**Additional Need: Represent the same information in two visual forms at the same time.**
 
 To solve the shortcomings of Smart-UI, we take advantage of the intrinsic
 division into visual, interaction and business role expressed by a GUI
@@ -83,7 +83,7 @@ resulting design is a two-class system known in literature as **Document-View** 
 **Model-Delegate**.  
 
 The first step is to partition out the data, represented by the ``self._value``
-variable, into a separate class ``Document``. For our system to continue to work,
+variable, into a separate **Document** class. For our system to continue to work,
 the visual part **View** must now be informed of changes to this data. The Document
 will therefore not only hold ``self._value``, but also provide an interface to
 query and modify this data and a strategy to notify other objects when changes
@@ -100,16 +100,20 @@ set instead of a list to prevent accidental registration of the same object
 twice. Interested objects can register and unregister through the following
 methods :: 
 
-    def register(self, listener): 
-        self._listeners.add(listener) 
-        listener.notify() 
+    class CounterDocument(object): 
+       # ...
+       def register(self, listener): 
+           self._listeners.add(listener) 
+           listener.notify() 
 
-    def unregister(self, listener): 
-        self._listeners.remove(listener) 
+       def unregister(self, listener): 
+           self._listeners.remove(listener) 
 
 Finally, we provide a setter/getter method pair [#]_ for ``self._value``: 
 the getter method is trivial, and simply returns the value ::
 
+    class CounterDocument(object): 
+        # ...
         def value(self): 
             return self._value 
 
@@ -117,6 +121,8 @@ while the setter modifies the internal variable and notifies the registered
 listeners when the value changes. This is done by calling the listeners'
 ``notify`` method, as you can see in ``self._notifyListeners`` ::
 
+    class CounterDocument(object): 
+        # ...
         def setValue(self, value): 
             if value != self._value: 
                 self._value = value 
@@ -145,6 +151,8 @@ immediately delivered to the newly added listener so that it can update
 itself. [#]_ The ``notify`` method on the View is then called, which will query
 the current value from the Document, and update the text on the button ::
 
+    class CounterView(QtGui.QPushButton):
+        # ...
         def notify(self):
             self.setText(unicode(self._document.value()))
 
@@ -159,6 +167,8 @@ Handling of the click event from the User is performed in
 ``mouseReleaseEvent``, as in Smart-UI. This time however, the action will
 involve the Document, again through its interface ::
 
+    class CounterView(QtGui.QPushButton):
+        # ...
         def mouseReleaseEvent(self, event):
             super(CounterView, self).mouseReleaseEvent(event)
             self._document.setValue(self._document.value()+1)
@@ -219,7 +229,7 @@ the Document information and the handling of user interaction.
    
    A possible implementation of the notification system in strongly typed
    languages uses an interface class ListenerInterface with one abstract method
-   notify(). For example, in C++ we would write the following code
+   notify(). For example, in C++ we could write the following code
 
    .. code-block:: cpp
 
@@ -229,7 +239,10 @@ the Document information and the handling of user interaction.
           virtual void notify() = 0;
       };
 
-      Concrete listeners will implement this interface
+   Concrete listeners will implement this interface
+
+   .. code-block:: cpp
+
       class View : public ListenerIface
       {
       public:
@@ -266,7 +279,7 @@ the Document information and the handling of user interaction.
 Traditional MVC
 ---------------
 
-**Additional need**: separate visualization operations from modification operations
+**Additional need: separate visualization operations from modification operations.**
 
 With the Document-View design we successfully extracted state from an initial
 Smart-UI design. The next objective is to extract the code that converts the
@@ -297,36 +310,40 @@ into a Model operation, adding one to the current value.  Obviously, the
 Controller does so through the Model interface. This operation will trigger a
 Model notification to its listeners ::
 
-   def addOne(self):
-       self._model.setValue(self._model.value()+1)
+    class Controller(object):
+        # ...
+        def addOne(self):
+            self._model.setValue(self._model.value()+1)
 
 At initialization, the View instantiates its associated Controller, passing
 itself and the Model as parameters. As before, the View registers itself on the
 Model via the ``register`` method ::
 
-   class View(QtGui.QPushButton):
-       def __init__(self, model):
-           super(View, self).__init__()
-           self._model = model
-           self._controller = Controller(self._model, self)
-           self._model.register(self)
+    class View(QtGui.QPushButton):
+        def __init__(self, model):
+            super(View, self).__init__()
+            self._model = model
+            self._controller = Controller(self._model, self)
+            self._model.register(self)
 
 The View now depends on the Controller to modify the Model: only strictly
 GUI-related handling is done by the View. Conversion from GUI events to
 application business logic is delegated to the Controller in
 ``mouseReleaseEvent`` ::
 
-    def mouseReleaseEvent(self, event):
-        super(View, self).mouseReleaseEvent(event)  
-        self._controller.addOne()  
+    class View(QtGui.QPushButton):
+        # ...
+        def mouseReleaseEvent(self, event):
+            super(View, self).mouseReleaseEvent(event)  
+            self._controller.addOne()  
 
-    def notify(self):
-        self.setText(unicode(self._model.value()))   
+        def notify(self):
+            self.setText(unicode(self._model.value()))   
 
 Clicking on the View button will result in a call to ``Controller.addOne``, in
 turn triggering a call to ``notify`` that updates the text label. The activity
-diagram in Fig. 2 shows the dance of calls presented above. Note how the
-Model-View synchronization does not involve the Controller
+diagram shows the dance of calls presented above. Note how the Model-View
+synchronization does not involve the Controller
 
 .. image:: _static/images/TraditionalMVC/activity_diagram.png
    :align: center
@@ -342,7 +359,7 @@ View, and let them be aware of each other by passing the Model to the View. ::
 
    app.exec_()
 
-The activity diagram in Figure 3 shows the setup code given above
+The activity diagram shows the setup code given above
 
 .. image:: _static/images/TraditionalMVC/activity_diagram_setup.png
    :align: center
@@ -350,10 +367,11 @@ The activity diagram in Figure 3 shows the setup code given above
 An in-depth analysis of Traditional MVC roles and components
 ------------------------------------------------------------
 
-In the previous sections we performed a progressive refactoring from Smart-UI
-to Document-View, then to Traditional MVC, driven by the need for additional
-flexibility, separation of concerns and clarification of the different roles.
-To summarize the scope of each role in Traditional MVC:
+In the previous sections we performed a progressive refactoring from Smart-UI, 
+to Document-View, and finally to Traditional MVC. This refactoring was driven
+by the need for additional flexibility, separation of concerns and
+clarification of the different roles. To summarize the scope of each role in
+Traditional MVC:
 
    - **Model**: holds the application's state and core functionality.
    - **View**: visually renders the Model to the User.
