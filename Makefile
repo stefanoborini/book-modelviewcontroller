@@ -50,6 +50,7 @@ help:
 
 clean:
 	rm -rf $(BUILDDIR)/*
+	ln -s ../../modelviewcontroller $(BUILDDIR)/html
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
