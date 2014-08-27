@@ -20,7 +20,7 @@ Contents:
 
    introduction
    from_smartui_to_traditional_mvc
-   mvc_variations
+   mvc_variations/index
    hierarchic_mvc
    advanced_mvc
    mvc_implementations
