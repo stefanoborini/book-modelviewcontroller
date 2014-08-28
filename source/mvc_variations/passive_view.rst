@@ -26,17 +26,3 @@ The negative consequence of this approach is the greater burden of complexity
 transferred on the Controller, which now has to deal with visual logic and
 semantics.
 
-
-
-.. todo::
-
-    completely unrelated. It must go somewhere else.
-
-    When the view is shown, it will have to update its content. However, if the
-    view is not visible, it should not receive events, so it should either
-    unsubscribe from the model when hidden, or mute the delivery by first checking
-    if it's visible before proceeding to update itself. The reason is that if a
-    view is connected to the model, and this view requires time to refresh itself,
-    we don't want to trigger this refresh if the view is not visible to the user.
-
-

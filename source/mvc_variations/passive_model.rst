@@ -41,15 +41,3 @@ protocol prevents the Model to perform notifications to the View. We will
 examine this mechanism in more detail in Chapter FIXME.
 
 
-.. todo::
-   On the web, the View is delivered to the client side for rendering in the
-   browser, and the
-   Model stays on the server side. When the User performs an action, the
-   Controller will issue a change request to the Model, followed by a request to
-   the View to refresh itself. The View will now issue a get request to the server
-   to synchronize with the new Model contents.
-
-
-
-
-

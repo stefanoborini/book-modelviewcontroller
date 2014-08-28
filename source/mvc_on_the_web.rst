@@ -60,3 +60,14 @@ ruby on rails
 
 wxpy
 
+On the web, the View is delivered to the client side for rendering in the
+browser, and the
+Model stays on the server side. When the User performs an action, the
+Controller will issue a change request to the Model, followed by a request to
+the View to refresh itself. The View will now issue a get request to the server
+to synchronize with the new Model contents.
+
+
+
+
+
