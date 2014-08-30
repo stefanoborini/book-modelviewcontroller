@@ -1,5 +1,5 @@
 Taligent/IBM Model-View-Presenter (MVP)
------------------------------------
+---------------------------------------
 
 **Addressed Need: Formalize the strategies given above for modern applications.**
 

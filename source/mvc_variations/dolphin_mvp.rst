@@ -7,6 +7,8 @@ The Dolphin Model-View-Presenter (MVP) schema is a relatively small variation of
 which is concerned to the responsibility of handling user input and preparing
 the data for the view. 
 
+Although it is derived from the Taligent MVP, we will examine Dolphin first as it is simpler
+to describe within the concepts we already 
 Dolphin model addresses the Application model.
 
 Low level events are handled by the widgets, so the controller handles what?
@@ -26,6 +28,12 @@ The idea that an Application model can support multiple views is a
 general fallacy. Normally the View state concerns only one specific view,
 hence the point of converting the dependency from weak to strong.
 
+
+A variant with a passive view is possible.
+
+An application model with strong responsibilities has "become" the presenter.
+see Application Model, but with additional View link. It's basically a hybrid
+Application Model + Controller.
 
 
 

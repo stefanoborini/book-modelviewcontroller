@@ -75,6 +75,6 @@ A view that acts on a widget knowing nothing about the model. View
 “adapter”
 
 
-
+Event bus
 
 

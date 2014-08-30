@@ -211,4 +211,12 @@ interact with the same Application Model only if they agree on the visual state
 representation (e.g. we want both the Dial and the Slider red when over the rpm
 limit). 
 
+Some implementations of Application Model push its responsibilities even further
+than purely GUI state: it is, quite literally, the model of the application, and it 
+is responsible for modifying application state directly on the application itself.
+For example, it might enable/disable menus, show or hide widgets, validation
+of the events. Most of the visual logic will be responsibility of this model
+object, rather than the controllers. This interpretation has deep implications
+for the Dolphin Model View Presenter, which will be examined later.
+
 
