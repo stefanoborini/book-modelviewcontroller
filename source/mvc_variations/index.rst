@@ -51,8 +51,8 @@ needs or self-documentation purposes.
    widget_level_container_level
    push_vs_pull
    reenskaug_mvc
-   taligent_mvp
    dolphin_mvp
+   taligent_mvp
    model_view_viewmodel
    view_controller_view
    visual_proxy
