@@ -3,65 +3,57 @@ Dolphin Model-View-Presenter
 
 **Additional Need: Rationalize Application model into a more active role**
 
-The Dolphin Model-View-Presenter (MVP) schema is a relatively small variation of MVC
-which is concerned to the responsibility of handling user input and preparing
-the data for the view. 
+The Dolphin Model-View-Presenter (MVP) schema is an evolution of 
+the Application Model approach. Although it is derived from the Taligent/IBM
+strategy with the same name, we will examine Dolphin first as it is simpler to
+describe within the concepts we already introduced. The Dolphin strategy is
+also the one most often referred as "Model View Presenter" without additional
+clarification. To add to the nomenclature, Fowler identifies the Presenter
+with the more appropriate "Supervising Controller".
 
-Although it is derived from the Taligent MVP, we will examine Dolphin first as it is simpler
-to describe within the concepts we already 
-Dolphin model addresses the Application model.
+As we introduced in the Application Model section, the main purpose of this
+Model is to hold visual state, acting as an intermediate between the Domain
+Model and the View/Controller pair. The Application Model was a model in every
+respect in terms of design: it performs notifications, remains oblivious of
+its listeners, is directly accessed by the View and modified by the Controller.
+Yet, due to the strictly specific nature of the visual state, it would be
+convenient if the Application Model could refer to the View directly, like
+the controller does, while still keeping and handling View state.
 
-Low level events are handled by the widgets, so the controller handles what?
+Let's analyze the Controller: with widgets of modern GUI toolkits handling
+low-level events (e.g. physical keyboard presses), the controller has only the
+duty of modifying the models according to higher level events (e.g. textlabel
+content modified). These events are then transformed by Controller logic in
+actual Model changes, some of which may have an impact on the visual state,
+which is stored in the Application Model. It seems like a good idea to have an
+Application Model containing this visual state if the assumption is that this
+state (e.g. a field being red) is shared among Views. Once again, this state
+is almost never shared and mostly tied to a specific View.
 
-Would be convenient if application model could refer to the view, like
-the controller does, while still keeping view state. result: presenter.
+Summing up, the roundabout mechanism the Controller uses to take care
+of purely visual state would be considerably simplified if we define
+a new role, the Presenter, which combines the Application Model and the 
+Controller in a single entity. 
 
-It changes the view directly, but only for view related status. It's not a passive
-view. It still fetches data directly from the model.
+Like the Controller, the Presenter:
 
-So the presenter is concerned with conversion of business logic into
-GUI presentation of this logic. Potentially also with the business logic
-itself, if it's business logic that applies strictly due to visualization
-needs.
+    - refers to the View directly, and can act on it to alter its 
+      visual aspect
+    - handles View events, converting them into action through proper logic
+    - modifies the Domain Model, which contains no visual state
 
-The idea that an Application model can support multiple views is a
-general fallacy. Normally the View state concerns only one specific view,
-hence the point of converting the dependency from weak to strong.
+and like the Application Model, the Presenter:
+    
+    - holds visual state, and keeps it synchronized against changes in the
+      Domain Model
+    - converts business rules (e.g. engine rpm number too high)
+      into visual representation (e.g. label becomes red)
+    - eventually handles state for selection, and application of actions
+      to the subset of the Model specified by this selection.
 
+The Domain Model is unchanged, and is still accessed by the View for data
+extraction and from the Presenter for data modification. he View is now hybrid
+Active/Passive. It still fetches the data directly from the Domain Model
+(Active) but the visual aspect is instead applied by the Presenter (Passive). A
+variant with a fully Passive View is possible.
 
-A variant with a passive view is possible.
-
-An application model with strong responsibilities has "become" the presenter.
-see Application Model, but with additional View link. It's basically a hybrid
-Application Model + Controller.
-
-
-
-In MVC, the user action is directly handled by the
-controller.  When a user clicks on a button, the click is attached to a
-callback residing on a controller class.  In MVP, when the user interacts, the
-click is handled by the view, which then forwards it to the Controller (now
-called Presenter). This modification is known as "Twisting the triad".  How the
-forwarding is done depends on the degree of coupling you allow between the View
-and the Presenter. If the view must invoke directly a Presenter's method,
-obviously it must know its interface, so it must hold a reference to it and
-know its interface. The alternative is that the view is oblivious to who is
-listening, and just broadcasts events (commands) to report the button press.
-The presenter observes these events and take appropriate action when triggered.
-As you can see, the difference is subtle, and apparently irrelevant, but it can
-be useful depending on the degree of coupling and self-containment of the view
-vs. the controller (Presenter)
-
-The presenter can be instantiated either by the client code, or directly by the
-view. If this is the case, the View must know the model, so that it can
-instantiate the Presenter and pass both the model and itself to it.
-
-problem: Model and view are coupled, albeit loosely
-
-The dolphin MVP uses the same approach of traditional MVC: same model, and a view 
-that listens to model notifications.
-
-The difference is that it will receive high level events from the view, and handle
-the selection.
-
-Fowler calls this pattern Supervising Controller
