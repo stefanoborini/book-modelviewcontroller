@@ -52,8 +52,13 @@ and like the Application Model, the Presenter:
       to the subset of the Model specified by this selection.
 
 The Domain Model is unchanged, and is still accessed by the View for data
-extraction and from the Presenter for data modification. he View is now hybrid
-Active/Passive. It still fetches the data directly from the Domain Model
-(Active) but the visual aspect is instead applied by the Presenter (Passive). A
-variant with a fully Passive View is possible.
+extraction and from the Presenter for data modification. The View 
+fetches data directly from the Domain Model, instead of having to rely
+on the Application Model as a forwarder. The View behavior is now hybrid
+Active/Passive, fetching Domain data directly from the Domain Model but with
+visual aspects applied by the Presenter (Passive). A variant with a fully
+Passive View is possible.
+
+FIXME: Add Picture
+FIXME: reformulate last paragraph
 
