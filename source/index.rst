@@ -20,7 +20,7 @@ Contents:
 
    preface
    introduction
-   from_smartui_to_traditional_mvc
+   from_smartui_to_traditional_mvc/index
    mvc_variations/index
    hierarchic_mvc
    advanced_mvc
