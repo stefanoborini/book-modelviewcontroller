@@ -17,8 +17,9 @@ Model and the View/Controller pair. The Application Model was a model in every
 respect in terms of design: it performs notifications, remains oblivious of
 its listeners, is directly accessed by the View and modified by the Controller.
 Yet, due to the strictly specific nature of the visual state, it would be
-convenient if the Application Model could refer to the View directly, like
-the controller does, while still keeping and handling View state.
+convenient if the Application Model could handle visual logic and refer to the
+View directly, like the Controller does, while still keeping and handling View
+state.
 
 Let's analyze the Controller: with widgets of modern GUI toolkits handling
 low-level events (e.g. physical keyboard presses), the controller has only the
@@ -32,15 +33,8 @@ is almost never shared and mostly tied to a specific View.
 
 Summing up, the roundabout mechanism the Controller uses to take care
 of purely visual state would be considerably simplified if we define
-a new role, the Presenter, which combines the Application Model and the 
+a new role, the **Presenter**, which combines the Application Model and the 
 Controller in a single entity. 
-
-Like the Controller, the Presenter:
-
-    - refers to the View directly, and can act on it to alter its 
-      visual aspect
-    - handles View events, converting them into action through proper logic
-    - modifies the Domain Model, which contains no visual state
 
 and like the Application Model, the Presenter:
     
@@ -51,6 +45,15 @@ and like the Application Model, the Presenter:
     - eventually handles state for selection, and application of actions
       to the subset of the Model specified by this selection.
 
+Like the Controller, the Presenter:
+
+    - refers to the View directly, and can act on it to alter its 
+      visual aspect
+    - handles View events, converting them into action through proper logic
+    - modifies the Domain Model, which contains no visual state
+    - handles View logic according to the View state it contains
+
+
 The Domain Model is unchanged, and is still accessed by the View for data
 extraction and from the Presenter for data modification. The View 
 fetches data directly from the Domain Model, instead of having to rely
@@ -60,5 +63,5 @@ visual aspects applied by the Presenter (Passive). A variant with a fully
 Passive View is possible.
 
 FIXME: Add Picture
-FIXME: reformulate last paragraph
+FIXME: reformulate in general
 
