@@ -14,7 +14,7 @@ unchanged: it stores state and delivers change notifications. The visual part
 is divided into two classes, the **Controller** and the **View**. Once instantiated and
 connected, Model, View, and Controller form a so-called **MVC triad**.
 
-.. image:: _static/images/TraditionalMVC/mvc_triad.png
+.. image:: ../_static/images/TraditionalMVC/mvc_triad.png
    :align: center
 
 The Controller's role is to transform primary events delivered by the View into
@@ -67,7 +67,7 @@ turn triggering a call to ``notify`` that updates the text label. The activity
 diagram shows the dance of calls presented above. Note how the Model-View
 synchronization does not involve the Controller
 
-.. image:: _static/images/TraditionalMVC/activity_diagram.png
+.. image:: ../_static/images/TraditionalMVC/activity_diagram.png
    :align: center
 
 To initialize the MVC triad, the client code needs to create the Model and
@@ -83,7 +83,7 @@ View, and let them be aware of each other by passing the Model to the View. ::
 
 The activity diagram shows the setup code given above
 
-.. image:: _static/images/TraditionalMVC/activity_diagram_setup.png
+.. image:: ../_static/images/TraditionalMVC/activity_diagram_setup.png
    :align: center
 
 

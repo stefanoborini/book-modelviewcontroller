@@ -5,7 +5,7 @@ We start this exploration of MVC with the most trivial and simplistic
 application: a click counter. This application shows a button with a number.
 The number is increased every time the button is clicked. 
     
-.. image:: _static/images/SmartUI.png
+.. image:: ../_static/images/SmartUI.png
    :align: center
 
 We can implement this application as follows::
