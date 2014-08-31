@@ -25,11 +25,19 @@ For three reasons:
 
  - I already published a book with a commercial publisher, and 
    from my experience and math, I think that if I put a book on the 
-   web and accept donations I would get more money than going through
-   a publisher.
+   web and accept donations I would probably get more money than going 
+   through a publisher.
 
- - This is more than a book. It's also part of my portfolio as 
-   a professional in software development and design.
+ - This book is part of my portfolio as a professional in software development
+   and design, and I am proud to focus on a personal project to increase my
+   competences.
 
-That said, I gladly accept bitcoin donations. See my `personal website
-<http://forthescience.org>` for details.
+That said, I gladly accept bitcoin donations. See my personal website at
+http://forthescience.org for details.
+
+The sources of this book are available as a github repository at the following
+URL:
+
+https://github.com/stefanoborini/modelviewcontroller-src
+
+
