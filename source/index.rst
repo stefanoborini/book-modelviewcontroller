@@ -18,6 +18,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   preface
    introduction
    from_smartui_to_traditional_mvc
    mvc_variations/index

@@ -192,4 +192,5 @@ The presenter can be instantiated either by the client code, or directly by the
 view. If this is the case, the View must know the model, so that it can
 instantiate the Presenter and pass both the model and itself to it.
 
+write something about preventing garbage collection when pubsub is used.
 

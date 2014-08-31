@@ -1,0 +1,35 @@
+Preface
+=======
+
+I started writing this book as an accident. The initial idea was to write a
+series of blog posts on my `personal website <http://forthescience.org>`, with
+the objective of describing Model View Controller and a few other patterns
+related to it. As I gathered more and more information from the net and
+my personal experience, I suddenly found out that the amount and structure of
+what I wrote was beyond the scope of a blog, hence the decision to re-label it
+as a book. I am happy with the decision, because it gives me now freedom to
+add material I would not have added before.
+
+Being a work in progress, there's still a lot to be done. Please be patient,
+but feel free to send me feedback, push requests and take advantage of the
+material already present. This book is released under GFDL license. 
+
+Why is this book free?
+----------------------
+
+For three reasons:
+
+ - I learned most of the material here presented from the net. 
+   It was my personal effort to organize this knowledge, but I had
+   a lower startup barrier.
+
+ - I already published a book with a commercial publisher, and 
+   from my experience and math, I think that if I put a book on the 
+   web and accept donations I would get more money than going through
+   a publisher.
+
+ - This is more than a book. It's also part of my portfolio as 
+   a professional in software development and design.
+
+That said, I gladly accept bitcoin donations. See my `personal website
+<http://forthescience.org>` for details.
