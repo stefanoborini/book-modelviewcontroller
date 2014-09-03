@@ -52,3 +52,14 @@ Disadvantages:
  - transfer stuff that may be useless for that specific view. The view may then subscribe for specific data and receive only those in the data update object
 
 
+
+you can send a changeset object through the signal, with a well defined interface
+for the type and change content
+
+
+accumulate notifications in a buffer, then send them out at the end of the transaction.
+
+If you want to retain control over the notification in order to 
+prevent trashing, you can use a passive model and let the controller do the notification
+once it has performed the modifying action.
+
