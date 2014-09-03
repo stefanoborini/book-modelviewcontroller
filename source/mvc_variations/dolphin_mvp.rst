@@ -36,7 +36,7 @@ of purely visual state would be considerably simplified if we define
 a new role, the **Presenter**, which combines the Application Model and the 
 Controller in a single entity. 
 
-and like the Application Model, the Presenter:
+Like the Application Model, the Presenter:
     
     - holds visual state, and keeps it synchronized against changes in the
       Domain Model
@@ -45,14 +45,14 @@ and like the Application Model, the Presenter:
     - eventually handles state for selection, and application of actions
       to the subset of the Model specified by this selection.
 
-Like the Controller, the Presenter:
+and like the Controller, the Presenter:
 
+    - it is tightly coupled to the View.
     - refers to the View directly, and can act on it to alter its 
-      visual aspect
-    - handles View events, converting them into action through proper logic
+      visual aspect.
+    - handles View events, converting them into action through proper logic.
     - modifies the Domain Model, which contains no visual state
     - handles View logic according to the View state it contains
-
 
 The Domain Model is unchanged, and is still accessed by the View for data
 extraction and from the Presenter for data modification. The View 

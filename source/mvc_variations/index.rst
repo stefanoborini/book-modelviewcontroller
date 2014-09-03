@@ -58,5 +58,6 @@ needs or self-documentation purposes.
    visual_proxy
    notification_looping_prevention
    commands
+   data_dialog
 
 
