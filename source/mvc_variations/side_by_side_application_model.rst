@@ -94,3 +94,13 @@ invert selection, complex selections, select all, select none.  If data is
 added, removed, or modified in the model, the Selection Model must respond
 accordingly. For example,
 
+XXX : point out the importance of keeping the two states separate in the notification
+and the handling of the two notifications should not overlap. Otherwise you will have
+double execution of the same code which may be time consuming.
+Also note how the handling of the second notification must consider the possibility that the 
+two notifications are in an invalid order, and that could introduce unexpected content
+matching in the View (e.g. model notifies view then selection vs. model notifies selection then view)
+
+ 
+
+
