@@ -1,28 +1,38 @@
 Passive View
 ------------
 
-A **Passive View** strategy keeps the View completely under direction of the
-Controller, both for the handling of events and for the updating of its
-contents.  The mechanism of action is the following:
+A major problem resulting from a complex View is the difficulty of testing.
+Visual components tend to be more complex to test, requiring events to be
+dispatched correctly and asynchronously. Using an approach where all the logic
+of the View is moved to non-GUI objects would greatly improve ease of
+testability. The **Passive View** approach has exactly this objective.
+
+Passive View (also referred as Humble Dialog or Humble View) keeps the
+View humble in logic and with no awareness of the Model. 
+The View is normally made of off-the-shelf widgets from a widget set.
+It contains no application-related logic, thus removing the need for
+specialization of the View or of the Widgets classes to introduce this logic. 
+
+With this design, all business code goes in the Controller or the Model.
+In particular, the Controller is now in charge of the synchronization 
+of the View's contents, either through the View's set/get methods, or 
+directly on the widgets. The Controller and all its logic can be tested
+effectively against a mock View. The actual View, having no logic, can be 
+left untested.
+
+The mechanism of action is the following:
 
     #. When the View receives user events, they are forwarded to the Controller
        as in Traditional MVC.
     #. The Controller acts on the Model.
     #. Either immediately, or in response to a Model notification, the
-       Controller now replaces the data displayed by the View's widgets,
+       Controller now updates the data displayed by the View's widgets,
        to synchronize them against the new Model contents.
 
 
-[PICTURE]
-
-With a Passive View, all business code goes in the Controller or the Model.
-The View is normally made out of off-the-shelf widgets from a widget set. It
-contain no application-related logic, thus removing the need for specialization
-of the View or Widgets classes to introduce this logic. Additionally, the
-Controller can be tested effectively against a mock View, while the View
-can be safely left untested.
-
 The negative consequence of this approach is the greater burden of complexity
 transferred on the Controller, which now has to deal with visual logic and
-semantics.
-
+visual semantics. If this logic becomes excessively complex, it can be
+further extracted in a support Backend object acting in-between the View
+and the Controller, and dealing exclusively with the View's presentation needs.
+Once again, the View's Backend can easily be tested against a mock View.

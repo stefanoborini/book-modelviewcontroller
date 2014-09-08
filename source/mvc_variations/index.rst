@@ -47,7 +47,6 @@ needs or self-documentation purposes.
    model_view_notification_decoupling
    application_controller
    passive_view
-   humble_dialog
    widget_level_container_level
    push_vs_pull
    reenskaug_mvc
