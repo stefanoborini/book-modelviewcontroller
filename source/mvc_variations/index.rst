@@ -51,6 +51,7 @@ needs or self-documentation purposes.
    push_vs_pull
    reenskaug_mvc
    dolphin_mvp
+   presenter_first
    taligent_mvp
    model_view_viewmodel
    view_controller_view

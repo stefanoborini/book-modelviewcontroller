@@ -60,7 +60,7 @@ fetches data directly from the Domain Model, instead of having to rely
 on the Application Model as a forwarder. The View behavior is now hybrid
 Active/Passive, fetching Domain data directly from the Domain Model but with
 visual aspects applied by the Presenter (Passive). A variant with a fully
-Passive View is possible.
+Passive View is possible, and is known as **Presenter First**.
 
 FIXME: Add Picture
 FIXME: reformulate in general

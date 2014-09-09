@@ -49,3 +49,7 @@ Additionally, MVC accelerates development, improves readability and communicatio
    - MVC provides a common vocabulary to talk about roles and responsibilities
      in design.
 
+
+A large application is composed of many different triads, each ideally
+decoupled from the others, except at the Model level.
+

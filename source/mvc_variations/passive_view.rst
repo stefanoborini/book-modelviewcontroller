@@ -36,3 +36,6 @@ visual semantics. If this logic becomes excessively complex, it can be
 further extracted in a support Backend object acting in-between the View
 and the Controller, and dealing exclusively with the View's presentation needs.
 Once again, the View's Backend can easily be tested against a mock View.
+
+The View's interface should accept only primitive types, so that no
+complex data unpacking and manipulation is performed inside.

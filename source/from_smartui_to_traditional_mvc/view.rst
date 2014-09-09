@@ -2,10 +2,15 @@ The View
 ~~~~~~~~
 
 We introduced the View as the component of our application whose role is to
-render Model contents to the User. A View listens for Model notifications and
-responds by fetching and rendering the new state. This results in a strong
-dependency toward the Model: Views must access Model data, something that
-requires full dependency toward the Model's interface and existence. 
+interact with the User, by accepting its input and showing the contents of 
+the Model. Begin the face of the application, is also the one that is more likely
+to change and adapt, often under pressure of non-programming factors such as 
+visual design and usability needs.
+
+A View listens for Model notifications and responds by fetching and rendering
+the new state. This results in a strong dependency toward the Model: Views must
+access Model data, something that requires full dependency toward the Model's
+interface and existence. 
 
 Views are responsible for "purely GUI" intelligence, like handling behavior on
 resizing, repainting, data displaying and visual formatting. They are also in
