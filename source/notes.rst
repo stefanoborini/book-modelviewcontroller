@@ -194,3 +194,6 @@ instantiate the Presenter and pass both the model and itself to it.
 
 write something about preventing garbage collection when pubsub is used.
 
+write that the view has two ways to interact with the controller and forward
+events: strong coupling through direct invocation, or loose coupling through raising
+events at a higher semantic level.
