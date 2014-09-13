@@ -1,0 +1,13 @@
+Presenter-Adapter-View
+----------------------
+
+Sometimes, in the management of the visual aspect of the view, it pays off to extract some of
+the code of the presenter and isolate it into a separate adapter object. This adapter
+object encapsulates the logic for some visual representation. The presenter,
+instead of talking directly to the View, talks to the Adapter that transforms this
+request into a proper rendering on the view.
+
+For example, if we want to color a label red when a value is too high, the presenter
+can use an adapter where the logic for setting something to red is according to the value.
+the presenter sets the value on the adapter, which in turns sets the value on the view
+and changes the color of the label appropriately.

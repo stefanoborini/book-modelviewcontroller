@@ -54,6 +54,7 @@ needs or self-documentation purposes.
    dolphin_mvp
    presenter_first
    taligent_mvp
+   presenter_adapter_view
    model_view_viewmodel
    view_controller_view
    visual_proxy
