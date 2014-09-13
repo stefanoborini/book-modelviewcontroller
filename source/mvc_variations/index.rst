@@ -38,6 +38,7 @@ needs or self-documentation purposes.
    application_model
    side_by_side_application_model
    qualified_notification_model
+   ui_retrieving_model
    passive_model
    model_controller
    model_view_adapter

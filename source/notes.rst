@@ -197,3 +197,8 @@ write something about preventing garbage collection when pubsub is used.
 write that the view has two ways to interact with the controller and forward
 events: strong coupling through direct invocation, or loose coupling through raising
 events at a higher semantic level.
+
+Add about a pattern where the View has a possibility to extract a "fill me up object" which is
+then passed to the model. The model fills it with the new data and those automatically
+change proper things in the view.
+

@@ -65,3 +65,9 @@ Passive View is possible, and is known as **Presenter First**.
 FIXME: Add Picture
 FIXME: reformulate in general
 
+FIXME: Write something about data transfer objects as a transferring entity of data between the
+model and the presenter. It is possible to add a service layer between the
+model and the presenter that is responsible for packing the data from the model
+into a DTO that the presenter then uses to set the view's contents.
+
+

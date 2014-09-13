@@ -74,6 +74,11 @@ Renderer class.
 A view that acts on a widget knowing nothing about the model. View
 “adapter”
 
+Microsoft Visual Testing
+Sending events with xtest, or with the widget level interface.
+Sporadics due to change in layout, running the screensaver.
+
+
 
 Event bus
 
