@@ -11,3 +11,8 @@ For example, if we want to color a label red when a value is too high, the prese
 can use an adapter where the logic for setting something to red is according to the value.
 the presenter sets the value on the adapter, which in turns sets the value on the view
 and changes the color of the label appropriately.
+
+The adapter needs not to know the business rules. The adapter can query the model
+to ask if a given value is above or below a certain range, and choose the color appropriately.
+
+Once again, the adaptor is simple to test.
