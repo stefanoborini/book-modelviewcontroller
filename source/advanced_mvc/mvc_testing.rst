@@ -34,4 +34,8 @@ asynchronous tests tend to be slow (you need to perform an action, then
 wait for the result that may come and sporadically broken, because
 of race conditions.  Favor synchronous testing, restrict asynchronous.
 
+Test of components that are hard to test should be minimal, and the behavior
+of these components should be minimal as well.
 
+You can perform tests of graphical components by pushing events into the 
+GUI toolkit event queue, but again, they tend to be brittle and asynchronous.

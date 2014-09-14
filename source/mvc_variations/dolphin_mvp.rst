@@ -49,20 +49,30 @@ Like the Application Model, the Presenter:
 
 and like the Controller, the Presenter:
 
-    - it is tightly coupled to the View.
+    - it is tightly coupled to the View
     - refers to the View directly, and can act on it to alter its 
       visual aspect.
-    - handles View events, converting them into action through proper logic.
+    - handles events forwarded by the View, converting them into action through proper logic.
     - modifies the Domain Model, which contains no visual state
     - handles View logic according to the View state it contains
 
-The Domain Model is unchanged, and is still accessed by the View for data
+The Domain Model is a strict domain model and is unchanged, and is still accessed by the View for data
 extraction and from the Presenter for data modification. The View 
-fetches data directly from the Domain Model, instead of having to rely
+is an aggregation of widget, fetches data directly from the Domain Model, instead of having to rely
 on the Application Model as a forwarder. The View behavior is now hybrid
 Active/Passive, fetching Domain data directly from the Domain Model but with
-visual aspects applied by the Presenter (Passive). A variant with a fully
-Passive View is possible, and is known as **Presenter First**.
+visual aspects applied by the Presenter (Passive) directly acting on the
+widgets. A variant with a fully Passive View is possible, and is known as
+**Presenter First**.
+
+If the user changes the content of a widget, the presenter is informed, it fetches the value
+from the widget, and acts on the model.  The model is listened to by the view, which updates
+itself accordingly, and by the presenter itself, which now sets the color.
+
+The view may manipulate its own logic and aspect internally if it does not need to modify the
+model.
+
+every view has a specific presenter. There's a strict relationship between the two
 
 FIXME: Add Picture
 FIXME: reformulate in general
@@ -71,5 +81,3 @@ FIXME: Write something about data transfer objects as a transferring entity of d
 model and the presenter. It is possible to add a service layer between the
 model and the presenter that is responsible for packing the data from the model
 into a DTO that the presenter then uses to set the view's contents.
-
-
