@@ -1,5 +1,5 @@
-Testing
--------
+MVC Testing
+-----------
 
 In general, you should be able to test or even use the model
 independently of the controller and views. In fact, the model should
@@ -30,7 +30,8 @@ Microsoft Visual Testing
 Sending events with xtest, or with the widget level interface.
 Sporadics due to change in layout, running the screensaver.
 
-asynchronous tests tend to be slow and sporadically broken, because
+asynchronous tests tend to be slow (you need to perform an action, then
+wait for the result that may come and sporadically broken, because
 of race conditions.  Favor synchronous testing, restrict asynchronous.
 
 

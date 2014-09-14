@@ -3,6 +3,8 @@ Dolphin Model-View-Presenter
 
 **Additional Need: Rationalize Application model into a more active role**
 
+.. image:: ../_static/images/ModelViewPresenter/mvc_vs_mvp.png
+
 The Dolphin Model-View-Presenter (MVP) schema is an evolution of 
 the Application Model approach. Although it is derived from the Taligent/IBM
 strategy with the same name, we will examine Dolphin first as it is simpler to

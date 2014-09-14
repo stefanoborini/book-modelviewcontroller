@@ -1,0 +1,5 @@
+*.pyc
+build/doctrees
+build/html
+build/latex
+notes

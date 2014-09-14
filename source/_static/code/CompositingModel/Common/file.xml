@@ -1,0 +1,10 @@
+<addressbook>
+    <entry>
+        <name>Egon</name>
+        <phone>555-XMLN1</phone>
+    </entry>
+    <entry>
+        <name>Blanka</name>
+        <phone>555-XMLN2</phone>
+    </entry>
+</addressbook>
