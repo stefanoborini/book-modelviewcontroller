@@ -202,3 +202,4 @@ Add about a pattern where the View has a possibility to extract a "fill me up ob
 then passed to the model. The model fills it with the new data and those automatically
 change proper things in the view.
 
+Detail the challenges of asynchronous component in testing

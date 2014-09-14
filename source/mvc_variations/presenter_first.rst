@@ -18,7 +18,10 @@ interfaces.
 The point of presenter first is to code the presenter to satisfy customer needs,
 and code against it first. While the model provides a functionality and data oriented
 access, the presenter describes the actions in terms the user understands or specifies.
-
+The presenter has no state. It relies on the view and on the model to hold state, performing 
+operations on these two. In principle, the Presenter should listen to events
+from either the model or the view, meaning that it should not need public methods.
+All the connections between events and presenter methods are setup by the presenter itself.
 
 
 The Presenter should be tested strenously. The View, being a Humble View, can

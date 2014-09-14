@@ -16,3 +16,7 @@ The adapter needs not to know the business rules. The adapter can query the mode
 to ask if a given value is above or below a certain range, and choose the color appropriately.
 
 Once again, the adaptor is simple to test.
+
+In addition, one can extract an "adapter model" and have the presenter push data into the adapter
+model. The adapter then takes these data, and push them to the specific part of the view.
+
