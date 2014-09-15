@@ -85,3 +85,15 @@ tested independently from the rest of the application, and it opens itself to
 scripting, allowing the User to change the Model programmatically instead of
 through the GUI. 
 
+Not all Model objects are the same. We can generally distinguish three subclassifications
+of the Model layer:
+
+    - Service Model (Domain Model): the actual part of the Model that describes the
+      business rules and objects.
+    - Data access: responsible for serialization and deserialization of the
+      Service Model objects and persistence.
+    - Value Objects: data objects with particular characteristics so that
+      their equivalence depends on their value, rather than their identity.
+
+
+

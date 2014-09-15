@@ -23,8 +23,8 @@ controller-provided data with a template mechanism.
 
 On the web, the separation between the View (the HTML and the browser as a
 renderer) and the Controller (the server side of the code) is strong and with a
-bottleneck in communication.
-
+bottleneck in communication. Primary events are HTTP requests (GET/POST) 
+ 
 The controller can switch model or views as it sees fit, but in general it is
 initialized and deeply related to the view. How the controller get to know
 these different models or views can be done either through accessor methods
@@ -66,7 +66,6 @@ Model stays on the server side. When the User performs an action, the
 Controller will issue a change request to the Model, followed by a request to
 the View to refresh itself. The View will now issue a get request to the server
 to synchronize with the new Model contents.
-
 
 
 

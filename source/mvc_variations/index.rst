@@ -2,10 +2,11 @@ MVC Variation
 =============
 
 Traditional MVC is excellent as a starting point for discussion, but by no
-means it must be considered the one and only proper way of doing MVC: real
-applications are built around its basic concepts, but include plenty of tricks,
-extensions and alternative design choices to satisfy the final requirements
-while keeping programming complexity as low as possible. Examples of such
+means it must be considered the one and only proper way of doing MVC. In fact,
+MVC is rather limited within the context of modern UI development. New patterns
+have emerged, built around MVC basic concepts but with additional tricks,
+extensions and alternative design choices to satisfy modern requirements while
+keeping programming complexity as low as possible. Examples of such
 requirements include:
 
    - a modal dialog must allow changing values, but revert them when the Cancel
