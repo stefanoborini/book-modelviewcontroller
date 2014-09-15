@@ -156,3 +156,9 @@ information from different Models and present them in an easy to query Façade.
 These Models are normally conceived to simplify access from a View with
 specific presentation objectives. 
 
+A compositing model can also compose objects of different nature that need to be joined
+through a complex relation. For example, a CustomerHistory Model could combine two Models:
+Customer and Orders. In this sense, the Model may follow the needs of the View, because
+the existence of this Model object is implied by the specific View needs to represent
+this particular data aggregate.
+

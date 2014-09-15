@@ -29,6 +29,7 @@ The view subscribes to specific events from the model, and
 receives notifications only when those events actually occur.
 
 
+notify can say, for example, what value is changing, the value before and after.
 
 A model can also pass a data update object to the listeners, and the view can react
 to that update object, instead of resyncing against the new model state.
