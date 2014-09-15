@@ -62,5 +62,7 @@ needs or self-documentation purposes.
    notification_looping_prevention
    commands
    data_dialog
+   model_delegate
+   proxy_model
 
 
