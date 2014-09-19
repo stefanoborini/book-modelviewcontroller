@@ -64,5 +64,6 @@ needs or self-documentation purposes.
    data_dialog
    model_delegate
    proxy_model
+   event_filter
 
 
