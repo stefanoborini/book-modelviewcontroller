@@ -3,7 +3,7 @@ The Controller
 
 The last of the components of MVC, the Controller, has the heavy duty task to
 make things happen by gathering, validating, and processing User events to
-modify the state of the application. 
+modify the state of the application. It operates on the Model in **read-write**.
 
 Controllers are associated to Views in a strong one-to-one mutual dependency,
 and can be described as the “business logic” of the View. When the View

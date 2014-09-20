@@ -18,9 +18,8 @@ connected, Model, View, and Controller form a so-called **MVC triad**.
    :align: center
 
 The Controller's role is to transform primary events delivered by the View into
-operations on the Model. Depending on the specifics of the application, a
-Controller may or may not need a reference to the View, but it certainly needs
-the Model to apply changes on ::
+operations on the Model. Depending on the specifics of the application, a Controller may or may not need
+a reference to the View, but it certainly needs the Model to apply changes on ::
 
    class Controller(object):
        def __init__(self, model, view):
@@ -86,4 +85,7 @@ The activity diagram shows the setup code given above
 .. image:: ../_static/images/TraditionalMVC/activity_diagram_setup.png
    :align: center
 
+This schema assumes that the controller is initialized by the View. This is generally
+desirable, given that View and Controller are so dependent and tailored to each
+other that passing the Controller from outside is not profitable. 
 

@@ -11,4 +11,4 @@ From Smart-UI to Traditional MVC
    model 
    view
    controller
-
+   outdating_forces

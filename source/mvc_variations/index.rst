@@ -46,6 +46,7 @@ needs or self-documentation purposes.
    model_gui_mediator
    local_model
    value_model
+   mvc_pluggable_view
    model_view_notification_decoupling
    application_controller
    passive_view

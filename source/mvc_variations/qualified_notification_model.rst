@@ -23,7 +23,8 @@ time has passed, or add to a queue the changes, then consume the queue until no
 more changes are needed, then force visual refresh.  notify() gets called with
 a qualified flag, the previous value and the new value.
 
-notify() gets called with a qualified flag, the previous value and the next value
+notify() gets called with a qualified flag specifying which change has occurred
+, the previous value and the next value
 
 The view subscribes to specific events from the model, and 
 receives notifications only when those events actually occur.
@@ -63,4 +64,5 @@ accumulate notifications in a buffer, then send them out at the end of the trans
 If you want to retain control over the notification in order to 
 prevent trashing, you can use a passive model and let the controller do the notification
 once it has performed the modifying action.
+
 

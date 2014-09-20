@@ -3,9 +3,10 @@ The View
 
 We introduced the View as the component of our application whose role is to
 interact with the User, by accepting its input and showing the contents of 
-the Model. Begin the face of the application, is also the one that is more likely
-to change and adapt, often under pressure of non-programming factors such as 
-visual design and usability needs.
+the Model, and operates on it in **read-only**. Begin the face of the
+application, is also the one that is more likely to change and adapt, often
+under pressure of non-programming factors such as visual design and usability
+needs.
 
 A View listens for Model notifications and responds by fetching and rendering
 the new state. This results in a strong dependency toward the Model: Views must
