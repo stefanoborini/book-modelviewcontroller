@@ -7,6 +7,7 @@ Event bus / PubSub
 Example, wxpython provides a nice example of pubsub model
 
 .. code::
+
     import wx
     from wx.lib.pubsub import Publisher
 
@@ -24,6 +25,7 @@ The controller can now subscribe to the qualified notification as follows. The
 handler will receive a message, qualified with the appropriate information
 
 .. code::
+
     class Controller:
         def __init__(self, app):
             # <...>

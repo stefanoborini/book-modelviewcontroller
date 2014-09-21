@@ -48,9 +48,13 @@ help:
 	@echo "  linkcheck  to check all external links for integrity"
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
+upload:
+	cd "$(BUILDDIR)/html" && git add --ignore-errors . && git commit -a -m "sync" && git push
+
 clean:
 	rm -rf $(BUILDDIR)/*
 	ln -s ../../modelviewcontroller $(BUILDDIR)/html
+	cd "$(BUILDDIR)/html" && rm -rf *
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html

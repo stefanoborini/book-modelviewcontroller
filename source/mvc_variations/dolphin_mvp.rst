@@ -74,6 +74,15 @@ model.
 
 every view has a specific presenter. There's a strict relationship between the two
 
+Each triad is independent and does not know about the other ones. in general,
+if the triads must coordinate each other, they can rely on an "application
+model". When the application Model for a given triad is requested to perform a
+change, it signals its intention to an application coordinator. This
+coordinator can eventually decide to create a new triad, if needed.
+
+
+
+
 FIXME: Add Picture
 FIXME: reformulate in general
 
@@ -81,3 +90,5 @@ FIXME: Write something about data transfer objects as a transferring entity of d
 model and the presenter. It is possible to add a service layer between the
 model and the presenter that is responsible for packing the data from the model
 into a DTO that the presenter then uses to set the view's contents.
+
+

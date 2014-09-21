@@ -22,7 +22,7 @@ Contents:
    introduction
    from_smartui_to_traditional_mvc/index
    mvc_variations/index
-   hierarchic_mvc
+   hierarchic_mvc/index
    advanced_mvc/index
    mvc_implementations
    mvc_on_the_web

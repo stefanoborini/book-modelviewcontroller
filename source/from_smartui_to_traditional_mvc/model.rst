@@ -97,3 +97,5 @@ of the Model layer:
 
 
 
+FIXME: Make clearer the fact that the model does not encapsulates only state, but also
+process.
