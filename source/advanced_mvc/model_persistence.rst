@@ -56,4 +56,6 @@ Sharding
 The model can be distributed over a network and accessed through proxy classes
 with none or minor changes to the remaining protagonists. 
 
+Persistency layer: aimed exclusively at services for persistence of models
+(so that they don't contain this logic themselves)
 

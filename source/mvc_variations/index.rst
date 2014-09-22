@@ -66,5 +66,6 @@ needs or self-documentation purposes.
    model_delegate
    proxy_model
    event_filter
+   collection_model
 
 

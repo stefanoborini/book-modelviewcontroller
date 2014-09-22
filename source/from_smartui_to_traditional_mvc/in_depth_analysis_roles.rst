@@ -53,3 +53,11 @@ Additionally, MVC accelerates development, improves readability and communicatio
 A large application is composed of many different triads, each ideally
 decoupled from the others, except at the Model level.
 
+
+    The view uses the controller as a "strategy" for its handling policy with respect
+    to user events. While technically the view could change Controller in agreement
+    to the Strategy pattern, in practice this never happens. View and controller are
+    tightly connected and remain so for the whole lifetime of the triad. Eventually,
+    the controller is acted upon to modify its behavior, but it is never replaced altogether
+    for a different one.
+
