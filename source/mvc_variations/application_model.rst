@@ -219,4 +219,6 @@ of the events. Most of the visual logic will be responsibility of this model
 object, rather than the controllers. This interpretation has deep implications
 for the Dolphin Model View Presenter, which will be examined later.
 
-
+FIXME: Application model represents the GUI state without the GUI.
+it contains the logic for enabling/disabling checkboxes, for example.
+FIXME: Application model can contain selection.

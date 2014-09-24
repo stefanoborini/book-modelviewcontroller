@@ -91,4 +91,7 @@ model and the presenter. It is possible to add a service layer between the
 model and the presenter that is responsible for packing the data from the model
 into a DTO that the presenter then uses to set the view's contents.
 
-
+FIXME: The application model approach assumes that there are multiple View/Controllers acting on the
+same application model, but in practice it's very rare that an application model is generic enough
+to be applicable to multiple views or controllers, exactly because its state is designed to satisfy 
+the visual needs of a specific View.

@@ -68,6 +68,16 @@ the View to refresh itself. The View will now issue a get request to the server
 to synchronize with the new Model contents.
 
 
+User events as http requests, produced through either direct call or through
+XMLRPC calls
+
+Page controller : handles requests for a specific web page
+
+Front controller: Handles request for multiple pages.
+
+
+
+
 
 Backbone router
 

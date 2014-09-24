@@ -12,7 +12,8 @@ performed by the Controllers, who had to be connected and forward messages
 to each other to decide who was in charge of handling a specific event.
 
 The result of a more integrated and effective handling of events decreased the
-responsibility of the Controller. New interpretations of the old pattern emerged,
+responsibility of the Controller. Now, the controller handles "events" from the view,
+rather than raw, low level events. New interpretations of the old pattern emerged,
 but there's definitely less pressure on the Traditional MVC Controller today as
 there was once. 
 
