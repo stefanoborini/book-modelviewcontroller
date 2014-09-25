@@ -222,3 +222,9 @@ for the Dolphin Model View Presenter, which will be examined later.
 FIXME: Application model represents the GUI state without the GUI.
 it contains the logic for enabling/disabling checkboxes, for example.
 FIXME: Application model can contain selection.
+
+
+FIXME: Some logic may not be possible to extract from the View and put into the presentation
+model, especially if this logic is deeply rooted in the graphical characteristics of the
+visual state. Examples are options that depends on the screen resolution, or the visual positioning
+of the mouse within the window. 

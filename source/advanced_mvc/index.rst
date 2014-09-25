@@ -65,6 +65,15 @@ it collects the responses and aborts the change if one vetoer returns the
 change as not ok. If all vetoers approve the change, then the change is
 performed and the model issues a changed().
 
+Model undoing changes
+---------------------
+
+An alternative to the command pattern and to the local model (copying the model
+locally and modifying the local copy, then merging with the current model on "Apply")
+Instead, the model can keep both the current data and the old data, and has a method
+revert(). Revert restores the old data and synchronizes the views. the method apply instead
+removes the old values and set them to none, thereby accepting the current new values.
+
 Model distribution
 -------------------
 

@@ -71,3 +71,18 @@ the notifications, a single update will be triggered.  model packing
 multiple changes to deliver a single refresh to the view controller
 disabling notifications of the model.
 
+FIXME: 
+Another example:
+
+a view has two methods, one that stores stuff on the model from the widget
+content, and another one that takes data from the model and stores it in
+the widgets. If the widget.setValue(model.value) triggers a notification and a request for syncing
+(as normally happens when the user writes a value), we need to disable
+notification when the modelToWidget() method is called, otherwise it will trigger
+notifications into the model, potentially calling modelToWidget() again.
+
+We normally skip this with a flag in the  modelToWidget() method that prevents recursion
+by bailing out if set to true, and it's set to true immediately, or disabling notification
+for the widget to synchronize.
+Make a code example for this
+
