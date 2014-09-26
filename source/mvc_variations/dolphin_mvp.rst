@@ -95,3 +95,23 @@ FIXME: The application model approach assumes that there are multiple View/Contr
 same application model, but in practice it's very rare that an application model is generic enough
 to be applicable to multiple views or controllers, exactly because its state is designed to satisfy 
 the visual needs of a specific View.
+
+
+FIXME: Add the fact that the controller is talking to the view as a generic object that generates
+events. This allows easy repleaceability of the view, not only with a mock, but also with a different
+renderer. As long as it generates the same events and responds to the same interface. this may seem
+trivial, but if the difference in interface is large, this replaceability is not achievable.
+
+FIXME: Division of functionality in the presenter must keep into account if the functionality would make
+the presenter grow too much and act as a data bottleneck. Sometimes if the logic is complex and the view is
+intrinsically complex, it pays off to let this logic live in the View and have a simple presenter.
+
+
+FIXME: In a large application, a presenter normally handles only one view, but it could
+handle multiple views if they are closely related.
+
+FIXME: Communication choices.
+ 1) View holds reference to the Presenter. View invokes directly methods on the presenter, instead of sending events. or
+ 2) View emits events. Presenter listens
+Presenter holds a reference to the View. directly invokes its methods.
+
