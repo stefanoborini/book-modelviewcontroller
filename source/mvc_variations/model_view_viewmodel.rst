@@ -5,6 +5,7 @@ Model-View-ViewModel (Model-View-Binder)
 
 The MVVM is a specialization of the Presentation Model. It is rather popular in
 the Windows world, particularly WPF and Silverlight.
+
 MVVM has a traditional model, an active view (generally declared as a XAML
 description) that handles its own events internally and acts both on the Model
 and the ViewModel. The View and the ViewModel contents are bound together in a

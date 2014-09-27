@@ -5,6 +5,7 @@ Model persistence
 
 In some cases, the model or part of the model must be made persistent (for
 example, to disk, or to a database) to be restored at a later stage.
+Persistency layer: sometimes it is considered part of the Model, but not necessarily
 
 
 
@@ -47,7 +48,6 @@ Recovery implies de-serialization of the byte string, and reconstruction of
 the object last state.
 
 ORM models
-
 
 
 

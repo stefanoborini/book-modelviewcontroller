@@ -26,9 +26,9 @@ The Data oriented class is composed of the following parts:
 The GUI oriented class is instead composed of
 
    - a View, representing the content of the Model, and accessing the Model directly.
-   - Interactors, representing UI events at either low (mouse click, keyboard
-     press) or high level (menu entry choice, click and drag selection).
-
+   - Interactors, mapping UI events at either low (mouse click, keyboard
+     press) or high level (menu entry choice, click and drag selection) into actual
+     commands to execute on the model. 
 
 Finally, the Presenter class only contains the Presenter, which is an
 overarching director object orchestrating the interaction of the above objects.

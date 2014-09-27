@@ -76,10 +76,20 @@ Page controller : handles requests for a specific web page
 Front controller: Handles request for multiple pages.
 
 
-
+The browser can be interpreted as a View: the page controller receives an http request and renders
+a html result, but it can also produce json, or xml, or any other format. this
+result is then sent to the browser for visual rendering.  The controller
+selects the proper "view renderer" and may switch according to different
+constraints (e.g. having to present a page for mobile vs browser)
 
 
 Backbone router
 
 
 Original implementation of Smalltalk MVC: https://github.com/petermichaux/maria
+
+
+Request model: The HTTP request coming in can also be seen as an object part of the
+model layer. Its change notifies the front controller, which acts on it
+
+

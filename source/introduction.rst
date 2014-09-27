@@ -78,3 +78,16 @@ and experiments made available by countless blog posts and comments. This works
 collects, organizes and enriches those contributes to provide a single source
 of knowledge for those who want to understand MVC and its variations. 
 
+
+FIXME
+
+GUI Programming is a complex task. Many different levels of understanding 
+and handling are needed: UI design and usability consideration,
+multithreading and multiprocessing for asynchronous evaluation, 
+event notification coherence and balancing, adaptability of the GUI
+to unexpected requests and changes of style. There are plenty of 
+dialogs, buttons, lists, all with different performance, presentation and
+visibility needs. In a sense, a GUI application develops emerging
+properties characteristic of a complex system where multiple entities
+interact. Keeping this system under strict control is the only
+way to maintain chaos at bay. 
