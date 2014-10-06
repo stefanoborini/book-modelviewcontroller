@@ -211,3 +211,16 @@ compliance generally produces a benefit, and has better communicative consistenc
 development team, but may not scale up to specific cases. In that
 case, reconsider the design, or relax some constraints, but aim at keeping logic encapsulated
 and object interaction simple and straightforward.
+
+
+
+To prevent trashing with many notifications, there are three strategies:
+- disable notifications, to the operations, re-enable the notifications.
+  this has the disadavantage that you might not know what notifications to 
+  send when they are re-enabled. One solution could be to spool them,
+  and at re-enable, merge the duplicates and send out the minimum.
+- have coarse grained operations, operating on large sets and sending out 
+  only one notification at the end.
+- Have fine grained modification routines with an option notify that allows
+  to decide when to send the notification and when not to.
+
