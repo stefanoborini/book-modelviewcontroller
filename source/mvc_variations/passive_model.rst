@@ -41,3 +41,10 @@ protocol prevents the Model to perform notifications to the View. We will
 examine this mechanism in more detail in Chapter FIXME.
 
 
+FIXME:
+
+a passive model also allows better control on when the views must refresh against
+the model. The refresh is decided by someone else (e.g. the controller or the commands)
+allowing multiple changes to occur on the model without triggering excessive refresh
+and having to deal with transactions.
+
