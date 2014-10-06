@@ -224,3 +224,9 @@ To prevent trashing with many notifications, there are three strategies:
 - Have fine grained modification routines with an option notify that allows
   to decide when to send the notification and when not to.
 
+
+Problem with double notification if one notification is a subset of another.
+e.g. contentChanged/lineMetaChanged and contentChanged/lineAdded. How to handle
+the double notification? Pass an "event id" in the signal so that the client 
+realizes that it's the same change that delivers two messages?
+
