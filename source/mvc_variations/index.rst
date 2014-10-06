@@ -41,6 +41,7 @@ needs or self-documentation purposes.
    qualified_notification_model
    ui_retrieving_model
    passive_model
+   lazy_model
    model_controller
    model_view_adapter
    model_gui_mediator
