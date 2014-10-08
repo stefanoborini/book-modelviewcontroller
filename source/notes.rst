@@ -230,3 +230,11 @@ e.g. contentChanged/lineMetaChanged and contentChanged/lineAdded. How to handle
 the double notification? Pass an "event id" in the signal so that the client 
 realizes that it's the same change that delivers two messages?
 
+-
+
+With signals, you might have to adapt the signals that your model emits
+to the specific needs of your views. A coarse grained signal that forces
+a heavy refresh on the view may be better split into a separate signal
+specific to the area of the model that actually affects the view. In 
+practice, the model communication pattern may have to adapt to the View's
+implementation details to guarantee responsiveness.
