@@ -32,12 +32,16 @@ For three reasons:
    and design, and I am proud to focus on a personal project to increase my
    competences.
 
-That said, I gladly accept bitcoin donations. See my personal website at
-http://forthescience.org for details.
+That said, I gladly accept donations:
+
+ - on `GratiPay <https://gratipay.com/StefanoBorini/>`
+ - on `bitcoin <bitcoin:13RQmVjRKVbQnVmuVsFxHjycgo7cTaaZ3w`
+ - on PayPal (using my email address stefano.borini at ferrara dot linux dot it)
 
 The sources of this book are available as a github repository at the following
 URL:
 
 https://github.com/stefanoborini/modelviewcontroller-src
 
-
+I also have a personal website at http://forthescience.org where you can find
+more information about me, my Curriculum and activities.

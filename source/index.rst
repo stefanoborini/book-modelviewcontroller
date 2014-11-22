@@ -24,8 +24,8 @@ Contents:
    mvc_variations/index
    hierarchic_mvc/index
    advanced_mvc/index
-   mvc_implementations
-   mvc_on_the_web
+   mvc_implementations/index
+   mvc_on_the_web/index
    notes
    references
 
