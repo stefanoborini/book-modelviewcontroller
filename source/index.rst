@@ -18,14 +18,14 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   preface
-   introduction
-   from_smartui_to_traditional_mvc/index
-   mvc_variations/index
-   hierarchic_mvc/index
-   advanced_mvc/index
-   mvc_implementations/index
-   mvc_on_the_web/index
+   00_preface
+   01_introduction
+   02_from_smartui_to_traditional_mvc/index
+   03_mvc_variations/index
+   04_hierarchic_mvc/index
+   05_advanced_mvc/index
+   06_mvc_implementations/index
+   07_mvc_on_the_web/index
    notes
    references
 
