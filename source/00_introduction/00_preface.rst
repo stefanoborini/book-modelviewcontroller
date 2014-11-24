@@ -2,13 +2,12 @@ Preface
 =======
 
 I started writing this book as an accident. The initial idea was to write a
-series of blog posts on my `personal website <http://forthescience.org>`, with
-the objective of describing Model View Controller and a few other patterns
-related to it. As I gathered more and more information from the net and
-my personal experience, I suddenly found out that the amount and structure of
-what I wrote was beyond the scope of a blog, hence the decision to re-label it
-as a book. I am happy with the decision, because it gives me now freedom to
-add material I would not have added before.
+series of blog posts, with the objective of describing Model View Controller
+and a few other patterns related to it.  As I gathered more and more
+information from the net and my personal experience, I suddenly found out that
+the amount and structure of what I wrote was beyond the scope of a blog, hence
+the decision to re-label it as a book. I am happy with the decision, because it
+gives me now freedom to add material I would not have added before.
 
 Being a work in progress, there's still a lot to be done. Please be patient,
 but feel free to send me feedback, push requests and take advantage of the
@@ -34,8 +33,8 @@ For three reasons:
 
 That said, I gladly accept donations:
 
- - on `GratiPay <https://gratipay.com/StefanoBorini/>`
- - on `bitcoin <bitcoin:13RQmVjRKVbQnVmuVsFxHjycgo7cTaaZ3w`
+ - on `GratiPay <https://gratipay.com/StefanoBorini/>`_
+ - on `bitcoin <bitcoin:13RQmVjRKVbQnVmuVsFxHjycgo7cTaaZ3w`_
  - on PayPal (using my email address stefano.borini at ferrara dot linux dot it)
 
 The sources of this book are available as a github repository at the following
