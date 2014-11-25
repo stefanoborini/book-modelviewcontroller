@@ -70,5 +70,5 @@ needs or self-documentation purposes.
    34_collection_model
    35_collection_model
    36_visual_editor
-
+   37_command_notification
 

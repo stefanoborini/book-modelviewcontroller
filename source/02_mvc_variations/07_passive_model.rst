@@ -9,8 +9,8 @@ approach is excellent to deal with multiple listeners, multiple Controllers,
 and the need to notify about Model changes coming from external sources.
 
 The Active Model strategy has a counterpart in the **Passive Model**. A Passive
-Model does not perform notification. Instead, this task is orchestrated by the
-Controller:
+Model does not perform notification services. Instead, this task is
+performed by the Controller:
 
    #. The Controller modifies the Model.
    #. The Controller informs the View to update itself.
@@ -21,30 +21,26 @@ The activity diagram details the steps given above
 .. image:: ../_static/images/PassiveModel/passive_model.png
    :align: center
 
-A mild advantage of this approach is that any object can be used as a Model,
-even when it does not provide notification functionality. In practice, a
-Passive Model can always be converted into an Active one either through
-inheritance or by using a wrapper class satisfying the Passive Model's original
-interface. This wrapper will receive change requests from Controllers, delegate
-the change requests to the Passive Model, and finally notify the listeners.
-This solution is particularly useful for an already developed business object
-that knows nothing about MVC and must be made part of a triad.
 
-The major shortcoming of a Passive Model is that it doesn't work if the Model
-can change through multiple sources (for example, other Controllers connected
-to the same Model, or if the Model is a frontend to a database and another
-client modifies the data), nor it can handle updating of multiple listeners. 
+The major shortcoming of a Passive Model is that Views get desynchronized
+if multiple Controllers can modify the Model. Collaboration between Controllers
+can prevent this desynchronization, but for all practical purposes an Active
+Model quickly becomes a better solution. If this is required, a Passive Model
+can become Active either through inheritance or by using a wrapper class
+satisfying the Passive Model's original interface. This wrapper will receive
+change requests from Controllers, delegate them to the Passive Model, and
+finally notify the listeners. 
 
-Despite its apparent lack of potential, a Passive implementation has its area
-of excellence in Web-based MVC, where the fundamental nature of the HTTP
-protocol prevents the Model to perform notifications to the View. We will
-examine this mechanism in more detail in Chapter FIXME.
+Despite the disadvantage, the Passive Model has three important advantages: first,
+any object (e.g. a key-value dictionary, a list, a single value, a previously
+developed business object) can be used as a Model without modifications;
 
+Second, it allows better control on when the View must refresh. The Controller
+can issue multiple changes to the Model without triggering multiple useless
+refresh of the Views.
 
-FIXME:
+Third, Passive Model has its area of excellence in Web-based MVC, where the
+fundamental nature of the HTTP protocol prevents the Model to perform
+notifications to the View. 
 
-a passive model also allows better control on when the views must refresh against
-the model. The refresh is decided by someone else (e.g. the controller or the commands)
-allowing multiple changes to occur on the model without triggering excessive refresh
-and having to deal with transactions.
 

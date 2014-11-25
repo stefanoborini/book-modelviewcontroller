@@ -24,9 +24,13 @@ FIXME: relationship with apple, where the view is replaced with the child contro
 All intralayer communication can only be routed through controller-controller connection. This connection is bidirectional.
 
 
-The same data is present in the visual component in the GUI, in the Model object, and finally in any backend the Model object may be using to access the data, for example a SQL database. 
+The same data is present in the visual component in the GUI, in the Model
+object, and finally in any backend the Model object may be using to access the
+data, for example a SQL database. 
 
-This can be reduced to two if we assume the Model to always query the database, but it is wasteful. A better strategy is to cache the information in-memory. [10]
+This can be reduced to two if we assume the Model to always query the database,
+but it is wasteful. A better strategy is to cache the information in-memory.
+
 
 
 

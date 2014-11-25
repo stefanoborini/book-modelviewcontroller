@@ -1,12 +1,18 @@
 Lazy Model
 ----------
 
-The passive model doesn't notification. The active model does notification every time there's a change.
-In-between these two, there's the Lazy Model. The lazy model does not perform notifications,
-but holds the list of interested listeners. When some external factor pokes the lazy model,
-it notifies its listeners.
+A Lazy Model is an intermediate solution between Active and Passive Model that retains
+centrality of the notification bookkeeping, but delegates notification triggering. 
+Like an Active solution, listeners register on the Model and await for
+notification; Differently from it, methods that modify the Model do not call
+``Model.notifyListeners()``. Instead, the Controller issues the call.
 
-A lazy model is a good strategy when we want to retain full control on the notification flow as 
-in the passive model, but at the same time we want to keep the observers centralized on the model.
+.. image:: ../_static/images/LazyModel/lazy_model.png
+   :align: center
+
+A Lazy Model is a good strategy when we want to retain full control on the
+notification flow as in the Passive model, but at the same time we want to keep
+the listeners' list centralized so that they can all be notified of the changes,
+no matter which Controller performs them.
 
 
