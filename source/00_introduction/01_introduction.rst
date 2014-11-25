@@ -43,35 +43,13 @@ as follows:
     - In the fourth chapter we will focus on special collateral techniques that
       may emerge from a complex modern GUI
 
-    - In the fifth and final chapter, we will specifically focus on Web MVC and its implementations.
+    - In the fifth and final chapter, we will specifically focus on Web MVC and
+      its implementations.
 
 All the example code here presented will be Python, using the excellent Qt4
 toolkit though PyQt4.  Qt provides pre-made mechanisms to address most of our
 needs, but in the upcoming code these mechanisms will occasionally be skipped
 on purpose to present a more general approach.
-
-The problem
------------
-
-The aim of GUI programming is to provide an interactive and updated visual
-representation of the current state of the application. A typical set of
-requirements is the need to simultaneously represent this state graphically in
-various forms (i.e. a table of numbers and an XY plot), modify this state
-through an unpredictable sequence of mouse/keyboard events, and keep the state
-and its visual representation always synchronized and up-to-date. At the same
-time, the application state must respect business logic constraints and be kept
-within these constraints. At the code level, these requirements are generally
-translated into objects interacting through a communication network of various
-degrees of complexity. How can we satisfy these requirements, while at the same
-time providing a flexible design that keeps the object communication simple,
-understandable and organized as much as possible?
-
-MVC addresses the above needs. It does so by clever subdivision of competences
-and roles in the code, while introducing constraints that keep a potentially
-chaotic communication well organized and streamlined. MVC is incredibly
-flexible and adaptable, as we will see, and using one of the many styles will
-be a matter of preference or constraints/best practices of the development
-framework of choice. 
 
 The guidelines given here are a collection of design solutions, best practices,
 and experiments made available by countless blog posts and comments. This works
@@ -79,15 +57,3 @@ collects, organizes and enriches those contributes to provide a single source
 of knowledge for those who want to understand MVC and its variations. 
 
 
-FIXME
-
-GUI Programming is a complex task. Many different levels of understanding 
-and handling are needed: UI design and usability consideration,
-multithreading and multiprocessing for asynchronous evaluation, 
-event notification coherence and balancing, adaptability of the GUI
-to unexpected requests and changes of style. There are plenty of 
-dialogs, buttons, lists, all with different performance, presentation and
-visibility needs. In a sense, a GUI application develops emerging
-properties characteristic of a complex system where multiple entities
-interact. Keeping this system under strict control is the only
-way to maintain chaos at bay. 

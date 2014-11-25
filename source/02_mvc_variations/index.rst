@@ -34,7 +34,6 @@ needs or self-documentation purposes.
 .. toctree::
    :maxdepth: 2
 
-   00_outdating_forces
    01_compositing_model
    02_model_pipe_view_controller
    03_application_model
