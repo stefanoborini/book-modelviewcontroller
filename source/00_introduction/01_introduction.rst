@@ -9,10 +9,10 @@ pattern. In fact, the word "pattern" is probably not appropriate for MVC.
 Instead, it can be seen as a rather loose guideline for organizing your code
 when the data part and the visualization part of your application need to
 interact while staying as loosely coupled as possible. MVC is implemented
-through an aggregation of design patterns such as Composite, Mediator and
-Observer/Notifier. The complexity and variation in style of MVC arises from all
-the possible uses and variations of these independent patterns to satisfy
-the potentially elaborate requirements of a GUI. 
+through an aggregation of more fundamental design patterns such as Composite,
+Mediator and Observer/Notifier. The complexity and variation in style of MVC
+arises from all the possible uses and variations of these independent patterns
+to satisfy the potentially elaborate requirements of a GUI. 
 
 The objective of this book is to explore variations and nuances of MVC,
 comparing and analyzing them. I will talk about "MVC" generically to refer to
@@ -24,36 +24,27 @@ variations assign responsibilities in a different way, connect or organize
 protagonists in a different way, or add intermediate objects to gain more
 flexibility and satisfy peculiar use cases.
 
-This book is structured with the objective of justifying each new design
-variation with a practical need. We will go from the most trivial to more
-complex designs in a step-by-step fashion. The resulting organization will be
-as follows:
+This book is structured as follows:
 
-    - The first chapter will start from the simplest form of GUI with state, a
-      Smart-UI, and refactor it progressively into a so-called “Traditional MVC”. We
-      will then provide a formal definition of Traditional MVC components, detailing
-      their roles and communication patterns.
+    - The first chapter will start from the simplest form of GUI with state: the
+      Smart-UI. We will then progressively refactor Smart-UI into a
+      “Traditional MVC”, followed by a definition of its components, roles,
+      and communication patterns.
 
-    - Once equipped with nomenclature and an array of cases, the second
-      chapter will introduce variations of Traditional MVC to address specific
-      constraints.
+    - Once equipped with nomenclature, the second chapter will introduce
+      variations of Traditional MVC to address specific constraints and
+      practical needs.
 
     - The third chapter will expand the concept of MVC to hierarchical MVC schemes.
 
     - In the fourth chapter we will focus on special collateral techniques that
-      may emerge from a complex modern GUI
+      may emerge from a complex modern GUI.
 
     - In the fifth and final chapter, we will specifically focus on Web MVC and
       its implementations.
 
+
 All the example code here presented will be Python, using the excellent Qt4
-toolkit though PyQt4.  Qt provides pre-made mechanisms to address most of our
+toolkit through PyQt4.  Qt provides pre-made mechanisms to address most of our
 needs, but in the upcoming code these mechanisms will occasionally be skipped
-on purpose to present a more general approach.
-
-The guidelines given here are a collection of design solutions, best practices,
-and experiments made available by countless blog posts and comments. This works
-collects, organizes and enriches those contributes to provide a single source
-of knowledge for those who want to understand MVC and its variations. 
-
-
+on purpose to demonstrate a more general approach.

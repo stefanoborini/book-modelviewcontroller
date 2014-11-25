@@ -69,3 +69,10 @@ design, as we imagine to scale it up:
 
 
 FIXME also known as autonomous view
+combining two or more roles on the same class can be an acceptable compromise,
+whose cost is a reduction in flexibility and clarity, and whose advantage is a
+more streamlined approach for simple cases. Note that mixing the roles does not
+imply that the code responsible for each of these roles should mix as well. it
+is in fact good practice to keep the code performing each role in separate
+routines. This simplifies both understanding and future refactoring, if the
+needs emerges. 
