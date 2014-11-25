@@ -37,7 +37,7 @@ For three reasons:
 That said, I gladly accept donations:
 
  - on `GratiPay <https://gratipay.com/StefanoBorini/>`_
- - on `bitcoin <bitcoin:13RQmVjRKVbQnVmuVsFxHjycgo7cTaaZ3w`_
+ - on `bitcoin <bitcoin:13RQmVjRKVbQnVmuVsFxHjycgo7cTaaZ3w>`_
  - on PayPal (using my email address stefano.borini at ferrara dot linux dot it)
 
 The sources of this book are available as a github repository at the following

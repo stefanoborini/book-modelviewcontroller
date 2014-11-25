@@ -113,5 +113,6 @@ handle multiple views if they are closely related.
 FIXME: Communication choices.
  1) View holds reference to the Presenter. View invokes directly methods on the presenter, instead of sending events. or
  2) View emits events. Presenter listens
+
 Presenter holds a reference to the View. directly invokes its methods.
 
