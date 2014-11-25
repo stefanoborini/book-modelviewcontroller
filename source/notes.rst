@@ -11,11 +11,6 @@ How to report errors in the view?
 
 
 
-
-
-
-
-
 the view should be able to query or inform the controller for action (will, should, did): delegate
 
 
