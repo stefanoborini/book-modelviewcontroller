@@ -9,9 +9,9 @@ under pressure of non-programming factors such as visual design and usability
 needs.
 
 A View listens for Model notifications and responds by fetching and rendering
-the new state. This results in a strong dependency toward the Model: Views must
-access Model data, something that requires full dependency toward the Model's
-interface and existence. 
+the new state from the Model. This results in a strong dependency toward the
+Model: Views must access Model data, something that requires full dependency
+toward the Model's interface and existence.
 
 Views are responsible for "purely GUI" intelligence, like handling behavior on
 resizing, repainting, data displaying and visual formatting. They are also in

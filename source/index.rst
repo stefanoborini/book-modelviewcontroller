@@ -26,6 +26,7 @@ Contents:
    04_advanced_mvc/index
    05_mvc_implementations/index
    06_mvc_on_the_web/index
+   07_qa/index
    notes
    references
 

@@ -4,7 +4,13 @@ An in-depth analysis of Traditional MVC roles and components
 In the previous sections we performed a progressive refactoring from Smart-UI, 
 to Document-View, and finally to Traditional MVC. This refactoring was driven
 by the need for additional flexibility, separation of concerns and
-clarification of the different roles. To summarize the scope of each role in
+clarification of the different roles. MVC is, at its core, an exercise in data
+synchronization: the same data must be present in the GUI, the Model, and
+finally in any data source the Model may be using to access the data, for
+example a file or a SQL database. The MVC roles help us giving structure to the
+communication traffic needed by this synchronization ballet.
+
+To summarize the scope of each role in
 Traditional MVC:
 
    - **Model**: holds the application's state and core functionality.

@@ -7,6 +7,11 @@ Local models, or one global model?
 case: Model changes, but not in the data relevat to the view.
 Who performs validation? View? Controller? Model?
 Consistency of the data inside the model?
+
+Local models, or one global model?
+case: Model changes, but not in the data relevat to the view.
+Who performs validation? View? Controller? Model?
+Consistency of the data inside the model?
 How to report errors in the view?
 
 
@@ -24,25 +29,10 @@ FIXME: relationship with apple, where the view is replaced with the child contro
 All intralayer communication can only be routed through controller-controller connection. This connection is bidirectional.
 
 
-The same data is present in the visual component in the GUI, in the Model
-object, and finally in any backend the Model object may be using to access the
-data, for example a SQL database. 
-
-This can be reduced to two if we assume the Model to always query the database,
-but it is wasteful. A better strategy is to cache the information in-memory.
-
-
-
 
 
 completely unrelated. It must go somewhere else.
 
-    When the view is shown, it will have to update its content. However, if the
-    view is not visible, it should not receive events, so it should either
-    unsubscribe from the model when hidden, or mute the delivery by first checking
-    if it's visible before proceeding to update itself. The reason is that if a
-    view is connected to the model, and this view requires time to refresh itself,
-    we don't want to trigger this refresh if the view is not visible to the user.
 
 
 
@@ -58,11 +48,6 @@ Composite View.[11] [PIC of an example of a hierarchy with real widgets]
 
 
 Reimplement widgets to define methods for events. Annoying, proliferates classes.
-
-Once notified, the views are in charge of fetching the new state from the
-model: the view must therefore be aware of the model interface and its
-semantics. 
-
 
 
 Concerning callability on sone side or the other (e.g. event vs. method call)
