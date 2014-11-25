@@ -69,5 +69,6 @@ needs or self-documentation purposes.
    32_proxy_model
    33_event_filter
    34_collection_model
+   35_collection_model
 
 

@@ -12,9 +12,9 @@ interact while staying as loosely coupled as possible. MVC is implemented
 through an aggregation of design patterns such as Composite, Mediator and
 Observer/Notifier. The complexity and variation in style of MVC arises from all
 the possible uses and variations of these independent patterns to satisfy
-potentially elaborate requirements of the GUI. 
+the potentially elaborate requirements of a GUI. 
 
-The objective of this writing is to explore variations and nuances of MVC,
+The objective of this book is to explore variations and nuances of MVC,
 comparing and analyzing them. I will talk about "MVC" generically to refer to
 all its different incarnations, and with a more specific name to refer to
 specific ones. As you will observe in the upcoming sections, the common point
