@@ -1,23 +1,11 @@
 Notes
 =====
-Questions and Answers
-Should I use a simple container approach (e.g. key/value dictionary with notifications as a model?
-A simple container like a key/value dictionary can technically be used as a model, but as the amount of stored data grows, its unstructured nature and access will lead to entangled, inconsistent and undocumented storage. The model will be a “big bag of data” with very little clarity or enforced consistency. Enforcing access through well defined object relations and interfaces is recommended for models beyond the most trivial cases. 
 Local models, or one global model?
 case: Model changes, but not in the data relevat to the view.
 Who performs validation? View? Controller? Model?
 Consistency of the data inside the model?
-
-Local models, or one global model?
-case: Model changes, but not in the data relevat to the view.
-Who performs validation? View? Controller? Model?
-Consistency of the data inside the model?
-How to report errors in the view?
-
-
 
 the view should be able to query or inform the controller for action (will, should, did): delegate
-
 
 Depending on the application, the model can host invalid data (that is, invalid for the application)
 
@@ -30,24 +18,11 @@ All intralayer communication can only be routed through controller-controller co
 
 
 
-
-completely unrelated. It must go somewhere else.
-
-
-
-
-
-
-
 following the hierarchic composition of the GUI nesting. The model can be the
 same. In pratice, the scheme given above can be simplified by assuming a given
 hierarchy talks to the same model In J2EE, this approach is also known as
 Composite View.[11] [PIC of an example of a hierarchy with real widgets]
 
-
-
-
-Reimplement widgets to define methods for events. Annoying, proliferates classes.
 
 
 Concerning callability on sone side or the other (e.g. event vs. method call)
@@ -61,7 +36,6 @@ The presenter observes these events and take appropriate action when triggered.
 As you can see, the difference is subtle, and apparently irrelevant, but it can
 be useful depending on the degree of coupling and self-containment of the view
 vs. the controller (Presenter)
-
 
 
 

@@ -21,3 +21,4 @@ Additionally, new needs emerged from more complex and communicative GUIs,
 making Traditional MVC either too inflexible, or too limited to address these
 requirements. 
 
+off-the-shelf widget sets. Reimplement widgets to define methods for events is annoying. proliferates classes.

@@ -3,7 +3,36 @@ Compositing Model
 
 **Addressed Need: Aggregation of information from submodels.**
 
-We will create a trivial address book application whose data sources are two
+A Compositing Model aggregates data from multiple Model objects so that the
+View has a single and uniform point of interest as its datasource.
+Notifications from individual submodels are received by the Compositing Model,
+and re-issued for View's consumption. Data requests that the View isses to the
+Compositing Model are forwarded to the appropriate submodel.
+
+Controllers can act either on the Compositing Model, or any of the Submodels.
+In the first case, the Compositing Model must forward the modification request
+to the appropriate Submodel according to some criteria. The Submodel will then
+issue the notification. The Compositing Model is therefore acting as a
+surrogate Controller.  In the second case, the operation will involve only the
+Submodel, and the Compositing Model will simply forward the Submodel's
+notification to the View.
+
+A typical use case for a Compositing Model is to perform union of homogeneous
+information originating from different sources, or to extract relevant
+information from different Models and present them in an easy to query Façade.
+These Compositing Models are normally conceived to simplify access for a View with
+specific presentation objectives. 
+
+A Compositing Model can also compose objects of different nature that need to be joined
+through a complex relation. For example, a CustomerHistory Model could combine two Models:
+Customer and Orders. In this sense, the Model may follow the needs of the View, because
+the existence of this Model object is implied by the specific View needs to represent
+this particular data aggregate.
+
+Practical example
+'''''''''''''''''
+
+As a practical example of the Compositing Model, we will create a trivial address book application whose data sources are two
 comma-separated (CSV) files and one XML file. The objective is to have a View
 that can display data regardless of the number of sources, and that allows
 extension to other storage formats without excessive modifications. The final
@@ -26,7 +55,9 @@ The code for class ``AddressBookCSV`` is here shown to illustrate the rather
 trivial interface supported by all Model objects. The common base class
 BaseModel provides notification services by implementing the well known methods
 ``register``, ``unregister``, ``notifyListeners``, and the listeners set, as shown in
-Traditional MVC::
+Traditional MVC
+
+.. code-block:: python
 
    class AddressBookCSV(BaseModel):
        def __init__(self, filename):
@@ -49,7 +80,9 @@ Traditional MVC::
 
 
 The code for the View is simplified by the fact that there's no Controller. No
-modifications are allowed on our Models, so no GUI events need to be handled::
+modifications are allowed on our Models, so no GUI events need to be handled
+
+.. code-block:: python
 
     class AddressBookView(QtGui.QListWidget):
         def __init__(self, model, *args, **kwargs):
@@ -63,7 +96,9 @@ after clearing it. As a general rule, this method is rather aggressive and may
 introduce flickering or loss of selection of the List items. Solving these
 issues is beyond the scope of this example. Additionally, the List does not
 need regular refresh cycles, because the Models are readonly and parsed only
-once at startup::
+once at startup
+
+.. code-block:: python
 
     class AddressBookView(QtGui.QListWidget):
         # ...
@@ -84,7 +119,9 @@ the ``AddressBookView``.
 The ``AddressBook`` class accepts an arbitrary number of Models at initialization,
 and registers as a listener on each of them. The interface expected by
 ``AddressBookView`` is reimplemented, deriving the data from the composition of
-the submodels ::
+the submodels 
+
+.. code-block:: python
 
    class AddressBook(BaseModel):
        def __init__(self, models):
@@ -96,7 +133,9 @@ the submodels ::
                m.register(self)
 
 The total number of entries is trivially the sum of the number of entries
-provided by each submodel ::
+provided by each submodel 
+
+.. code-block:: python
 
     class AddressBook(BaseModel):
         # ...
@@ -107,7 +146,9 @@ provided by each submodel ::
 To get a specific entry, we need to map the absolute entry number to the
 relative entry number in a specific submodel, keeping into account the number
 of elements in each submodel. We define the accumulate routine to compensate
-for the lack of it in python2 ::
+for the lack of it in python2 
+
+.. code-block:: python
 
     class AddressBook(BaseModel):
         # ...
@@ -131,7 +172,9 @@ for the lack of it in python2 ::
 
 Finally, when any of the submodels notify a change, the Compositing Model
 should just perform a notification to its listener, in our case the
-``AddressBookView`` ::
+``AddressBookView``
+
+.. code-block:: python
 
     class AddressBook(BaseModel):
         # ...
@@ -139,7 +182,9 @@ should just perform a notification to its listener, in our case the
             self.notifyListeners()
 
 The application main routine creates the three datasource models, and passes
-them to the Compositing Model ``AddressBook``, which is then passed to the View ::
+them to the Compositing Model ``AddressBook``, which is then passed to the View 
+
+.. code-block:: python
 
    csv1_model = AddressBookCSV("file1.csv")
    xml_model = AddressBookXML("file.xml")
@@ -148,17 +193,4 @@ them to the Compositing Model ``AddressBook``, which is then passed to the View 
    address_book = AddressBook([csv1_model, xml_model, csv2_model])
 
    view = AddressBookView(address_book)
-
-In this case, the Compositing Model is performing union of homogeneous
-information originating from different sources, but this is not the only case
-where a Compositing Model can be useful. Another example is to extract relevant
-information from different Models and present them in an easy to query Façade.
-These Models are normally conceived to simplify access from a View with
-specific presentation objectives. 
-
-A compositing model can also compose objects of different nature that need to be joined
-through a complex relation. For example, a CustomerHistory Model could combine two Models:
-Customer and Orders. In this sense, the Model may follow the needs of the View, because
-the existence of this Model object is implied by the specific View needs to represent
-this particular data aggregate.
 
