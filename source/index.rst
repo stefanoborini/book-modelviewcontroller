@@ -16,7 +16,7 @@ By Stefano Borini - 2014
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    00_introduction/00_preface
    00_introduction/01_introduction

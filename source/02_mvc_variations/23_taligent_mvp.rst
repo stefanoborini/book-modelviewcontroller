@@ -10,7 +10,9 @@ Model-View-Presenter architecture. An equally named, but different strategy is
 the Dolphin Model-View-Presenter, which will be introduced later.  At first,
 MVP seems complex, but in reality is a little step from what already introduced
 in the previous sections. 
-[PIC]
+
+.. image:: taligent_mvp.png
+
 The aim is to divide responsibilities in simple, testable entities while moving
 all logic away from the part that is most difficult to test, which is the View.
 
@@ -48,3 +50,6 @@ Selection among Presenters.
 
 
 FIXME excessive confusion and overload of the terms "class", "object", "entity" 
+
+Presenter as a coordinator of the process. One presenter per each view.
+

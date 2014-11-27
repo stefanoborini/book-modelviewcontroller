@@ -17,6 +17,9 @@ connected, Model, View, and Controller form a so-called **MVC triad**.
 .. image:: ../_static/images/TraditionalMVC/mvc_triad.png
    :align: center
 
+FIXME Put a more appropriate image, expressing the strong and weak association between entities.
+
+
 The Controller's role is to transform primary events delivered by the View into
 operations on the Model. Depending on the specifics of the application, a Controller may or may not need
 a reference to the View, but it certainly needs the Model to apply changes on ::

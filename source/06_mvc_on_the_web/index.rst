@@ -33,7 +33,22 @@ class (e.g. the controller knows where to get a model: the provider class hands
 it out when needed).  knockout.js
 
 Something about REST in web mvc
+
+
 Front controller
+----------------
+
+The front controller is the first point of entry for the request. It handles the overall
+dispatch to the relevant controller, and deals with common needs such as authentication,
+session management, security, redirection. 
+
+.. image:: web_mvc
+
+View: renders the HTTP response from a template and the contents of the model.
+Controller: Handles the HTTP request as passed by the front controller, and selects the
+most appropriate models and View for the rendering.
+
+
 Page Controller
 
 

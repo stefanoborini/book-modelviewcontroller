@@ -22,3 +22,10 @@ making Traditional MVC either too inflexible, or too limited to address these
 requirements. 
 
 off-the-shelf widget sets. Reimplement widgets to define methods for events is annoying. proliferates classes.
+
+The controller role in dividing input from output and in particular intercepting
+the original events can be seen as redudant. Today, widgets intercept primary events, so the
+controller can eventually take the role of mutator on the Model.
+
+The original MVC was reenskaug's. We will examine it later.
+
