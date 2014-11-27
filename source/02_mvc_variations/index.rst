@@ -31,6 +31,9 @@ In this chapter we will examine alternative design in MVC able to deal with
 more complex use-case scenarios, constrained by requirements, architectural
 needs or self-documentation purposes.
 
+Variations on the Model
+~~~~~~~~~~~~~~~~~~~~~~~
+
 .. toctree::
    :maxdepth: 2
 
@@ -43,6 +46,12 @@ needs or self-documentation purposes.
    07_passive_model
    08_lazy_model
    09_model_controller
+
+Variations on the View
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 2
    10_model_view_adapter
    11_model_gui_mediator
    12_local_model
