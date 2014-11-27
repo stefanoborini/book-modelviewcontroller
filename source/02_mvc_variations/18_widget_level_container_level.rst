@@ -1,5 +1,6 @@
 Widget-level vs Container-level MVC
 -----------------------------------
+
 In our previous exploration we defined Views without much attention on the
 scope of their implementation. Should we have multiple minimalistic triads,
 where every widget is a View of its triad, or a single MVC triad whose complex

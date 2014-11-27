@@ -19,7 +19,9 @@ View, doing the relevant transformation.  The code would therefore be like the
 following: The View being an off-the-shelf component means it does not know
 anything about the Controller. All the signal setup is done by the individual
 Controllers. Also, off-the-shelf classes are not implementing the Observer
-pattern::
+pattern
+
+.. code-block:: python
 
    class DialController(object):
        def __init__(self):
@@ -46,7 +48,9 @@ pattern::
                self._view.setValue(self._model.rpm())
 
 
-And for the Slider it would be ::
+And for the Slider it would be 
+
+.. code-block:: python
 
    class SliderController(object):
        def __init__(self):
@@ -71,7 +75,9 @@ And for the Slider it would be ::
        def notify(self):
            self._view.setValue(self._model.rpm()/1000)
 
-The setup now can simply make use of off-the-shelf QDial and QSlider instances::
+The setup now can simply make use of off-the-shelf QDial and QSlider instances
+
+.. code-block:: python
 
    dial = QtGui.QDial(container)
    dial_controller = DialController()

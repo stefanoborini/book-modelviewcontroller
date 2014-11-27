@@ -9,7 +9,9 @@ only relevant for visualization. Traditional MVC has no place for it, but we
 can satisfy this need with a specialized Compositing Model: the **Application
 Model**, also known as Presentation Model. Its submodel, called **Domain Model**,
 will be kept unaware of such state. To present a practical example. imagine
-having a Domain Model representing an engine :: 
+having a Domain Model representing an engine 
+
+.. code-block:: python
 
    class Engine(BaseModel):
        def __init__(self): 
@@ -39,10 +41,12 @@ green otherwise.
    :align: center
 
 We could violate Traditional MVC and add visual information to the Model,
-specifically the color ::
+specifically the color 
+
+.. code-block:: python
 
    class Engine(BaseModel):
-      <proper adaptations to init method>
+      # <proper adaptations to init method>
 
       def dialColor(self):
          if self._rpm > 8000:
@@ -61,7 +65,9 @@ Additionally, this approach is unfeasible if the Model object cannot be
 modified.  
 
 An alternative solution is to let the Dial View decide the color
-when notified, like this ::
+when notified, like this 
+
+.. code-block:: python
 
    class Dial(View):
        def notify(self):
@@ -89,14 +95,18 @@ color should honor this semantic, not the one implied by the numerical value.
 Given the point above, it is clear that the Engine object is the only entity
 that can know what rpm value is too high. It has to provide this information,
 leaving its visual representation strategy to the View.  A better design
-provides a query method ``isOverRpmLimit`` ::
+provides a query method ``isOverRpmLimit`` 
+
+.. code-block:: python
 
    class Engine(BaseModel):
        <...>
        def isOverRpmLimit(self):
            return self._rpm > 8000
 
-The View can now query the Model for the information and render it appropriately ::
+The View can now query the Model for the information and render it appropriately 
+
+.. code-block:: python
 
    class Dial(View):
        def notify(self):
@@ -121,7 +131,9 @@ The DialEngine will handle state about the Dial color, while delegating the rpm
 value to the Domain Model. View and Controller will interact with the
 Application Model and listen to its notifications.  Our Application Model will
 be implemented as follows. In the initializer, we register for notifications on
-the Domain Model, and initialize the color ::
+the Domain Model, and initialize the color 
+
+.. code-block:: python
 
    class DialEngine(BaseModel):
      def __init__(self, engine):
@@ -130,14 +142,18 @@ the Domain Model, and initialize the color ::
        self._engine = engine
        self._engine.register(self)
 
-The accessor method for the color just returns the current value ::
+The accessor method for the color just returns the current value 
+
+.. code-block:: python
 
    class DialEngine(BaseModel):
         # ...
         def dialColor(self):
             return self._dial_color
 
-The two accessors for the rpm value trivially delegate to the Domain Model ::
+The two accessors for the rpm value trivially delegate to the Domain Model
+
+.. code-block:: python
 
    class DialEngine(BaseModel):
         # ...
@@ -152,7 +168,9 @@ above accessor methods, this request will be forwarded and will generate a
 change notification. Both the Slider and the Application Model will receive
 this notification on their method notify. The Slider will change its position,
 and the Application Model will change its color and reissue a change
-notification ::
+notification 
+
+.. code-block:: python
 
    class DialEngine(BaseModel):
         # ...
@@ -166,7 +184,9 @@ notification ::
 
 The DialView will handle this notification, query the Application Model (both
 the rpm value and the color) and repaint itself. Note that changing the
-``self._dial_color`` in ``DialEngine.setRpm``, as in ::
+``self._dial_color`` in ``DialEngine.setRpm``, as in 
+
+.. code-block:: python
 
    class DialEngine(BaseModel):
         # ...

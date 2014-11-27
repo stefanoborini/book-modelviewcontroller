@@ -3,7 +3,9 @@ Value Model
 
 A Value Model is a technique to render a complex Model object or Model behavior
 into a uniform and trivial interface, containing a getter, a setter, and
-notification services::
+notification services
+
+.. code-block:: python
 
     class ValueModel(Model):
         def __init__(self, model_object):

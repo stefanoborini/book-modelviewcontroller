@@ -9,7 +9,9 @@ functionality. The View depends on both Models
 
 [picture]
 
-Obviously, the Application Model keeps registering itself on the Domain model::
+Obviously, the Application Model keeps registering itself on the Domain model
+
+.. code-block:: python
 
    class DialViewModel(BaseModel):
       def __init__(self, engine):
@@ -28,10 +30,12 @@ Obviously, the Application Model keeps registering itself on the Domain model::
             self._dial_color = Qt.green
          self._notifyListeners()
 
-The dial now registers to both Models, and listens to notifications from both.::
+The dial now registers to both Models, and listens to notifications from both.
+
+.. code-block:: python
 
    class Dial(QtGui.QDial):
-   <....>
+      # <....>
       def setModels(self, model, view_model):
          if self._model:
             self._model.unregister(self)

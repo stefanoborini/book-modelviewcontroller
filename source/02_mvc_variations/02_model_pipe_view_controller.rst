@@ -1,7 +1,28 @@
-Model-Pipe-View-Controller
---------------------------
+Model Pipe
+----------
 
 **Addressed Need: Intercept and filter the data flow between Model and View.**
+
+The **Model Pipe** is a variation of the Compositing Model approach. 
+It introduces an additional Model class, called **Pipe**, to intercept
+the data flow between Model and View and add flexibility for data manipulation
+while in transit. Its concept is similar to a UNIX pipe, and its most common
+use is for filtering and sorting. 
+
+The Pipe class encapsulates the transformation logic in a dedicated,
+potentially reusable Model class. Different Pipe classes can be created, each
+with specific capabilities.  Pipes can also be chained together to perform
+sequential reduction of data.  To be compatible with the View, a Pipe should
+implement the same interface of the Submodel, eventually extending it for the
+additional state it might contain. For example, a filtering Pipe may host data
+about the current filter. Controllers acting on the Pipe class generally
+involve manipulation of this state, while the manipulation of the Submodel's
+data will be performed directly on the Submodel itself. The Pipe will generate
+notification events either when the Submodel contents change, or when its internal
+state changes in a way that modifies the resulting data.
+
+Practical Example
+'''''''''''''''''
 
 An additional need that may emerge from our addressbook application is to
 filter out names and sort them alphabetically. A possible design approach would
@@ -17,7 +38,7 @@ the shortcomings, both approaches may be a good compromise depending on the
 circumstances. 
 
 An alternative approach that cuts through the problem is a
-**Model-Pipe-View-Controller** design, a variation of the Compositing Model
+**Model Pipe** design, a variation of the Compositing Model
 approach. It introduces an additional Model class, called **Pipe**, to intercept
 the data flow between Model and View and add flexibility for data manipulation
 while in transit. Its concept is similar to a UNIX pipe, and its most common
@@ -46,7 +67,9 @@ to the ``AddressBookFilter`` Model.  We will explain the motivations for this
 design later in the explanation. 
 
 The ``AddressBookFilter`` registers on the filtered Model and holds the current
-filter string ::
+filter string
+
+.. code-block:: python
 
    class AddressBookFilter(BaseModel):
        def __init__(self, model):
@@ -57,7 +80,9 @@ filter string ::
 
 To modify the filter string, we need a ``setFilter`` method. When a new string is
 set, the product of the ``AddressBookFilter`` Model is expected to change, so
-``_notifyListeners`` is called. ::
+``_notifyListeners`` is called. 
+
+.. code-block:: python
 
     def setFilter(self, string):
         self._filter_string = string
@@ -65,7 +90,9 @@ set, the product of the ``AddressBookFilter`` Model is expected to change, so
 
 The actual filtering is performed on the fly on the underlying data in the
 ``numEntries`` and ``getEntry`` methods, which is the usual interface for the
-Model in the address book application ::
+Model in the address book application 
+
+.. code-block:: python
 
     def numEntries(self):
         entries = 0
@@ -87,7 +114,9 @@ Model in the address book application ::
 
         raise IndexError("Invalid entry %d" % entry_number)
 
-Finally, the Filter forwards notifications from its submodel to its listeners ::
+Finally, the Filter forwards notifications from its submodel to its listeners 
+
+.. code-block:: python
 
     def notify(self):
         self._notifyListeners()
@@ -97,7 +126,9 @@ notifications. The current implementation supports only a simple A-z
 alphabetical sorting, and as such does not need to expose state for changes.
 Typical examples of possible state would be ascending vs. descending or the
 sorting key.  The Sorter would then expose setters for all these values, and
-the View would have to provide supporting widgets to modify them ::
+the View would have to provide supporting widgets to modify them 
+
+.. code-block:: python
 
    class AddressBookSorter(BaseModel):
        def __init__(self, model):
@@ -110,7 +141,9 @@ the View would have to provide supporting widgets to modify them ::
            return self._model.numEntries()
 
 We implement the sorting naively, by walking through the underlying data and
-building an index-to-index mapping ::
+building an index-to-index mapping 
+
+.. code-block:: python
 
     def _rebuildOrderMap(self):
         values = []
@@ -124,13 +157,17 @@ building an index-to-index mapping ::
 
 The mapping is internal state that does not need to be exposed to the View, but
 must stay synchronized at all times with the underlying Model. Consequently, it
-must be recomputed every time the underlying Model reports a change ::
+must be recomputed every time the underlying Model reports a change 
+
+.. code-block:: python
 
     def notify(self):
         self._rebuildOrderMap()
         self._notifyListeners()
 
-We will then use the order map to extract entries in the appropriate order from the underlying Model ::
+We will then use the order map to extract entries in the appropriate order from the underlying Model 
+
+.. code-block:: python
 
     def getEntry(self, entry_number):
         try:
@@ -144,7 +181,9 @@ the Controller's ``applyFilter`` method, so that as new characters are typed in,
 the Controller will change the filter string. Note how ``FilterView`` does not need
 a ``notify`` method: we don't expect the filter string to change from external
 sources, and ``QLineEdit`` is an autonomous widget which keeps its own state and
-representation synchronized ::
+representation synchronized 
+
+.. code-block:: python
 
    class FilterView(QtGui.QWidget):
        def __init__(self, *args, **kwargs):
@@ -168,13 +207,17 @@ We want to delay the setting of the Model after instantiation, so we need a
 setter method and design View and Controller to nicely handle None as a Model,
 always a good practice [#]_. The reason for this delayed initialization is that
 both ``FilterView`` and ``AddressBookView`` are visually contained into a dumb
-container. We will detail this point when analyzing the container ::
+container. We will detail this point when analyzing the container 
+
+.. code-block:: python
 
     def setModel(self, model):
         self._model = model
         self._controller.setModel(model)
 
-The ``FilterController`` needs only the Model, initially set to ``None`` by the View ::
+The ``FilterController`` needs only the Model, initially set to ``None`` by the View 
+
+.. code-block:: python
 
    class FilterController(object):
        def __init__(self, model):
@@ -186,7 +229,9 @@ The ``FilterController`` needs only the Model, initially set to ``None`` by the 
 The ``applyFilter`` method simply invokes ``setFilter`` on the associated Model, which
 must be the  AddressBookFilter instance. Due to Qt Signal/Slot mechanism, this
 method receives a ``QString`` as argument, so we need to convert it into a python
-string before setting it into the Model ::
+string before setting it into the Model 
+
+.. code-block:: python
 
     def applyFilter(self, filter_string):
         if self._model:
@@ -197,7 +242,9 @@ window, one above the other. To achieve this, we need a container widget to
 layout the two Views. We don't want to convey any misdirection about this
 container being anything else but a dumb container, so its initializer does not
 accept the Models. We will instead set the Model on each individual View from
-the outside through their setModel methods described earlier ::
+the outside through their setModel methods described earlier 
+
+.. code-block:: python
 
    class ContainerWidget(QtGui.QWidget):
        def __init__(self, *args, **kwargs):
@@ -210,21 +257,27 @@ the outside through their setModel methods described earlier ::
            self._vlayout.addWidget(self.addressbookview)
 
 To set up the application, there is little variation from the Compositing Model
-example: we set up the ``AddressBook`` Model from the individual submodels. ::
+example: we set up the ``AddressBook`` Model from the individual submodels. 
+
+.. code-block:: python
 
    csv1_model = AddressBookCSV("../Common/file1.csv")
    xml_model = AddressBookXML("../Common/file.xml")
    csv2_model = AddressBookCSV("../Common/file2.csv")
    address_book = AddressBook([csv1_model, xml_model, csv2_model])
 
-The Pipes are then created and chained one after another ::
+The Pipes are then created and chained one after another 
+
+.. code-block:: python
 
    address_book_filter = AddressBookFilter(address_book)
    address_book_sorter = AddressBookSorter(address_book_filter)
 
 ``AddressBookSorter`` will then be passed to ``AddressBookView`` to display the data at
 the end of the process, and ``AddressBookFilter`` will be passed as a Model for
-``FilterView``/``FilterController`` to modify the search string ::
+``FilterView``/``FilterController`` to modify the search string 
+
+.. code-block:: python
 
    widget = ContainerWidget()
    widget.addressbookview.setModel(address_book_sorter)

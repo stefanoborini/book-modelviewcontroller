@@ -23,7 +23,9 @@ parties, smart tricks can be performed on the “in transit” data: for example
 the Controller could be responsible for formatting,  translating or ordering
 the data from the Model.  Let's examine the code for our standard example. The
 Model is unchanged: stores rotations per minute information and notifies about
-changes ::
+changes 
+
+.. code-block:: python
 
    class Engine(BaseModel):
        def __init__(self):
@@ -49,7 +51,10 @@ should just be named setValue). In any case, Views behave differently with
 respect to the issued value, and we don't want this difference to be handled by
 the Controller.  When the user interacts with the Dial, the Controller
 changeRpm() method is directly invoked, in this case via the Qt Signal/Slot
-mechanism ::
+mechanism 
+
+.. code-block:: python
+
 
    class Dial(QtGui.QDial):
        def __init__(self, *args, **kwargs):
@@ -71,7 +76,9 @@ View contents. In this case however, a proper transformation of the data is
 performed to deal with the specifics of the Slider behavior, whose range is
 from 0 to 10.  Similarly, when the User interact with the Slider, the method
 _valueChanged will be invoked, which in turn will issue a call to the
-Controller'' changeRpm() method, after transformation of the parameter::
+Controller'' changeRpm() method, after transformation of the parameter
+
+.. code-block:: python
 
    class Slider(QtGui.QSlider):
        def __init__(self, *args, **kwargs):
@@ -94,7 +101,9 @@ Controller'' changeRpm() method, after transformation of the parameter::
 The Controller class handles the Model and the two Views accordingly. It
 registers for notifications on the Model, and it receives notification from the
 Views on its changeRpm() method, where it modifies the contents of the Model.
-When the Model communicates a change, it pushes the new value to the Views::
+When the Model communicates a change, it pushes the new value to the Views
+
+.. code-block:: python
 
    class Controller(object):
        def __init__(self):
