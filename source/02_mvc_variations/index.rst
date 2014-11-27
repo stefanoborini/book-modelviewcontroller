@@ -35,7 +35,7 @@ Variations on the Model
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    01_compositing_model
    02_model_pipe
@@ -56,7 +56,8 @@ Variations on the View
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
+
    10_model_view_adapter
    11_model_gui_mediator
    14_mvc_pluggable_view
