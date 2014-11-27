@@ -38,7 +38,7 @@ Variations on the Model
    :maxdepth: 2
 
    01_compositing_model
-   02_model_pipe_view_controller
+   02_model_pipe
    03_application_model
    04_side_by_side_application_model
    05_qualified_notification_model
@@ -46,6 +46,11 @@ Variations on the Model
    07_passive_model
    08_lazy_model
    09_model_controller
+   12_local_model
+   13_value_model
+   32_proxy_model
+   34_collection_model
+   35_accumulator
 
 Variations on the View
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -54,8 +59,6 @@ Variations on the View
    :maxdepth: 2
    10_model_view_adapter
    11_model_gui_mediator
-   12_local_model
-   13_value_model
    14_mvc_pluggable_view
    15_model_view_notification_decoupling
    16_application_controller
@@ -74,10 +77,7 @@ Variations on the View
    29_commands
    30_data_dialog
    31_model_delegate
-   32_proxy_model
    33_event_filter
-   34_collection_model
-   35_accumulator
    36_visual_editor
    37_command_notification
 
