@@ -116,3 +116,8 @@ FIXME: Communication choices.
 
 Presenter holds a reference to the View. directly invokes its methods.
 
+In the original MVC, the controller was mainly responsible for handling user events.
+in MVP, the Presenter is responsible for handling Model changes.
+
+Composed of supervising controller, passive view.
+

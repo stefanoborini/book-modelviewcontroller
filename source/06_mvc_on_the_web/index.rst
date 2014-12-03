@@ -107,4 +107,8 @@ Original implementation of Smalltalk MVC: https://github.com/petermichaux/maria
 Request model: The HTTP request coming in can also be seen as an object part of the
 model layer. Its change notifies the front controller, which acts on it
 
+Two controllers in web mvc:
+Controller 1: mapping urls to a request handler, eventually using middleware to process the incoming request.
+Controller 2: the handlers.
 
+The model never computes html

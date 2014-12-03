@@ -27,5 +27,8 @@ The controller role in dividing input from output and in particular intercepting
 the original events can be seen as redudant. Today, widgets intercept primary events, so the
 controller can eventually take the role of mutator on the Model.
 
-The original MVC was reenskaug's. We will examine it later.
+The original MVC was reenskaug's. We will examine it later, but the main point of reenskaug
+MVC was that the Controller was fully in charge of handling events. Modern widgets acts both as views
+and as controllers, because they can display and receive events. At the time it was not the case.
+
 
