@@ -40,4 +40,12 @@ TextEdit field as an Editor, if the text is “free form”, but a ComboBox if t
 label can only contain discrete values. Only the View part can know its
 appropriate Editor.
 
+Only one model per view.
+
+View initializes its controller
+
+only one controller is active at a time, because only one controller is technically
+able to receive the input from the user. It is assumed that there is a coordination
+of the controllers, typically in a hierarchy, so that if the current one is not authoritative
+to handle a specific event, it delegates it to the upper controller.
 

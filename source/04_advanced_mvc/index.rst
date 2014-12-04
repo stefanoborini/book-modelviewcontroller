@@ -84,6 +84,7 @@ Modification of the model programmatically can enable scripting
    :maxdepth: 2
 
    model_persistence
+   signal_object
    mvc_testing
 
 

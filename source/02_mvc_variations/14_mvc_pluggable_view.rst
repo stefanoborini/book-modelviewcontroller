@@ -11,5 +11,8 @@ The difference is that, instead of having a generic View that calls a specific m
 on an adaptor object, the adapting logic is passed to the View itself at construction
 as a function. When the View needs to access the Model, it uses this logic to retrieve the value.
 
+No need to do subclasses.
 
 FIXME: pluggable view is overloaded as a term. Detail.
+
+

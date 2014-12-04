@@ -31,4 +31,4 @@ The original MVC was reenskaug's. We will examine it later, but the main point o
 MVC was that the Controller was fully in charge of handling events. Modern widgets acts both as views
 and as controllers, because they can display and receive events. At the time it was not the case.
 
-
+Similar to a unix architecture, with stdin (controller) and stdout (view)

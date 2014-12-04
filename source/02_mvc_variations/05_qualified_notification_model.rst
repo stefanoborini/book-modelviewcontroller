@@ -65,4 +65,4 @@ If you want to retain control over the notification in order to
 prevent trashing, you can use a passive model and let the controller do the notification
 once it has performed the modifying action.
 
-
+Useful to tell the observers which part has actually changed.
