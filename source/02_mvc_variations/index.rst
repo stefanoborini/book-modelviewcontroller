@@ -51,6 +51,7 @@ Variations on the Model
    32_proxy_model
    34_collection_model
    35_accumulator
+   38_view_aware_model
 
 Variations on the View
 ~~~~~~~~~~~~~~~~~~~~~~
