@@ -49,19 +49,9 @@ write that the view has two ways to interact with the controller and forward
 events: strong coupling through direct invocation, or loose coupling through raising
 events at a higher semantic level.
 
-Add about a pattern where the View has a possibility to extract a "fill me up object" which is
-then passed to the model. The model fills it with the new data and those automatically
-change proper things in the view.
-
 Detail the challenges of asynchronous component in testing
 
 
-Design aims at managing complexity. The MVC details given in this book are guidelines, but
-need to consider the actual real problem at hand. Some flexibility is needed. Strict
-compliance generally produces a benefit, and has better communicative consistency within the
-development team, but may not scale up to specific cases. In that
-case, reconsider the design, or relax some constraints, but aim at keeping logic encapsulated
-and object interaction simple and straightforward.
 
 
 

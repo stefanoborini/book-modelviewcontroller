@@ -112,3 +112,7 @@ Controller 1: mapping urls to a request handler, eventually using middleware to 
 Controller 2: the handlers.
 
 The model never computes html
+
+The view uses a template rendering. The controller combines state from the Model with 
+the template engine to produce the resulting View representation.
+

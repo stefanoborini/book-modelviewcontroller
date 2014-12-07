@@ -38,6 +38,7 @@ responsible for everything. This approach, known as Smart-UI, will be our
 foundation for a progressive refactoring into the three basic components of
 MVC: Model, View and Controller.
 
+
 .. toctree::
    :maxdepth: 2
 
@@ -49,3 +50,9 @@ MVC: Model, View and Controller.
    06_view
    07_controller
    08_outdating_forces
+
+
+The direct connection between View and Controller is needed for:
+1) the View initializes the controller with an instance of itself at
+creation
+2) the currently active controller can be found by traversing the view hierarchy

@@ -22,6 +22,7 @@ making Traditional MVC either too inflexible, or too limited to address these
 requirements. 
 
 off-the-shelf widget sets. Reimplement widgets to define methods for events is annoying. proliferates classes.
+Modern widgets handle events themselves
 
 The controller role in dividing input from output and in particular intercepting
 the original events can be seen as redudant. Today, widgets intercept primary events, so the
@@ -32,3 +33,7 @@ MVC was that the Controller was fully in charge of handling events. Modern widge
 and as controllers, because they can display and receive events. At the time it was not the case.
 
 Similar to a unix architecture, with stdin (controller) and stdout (view)
+
+Even the Traditional MVC exposed here just monkeys the original Reenskaug MVC, which was developed 
+with different constraints. Modern environments, compared to the ones where Reenskaug MVC was developed
+first, have improved on a lot of boilerplate tasks.

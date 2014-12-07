@@ -27,6 +27,14 @@ patterns emerge in the form of bugs or application freezes. Keeping this
 communication network well organized and confined by enforcing a structure is
 of paramount importance.
 
+Design aims at managing complexity. The MVC details given in this book are
+guidelines, but need to consider the actual real problem at hand. Some
+flexibility is needed. Strict compliance generally produces a benefit, and has
+better communicative consistency within the development team, but may not scale
+up to specific cases. In that case, reconsider the design, or relax some
+constraints, but aim at keeping logic encapsulated and object interaction
+simple and straightforward.
+
 In this chapter we will examine alternative design in MVC able to deal with
 more complex use-case scenarios, constrained by requirements, architectural
 needs or self-documentation purposes.
@@ -59,13 +67,30 @@ Variations on the View
 .. toctree::
    :maxdepth: 1
 
-   10_model_view_adapter
-   11_model_gui_mediator
    14_mvc_pluggable_view
-   15_model_view_notification_decoupling
-   16_application_controller
    17_passive_view
    18_widget_level_container_level
+   27_visual_proxy
+   30_data_dialog
+
+Variations on the Controller
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   39_supervising_controller
+
+Variations on the Triad
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   10_model_view_adapter
+   11_model_gui_mediator
+   15_model_view_notification_decoupling
+   16_application_controller
    19_push_vs_pull
    20_reenskaug_mvc
    21_dolphin_mvp
@@ -74,12 +99,9 @@ Variations on the View
    24_presenter_adapter_view
    25_model_view_viewmodel
    26_view_controller_view
-   27_visual_proxy
    28_notification_looping_prevention
    29_commands
-   30_data_dialog
    31_model_delegate
    33_event_filter
    36_visual_editor
    37_command_notification
-

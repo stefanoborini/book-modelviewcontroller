@@ -121,3 +121,10 @@ in MVP, the Presenter is responsible for handling Model changes.
 
 Composed of supervising controller, passive view.
 
+Moves presentation logic from the Model (as in aplication model) to the presenter.
+
+MVC vs. MVP:
+- Controller in MVC: main objective is to handle user events. Model modification is a consequence of it.
+  With smart widgets, user events are handled by the widgets, and then forwarded to the controller.
+MVP: Presenter main objetive is updating the model, and keeping the visual state (as in application model)
+     handling events passed by the view is a consequence of it.
