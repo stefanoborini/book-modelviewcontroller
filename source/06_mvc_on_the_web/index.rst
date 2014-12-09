@@ -1,6 +1,18 @@
 MVC On the web
 ==============
 
+Explain uniqueness of HTTP.
+
+On the web, we have two entities interacting: the server and the client.
+The server is the only responsible to hold the model.
+The client runs a web browser that performs requests to the server.
+These requests are channeled properly, trigger changes in the model,
+and give origin to a response that the client renders to the user.
+Some interaction (e.g. scrolling a list of entries) may not involve 
+the server at all.
+
+
+
 On the web, the controller is responsible for handling user events, preparing
 the view, and pushing it to the renderer. a quite different pattern.
 
@@ -35,12 +47,11 @@ it out when needed).  knockout.js
 Something about REST in web mvc
 
 
-Front controller
-----------------
 
-The front controller is the first point of entry for the request. It handles the overall
-dispatch to the relevant controller, and deals with common needs such as authentication,
-session management, security, redirection. 
+
+
+
+
 
 .. image:: web_mvc
 
@@ -50,7 +61,7 @@ most appropriate models and View for the rendering.
 
 
 Page Controller
-
+---------------
 
 To keep the view and the controller synchronized, there are two possible approaches:
 “push” strategy: data is pushed by the controller into the view.
@@ -116,3 +127,38 @@ The model never computes html
 The view uses a template rendering. The controller combines state from the Model with 
 the template engine to produce the resulting View representation.
 
+Model: The server is responsible for handling potentially concurrent modification requests
+to the same model data coming from different clients.
+
+
+Browser
+-------
+A browser is fundamentally a MVC triple: it has a model (the HTML document) a View (the rendered
+content) and a controller (the part of the browser that interpret user events and eventually modifies
+the Model's content
+
+Server side MVC
+---------------
+
+Most simple form of MVC. The client issues a request as a GET http request, eventually
+with POST data/cookies. The server handles the request and returns a full HTML page.
+Very coarse grained, very all-or-nothing interaction that forces the client to refresh 
+the visual aspect often, instead of incrementally. The application is bandwidth hungry and
+sluggish.
+
+
+Rich internet application
+-------------------------
+
+On the other end of the spectrum, we have RIA. RIA keep the model on the server, and move
+everything else to the client. The client model is synchronized with the server model.
+No rendering is performed by the server. it just returns data to the client.
+
+
+Other
+-----
+
+Validation is normally performed twice: on the client to ensure the data is consistent
+and presented properly to the user. Once the user submits its data, though, validation on
+the server must also be performed. The request may be forced, and all the constraints we set
+from our View will be bypassed.
