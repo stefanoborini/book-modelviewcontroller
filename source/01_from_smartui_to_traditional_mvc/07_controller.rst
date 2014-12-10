@@ -23,3 +23,7 @@ notifications, when the Model state influences how the Controller interprets
 the User events. 
 
 
+the controller can act on the model, or directly on the view, if it needs to change
+the visual representation without involving a change in data.
+
+specify that it's _not_ View == read-only widget vs Controller == read-write widget.

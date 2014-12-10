@@ -63,7 +63,8 @@ value. This event is reported to the listeners which evaluate the proposed
 change and respond with an ok/not ok state. As the model notifies all vetoers,
 it collects the responses and aborts the change if one vetoer returns the
 change as not ok. If all vetoers approve the change, then the change is
-performed and the model issues a changed().
+performed and the model issues a changed(). An example of this mechanism
+is the "constrained property" in javabeans.
 
 Model undoing changes
 ---------------------
@@ -86,7 +87,7 @@ Modification of the model programmatically can enable scripting
    model_persistence
    signal_object
    mvc_testing
-
+   notification_granularity
 
 
 
