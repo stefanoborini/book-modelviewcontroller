@@ -162,3 +162,10 @@ Validation is normally performed twice: on the client to ensure the data is cons
 and presented properly to the user. Once the user submits its data, though, validation on
 the server must also be performed. The request may be forced, and all the constraints we set
 from our View will be bypassed.
+
+.. toctree::
+   :maxdepth: 1
+
+   01_front_controller
+   02_page_controller
+   03_templated_view

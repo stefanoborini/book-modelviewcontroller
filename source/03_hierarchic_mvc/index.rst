@@ -12,8 +12,8 @@ somehow? Do we need to? Yes we do.
 .. toctree::
    :maxdepth: 1
 
-    01_controller_hierarchy
-    02_hmvc
-    03_pac
+   01_controller_hierarchy
+   02_hmvc
+   03_pac
 
 
