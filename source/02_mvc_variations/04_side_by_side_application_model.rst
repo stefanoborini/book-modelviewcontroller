@@ -106,5 +106,9 @@ two notifications are in an invalid order, and that could introduce unexpected c
 matching in the View (e.g. model notifies view then selection vs. model notifies selection then view)
 
  
+The selection model acts both as a View (for the other selectable model) and as a Model (for the view).
 
+When the selection receives notification of change from its model, it needs to
+check if it's still consistent against it. If not, it needs to recover by invalidating
+its state.
 
