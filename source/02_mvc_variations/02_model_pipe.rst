@@ -307,3 +307,6 @@ Pipe chain.
    old Model, or it will keep sending change notifications. We skip this step
    because we never register for notifications in the first place.
 
+FIXME
+
+The Pipe monitors the real data source, forwarding the events.

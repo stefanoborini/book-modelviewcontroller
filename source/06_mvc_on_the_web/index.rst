@@ -154,6 +154,7 @@ On the other end of the spectrum, we have RIA. RIA keep the model on the server,
 everything else to the client. The client model is synchronized with the server model.
 No rendering is performed by the server. it just returns data to the client.
 
+sometimes referred , when in desktop applications, as "proxy delegate"
 
 Other
 -----
