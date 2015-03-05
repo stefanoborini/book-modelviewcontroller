@@ -1,6 +1,16 @@
 MVC Testing
 -----------
 
+Testing a GUI application is generally complex, due to the large number of interactions
+that the user may potentially choose to perform. Manual testing is tedious and error-prone,
+and simulating user events can open problems relative to their intrinsic asynchronous nature,
+and the visual nature of the result.
+
+A sensible approach is to leverage the MVC structure to attack the testing problem in
+a programmatic, and possibly synchronous way. 
+
+
+
 In general, you should be able to test or even use the model
 independently of the controller and views. In fact, the model should
 be able to work without any controllers or views implemented at all.
@@ -25,6 +35,12 @@ Renderer class.
 
 A view that acts on a widget knowing nothing about the model. View
 “adapter”
+
+Mock view: it attaches to the model like a normal view, but has no GUI
+and can be probed.
+Fixture model: a model with well defined, well known data that can be attached
+to the view. The view should draw exactly what we know from the fixture model.
+
 
 Microsoft Visual Testing
 Sending events with xtest, or with the widget level interface.

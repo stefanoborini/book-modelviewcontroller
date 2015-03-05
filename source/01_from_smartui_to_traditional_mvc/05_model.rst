@@ -99,3 +99,5 @@ of the Model layer:
 
 FIXME: Make clearer the fact that the model does not encapsulates only state, but also
 process.
+FIXME: Clarify that this is an active model, and we will examine a variation (passive) later on.
+FIXME: clarify that an active model allows notifications regardless of the source of the change
