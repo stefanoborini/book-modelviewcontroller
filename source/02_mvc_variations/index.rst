@@ -73,6 +73,7 @@ Variations on the View
    18_widget_level_container_level
    27_visual_proxy
    30_data_dialog
+   41_visibility_allowed_notifications
 
 Variations on the Controller
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
