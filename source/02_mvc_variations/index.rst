@@ -61,6 +61,7 @@ Variations on the Model
    35_accumulator
    38_view_aware_model
    40_delayed_model
+   42_caching_model
 
 Variations on the View
 ~~~~~~~~~~~~~~~~~~~~~~

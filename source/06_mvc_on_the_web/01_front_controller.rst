@@ -13,4 +13,13 @@ performing specific operations on the incoming request.
 
 A front controller can be a potential bottleneck. All requests pass through it.
 
+FIXME: different interpretation of front controller. a single point of entry that replace
+the page controller design. The front controller creates commands (which replace page controllers)
+according to the submitted request, and these commands are executed by the front controller.
+Commands feed information to the views.
+
+FIXME: django approach is kind of mixed. There's a front controller that dispatches to methods
+that in practice become page controllers. Before the dispatch happens, the request is passed
+through filters (middleware)
+
 

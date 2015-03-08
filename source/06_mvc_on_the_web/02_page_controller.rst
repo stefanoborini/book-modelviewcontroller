@@ -22,4 +22,10 @@ to provide reusable functionality that is common to all page controllers.
 
 In general, functionalities like session management, authentication, and similar
 low-level operations are not handled at the page controller level. A different technique
-is used.
+is used: Filters (aka Middleware)
+
+
+FIXME: common functionality between different page controllers may require inheritance.
+This can force hierarchies that not necessarily are appropriate, and force refactorings
+as new pages are added.
+

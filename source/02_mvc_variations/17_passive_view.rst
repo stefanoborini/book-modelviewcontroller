@@ -39,3 +39,8 @@ Once again, the View's Backend can easily be tested against a mock View.
 
 The View's interface should accept only primitive types, so that no
 complex data unpacking and manipulation is performed inside.
+
+
+FIXME: Controller notifies the view that changes have occurred on the model
+FIXME: connection with passive model.
+
