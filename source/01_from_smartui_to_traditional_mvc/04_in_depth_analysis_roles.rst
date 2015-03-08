@@ -67,3 +67,21 @@ decoupled from the others, except at the Model level.
     the controller is acted upon to modify its behavior, but it is never replaced altogether
     for a different one.
 
+
+
+FIXME 
+
+communication table: A can communicate with B ? 
+D = Direct
+N = Notification
+B = Both
+
+
+         B
+       M V C  
+     M D N N
+  A  V D B B 
+     C D B B
+
+Explain in more details.
+
