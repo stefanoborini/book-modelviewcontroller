@@ -47,3 +47,12 @@ readability, and performance.
     requires time to refresh itself even when invisible, performance will suffer, and proper measures
     must be taken.
 
+**Should the notification be sent before or after performing the change?**
+
+It depends. Sending the notification before, and passing the new value, allows the View to obtain the
+old value from the model, and the new value from the notification parameters.
+Sending the notification after, the model retrieves the new value, and can get 
+the old value carried by the notification. In some extreme cases, one can send
+two notifications "aboutToChange" before, and "changed" after.
+In the end, the answer to this question depends on the specifics of the
+task. The required notification protocol will emerge from it.

@@ -53,7 +53,7 @@ upload:
 
 clean:
 	rm -rf $(BUILDDIR)/*
-	ln -s ../../modelviewcontroller $(BUILDDIR)/html
+	ln -s ../../forthescience.org/books/modelviewcontroller $(BUILDDIR)/html
 	cd "$(BUILDDIR)/html" && rm -rf *
 
 html:
