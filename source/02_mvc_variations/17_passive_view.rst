@@ -44,3 +44,12 @@ complex data unpacking and manipulation is performed inside.
 FIXME: Controller notifies the view that changes have occurred on the model
 FIXME: connection with passive model.
 
+Passive view can be mocked totally. The mock just needs to implement the same
+interface. The controller will then call these methods and the result can be
+checked on the mock.
+Generally, a passive View does not need much testing per-se, because it's
+built out of well established widgets. 
+
+due to the potentially void nature of the view, Validation is best assigned to
+the controller.
+

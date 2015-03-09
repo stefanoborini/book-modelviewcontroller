@@ -11,3 +11,7 @@ The state remaining in the view is visual state. The supervising presenter extra
 
 FIXME integrate this pattern into the others, as it's clearly a duplication and can be rendered as part of Passive View or MVP.
 
+FIXME: Difference with passive view is that in passive view the view is completely under control
+of the presenter, which drives all changes. In supervising presenter, the view can observe 
+visual state provided by the presenter and react accordingly. It's a matter of degrees.
+
