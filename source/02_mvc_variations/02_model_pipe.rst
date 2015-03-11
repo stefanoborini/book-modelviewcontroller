@@ -310,3 +310,5 @@ Pipe chain.
 FIXME
 
 The Pipe monitors the real data source, forwarding the events.
+
+FIXME: Index remapping 
