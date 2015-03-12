@@ -95,4 +95,5 @@ a specific widget that can edit a given cell in the model.
 It also has the gateway routines model->editor and editor->model for the data
 transit: setEditorData and setModelData. They are called at the beginning of the edit
 and at the end.
+It also provides the rendering logic for the element: method paint()
 
