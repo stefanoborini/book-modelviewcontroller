@@ -170,3 +170,5 @@ from our View will be bypassed.
    01_front_controller
    02_page_controller
    03_templated_view
+   04_middleware_filters
+   05_javascript_mvc

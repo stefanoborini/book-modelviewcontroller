@@ -66,3 +66,33 @@ business) that is appreciated by the Views provided by qt.
 With more complex views, or models, the Qt mechanism breaks down, because it's
 finalized at a very specific data organization and visualization mechanism.
 
+Provides the following Models
+
+
+QStringListModel: Stores a list of strings
+QStandardItemModel: Stores arbitrary hierarchical items
+QFileSystemModel:  Encapsulate the local file system
+QSqlQueryModel: Encapsulate an SQL result set
+QSqlTableModel: Encapsulates an SQL table
+QSqlRelationalTableModel: Encapsulates an SQL table with foreign keys
+QSortFilterProxyModel: Sorts and/or filters another model
+
+QAbstractItemModel
+
+and the following Views
+
+QColumnView, QHeaderView, QListView, QTableView, and QTreeView.
+QAbstractItemView
+
+The Qt MVC is simple and aimed at specific data representation and
+visualization. It's not a general framework for MVC.
+
+
+Delegates:
+
+Factories for editors. createEditor() method can be reimplemented to return
+a specific widget that can edit a given cell in the model.
+It also has the gateway routines model->editor and editor->model for the data
+transit: setEditorData and setModelData. They are called at the beginning of the edit
+and at the end.
+

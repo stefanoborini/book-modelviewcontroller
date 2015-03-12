@@ -62,6 +62,8 @@ Variations on the Model
    38_view_aware_model
    40_delayed_model
    42_caching_model
+   47_pre_post_notification
+   48_vetoers
 
 Variations on the View
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -75,6 +77,7 @@ Variations on the View
    27_visual_proxy
    30_data_dialog
    41_visibility_allowed_notifications
+   46_synchronization_view_state
 
 Variations on the Controller
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -108,3 +111,4 @@ Variations on the Triad
    33_event_filter
    36_visual_editor
    37_command_notification
+   45_Qt_MVC
