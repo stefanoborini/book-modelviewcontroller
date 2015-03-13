@@ -1,14 +1,25 @@
 Smart-UI: A single class with many responsibilities
 ---------------------------------------------------
 
-We start this exploration of MVC with the most trivial and simplistic
-application: a click counter. This application shows a button with a number.
-The number is increased every time the button is clicked. 
+We start this exploration toward MVC with the most trivial and simplistic
+design: **Smart UI**, also known as **Autonomous View**.  A single class
+handles all responsibilities we expect from a GUI program:
+
+   - Receives user driven events, such as mouse clicks and keyboard input
+   - Holds application logic to convert user driven events into changes of application state
+   - Holds the relevant application state
+   - Performs visual rendering of its state
+
+As an example implementation of a Smart UI, consider a click counter
+application, which shows a button with a number. The number is increased every
+time the button is clicked. 
     
 .. image:: ../_static/images/SmartUI.png
    :align: center
 
-We can implement this application as follows::
+The code is as follows:
+
+.. code-block:: python 
 
     import sys
     from PyQt4 import QtCore, QtGui
@@ -33,32 +44,37 @@ We can implement this application as follows::
     app.exec_()
 
 The application's main and only visual component, ``Counter``, is derived from
-a single GUI class, a Qt ``QPushButton``. The ``Counter`` class holds multiple
-responsibilities:
+a single GUI class, a Qt ``QPushButton``. Observe in particular how ``Counter`` is
 
-    1. Stores the current click count value in the member variable ``self._value``. 
+    1. Storing the current click count value in the member variable ``self._value``. 
 
-    2. Handles the logic that modifies ``self._value``. Every time the button is
+    2. Handling the logic that modifies ``self._value``. Every time the button is
        clicked, Qt invokes ``mouseReleaseEvent`` automatically. In this method 
-       the click counter is incremented.
+       the click counter is incremented. 
+
     3. Synchronizes the aspect of the button with the current ``self._value``, 
        by invoking ``setText``.
 
-Combining these three responsibilities into a single class gives us the so
-called **Smart-UI** design. While appealing for its simplicity and compactness,
-this design does not scale well to larger applications, where state, user
-events and graphic layout are more complex and intertwined, and need to change
-often. In particular, we can observe the following issues with the current
-design, as we imagine to scale it up:
+This minimalistic design seems appealing for its simplicity and compactness.
+It is a good starting point for trivial applications, and the one most likely to
+be implemented by novices in GUI programming, but it does not scale well for
+larger applications, where state, user events and graphic layout are more
+complex and intertwined and need to change often under development pressure. 
+Specifically, observe the following issues:
 
-   - Access and modification of the current value from outside is cumbersome, being
-     contained into an all-encompassing visual object: external objects that want to
+   - Access and modification of the current state from outside is cumbersome, being
+     contained into the all-encompassing visual object: external objects that want to
      modify the current counter need to make sure that the represented value is
-     synchronized.
+     synchronized, for example, forcing a call to ``_update()``, or having the
+    ``Counter`` object provide a ``setValue()`` method.
 
-   - It is difficult for multiple visual objects to visualize the same information,
+   - It is difficult for other visual objects to report the same information,
      maybe with two different visual aspects (*e.g.* both as a counter and as a
      progress bar)
+
+   - The resulting class is difficult to test. The only way to stress it is to
+     actually probe it with GUI events, which is impractical for reasons we will
+     examine later.
 
    - The logic dealing with visual aspect (i.e. handling and layouting widgets,
      updating the label on the button), interaction aspect (handling the user
@@ -67,19 +83,4 @@ design, as we imagine to scale it up:
      separated. This would ease testability, simplify code understanding and
      interaction.
 
-
-FIXME also known as autonomous view.
-
-combining two or more roles on the same class can be an acceptable compromise,
-whose cost is a reduction in flexibility and clarity, and whose advantage is a
-more streamlined approach for simple cases. Note that mixing the roles does not
-imply that the code responsible for each of these roles should mix as well. it
-is in fact good practice to keep the code performing each role in separate
-routines. This simplifies both understanding and future refactoring, if the
-needs emerges. 
-
-FIXME: put the design idea first, then the code.
-
-Difficult to test. The only way to stress it is to actually probe it with GUI events,
-which is impractical.
 

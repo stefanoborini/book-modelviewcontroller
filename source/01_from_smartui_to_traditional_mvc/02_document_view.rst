@@ -1,14 +1,28 @@
 Document-View: dividing state from GUI
 --------------------------------------
 
-**Additional Need: Represent the same information in two visual forms at the same time.**
-
-To solve the shortcomings of Smart-UI, we take advantage of the intrinsic
+To solve the shortcomings of Smart UI, we take advantage of the intrinsic
 division into visual, interaction and business role expressed by a GUI
-application. In Smart-UI, these three roles happen to be assigned to the same
+application. In Smart UI, these three roles happen to be assigned to the same
 class, but we can reorganize our code so that they are kept separated. The
-resulting design is a two-class system known in literature as **Document-View** or
-**Model-Delegate**.  
+resulting design is a two-class system known in literature as **Document View** or
+**Model Delegate**.  
+
+.. important::
+    
+    An unpleasant characteristic of MVC literature is that different names
+    are used to express the same concepts. Vice-versa, it is also common that
+    the same name is used to express different concepts. We accept this by
+    proposing the most common names, reporting "also known as" names, and 
+    stressing differences when appropriate.
+
+combining two or more roles on the same class can be an acceptable compromise,
+whose cost is a reduction in flexibility and clarity, and whose advantage is a
+more streamlined approach for simple cases. Note that mixing the roles does not
+imply that the code responsible for each of these roles should mix as well. it
+is in fact good practice to keep the code performing each role in separate
+routines. This simplifies both understanding and future refactoring, if the
+needs emerges. 
 
 The first step is to partition out the data, represented by the ``self._value``
 variable, into a separate **Document** class. For our system to continue to work,
@@ -202,4 +216,8 @@ the Document information and the handling of user interaction.
       };
 
    A similar approach can be used in Java.
+
+
+
+
 

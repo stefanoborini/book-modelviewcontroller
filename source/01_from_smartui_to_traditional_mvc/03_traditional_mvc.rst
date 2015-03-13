@@ -92,3 +92,8 @@ This schema assumes that the controller is initialized by the View. This is gene
 desirable, given that View and Controller are so dependent and tailored to each
 other that passing the Controller from outside is not profitable. 
 
+FIXME
+The direct connection between View and Controller is needed for:
+1) the View initializes the controller with an instance of itself at
+creation
+2) the currently active controller can be found by traversing the view hierarchy

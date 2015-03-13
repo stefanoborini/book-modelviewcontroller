@@ -6,14 +6,13 @@ series of blog posts to describe Model View Controller and a few related
 patterns.  As I gathered more and more information from the net and my personal
 experience, I suddenly found out that the amount and structure of what I wrote
 was beyond the scope of a blog, hence the decision to re-label it as a book. I
-am happy with the decision, because it gives me now freedom to add material I
-would not have added before.
-
+am happy with the decision, because it gave me freedom to add material I would
+not have added otherwise.
 
 This works presents and enriches design solutions, best practices, and
-experiments made available by countless blog posts and comments.  Being a work
+experiments made available by countless blog posts and comments. Being a work
 in progress, there's still a lot to be done. Please be patient, but feel free
-to send me feedback, push requests and take advantage of the material already
+to send me feedback, pull requests, and take advantage of the material already
 present.  This book is released under GFDL license. 
 
 Why is this book free?
