@@ -2,35 +2,42 @@ Document-View: dividing state from GUI
 --------------------------------------
 
 To solve the shortcomings of Smart UI, we take advantage of the intrinsic
-division into visual, interaction and business role expressed by a GUI
-application. In Smart UI, these roles happen to be assigned to the same
-class, but we can reorganize our code so that they are kept separated. 
+division into visual rendering, interaction and business logic expressed by a GUI
+application. In Smart UI, these three roles happen to be assigned to the same
+class, but we can reorganize our code so that the business logic part is kept
+separated.
+
 The resulting design is a two-class system known in literature as **Document
 View** or **Model Delegate**
 
 .. image:: images/DocumentViewDesign.png
    :align: center
 
-The Document class is responsible for handling business logic of the application.
+The **Document** class is responsible for handling the business logic.
 It provides nothing concerning graphical rendering, nor event handling. It simply
-stores the state, and provides an interface to change or obtain this state. 
+stores the state, and provides an interface to change or obtain this state, 
+according to the rules of the application.
 
-The View class is instead concerned with the remaining GUI related tasks. It
+The **View** class is instead concerned with the remaining GUI related tasks. It
 handles user events, renders itself visually, performs operations on the
 Document and keeps its visual aspect synchronized against the Document's state
-when it changes.
+when it changes. 
 
+This design removes some of the concerns expressed for Smart UI. Testing of the state
+and business logic becomes easier. The Document object can be modified or
+accessed programmatically by issuing calls to its methods. This object is now
+independent and can work and manipulated with different Views, if desired. An
+additional price in complexity is introduced in having to keep the View (or Views)
+notified of changes to the Document.
 
-
-
-
-
-The first step is to partition out the data, represented by the ``self._value``
-variable, into a separate **Document** class. For our system to continue to work,
-the visual part **View** must now be informed of changes to this data. The Document
-will therefore not only hold ``self._value``, but also provide an interface to
-query and modify this data and a strategy to notify other objects when changes
-occur. This is expressed in the following implementation code 
+We can implement this design to our Click counter application through progressive
+refactorings. The first step is to partition out the data, represented by the
+``self._value`` variable, into the Document class. For our system to
+continue to work, the visual part View must now be informed of changes to
+this data. The Document will therefore not only hold ``self._value``, but also
+provide an interface to query and modify this data and a strategy to notify
+other objects when changes occur. This is expressed in the following
+implementation code 
 
 .. code-block:: python
 
@@ -40,10 +47,9 @@ occur. This is expressed in the following implementation code
            self._listeners = set() 
 
 In addition to the value, the ``self._listeners`` member variable holds references
-to external objects interested in being notified about changes. We use a python
-set instead of a list to prevent accidental registration of the same object
-twice. Interested objects can register and unregister through the following
-methods 
+to Views interested in being notified about changes. We use a python set
+instead of a list to prevent accidental registration of the same object twice.
+Interested objects can register and unregister through the following methods 
 
 .. code-block:: python
 
@@ -56,8 +62,7 @@ methods
       def unregister(self, listener): 
           self._listeners.remove(listener) 
 
-Finally, we provide a setter/getter method pair [#]_ for ``self._value``: 
-the getter method is trivial, and simply returns the value
+We then provide a getter method [#]_ for ``self._value``: 
 
 .. code-block:: python
 
@@ -66,9 +71,10 @@ the getter method is trivial, and simply returns the value
        def value(self): 
            return self._value 
 
-while the setter modifies the internal variable and notifies the registered
-listeners when the value changes. This is done by calling the listeners'
-``notify`` method, as you can see in ``self._notifyListeners``
+We also provide a setter to directly set a specific value. Note in particular how
+the method notifies the registered listeners when the value changes. This is
+done by calling the listeners' ``notify`` method, as you can see in
+``self._notifyListeners``
 
 .. code-block:: python
 
@@ -86,6 +92,18 @@ listeners when the value changes. This is done by calling the listeners'
 The method ``notify`` is therefore the interface that a registered listener
 must provide in order to receive notifications about the mutated state of the
 Document object. Our View need to implement this method. 
+
+Finally, we also provide a method that increments the value according to the
+expected logic
+
+.. code-block:: python
+
+   class CounterDocument(object): 
+       # ...
+       def incrementValue(self): 
+           self._value += 1
+           self._notifyListeners() 
+
 
 The View class will be responsible for rendering the information contained in
 an instance of ``CounterDocument``. This instance is passed at initialization,
@@ -128,15 +146,13 @@ involve the Document, again through its interface
        # ...
        def mouseReleaseEvent(self, event):
            super(CounterView, self).mouseReleaseEvent(event)
-           self._document.setValue(self._document.value()+1)
+           self._document.incrementValue()
 
 the ``setValue`` call will then issue a change notification that will update the
 button text via ``notify``.
 
-With this new design, we open the possibility for different GUI objects to stay
-synchronized against the Document state, something that would not have been
-possible with Smart-UI. We can now provide different representation modes for
-the same information, or modify it through different sources, either visual or
+We can now provide multiple Views with different representation modes for the
+same information, or modify it through different sources, either visual or
 non-visual. We can for example add a Progress Bar
 
 .. code-block:: python

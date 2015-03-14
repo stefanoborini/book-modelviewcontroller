@@ -1,8 +1,6 @@
 Compositing Model
 -----------------
 
-**Addressed Need: Aggregation of information from submodels.**
-
 A Compositing Model aggregates data from multiple Model objects so that the
 View has a single and uniform point of interest as its datasource.
 Notifications from individual submodels are received by the Compositing Model,
