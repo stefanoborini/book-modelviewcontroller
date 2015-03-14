@@ -2,8 +2,18 @@ Smart-UI: A single class with many responsibilities
 ---------------------------------------------------
 
 We start this exploration toward MVC with the most trivial and simplistic
-design: **Smart UI**, also known as **Autonomous View**.  A single class
-handles all responsibilities we expect from a GUI program:
+design: **Smart UI**, also known as **Autonomous View**. 
+
+.. important::
+    
+   An confusing characteristic of MVC literature is that different names
+   are used to express the same concepts. Vice-versa, it is also common that
+   the same name is used to express totally different concepts. We accept this
+   by proposing the most common names, reporting "also known as" names, and 
+   stressing differences when appropriate.
+
+The Smart UI approach uses a single class to handle all responsibilities we
+expect from a GUI program:
 
    - Receives user driven events, such as mouse clicks and keyboard input
    - Holds application logic to convert user driven events into changes of application state
@@ -21,27 +31,27 @@ The code is as follows:
 
 .. code-block:: python 
 
-    import sys
-    from PyQt4 import QtCore, QtGui
+   import sys
+   from PyQt4 import QtCore, QtGui
 
-    class Counter(QtGui.QPushButton):
-        def __init__(self, *args, **kwargs):
-            super(Counter, self).__init__(*args, **kwargs)
-            self._value = 0
-            self._update()
+   class Counter(QtGui.QPushButton):
+       def __init__(self, *args, **kwargs):
+           super(Counter, self).__init__(*args, **kwargs)
+           self._value = 0
+           self._update()
 
-        def mouseReleaseEvent(self, event):
-            super(Counter, self).mouseReleaseEvent(event)
-            self._value += 1
-            self._update()
+       def mouseReleaseEvent(self, event):
+           super(Counter, self).mouseReleaseEvent(event)
+           self._value += 1
+           self._update()
 
-        def _update(self):
-            self.setText(unicode(self._value))
+       def _update(self):
+           self.setText(unicode(self._value))
 
-    app = QtGui.QApplication(sys.argv)
-    counter = Counter()
-    counter.show()
-    app.exec_()
+   app = QtGui.QApplication(sys.argv)
+   counter = Counter()
+   counter.show()
+   app.exec_()
 
 The application's main and only visual component, ``Counter``, is derived from
 a single GUI class, a Qt ``QPushButton``. Observe in particular how ``Counter`` is
@@ -72,9 +82,9 @@ Specifically, observe the following issues:
      maybe with two different visual aspects (*e.g.* both as a counter and as a
      progress bar)
 
-   - The resulting class is difficult to test. The only way to stress it is to
-     actually probe it with GUI events, which is impractical for reasons we will
-     examine later.
+   - The resulting class is difficult to test. The only way to stress it through
+     its public interface and functionality is to actually probe it with GUI
+     events, which is impractical for reasons we will examine later.
 
    - The logic dealing with visual aspect (i.e. handling and layouting widgets,
      updating the label on the button), interaction aspect (handling the user

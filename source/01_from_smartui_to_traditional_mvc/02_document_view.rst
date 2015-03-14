@@ -3,76 +3,85 @@ Document-View: dividing state from GUI
 
 To solve the shortcomings of Smart UI, we take advantage of the intrinsic
 division into visual, interaction and business role expressed by a GUI
-application. In Smart UI, these three roles happen to be assigned to the same
-class, but we can reorganize our code so that they are kept separated. The
-resulting design is a two-class system known in literature as **Document View** or
-**Model Delegate**.  
+application. In Smart UI, these roles happen to be assigned to the same
+class, but we can reorganize our code so that they are kept separated. 
+The resulting design is a two-class system known in literature as **Document
+View** or **Model Delegate**
 
-.. important::
-    
-    An unpleasant characteristic of MVC literature is that different names
-    are used to express the same concepts. Vice-versa, it is also common that
-    the same name is used to express different concepts. We accept this by
-    proposing the most common names, reporting "also known as" names, and 
-    stressing differences when appropriate.
+.. image:: images/DocumentViewDesign.png
+   :align: center
 
-combining two or more roles on the same class can be an acceptable compromise,
-whose cost is a reduction in flexibility and clarity, and whose advantage is a
-more streamlined approach for simple cases. Note that mixing the roles does not
-imply that the code responsible for each of these roles should mix as well. it
-is in fact good practice to keep the code performing each role in separate
-routines. This simplifies both understanding and future refactoring, if the
-needs emerges. 
+The Document class is responsible for handling business logic of the application.
+It provides nothing concerning graphical rendering, nor event handling. It simply
+stores the state, and provides an interface to change or obtain this state. 
+
+The View class is instead concerned with the remaining GUI related tasks. It
+handles user events, renders itself visually, performs operations on the
+Document and keeps its visual aspect synchronized against the Document's state
+when it changes.
+
+
+
+
+
 
 The first step is to partition out the data, represented by the ``self._value``
 variable, into a separate **Document** class. For our system to continue to work,
 the visual part **View** must now be informed of changes to this data. The Document
 will therefore not only hold ``self._value``, but also provide an interface to
 query and modify this data and a strategy to notify other objects when changes
-occur. This is expressed in the following implementation code ::
+occur. This is expressed in the following implementation code 
 
-    class CounterDocument(object): 
-        def __init__(self): 
-            self._value = 0 
-            self._listeners = set() 
+.. code-block:: python
+
+   class CounterDocument(object): 
+       def __init__(self): 
+           self._value = 0 
+           self._listeners = set() 
 
 In addition to the value, the ``self._listeners`` member variable holds references
 to external objects interested in being notified about changes. We use a python
 set instead of a list to prevent accidental registration of the same object
 twice. Interested objects can register and unregister through the following
-methods :: 
+methods 
 
-    class CounterDocument(object): 
-       # ...
-       def register(self, listener): 
-           self._listeners.add(listener) 
-           listener.notify() 
+.. code-block:: python
 
-       def unregister(self, listener): 
-           self._listeners.remove(listener) 
+   class CounterDocument(object): 
+      # ...
+      def register(self, listener): 
+          self._listeners.add(listener) 
+          listener.notify() 
+
+      def unregister(self, listener): 
+          self._listeners.remove(listener) 
 
 Finally, we provide a setter/getter method pair [#]_ for ``self._value``: 
-the getter method is trivial, and simply returns the value ::
+the getter method is trivial, and simply returns the value
 
-    class CounterDocument(object): 
-        # ...
-        def value(self): 
-            return self._value 
+.. code-block:: python
+
+   class CounterDocument(object): 
+       # ...
+       def value(self): 
+           return self._value 
 
 while the setter modifies the internal variable and notifies the registered
 listeners when the value changes. This is done by calling the listeners'
-``notify`` method, as you can see in ``self._notifyListeners`` ::
+``notify`` method, as you can see in ``self._notifyListeners``
 
-    class CounterDocument(object): 
-        # ...
-        def setValue(self, value): 
-            if value != self._value: 
-                self._value = value 
-                self._notifyListeners() 
+.. code-block:: python
 
-        def _notifyListeners(self): 
-            for l in self._listeners: 
-                l.notify()
+   class CounterDocument(object): 
+       # ...
+       def setValue(self, value): 
+           if value != self._value: 
+               self._value = value 
+               self._notifyListeners() 
+
+       def _notifyListeners(self): 
+           for l in self._listeners: 
+               l.notify()
 
 The method ``notify`` is therefore the interface that a registered listener
 must provide in order to receive notifications about the mutated state of the
@@ -80,23 +89,27 @@ Document object. Our View need to implement this method.
 
 The View class will be responsible for rendering the information contained in
 an instance of ``CounterDocument``. This instance is passed at initialization,
-and after a few formalities, the View register itself for notifications ::
+and after a few formalities, the View register itself for notifications
 
-    class CounterView(QtGui.QPushButton):
-        def __init__(self, document):
-            super(CounterView, self).__init__()
-            self._document = document
-            self._document.register(self)
+.. code-block:: python
+
+   class CounterView(QtGui.QPushButton):
+       def __init__(self, document):
+           super(CounterView, self).__init__()
+           self._document = document
+           self._document.register(self)
 
 When this happens, the Document adds the View as a listener. A notification is
 immediately delivered to the newly added listener so that it can update
 itself. [#]_ The ``notify`` method on the View is then called, which will query
-the current value from the Document, and update the text on the button ::
+the current value from the Document, and update the text on the button
 
-    class CounterView(QtGui.QPushButton):
-        # ...
-        def notify(self):
-            self.setText(unicode(self._document.value()))
+.. code-block:: python
+
+   class CounterView(QtGui.QPushButton):
+       # ...
+       def notify(self):
+           self.setText(unicode(self._document.value()))
 
 Note how this method inquires the Document through its interface (calling
 ``CounterDocument.value``). The View must therefore have detailed knowledge of its
@@ -107,13 +120,15 @@ widgets it is composed of.
 
 Handling of the click event from the User is performed in
 ``mouseReleaseEvent``, as in Smart-UI. This time however, the action will
-involve the Document, again through its interface ::
+involve the Document, again through its interface 
 
-    class CounterView(QtGui.QPushButton):
-        # ...
-        def mouseReleaseEvent(self, event):
-            super(CounterView, self).mouseReleaseEvent(event)
-            self._document.setValue(self._document.value()+1)
+.. code-block:: python
+
+   class CounterView(QtGui.QPushButton):
+       # ...
+       def mouseReleaseEvent(self, event):
+           super(CounterView, self).mouseReleaseEvent(event)
+           self._document.setValue(self._document.value()+1)
 
 the ``setValue`` call will then issue a change notification that will update the
 button text via ``notify``.
@@ -122,30 +137,34 @@ With this new design, we open the possibility for different GUI objects to stay
 synchronized against the Document state, something that would not have been
 possible with Smart-UI. We can now provide different representation modes for
 the same information, or modify it through different sources, either visual or
-non-visual. We can for example add a Progress Bar ::
+non-visual. We can for example add a Progress Bar
 
-    class ProgressBarView(QtGui.QProgressBar):
-        def __init__(self, document):
-            super(ProgressBarView, self).__init__()
-            self._document = document
-            self._document.register(self)
-            self.setRange(0,100)
+.. code-block:: python
 
-        def notify(self):
-            self.setValue(self._document.value())
+   class ProgressBarView(QtGui.QProgressBar):
+       def __init__(self, document):
+           super(ProgressBarView, self).__init__()
+           self._document = document
+           self._document.register(self)
+           self.setRange(0,100)
 
-and register it on the same Document instance at initialization ::
+       def notify(self):
+           self.setValue(self._document.value())
 
-    app = QtGui.QApplication(sys.argv)
+and register it on the same Document instance at initialization 
 
-    document = CounterDocument()
-    counter = CounterView(document)
-    progress = ProgressBarView(document)
+.. code-block:: python
 
-    counter.show()
-    progress.show()
+   app = QtGui.QApplication(sys.argv)
 
-    app.exec_()
+   document = CounterDocument()
+   counter = CounterView(document)
+   progress = ProgressBarView(document)
+
+   counter.show()
+   progress.show()
+
+   app.exec_()
 
 When the button is clicked, both its label and the progress bar are kept
 updated with the current value in the Document.
@@ -220,4 +239,12 @@ the Document information and the handling of user interaction.
 
 
 
+FIXME
+combining two or more roles on the same class can be an acceptable compromise,
+whose cost is a reduction in flexibility and clarity, and whose advantage is a
+more streamlined approach for simple cases. Note that mixing the roles does not
+imply that the code responsible for each of these roles should mix as well. it
+is in fact good practice to keep the code performing each role in separate
+routines. This simplifies both understanding and future refactoring, if the
+needs emerges. 
 
