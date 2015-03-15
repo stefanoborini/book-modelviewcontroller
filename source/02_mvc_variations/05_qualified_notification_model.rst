@@ -1,8 +1,6 @@
 Qualified notification Model
 ----------------------------
 
-**Addressed Need: provide additional details about the notification**
-
 Inform the View about which model actually changed Prevent a View refresh if
 the model changes on some information that is not displayed due to the state of
 the view Inform the View of what actually changed, instead of asking for a full
