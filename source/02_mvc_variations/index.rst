@@ -49,21 +49,29 @@ Variations on the Model
    02_model_pipe
    03_application_model
    04_side_by_side_application_model
-   05_qualified_notification_model
    06_ui_retrieving_model
-   07_passive_model
-   08_lazy_model
    09_model_controller
    12_local_model
    13_value_model
    32_proxy_model
    34_collection_model
-   35_accumulator
    38_view_aware_model
-   40_delayed_model
    42_caching_model
+
+Variations on the Notification Strategy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   05_qualified_notification_model
+   07_passive_model
+   08_lazy_model
+   35_accumulator
+   40_delayed_model
    47_pre_post_notification
    48_vetoers
+   28_notification_looping_prevention
 
 Variations on the View
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -105,9 +113,7 @@ Variations on the Triad
    24_presenter_adapter_view
    25_model_view_viewmodel
    26_view_controller_view
-   28_notification_looping_prevention
    29_commands
-   31_model_delegate
    33_event_filter
    36_visual_editor
    37_command_notification
