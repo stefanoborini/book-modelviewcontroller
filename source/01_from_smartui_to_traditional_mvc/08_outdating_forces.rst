@@ -1,39 +1,37 @@
 Forces outdating Traditional MVC
 ================================
 
-Traditional MVC is an old approach. Much has changed since its original
-implementation.  For example, modern Views are composed of widget that handle
-events internally: a Line Edit widget receives and handles keyboard events independently,
-and can transform these events in an internally handled operations to actually write text
-on the screen, without any additional help. Moreover, a modern View is
-generally able to keep track of which Controller to send notifications to, by
-having hints about their focus status. In the past, this coordination was
-performed by the Controllers, who had to be connected and forward messages
-to each other to decide who was in charge of handling a specific event.
+The Traditional MVC design presented in the previous section is a modern
+reinterpretation of the MVC as described by Reenskaug in the 70s. The original
+design was developed under different constraints, and could not take advantage
+of the modern solutions we enjoy today. 
+For example, Reenskaug's Controller handled low level events, positioned the
+Views on the screen, and kept track of which View had focus and which
+Controller in the application was in charge of handling the events. 
 
-The result of a more integrated and effective handling of events decreased the
-responsibility of the Controller. Now, the controller handles "events" from the view,
-rather than raw, low level events. New interpretations of the old pattern emerged,
-but there's definitely less pressure on the Traditional MVC Controller today as
-there was once. 
+Modern environments, compared to the ones where Reenskaug MVC was developed
+first, have improved on a lot of boilerplate tasks: modern Views are composed
+of widgets provided by either a GUI Toolkit or the operating system's
+framework. These widgets acts both as Views and as Controllers as originally
+defined, because they can display and position themselves, manage focus,
+receive low-level events and convert them to higher level behavior: a modern
+LineEdit widget handles keyboard input to write text on the screen without any
+additional support.
 
-Additionally, new needs emerged from more complex and communicative GUIs,
-making Traditional MVC either too inflexible, or too limited to address these
-requirements. 
+The result of this modernization is a reduction of responsibility of the
+Controller, and its role has been adapted with the times.  New interpretations
+of the old pattern emerged, and the Traditional MVC introduced earlier is an
+example of this adaptation.  The Controller now handles high-level events from
+the View, rather than raw, low level events, and can eventually take the role
+of mutator of the Model.
 
-off-the-shelf widget sets. Reimplement widgets to define methods for events is annoying. proliferates classes.
-Modern widgets handle events themselves
+On the other hand, new needs emerged from more complex and communicative GUIs,
+underlying toolkits, and new architectures (i.e. the web) making Traditional
+MVC sometimes too inflexible, sometimes too limited, and sometimes overdesigned
+for the specific task at hand.
 
-The controller role in dividing input from output and in particular intercepting
-the original events can be seen as redudant. Today, widgets intercept primary events, so the
-controller can eventually take the role of mutator on the Model.
+In the next chapter, we will examine a palette of variations of the basic
+building blocks of MVC to provide development strategies for common GUI
+development needs.
 
-The original MVC was reenskaug's. We will examine it later, but the main point of reenskaug
-MVC was that the Controller was fully in charge of handling events. Modern widgets acts both as views
-and as controllers, because they can display and receive events. At the time it was not the case.
 
-Similar to a unix architecture, with stdin (controller) and stdout (view)
-
-Even the Traditional MVC exposed here just monkeys the original Reenskaug MVC, which was developed 
-with different constraints. Modern environments, compared to the ones where Reenskaug MVC was developed
-first, have improved on a lot of boilerplate tasks.

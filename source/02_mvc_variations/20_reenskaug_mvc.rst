@@ -49,3 +49,4 @@ able to receive the input from the user. It is assumed that there is a coordinat
 of the controllers, typically in a hierarchy, so that if the current one is not authoritative
 to handle a specific event, it delegates it to the upper controller.
 
+Similar to a unix architecture, with stdin (controller) and stdout (view)

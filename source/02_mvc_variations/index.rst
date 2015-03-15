@@ -112,3 +112,10 @@ Variations on the Triad
    36_visual_editor
    37_command_notification
    45_Qt_MVC
+
+
+
+FIXME:
+off-the-shelf widget sets. Reimplement widgets to define methods for events is annoying. proliferates classes.
+
+

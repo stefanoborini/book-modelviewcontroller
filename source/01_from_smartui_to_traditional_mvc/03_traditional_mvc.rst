@@ -1,8 +1,6 @@
 Traditional MVC
 ---------------
 
-**Additional need: separate visualization operations from modification operations.**
-
 With the Document-View design we successfully extracted state from an initial
 Smart-UI design. The next objective is to extract the code that converts the
 primary event (in this case, a mouse click on the button) into the execution of
@@ -10,7 +8,7 @@ the logic that modifies the state (addition of one to the value). The final
 result of this refactoring will be a **Traditional MVC** design.  
 
 In Traditional MVC, the Document is called **Model**, and its role and structure is
-unchanged: it stores state and delivers change notifications. The visual part
+unchanged: it stores state and delivers change notifications. The View part
 is divided into two classes, the **Controller** and the **View**. Once instantiated and
 connected, Model, View, and Controller form a so-called **MVC triad**.
 
@@ -19,10 +17,11 @@ connected, Model, View, and Controller form a so-called **MVC triad**.
 
 FIXME Put a more appropriate image, expressing the strong and weak association between entities.
 
-
 The Controller's role is to transform primary events delivered by the View into
 operations on the Model. Depending on the specifics of the application, a Controller may or may not need
-a reference to the View, but it certainly needs the Model to apply changes on ::
+a reference to the View, but it certainly needs the Model to apply changes on
+
+.. code-block:: python
 
    class Controller(object):
        def __init__(self, model, view):
@@ -32,7 +31,9 @@ a reference to the View, but it certainly needs the Model to apply changes on ::
 The method ``addOne`` performs the specific task of transforming a primary event
 into a Model operation, adding one to the current value.  Obviously, the
 Controller does so through the Model interface. This operation will trigger a
-Model notification to its listeners ::
+Model notification to its listeners 
+
+.. code-block:: python
 
     class Controller(object):
         # ...
@@ -41,7 +42,9 @@ Model notification to its listeners ::
 
 At initialization, the View instantiates its associated Controller, passing
 itself and the Model as parameters. As before, the View registers itself on the
-Model via the ``register`` method ::
+Model via the ``register`` method 
+
+.. code-block:: python
 
     class View(QtGui.QPushButton):
         def __init__(self, model):
@@ -53,7 +56,9 @@ Model via the ``register`` method ::
 The View now depends on the Controller to modify the Model: only strictly
 GUI-related handling is done by the View. Conversion from GUI events to
 application business logic is delegated to the Controller in
-``mouseReleaseEvent`` ::
+``mouseReleaseEvent`` 
+
+.. code-block:: python
 
     class View(QtGui.QPushButton):
         # ...
@@ -73,7 +78,9 @@ synchronization does not involve the Controller
    :align: center
 
 To initialize the MVC triad, the client code needs to create the Model and
-View, and let them be aware of each other by passing the Model to the View. ::
+View, and let them be aware of each other by passing the Model to the View. 
+
+.. code-block:: python
 
    app = QtGui.QApplication(sys.argv)
 
@@ -97,3 +104,13 @@ The direct connection between View and Controller is needed for:
 1) the View initializes the controller with an instance of itself at
 creation
 2) the currently active controller can be found by traversing the view hierarchy
+
+FIXME
+combining two or more roles on the same class can be an acceptable compromise,
+whose cost is a reduction in flexibility and clarity, and whose advantage is a
+more streamlined approach for simple cases. Note that mixing the roles does not
+imply that the code responsible for each of these roles should mix as well. it
+is in fact good practice to keep the code performing each role in separate
+routines. This simplifies both understanding and future refactoring, if the
+needs emerges. 
+

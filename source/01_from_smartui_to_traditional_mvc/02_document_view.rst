@@ -14,21 +14,31 @@ View** or **Model Delegate**
    :align: center
 
 The **Document** class is responsible for handling the business logic.
-It provides nothing concerning graphical rendering, nor event handling. It simply
-stores the state, and provides an interface to change or obtain this state, 
-according to the rules of the application.
+It has no part in dealing with graphical rendering, nor with GUI events. It
+simply stores application relevant state, and provides an interface to obtain this
+state or change it according to the rules of the application. Addtionally, it
+provides a mechanism to inform interested objects of changes. 
 
-The **View** class is instead concerned with the remaining GUI related tasks. It
-handles user events, renders itself visually, performs operations on the
-Document and keeps its visual aspect synchronized against the Document's state
-when it changes. 
+The **View** class instead handles user events, renders itself visually,
+performs operations on the Document and keeps its visual aspect synchronized
+against the Document's state when it changes. 
 
-This design removes some of the concerns expressed for Smart UI. Testing of the state
-and business logic becomes easier. The Document object can be modified or
+The Document-View design achieves separation of the state from its graphical
+representation, allowing them to change independently. The Document has become
+a fully non-GUI entity that can act and be tested independently. Any registered
+View always keeps itself up-to-date against the Document contents through the
+notification system, and carry full responsibility for graphical rendering of
+the Document information and the handling of user interaction.
+
+This design removes some of the concerns expressed for Smart UI. Testing of the
+state and business logic becomes easier: the Document object can be modified or
 accessed programmatically by issuing calls to its methods. This object is now
 independent and can work and manipulated with different Views, if desired. An
 additional price in complexity is introduced in having to keep the View (or Views)
 notified of changes to the Document.
+
+Implementation example
+~~~~~~~~~~~~~~~~~~~~~~
 
 We can implement this design to our Click counter application through progressive
 refactorings. The first step is to partition out the data, represented by the
@@ -60,7 +70,7 @@ Interested objects can register and unregister through the following methods
           listener.notify() 
 
       def unregister(self, listener): 
-          self._listeners.remove(listener) 
+          self._listeners.remove(listener)  
 
 We then provide a getter method [#]_ for ``self._value``: 
 
@@ -185,12 +195,6 @@ and register it on the same Document instance at initialization
 When the button is clicked, both its label and the progress bar are kept
 updated with the current value in the Document.
 
-The Document-View design achieves separation of the state from its graphical
-representation, allowing them to change independently. The Document has become
-a fully non-GUI entity that can act and be tested independently. Any registered
-View always keeps itself up-to-date against the Document contents through the
-notification system, and carry full responsibility for graphical rendering of
-the Document information and the handling of user interaction.
 
 .. [#] Python properties can be used for the same goal. However, python properties are
    harder to connect to the signal/slots mechanism in PyQt. 
@@ -252,15 +256,4 @@ the Document information and the handling of user interaction.
 
    A similar approach can be used in Java.
 
-
-
-
-FIXME
-combining two or more roles on the same class can be an acceptable compromise,
-whose cost is a reduction in flexibility and clarity, and whose advantage is a
-more streamlined approach for simple cases. Note that mixing the roles does not
-imply that the code responsible for each of these roles should mix as well. it
-is in fact good practice to keep the code performing each role in separate
-routines. This simplifies both understanding and future refactoring, if the
-needs emerges. 
 
