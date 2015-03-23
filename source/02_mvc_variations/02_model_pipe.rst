@@ -1,8 +1,6 @@
 Model Pipe
 ----------
 
-**Addressed Need: Intercept and filter the data flow between Model and View.**
-
 The **Model Pipe** is a variation of the Compositing Model approach. 
 It introduces an additional Model class, called **Pipe**, to intercept
 the data flow between Model and View and add flexibility for data manipulation

@@ -3,11 +3,10 @@ MVC Variation
 
 Traditional MVC is excellent as a starting point for discussion, but by no
 means it must be considered the one and only proper way of doing MVC. In fact,
-MVC is rather limited within the context of modern UI development. New patterns
-have emerged, built around MVC basic concepts but with additional tricks,
-extensions and alternative design choices to satisfy modern requirements while
-keeping programming complexity as low as possible. Examples of such
-requirements include:
+we saw how Traditional MVC is outdated within the context of modern UI
+development. New patterns have emerged, built around fundamental MVC concepts 
+and nomenclature, but with additional tricks, extensions and alternative design
+choices to satisfy modern requirements, such as the following:
 
    - a modal dialog must allow changing values, but revert them when the Cancel
      button is pressed.
@@ -118,10 +117,4 @@ Variations on the Triad
    36_visual_editor
    37_command_notification
    45_Qt_MVC
-
-
-
-FIXME:
-off-the-shelf widget sets. Reimplement widgets to define methods for events is annoying. proliferates classes.
-
 

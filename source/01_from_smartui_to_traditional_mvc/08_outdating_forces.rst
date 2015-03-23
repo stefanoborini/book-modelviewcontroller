@@ -34,4 +34,7 @@ In the next chapter, we will examine a palette of variations of the basic
 building blocks of MVC to provide development strategies for common GUI
 development needs.
 
+FIXME:
+off-the-shelf widget sets. Reimplement widgets to define methods for events is annoying. proliferates classes.
+
 

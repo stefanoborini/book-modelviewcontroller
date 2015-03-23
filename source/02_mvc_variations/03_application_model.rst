@@ -1,8 +1,6 @@
 Application Model (MMVC)
 ------------------------
 
-**Addressed Need: separate visual state from business state. Grant visual state a dedicated Model.**
-
 In Traditional MVC we pointed out that a Model object should not contain GUI
 state. In practice, some applications need to preserve and manage state that is
 only relevant for visualization. Traditional MVC has no place for it, but we
