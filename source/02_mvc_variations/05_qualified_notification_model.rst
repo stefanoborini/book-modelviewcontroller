@@ -27,6 +27,7 @@ notify() gets called with a qualified flag specifying which change has occurred
 The view subscribes to specific events from the model, and 
 receives notifications only when those events actually occur.
 
+case: Model changes, but not in the data relevat to the view.
 
 notify can say, for example, what value is changing, the value before and after.
 
@@ -56,8 +57,6 @@ Disadvantages:
 you can send a changeset object through the signal, with a well defined interface
 for the type and change content
 
-
-accumulate notifications in a buffer, then send them out at the end of the transaction.
 
 If you want to retain control over the notification in order to 
 prevent trashing, you can use a passive model and let the controller do the notification

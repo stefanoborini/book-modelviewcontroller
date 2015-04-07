@@ -1,13 +1,9 @@
 Notes
 =====
 Local models, or one global model?
-case: Model changes, but not in the data relevat to the view.
-Who performs validation? View? Controller? Model?
-Consistency of the data inside the model?
 
 the view should be able to query or inform the controller for action (will, should, did): delegate
 
-Depending on the application, the model can host invalid data (that is, invalid for the application)
 
 Compare OSX bindings with MVVM ? Same stuff?
 You might have to fight your toolkit because it prefers a specific implementation of MVC
@@ -49,7 +45,6 @@ write that the view has two ways to interact with the controller and forward
 events: strong coupling through direct invocation, or loose coupling through raising
 events at a higher semantic level.
 
-Detail the challenges of asynchronous component in testing
 
 
 
@@ -77,15 +72,3 @@ realizes that it's the same change that delivers two messages?
 
 -
 
-With signals, you might have to adapt the signals that your model emits
-to the specific needs of your views. A coarse grained signal that forces
-a heavy refresh on the view may be better split into a separate signal
-specific to the area of the model that actually affects the view. In 
-practice, the model communication pattern may have to adapt to the View's
-implementation details to guarantee responsiveness.
-
-For example, if you have a view displaying the number of lines in a document,
-subscribing to a contentChanged signal may require a recalculation of the number
-of lines at every character inserted. It may make sense to provide a lineNumberChanged
-signal, so that line number display is updated only when the model actually
-performs a change in the total number of lines.

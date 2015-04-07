@@ -71,6 +71,7 @@ Variations on the Notification Strategy
    47_pre_post_notification
    48_vetoers
    28_notification_looping_prevention
+   49_signals
 
 Variations on the View
 ~~~~~~~~~~~~~~~~~~~~~~

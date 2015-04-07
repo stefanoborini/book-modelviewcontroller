@@ -20,3 +20,5 @@ The Accumulator is useful in the following circumstances:
 
 
 
+accumulate notifications in a buffer, then send them out at the end of the transaction.
+
