@@ -26,6 +26,9 @@ patterns emerge in the form of bugs or application freezes. Keeping this
 communication network well organized and confined by enforcing a structure is
 of paramount importance.
 
+Additionally you might have to fight your toolkit because it prefers a specific
+implementation of MVC.
+
 Design aims at managing complexity. The MVC details given in this book are
 guidelines, but need to consider the actual real problem at hand. Some
 flexibility is needed. Strict compliance generally produces a benefit, and has

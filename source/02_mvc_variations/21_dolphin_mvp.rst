@@ -128,3 +128,27 @@ MVC vs. MVP:
   With smart widgets, user events are handled by the widgets, and then forwarded to the controller.
 MVP: Presenter main objetive is updating the model, and keeping the visual state (as in application model)
      handling events passed by the view is a consequence of it.
+
+
+The presenter can be instantiated either by the client code, or directly by the
+view. If this is the case, the View must know the model, so that it can
+instantiate the Presenter and pass both the model and itself to it.
+
+
+Concerning callability on sone side or the other (e.g. event vs. method call)
+
+write that the view has two ways to interact with the controller and forward
+events: strong coupling through direct invocation, or loose coupling through raising
+events at a higher semantic level.
+forwarding is done depends on the degree of coupling you allow between the View
+and the Presenter. If the view must invoke directly a Presenter's method,
+obviously it must know its interface, so it must hold a reference to it and
+know its interface. The alternative is that the view is oblivious to who is
+listening, and just broadcasts events (commands) to report the button press.
+The presenter observes these events and take appropriate action when triggered.
+As you can see, the difference is subtle, and apparently irrelevant, but it can
+be useful depending on the degree of coupling and self-containment of the view
+vs. the controller (Presenter)
+
+
+

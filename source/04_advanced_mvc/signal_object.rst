@@ -1,4 +1,0 @@
-Signal object
--------------
-
-Signal object

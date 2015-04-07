@@ -19,6 +19,5 @@ The Accumulator is useful in the following circumstances:
       and the Models are in a consistent state.
 
 
-
 accumulate notifications in a buffer, then send them out at the end of the transaction.
 
