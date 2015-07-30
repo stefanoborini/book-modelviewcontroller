@@ -1,6 +1,6 @@
 Understanding Model-View-Controller
 -----------------------------------
-Stefano Borini, 2014 - CreativeCommons-Attribution
+Stefano Borini, 2014 - CreativeCommons-Attribution 
 
 
 Text available at http://forthescience.org/books/modelviewcontroller
