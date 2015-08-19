@@ -1,5 +1,4 @@
-Introduction
-============
+# Introduction
 
 Model-View-Controller (MVC) is probably the most used architectural solution
 for User Interface design and web programming; First defined at the end of the
@@ -28,26 +27,25 @@ intermediate objects to gain more flexibility and satisfy peculiar use cases.
 
 This book is structured as follows:
 
-    - The first chapter will start from the simplest form of GUI with state: the
-      Smart-UI. We will then progressively refactor Smart-UI into a
-      “Traditional MVC”, followed by a definition of its components, roles,
-      and communication patterns.
+- The first chapter will start from the simplest form of GUI with state: the
+  Smart-UI. We will then progressively refactor Smart-UI into a
+  “Traditional MVC”, followed by a definition of its components, roles,
+  and communication patterns.
 
-    - Once equipped with nomenclature, the second chapter will introduce
-      variations of Traditional MVC to address specific constraints and
-      practical needs.
+- Once equipped with nomenclature, the second chapter will introduce
+  variations of Traditional MVC to address specific constraints and
+  practical needs.
 
-    - The third chapter will expand the concept of MVC to hierarchical MVC schemes.
+- The third chapter will expand the concept of MVC to hierarchical MVC schemes.
 
-    - In the fourth chapter we will focus on special collateral techniques that
-      may emerge from a complex modern GUI.
+- In the fourth chapter we will focus on special collateral techniques that
+  may emerge from a complex modern GUI.
 
-    - In the fifth and final chapter, we will specifically focus on Web MVC and
-      its implementations.
+- In the fifth and final chapter, we will specifically focus on Web MVC and
+  its implementations.
 
-
-Throughout the book, some example code in Python will be used to clarify design ideas.
-GUI rendering will make use of the excellent Qt toolkit, through PyQt4. Qt
-provides pre-made mechanisms to address most of our needs, but in the upcoming
-code these mechanisms will occasionally be skipped on purpose to demonstrate a
-more general approach.
+Throughout the book, some example code in Python will be used to clarify design
+ideas. GUI rendering will make use of the excellent Qt toolkit, through PyQt4.
+Qt provides pre-made mechanisms to address most of our needs, but in the
+upcoming code these mechanisms will occasionally be skipped on purpose to
+demonstrate a more general approach.
