@@ -1,5 +1,7 @@
-Summary
----
+Understanding Model-View-Controller 
+------
+
+By Stefano Borini - 2014
 
 - [Preface](source/00_introduction/00_preface.md)
 - [Introduction](source/00_introduction/01_introduction.md)
