@@ -52,42 +52,40 @@ app.exec_()
 
 The application's main and only visual component, ``Counter``, is derived from
 a single GUI class, a Qt ``QPushButton``. Observe in particular how ``Counter`` is
+    
+1. Storing the current click count value in the member variable ``self._value``.
+2. Handling the logic that modifies ``self._value``. Every time the button is
+   clicked, Qt invokes ``mouseReleaseEvent`` automatically. In this method 
+   the click counter is incremented. 
+3. Synchronizes the aspect of the button with the current ``self._value``, 
+   by invoking ``setText``.
 
-    1. Storing the current click count value in the member variable ``self._value``. 
-
-    2. Handling the logic that modifies ``self._value``. Every time the button is
-       clicked, Qt invokes ``mouseReleaseEvent`` automatically. In this method 
-       the click counter is incremented. 
-
-    3. Synchronizes the aspect of the button with the current ``self._value``, 
-       by invoking ``setText``.
-
-This minimalistic design seems appealing for its simplicity and compactness.
+This minimalist design seems appealing for its simplicity and compactness.
 It is a good starting point for trivial applications, and the one most likely to
 be implemented by novices in GUI programming, but it does not scale well for
 larger applications, where state, user events and graphic layout are more
 complex and intertwined and need to change often under development pressure. 
 Specifically, observe the following issues:
 
-   - Access and modification of the current state from outside is cumbersome, being
-     contained into the all-encompassing visual object: external objects that want to
-     modify the current counter need to make sure that the represented value is
-     synchronized, for example, forcing a call to ``_update()``, or having the
-    ``Counter`` object provide a ``setValue()`` method.
+- Access and modification of the current state from outside is cumbersome, being
+  contained into the all-encompassing visual object: external objects that want to
+  modify the current counter need to make sure that the represented value is
+  synchronized, for example, forcing a call to ``_update()``, or having the
+  ``Counter`` object provide a ``setValue()`` method.
 
-   - It is difficult for other visual objects to report the same information,
-     maybe with two different visual aspects (*e.g.* both as a counter and as a
-     progress bar)
+- It is difficult for other visual objects to report the same information,
+  maybe with two different visual aspects (*e.g.* both as a counter and as a
+  progress bar)
 
-   - The resulting class is difficult to test. The only way to stress it through
-     its public interface and functionality is to actually probe it with GUI
-     events, which is impractical for reasons we will examine later.
+- The resulting class is difficult to test. The only way to stress it through
+  its public interface and functionality is to actually probe it with GUI
+  events, which is impractical for reasons we will examine later.
 
-   - The logic dealing with visual aspect (i.e. handling and layouting widgets,
-     updating the label on the button), interaction aspect (handling the user
-     initiated mouse click to perform the increment operation) and business aspect
-     (incrementing the counter) are of different nature, and would be better kept
-     separated. This would ease testability, simplify code understanding and
-     interaction.
+- The logic dealing with visual aspect (i.e. handling and layouting widgets,
+  updating the label on the button), interaction aspect (handling the user
+  initiated mouse click to perform the increment operation) and business aspect
+  (incrementing the counter) are of different nature, and would be better kept
+  separated. This would ease testability, simplify code understanding and
+  interaction.
 
 
