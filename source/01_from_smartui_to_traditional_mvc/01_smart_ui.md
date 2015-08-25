@@ -19,9 +19,10 @@ The Smart UI approach uses a single class to handle all responsibilities we expe
    - Performs visual rendering of its state
 
 As an example implementation of a Smart UI, consider a click counter application, which shows a button with a number. The number is increased every time the button is clicked. 
-    
-[.. image:: ../_static/images/SmartUI.png
-   :align: center
+  
+<p align="center">
+  <img src="../_static/images/SmartUI.png"/>
+</p>  
 
 The code is as follows:
 
