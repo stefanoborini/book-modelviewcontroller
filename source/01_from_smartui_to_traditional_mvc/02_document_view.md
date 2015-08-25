@@ -38,7 +38,8 @@ independent and can work and manipulated with different Views, if desired. An
 additional price in complexity is introduced in having to keep the View (or Views) notified of changes to the Document.
 
 Implementation example
-~~~~~~~~~~~~~~~~~~~~~~
+------
+
 
 We can implement this design to our Click counter application through progressive refactorings. The first step is to partition out the data, represented by the ``self._value`` variable, into the Document class. For our system to continue to work, the visual part View must now be informed of changes to this data. The Document will therefore not only hold ``self._value``, but also provide an interface to query and modify this data and a strategy to notify other objects when changes occur. This is expressed in the following implementation code  
 
@@ -118,8 +119,9 @@ class CounterView(QtGui.QPushButton):
 
 When this happens, the Document adds the View as a listener. A notification is
 immediately delivered to the newly added listener so that it can update
-itself. [2] The ``notify`` method on the View is then called, which will query
-the current value from the Document, and update the text on the button
+itself. [x][2] The ``notify`` method on the View is then called, which will query the current value from the Document, and update the text on the button
+
+[2]: jello
 
 ```
 class CounterView(QtGui.QPushButton):
@@ -178,7 +180,6 @@ app.exec_()
 When the button is clicked, both its label and the progress bar are kept
 updated with the current value in the Document.
 
-
 [1]: Python properties can be used for the same goal. However, python properties are harder to connect to the signal/slots mechanism in PyQt. 
 
 [2]: When registration of the View on the Document is done in the View's
@@ -190,54 +191,56 @@ it through a `View.setDocument` method.
 
 -----
 
-Note: **Notification system in strongly typed languages**
+**Note**: Notification system in strongly typed languages
    
-   A possible implementation of the notification system in strongly typed
-   languages uses an interface class ListenerInterface with one abstract method
-   notify(). For example, in C++ we could write the following code
+A possible implementation of the notification system in strongly typed
+languages uses an interface class `ListenerInterface` with one abstract method
+`notify()`. For example, in C++ we could write the following code
 
-   .. code-block:: cpp
+```cpp
+class ListenerIface 
+{
+public:
+    virtual void notify() = 0;
+};
+```
 
-      class ListenerIface 
-      {
-      public:
-          virtual void notify() = 0;
-      };
+Concrete listeners will implement this interface
 
-   Concrete listeners will implement this interface
+```cpp
 
-   .. code-block:: cpp
+class View : public ListenerIface
+{
+public:
+    void notify();
+};
+```
 
-      class View : public ListenerIface
-      {
-      public:
-          void notify();
-      };
+The Model will accept and handle pointers to the Listener interface, thus
+not requiring a dependency toward specific Views or Controllers
 
-   The Model will accept and handle pointers to the Listener interface, thus
-   not requiring a dependency toward specific Views or Controllers
+```cpp
 
-   .. code-block:: cpp
+class Model 
+{
+public:
+    void register(ListenerIface *listener) 
+    {
+        listeners.push_back(listener);
+    }
 
-      class Model 
-      {
-      public:
-          void register(ListenerIface *listener) 
-          {
-              listeners.push_back(listener);
-          }
+private:
+    void notifyListeners() 
+    {
+        std::vector<ListenerIface *>::iterator it;
+        for (it = listeners.begin(); it != listeners.end(); ++it) {
+                (*it)->notify();
+    }
 
-      private:
-          void notifyListeners() 
-          {
-              std::vector<ListenerIface *>::iterator it;
-              for (it = listeners.begin(); it != listeners.end(); ++it) {
-                      (*it)->notify();
-          }
+    std::vector<ListenerIface *> listeners;
+};
+```
 
-          std::vector<ListenerIface *> listeners;
-      };
+A similar approach can be used in Java.
 
-   A similar approach can be used in Java.
-
-
+-----------
