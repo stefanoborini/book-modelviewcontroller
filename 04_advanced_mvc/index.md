@@ -69,12 +69,6 @@ Model distribution
 Scriptability
 Modification of the model programmatically can enable scripting
 
-.. toctree::
-   :maxdepth: 2
-
-   model_persistence
-   mvc_testing
-   notification_granularity
 
 
 
