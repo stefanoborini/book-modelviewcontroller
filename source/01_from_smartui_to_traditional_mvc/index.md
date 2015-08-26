@@ -38,16 +38,3 @@ responsible for everything. This approach, known as Smart UI, will be our
 foundation for a progressive refactoring into the three basic components of
 MVC: Model, View and Controller.
 
-.. toctree::
-   :maxdepth: 2
-
-   01_smart_ui
-   02_document_view 
-   03_traditional_mvc
-   04_in_depth_analysis_roles
-   05_model 
-   06_view
-   07_controller
-   08_outdating_forces
-
-

@@ -24,7 +24,7 @@ For three reasons:
    It was my personal effort to organize this knowledge, but I had
    a lower startup barrier.
 
- - I already `published a book with a commercial publisher <http://www.amazon.com/Computing-Comparative-Microbial-Genomics-Microbiologists/dp/1849967636>`_, 
+ - I already [published a book with a commercial publisher](http://www.amazon.com/Computing-Comparative-Microbial-Genomics-Microbiologists/dp/1849967636), 
    and from my experience and math, I think that if I put a book on the 
    web and accept donations I would probably get more money and feedback than
    going through a publisher.
@@ -35,8 +35,8 @@ For three reasons:
 
 That said, I gladly accept donations:
 
- - on `GratiPay <https://gratipay.com/StefanoBorini/>`_
- - on `bitcoin <bitcoin:13RQmVjRKVbQnVmuVsFxHjycgo7cTaaZ3w>`_
+ - on [GratiPay](https://gratipay.com/StefanoBorini/)
+ - on [bitcoin](bitcoin:13RQmVjRKVbQnVmuVsFxHjycgo7cTaaZ3w)
  - on PayPal (using my email address stefano.borini at ferrara dot linux dot it)
 
 The sources of this book are available as a github repository at the following
