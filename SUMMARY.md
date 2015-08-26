@@ -1,8 +1,8 @@
 # Summary
 
 * [Introduction](README.md)
-* [Preface](source/00_introduction/00_preface.md)
-* [Introduction](source/00_introduction/01_introduction.md)
+* [Preface](00_introduction/00_preface.md)
+* [Introduction](00_introduction/01_introduction.md)
 * [From SmartUI to Traditional MVC](01_from_smartui_to_traditional_mvc/index.md)
    * [Smart UI](01_from_smartui_to_traditional_mvc/01_smart_ui.md)
    * [Document View](01_from_smartui_to_traditional_mvc/02_document_view.md)
@@ -49,21 +49,21 @@
     * Variations on the Triad
         * [Model View Adapter](10_model_view_adapter)
         * [Model GUI Mediator](11_model_gui_mediator)
-        * [15_model_view_notification_decoupling
-        * [16_application_controller
-        * [19_push_vs_pull
-        * [20_reenskaug_mvc
-        * [21_dolphin_mvp
-        * [22_presenter_first
-        * [23_taligent_mvp
-        * [24_presenter_adapter_view
-        * [25_model_view_viewmodel
-        * [26_view_controller_view
-        * [29_commands
-        * [33_event_filter
-        * [36_visual_editor
-        * [37_command_notification
-        * [45_Qt_MVC
+        * [Model View Notification Decoupling(15_model_view_notification_decoupling)
+        * [Application Controller](16_application_controller)
+        * [Push vs. Pull](19_push_vs_pull)
+        * [Reenskaug MVC](20_reenskaug_mvc)
+        * [Dolphin MVP](21_dolphin_mvp)
+        * [Presenter First](22_presenter_first)
+        * [Taligent MVP](23_taligent_mvp)
+        * [Presenter Adapter View](24_presenter_adapter_view)
+        * [Model View Viewmodel](25_model_view_viewmodel)
+        * [View Controller View](26_view_controller_view)
+        * [Commands](29_commands)
+        * [Event Filter](33_event_filter)
+        * [Visual Editor](36_visual_editor)
+        * [Command Notification](37_command_notification)
+        * [Qt MVC](45_Qt_MVC)
 * [Hierarchic MVC](03_hierarchic_mvc/index.md)
 * [Advanced MVC](04_advanced_mvc/index.md)
 * [MVC Implementations](05_mvc_implementations/index.md)
