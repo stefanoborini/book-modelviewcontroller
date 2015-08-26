@@ -21,3 +21,10 @@ of lines at every character inserted. It may make sense to provide a lineNumberC
 signal, so that line number display is updated only when the model actually
 performs a change in the total number of lines.
 
+A basic signal implementation just delivers the message to the listeners.
+However, merging the approach from lazy model, a better signal class could implement three
+strategies:
+
+- open: the message is delivered as soon as triggered.
+- closed: the message is not delivered and is ignored
+- hold and release: the message is not delivered, but it is retained for later. 
