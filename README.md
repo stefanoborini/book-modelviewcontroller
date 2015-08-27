@@ -1,3 +1,5 @@
+!INCLUDE "00_introduction/00_preface.md"
+
 Understanding Model-View-Controller
 -----------------------------------
 Stefano Borini, 2014 - CreativeCommons-Attribution 
