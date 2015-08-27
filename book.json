@@ -1,4 +1,6 @@
 {
     "plugins": ["include"],
-    "pluginsConfig": {}
+    "pluginsConfig": {},
+    "title": "Understanding Model-View-Controller"
+    "description": "Understanding the Model-View-Controller architecture." 
 }
