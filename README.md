@@ -1,4 +1,3 @@
-
 # Introduction
 
 Model-View-Controller (MVC) is probably the most used architectural solution
@@ -50,5 +49,3 @@ ideas. GUI rendering will make use of the excellent Qt toolkit, through PyQt4.
 Qt provides pre-made mechanisms to address most of our needs, but in the
 upcoming code these mechanisms will occasionally be skipped on purpose to
 demonstrate a more general approach.
-
-
