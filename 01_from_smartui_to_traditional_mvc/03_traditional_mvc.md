@@ -12,8 +12,9 @@ unchanged: it stores state and delivers change notifications. The View part
 is divided into two classes, the **Controller** and the **View**. Once instantiated and
 connected, Model, View, and Controller form a so-called **MVC triad**.
 
-.. image:: ../_static/images/TraditionalMVC/mvc_triad.png
-   :align: center
+<p align="center">
+  <img src="../_static/images/TraditionalMVC/mvc_triad.png">
+</p>
 
 FIXME Put a more appropriate image, expressing the strong and weak association between entities.
 
@@ -21,24 +22,24 @@ The Controller's role is to transform primary events delivered by the View into
 operations on the Model. Depending on the specifics of the application, a Controller may or may not need
 a reference to the View, but it certainly needs the Model to apply changes on
 
-.. code-block:: python
-
+```python
    class Controller(object):
        def __init__(self, model, view):
            self._model = model
            self._view = view
+```
 
 The method ``addOne`` performs the specific task of transforming a primary event
 into a Model operation, adding one to the current value.  Obviously, the
 Controller does so through the Model interface. This operation will trigger a
 Model notification to its listeners 
 
-.. code-block:: python
-
+```python
     class Controller(object):
         # ...
         def addOne(self):
             self._model.setValue(self._model.value()+1)
+```
 
 At initialization, the View instantiates its associated Controller, passing
 itself and the Model as parameters. As before, the View registers itself on the
