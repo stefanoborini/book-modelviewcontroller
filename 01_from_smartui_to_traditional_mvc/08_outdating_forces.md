@@ -5,6 +5,7 @@ The Traditional MVC design presented in the previous section is a modern
 reinterpretation of the MVC as described by Reenskaug in the 70s. The original
 design was developed under different constraints, and could not take advantage
 of the modern solutions we enjoy today. 
+
 For example, Reenskaug's Controller handled low level events, positioned the
 Views on the screen, and kept track of which View had focus and which
 Controller in the application was in charge of handling the events. 
