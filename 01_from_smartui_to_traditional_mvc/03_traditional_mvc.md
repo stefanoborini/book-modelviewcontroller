@@ -75,8 +75,9 @@ turn triggering a call to ``notify`` that updates the text label. The activity
 diagram shows the dance of calls presented above. Note how the Model-View
 synchronization does not involve the Controller
 
-.. image:: ../_static/images/TraditionalMVC/activity_diagram.png
-   :align: center
+<p align="center">
+  <img src="../_static/images/TraditionalMVC/activity_diagram.png">
+</p>
 
 To initialize the MVC triad, the client code needs to create the Model and
 View, and let them be aware of each other by passing the Model to the View. 
@@ -93,8 +94,9 @@ View, and let them be aware of each other by passing the Model to the View.
 
 The activity diagram shows the setup code given above
 
-.. image:: ../_static/images/TraditionalMVC/activity_diagram_setup.png
-   :align: center
+<p align="center">
+  <img src="../_static/images/TraditionalMVC/activity_diagram_setup.png">
+</p>
 
 This schema assumes that the controller is initialized by the View. This is generally
 desirable, given that View and Controller are so dependent and tailored to each
