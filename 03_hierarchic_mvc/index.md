@@ -1,5 +1,4 @@
-Hierarchic MVC
-=================
+# Hierarchic MVC
 
 Until now, we have seen MVC applied to a single triad. This works well for
 individual widgets and dialogs, but how do we apply and scale MVC to an
