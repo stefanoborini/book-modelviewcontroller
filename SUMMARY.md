@@ -11,7 +11,7 @@
        * [Controller](01_from_smartui_to_traditional_mvc/07_controller.md)
    * [Forces outdating traditional MVC](01_from_smartui_to_traditional_mvc/08_outdating_forces.md)
 * [MVC variations](02_mvc_variations/index.md)
-   * [Variations on the Model](02_mvc_variations/variationson_the_model_md.md)
+   * [Variations on the Model](02_mvc_variations/variations_on_the_model.md)
        * [Compositing Model](02_mvc_variations/01_compositing_model.md)
        * [Model Pipe](02_mvc_variations/02_model_pipe.md)
        * [Application Model](02_mvc_variations/03_application_model.md)
@@ -25,7 +25,7 @@
        * [View-aware Model](02_mvc_variations/38_view_aware_model.md)
        * [Caching Model](02_mvc_variations/42_caching_model.md)
    * [Variations on the Notification Strategy](02_mvc_variations/variations_on_the_notification_strategy.md)
-       * [Qualified Notification Model](02_mvc_variations/05_qualified_notification_model)
+       * [Qualified Notification Model](02_mvc_variations/05_qualified_notification_model.md)
        * [Passive Model](02_mvc_variations/07_passive_model.md)
        * [Lazy Model](02_mvc_variations/08_lazy_model.md)
        * [Accumulator](02_mvc_variations/35_accumulator.md)
@@ -34,7 +34,7 @@
        * [Vetoers](02_mvc_variations/48_vetoers.md)
        * [Notification looping prevention](02_mvc_variations/28_notification_looping_prevention.md)
        * [Signals](02_mvc_variations/49_signals.md)
-   * Variations on the View
+   * [Variations on the View](02_mvc_variations/variations_on_the_view.md)
        * [Pluggable View](02_mvc_variations/14_mvc_pluggable_view.md)
        * [Passive View](02_mvc_variations/17_passive_view.md)
        * [Widget level vs. Container level View](02_mvc_variations/18_widget_level_container_level.md)
@@ -42,9 +42,9 @@
        * [Data dialog](02_mvc_variations/30_data_dialog.md)
        * [Visibility allowed notifications](02_mvc_variations/41_visibility_allowed_notifications.md)
        * [Synchronization View state](02_mvc_variations/46_synchronization_view_state.md)
-   * Variations on the Controller
+   * [Variations on the Controller](02_mvc_variations/variations_on_the_controller.md)
        * [Supervising controller](02_mvc_variations/39_supervising_controller.md)
-   * Variations on the Triad
+   * [Variations on the Triad](02_mvc_variations/variations_on_the_triad.md)
        * [Model View Adapter](02_mvc_variations/10_model_view_adapter.md)
        * [Model GUI Mediator](02_mvc_variations/11_model_gui_mediator.md)
        * [Model View Notification Decoupling(02_mvc_variations/15_model_view_notification_decoupling.md)
