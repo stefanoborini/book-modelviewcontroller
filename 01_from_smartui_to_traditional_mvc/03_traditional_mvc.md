@@ -23,10 +23,10 @@ operations on the Model. Depending on the specifics of the application, a Contro
 a reference to the View, but it certainly needs the Model to apply changes on
 
 ```python
-   class Controller(object):
-       def __init__(self, model, view):
-           self._model = model
-           self._view = view
+class Controller(object):
+   def __init__(self, model, view):
+       self._model = model
+       self._view = view
 ```
 
 The method ``addOne`` performs the specific task of transforming a primary event
@@ -35,40 +35,40 @@ Controller does so through the Model interface. This operation will trigger a
 Model notification to its listeners 
 
 ```python
-    class Controller(object):
-        # ...
-        def addOne(self):
-            self._model.setValue(self._model.value()+1)
+class Controller(object):
+    # ...
+    def addOne(self):
+        self._model.setValue(self._model.value()+1)
 ```
 
 At initialization, the View instantiates its associated Controller, passing
 itself and the Model as parameters. As before, the View registers itself on the
 Model via the ``register`` method 
 
-.. code-block:: python
-
-    class View(QtGui.QPushButton):
-        def __init__(self, model):
-            super(View, self).__init__()
-            self._model = model
-            self._controller = Controller(self._model, self)
-            self._model.register(self)
+```python
+class View(QtGui.QPushButton):
+    def __init__(self, model):
+        super(View, self).__init__()
+        self._model = model
+        self._controller = Controller(self._model, self)
+        self._model.register(self)
+```
 
 The View now depends on the Controller to modify the Model: only strictly
 GUI-related handling is done by the View. Conversion from GUI events to
 application business logic is delegated to the Controller in
 ``mouseReleaseEvent`` 
 
-.. code-block:: python
+```python
+class View(QtGui.QPushButton):
+    # ...
+    def mouseReleaseEvent(self, event):
+        super(View, self).mouseReleaseEvent(event)  
+        self._controller.addOne()  
 
-    class View(QtGui.QPushButton):
-        # ...
-        def mouseReleaseEvent(self, event):
-            super(View, self).mouseReleaseEvent(event)  
-            self._controller.addOne()  
-
-        def notify(self):
-            self.setText(unicode(self._model.value()))   
+    def notify(self):
+        self.setText(unicode(self._model.value()))   
+```
 
 Clicking on the View button will result in a call to ``Controller.addOne``, in
 turn triggering a call to ``notify`` that updates the text label. The activity
@@ -76,26 +76,26 @@ diagram shows the dance of calls presented above. Note how the Model-View
 synchronization does not involve the Controller
 
 <p align="center">
-  <img src="../_static/images/TraditionalMVC/activity_diagram.png">
+  <img src="images/activity_diagram.png">
 </p>
 
 To initialize the MVC triad, the client code needs to create the Model and
 View, and let them be aware of each other by passing the Model to the View. 
 
-.. code-block:: python
+```python
+app = QtGui.QApplication(sys.argv)
 
-   app = QtGui.QApplication(sys.argv)
+model = Model()
+view = View(model)
+view.show()
 
-   model = Model()
-   view = View(model)
-   view.show()
-
-   app.exec_()
+app.exec_()
+```
 
 The activity diagram shows the setup code given above
 
 <p align="center">
-  <img src="../_static/images/TraditionalMVC/activity_diagram_setup.png">
+  <img src="images/activity_diagram_setup.png">
 </p>
 
 This schema assumes that the controller is initialized by the View. This is generally
@@ -116,4 +116,3 @@ imply that the code responsible for each of these roles should mix as well. it
 is in fact good practice to keep the code performing each role in separate
 routines. This simplifies both understanding and future refactoring, if the
 needs emerges. 
-
