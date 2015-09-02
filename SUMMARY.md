@@ -11,7 +11,7 @@
        * [Controller](01_from_smartui_to_traditional_mvc/07_controller.md)
    * [Forces outdating traditional MVC](01_from_smartui_to_traditional_mvc/08_outdating_forces.md)
 * [MVC variations](02_mvc_variations/index.md)
-   * [Variations on the Model](variations_on_the_model.md)
+   * [Variations on the Model](02_mvc_variations/variations_on_the_model.md]
        * [Compositing Model](02_mvc_variations/01_compositing_model.md)
        * [Model Pipe](02_mvc_variations/02_model_pipe.md)
        * [Application Model](02_mvc_variations/03_application_model.md)
@@ -24,7 +24,7 @@
        * [Collection Model](02_mvc_variations/34_collection_model.md)
        * [View-aware Model](02_mvc_variations/38_view_aware_model.md)
        * [Caching Model](02_mvc_variations/42_caching_model.md)
-   * [Variations on the Notification Strategy](variations_on_the_notification_strategy.md)
+   * [Variations on the Notification Strategy](02_mvc_variations/variations_on_the_notification_strategy.md)
        * [Qualified Notification Model](02_mvc_variations/05_qualified_notification_model)
        * [Passive Model](02_mvc_variations/07_passive_model.md)
        * [Lazy Model](02_mvc_variations/08_lazy_model.md)
