@@ -24,7 +24,7 @@
        * [Collection Model](02_mvc_variations/34_collection_model.md)
        * [View-aware Model](02_mvc_variations/38_view_aware_model.md)
        * [Caching Model](02_mvc_variations/42_caching_model.md)
-   * Variations on the Notification Strategy
+   * [Variations on the Notification Strategy](variations_on_the_notification_strategy.md)
        * [Qualified Notification Model](02_mvc_variations/05_qualified_notification_model)
        * [Passive Model](02_mvc_variations/07_passive_model.md)
        * [Lazy Model](02_mvc_variations/08_lazy_model.md)
