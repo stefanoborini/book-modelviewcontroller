@@ -13,7 +13,7 @@ is divided into two classes, the **Controller** and the **View**. Once instantia
 connected, Model, View, and Controller form a so-called **MVC triad**.
 
 <p align="center">
-  <img src="images/mvc_triad.png">
+  <img src="images/mvc_triad.png" />
 </p>
 
 FIXME Put a more appropriate image, expressing the strong and weak association between entities.
