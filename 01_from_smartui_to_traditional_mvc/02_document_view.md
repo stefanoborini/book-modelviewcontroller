@@ -11,7 +11,7 @@ The resulting design is a two-class system known in literature as **Document
 View** or **Model Delegate**
 
 <p align="center">
-  <img src="../_static/images/DocumentViewDesign.png"/>
+  <img src="images/DocumentViewDesign.png"/>
 </p>
 
 The **Document** class is responsible for handling the business logic.
@@ -37,8 +37,8 @@ accessed programmatically by issuing calls to its methods. This object is now
 independent and can work and manipulated with different Views, if desired. An
 additional price in complexity is introduced in having to keep the View (or Views) notified of changes to the Document.
 
-Implementation example
-------
+
+## Implementation example
 
 
 We can implement this design to our Click counter application through progressive refactorings. The first step is to partition out the data, represented by the ``self._value`` variable, into the Document class. For our system to continue to work, the visual part View must now be informed of changes to this data. The Document will therefore not only hold ``self._value``, but also provide an interface to query and modify this data and a strategy to notify other objects when changes occur. This is expressed in the following implementation code  
