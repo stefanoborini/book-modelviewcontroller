@@ -63,7 +63,7 @@ class CounterDocument(object):
       self._listeners.remove(listener)  
 ```
 
-We then provide a getter method [1] for ``self._value``: 
+We then provide a getter method [^1] for ``self._value``: 
 
 ```python
 class CounterDocument(object): 
@@ -119,9 +119,7 @@ class CounterView(QtGui.QPushButton):
 
 When this happens, the Document adds the View as a listener. A notification is
 immediately delivered to the newly added listener so that it can update
-itself. [x][2] The ``notify`` method on the View is then called, which will query the current value from the Document, and update the text on the button
-
-[2]: jello
+itself. The ``notify`` method on the View is then called, which will query the current value from the Document, and update the text on the button
 
 ```
 class CounterView(QtGui.QPushButton):
@@ -180,9 +178,9 @@ app.exec_()
 When the button is clicked, both its label and the progress bar are kept
 updated with the current value in the Document.
 
-[1]: Python properties can be used for the same goal. However, python properties are harder to connect to the signal/slots mechanism in PyQt. 
+[^1] Python properties can be used for the same goal. However, python properties are harder to connect to the signal/slots mechanism in PyQt. 
 
-[2]: When registration of the View on the Document is done in the View's
+[^2] When registration of the View on the Document is done in the View's
 initializer, as we are doing here, it should be done only when the
 initialization is completed, so that notify can be called on a fully
 initialized object. An alternative strategy is to delay this setup and perform
@@ -191,7 +189,9 @@ it through a `View.setDocument` method.
 
 -----
 
-**Note**: Notification system in strongly typed languages
+**Note**
+
+**Notification system in strongly typed languages**
    
 A possible implementation of the notification system in strongly typed
 languages uses an interface class `ListenerInterface` with one abstract method
