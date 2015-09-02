@@ -1,2 +1,0 @@
-# Variations on the model
-
