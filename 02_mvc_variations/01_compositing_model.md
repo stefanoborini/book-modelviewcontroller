@@ -27,8 +27,8 @@ Customer and Orders. In this sense, the Model may follow the needs of the View, 
 the existence of this Model object is implied by the specific View needs to represent
 this particular data aggregate.
 
-Practical example
-'''''''''''''''''
+
+### Practical example
 
 As a practical example of the Compositing Model, we will create a trivial address book application whose data sources are two
 comma-separated (CSV) files and one XML file. The objective is to have a View
