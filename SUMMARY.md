@@ -11,7 +11,7 @@
        * [Controller](01_from_smartui_to_traditional_mvc/07_controller.md)
    * [Forces outdating traditional MVC](01_from_smartui_to_traditional_mvc/08_outdating_forces.md)
 * [MVC variations](02_mvc_variations/index.md)
-   * [Variations on the Model](variations_on_the_model.md)
+   * Variations on the Model
        * [Compositing Model](02_mvc_variations/01_compositing_model.md)
        * [Model Pipe](02_mvc_variations/02_model_pipe.md)
        * [Application Model](02_mvc_variations/03_application_model.md)
