@@ -19,8 +19,7 @@ data will be performed directly on the Submodel itself. The Pipe will generate
 notification events either when the Submodel contents change, or when its internal
 state changes in a way that modifies the resulting data.
 
-Practical Example
-'''''''''''''''''
+### Practical Example
 
 An additional need that may emerge from our addressbook application is to
 filter out names and sort them alphabetically. A possible design approach would
@@ -52,55 +51,50 @@ perform sequential reduction of data.
 To present a real case implementation of Model-Pipe-View-Controller, we will
 add two new Pipe classes to the Model layer introduced in the earlier section:
 one for filtering (``AddressBookFilter``) and for sorting
-(``AddressBookSorter``), as represented in Fig. 5. 
+(``AddressBookSorter``), as represented in Figure 
 
-.. image:: ../_static/images/ModelPipe/modelpipe-schema.png
-   :align: center
+<p align="center">
+    <img src="images/ModelPipe/modelpipe-schema.png" />
+</p>
 
-The implementation will also require two separated Views, both contained in the
-same window: the ``AddressBookView`` was introduced in the previous section and
-will be connected to the Sorter Model as the end point of the Model chain; The
-``FilterView`` will instead display and modify the filter string, and will connect
-to the ``AddressBookFilter`` Model.  We will explain the motivations for this
-design later in the explanation. 
+The implementation will also require two separated Views, both contained in the same window: the ``AddressBookView`` was introduced in the previous section and will be connected to the Sorter Model as the end point of the Model chain; The ``FilterView`` will instead display and modify the filter string, and will connect to the ``AddressBookFilter`` Model.  We will explain the motivations for this design later in the explanation. 
 
 The ``AddressBookFilter`` registers on the filtered Model and holds the current
 filter string
 
-.. code-block:: python
-
-   class AddressBookFilter(BaseModel):
-       def __init__(self, model):
-           super(AddressBookFilter, self).__init__()
-           self._filter_string = ""
-           self._model = model
-           self._model.register(self)
+```python
+class AddressBookFilter(BaseModel):
+   def __init__(self, model):
+       super(AddressBookFilter, self).__init__()
+       self._filter_string = ""
+       self._model = model
+       self._model.register(self)
+```
 
 To modify the filter string, we need a ``setFilter`` method. When a new string is
 set, the product of the ``AddressBookFilter`` Model is expected to change, so
 ``_notifyListeners`` is called. 
 
-.. code-block:: python
-
+```python
     def setFilter(self, string):
         self._filter_string = string
         self._notifyListeners()
+```
 
 The actual filtering is performed on the fly on the underlying data in the
 ``numEntries`` and ``getEntry`` methods, which is the usual interface for the
 Model in the address book application 
 
-.. code-block:: python
-
+```python
     def numEntries(self):
         entries = 0
         for i in xrange(self._model.numEntries()):
             entry = self._model.getEntry(i)
             if self._filter_string in entry["name"]:
                 entries += 1
-
+    
         return entries
-
+    
     def getEntry(self, entry_number):
         entries = 0
         for i in xrange(self._model.numEntries()):
@@ -109,15 +103,16 @@ Model in the address book application
                 if entries == entry_number:
                     return entry
                 entries += 1
-
+    
         raise IndexError("Invalid entry %d" % entry_number)
+```
 
 Finally, the Filter forwards notifications from its submodel to its listeners 
 
-.. code-block:: python
-
+```python
     def notify(self):
         self._notifyListeners()
+```
 
 Similarly, the ``AddressBookSorter`` is defined to register on a Model for
 notifications. The current implementation supports only a simple A-z
@@ -126,23 +121,22 @@ Typical examples of possible state would be ascending vs. descending or the
 sorting key.  The Sorter would then expose setters for all these values, and
 the View would have to provide supporting widgets to modify them 
 
-.. code-block:: python
+```python
+class AddressBookSorter(BaseModel):
+   def __init__(self, model):
+       super(AddressBookSorter, self).__init__()
+       self._model = model
+       self._model.register(self)
+       self._rebuildOrderMap()
 
-   class AddressBookSorter(BaseModel):
-       def __init__(self, model):
-           super(AddressBookSorter, self).__init__()
-           self._model = model
-           self._model.register(self)
-           self._rebuildOrderMap()
-
-       def numEntries(self):
-           return self._model.numEntries()
+   def numEntries(self):
+       return self._model.numEntries()
+```
 
 We implement the sorting naively, by walking through the underlying data and
 building an index-to-index mapping 
 
-.. code-block:: python
-
+```python
     def _rebuildOrderMap(self):
         values = []
 
@@ -152,54 +146,50 @@ building an index-to-index mapping
         self._order_map = map(lambda x: x[0], 
                               sorted(values, key=operator.itemgetter(1))
                              )
+```
 
 The mapping is internal state that does not need to be exposed to the View, but
 must stay synchronized at all times with the underlying Model. Consequently, it
 must be recomputed every time the underlying Model reports a change 
 
-.. code-block:: python
-
+```python
     def notify(self):
         self._rebuildOrderMap()
         self._notifyListeners()
+```
 
 We will then use the order map to extract entries in the appropriate order from the underlying Model 
 
-.. code-block:: python
-
+```python
     def getEntry(self, entry_number):
         try:
             return self._model.getEntry(self._order_map[entry_number])
         except:
             raise IndexError("Invalid entry %d" % entry_number)
+```
 
 Finally, we need a View and Controller to modify the filter string. The View is
-a QLineEdit with some layouting and labeling. Its signal ``textChanged`` triggers
-the Controller's ``applyFilter`` method, so that as new characters are typed in,
-the Controller will change the filter string. Note how ``FilterView`` does not need
-a ``notify`` method: we don't expect the filter string to change from external
-sources, and ``QLineEdit`` is an autonomous widget which keeps its own state and
-representation synchronized 
+a QLineEdit with some layouting and labeling. Its signal ``textChanged`` triggers the Controller's ``applyFilter`` method, so that as new characters are typed in, the Controller will change the filter string. Note how ``FilterView`` does not need a ``notify`` method: we don't expect the filter string to change from external sources, and ``QLineEdit`` is an autonomous widget which keeps its own state and representation synchronized 
 
-.. code-block:: python
-
-   class FilterView(QtGui.QWidget):
-       def __init__(self, *args, **kwargs):
-           super(QtGui.QWidget, self).__init__(*args, **kwargs)
-           self._initGUI()
-           self._model = None
-           self._controller = FilterController(self._model)
-           self.connect(self._filter_lineedit,
-                        QtCore.SIGNAL("textChanged(QString)"),
-                        self._controller.applyFilter
-                        )
-       def _initGUI(self):
-           self._hlayout = QtGui.QHBoxLayout()
-           self.setLayout(self._hlayout)
-           self._filter_label = QtGui.QLabel("Filter", parent=self)
-           self._hlayout.addWidget(self._filter_label)
-           self._filter_lineedit = QtGui.QLineEdit(parent=self)
-           self._hlayout.addWidget(self._filter_lineedit)
+```python
+class FilterView(QtGui.QWidget):
+   def __init__(self, *args, **kwargs):
+       super(QtGui.QWidget, self).__init__(*args, **kwargs)
+       self._initGUI()
+       self._model = None
+       self._controller = FilterController(self._model)
+       self.connect(self._filter_lineedit,
+                    QtCore.SIGNAL("textChanged(QString)"),
+                    self._controller.applyFilter
+                    )
+   def _initGUI(self):
+       self._hlayout = QtGui.QHBoxLayout()
+       self.setLayout(self._hlayout)
+       self._filter_label = QtGui.QLabel("Filter", parent=self)
+       self._hlayout.addWidget(self._filter_label)
+       self._filter_lineedit = QtGui.QLineEdit(parent=self)
+       self._hlayout.addWidget(self._filter_lineedit)
+```
 
 We want to delay the setting of the Model after instantiation, so we need a
 setter method and design View and Controller to nicely handle None as a Model,
@@ -207,33 +197,30 @@ always a good practice [#]_. The reason for this delayed initialization is that
 both ``FilterView`` and ``AddressBookView`` are visually contained into a dumb
 container. We will detail this point when analyzing the container 
 
-.. code-block:: python
-
+```
     def setModel(self, model):
         self._model = model
         self._controller.setModel(model)
+```
 
 The ``FilterController`` needs only the Model, initially set to ``None`` by the View 
 
-.. code-block:: python
+```python
+class FilterController(object):
+   def __init__(self, model):
+       self._model = model
 
-   class FilterController(object):
-       def __init__(self, model):
-           self._model = model
+   def setModel(self, model):
+       self._model = model
+```
 
-       def setModel(self, model):
-           self._model = model
+The ``applyFilter`` method simply invokes ``setFilter`` on the associated Model, which must be the  AddressBookFilter instance. Due to Qt Signal/Slot mechanism, this method receives a ``QString`` as argument, so we need to convert it into a python string before setting it into the Model 
 
-The ``applyFilter`` method simply invokes ``setFilter`` on the associated Model, which
-must be the  AddressBookFilter instance. Due to Qt Signal/Slot mechanism, this
-method receives a ``QString`` as argument, so we need to convert it into a python
-string before setting it into the Model 
-
-.. code-block:: python
-
+```python
     def applyFilter(self, filter_string):
         if self._model:
             self._model.setFilter(str(filter_string))
+```
 
 As described early, the final application will have two Views in the same
 window, one above the other. To achieve this, we need a container widget to
@@ -242,45 +229,45 @@ container being anything else but a dumb container, so its initializer does not
 accept the Models. We will instead set the Model on each individual View from
 the outside through their setModel methods described earlier 
 
-.. code-block:: python
-
-   class ContainerWidget(QtGui.QWidget):
-       def __init__(self, *args, **kwargs):
-           super(ContainerWidget, self).__init__(*args, **kwargs)
-           self.filterview = FilterView(parent=self)
-           self.addressbookview = AddressBookView(parent=self)
-           self._vlayout = QtGui.QVBoxLayout()
-           self.setLayout(self._vlayout)
-           self._vlayout.addWidget(self.filterview)
-           self._vlayout.addWidget(self.addressbookview)
+```python
+class ContainerWidget(QtGui.QWidget):
+   def __init__(self, *args, **kwargs):
+       super(ContainerWidget, self).__init__(*args, **kwargs)
+       self.filterview = FilterView(parent=self)
+       self.addressbookview = AddressBookView(parent=self)
+       self._vlayout = QtGui.QVBoxLayout()
+       self.setLayout(self._vlayout)
+       self._vlayout.addWidget(self.filterview)
+       self._vlayout.addWidget(self.addressbookview)
+```
 
 To set up the application, there is little variation from the Compositing Model
 example: we set up the ``AddressBook`` Model from the individual submodels. 
 
-.. code-block:: python
-
-   csv1_model = AddressBookCSV("../Common/file1.csv")
-   xml_model = AddressBookXML("../Common/file.xml")
-   csv2_model = AddressBookCSV("../Common/file2.csv")
-   address_book = AddressBook([csv1_model, xml_model, csv2_model])
+```python
+csv1_model = AddressBookCSV("../Common/file1.csv")
+xml_model = AddressBookXML("../Common/file.xml")
+csv2_model = AddressBookCSV("../Common/file2.csv")
+address_book = AddressBook([csv1_model, xml_model, csv2_model])
+```
 
 The Pipes are then created and chained one after another 
 
-.. code-block:: python
-
-   address_book_filter = AddressBookFilter(address_book)
-   address_book_sorter = AddressBookSorter(address_book_filter)
+```python
+address_book_filter = AddressBookFilter(address_book)
+address_book_sorter = AddressBookSorter(address_book_filter)
+```
 
 ``AddressBookSorter`` will then be passed to ``AddressBookView`` to display the data at
 the end of the process, and ``AddressBookFilter`` will be passed as a Model for
 ``FilterView``/``FilterController`` to modify the search string 
 
-.. code-block:: python
-
-   widget = ContainerWidget()
-   widget.addressbookview.setModel(address_book_sorter)
-   widget.filterview.setModel(address_book_filter)
-   widget.show()
+```python
+widget = ContainerWidget()
+widget.addressbookview.setModel(address_book_sorter)
+widget.filterview.setModel(address_book_filter)
+widget.show()
+```
 
 Why did we partition the GUI into two Views, instead of having a unified View
 attached to the last Model in the chain and containing both the List and the
