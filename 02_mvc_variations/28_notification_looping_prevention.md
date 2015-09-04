@@ -6,22 +6,22 @@ Notification looping prevention
 Notification messages from the Model can become problematic for a series of
 reason
 
-   - the Views get informed that changes occurred, but it's in a part of the
-     data model that is not represented by a specific View. Views must go through a
-     refresh cycle even if no data has changed for them
-   - A sequence of changes is performed on the Model, forcing a refresh of all the
-     Views at each change, while a single refresh at the end of the sequence would
-     suffice.
-   - The update-change cycle lead to an infinite loop
+- the Views get informed that changes occurred, but it's in a part of the
+  data model that is not represented by a specific View. Views must go through a
+  refresh cycle even if no data has changed for them
+- A sequence of changes is performed on the Model, forcing a refresh of all the
+  Views at each change, while a single refresh at the end of the sequence would
+  suffice.
+- The update-change cycle lead to an infinite loop
 
 Consider the following case of a SpinBox containing the value 3, and the associated Model value currently set to 3 as well. When the user interacts with the SpinBox, clicking the up arrow, the following sequence of events occurs:
 
-   1. a valueChanged() signal is issued by the SpinBox with the new value, 4. We assume the SpinBox keeps showing the old value, as it represents the Model, which at the moment contains 3. 
-   2. the Controller.setValue(4) method is called, which in turn calls Model.setValue(4).
-   3. the Model stores the new value 4, then issue a _notifyListeners to inform all the connected views, including the SpinBox.
-   4. the SpinBox receives the notify(), which now fetches the new value from the Model and sets the new value using QSpinBox.setValue(4)
-   5. the SpinBox is still containing the value 3. QSpinBox.setValue(4) triggers valueChanged() again.
-   6. Controller.setValue is called again, reproducing the situation at point 2.
+1. a valueChanged() signal is issued by the SpinBox with the new value, 4. We assume the SpinBox keeps showing the old value, as it represents the Model, which at the moment contains 3. 
+2. the Controller.setValue(4) method is called, which in turn calls Model.setValue(4).
+3. the Model stores the new value 4, then issue a _notifyListeners to inform all the connected views, including the SpinBox.
+4. the SpinBox receives the notify(), which now fetches the new value from the Model and sets the new value using QSpinBox.setValue(4)
+5. the SpinBox is still containing the value 3. QSpinBox.setValue(4) triggers valueChanged() again.
+6. Controller.setValue is called again, reproducing the situation at point 2.
 
 With this scenario, the application is potentially entering a notification
 loop. A prevention strategy is to have the Model notify the listeners only if
