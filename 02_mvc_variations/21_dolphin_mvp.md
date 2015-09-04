@@ -3,7 +3,9 @@ Dolphin Model-View-Presenter
 
 **Additional Need: Rationalize Application model into a more active role**
 
-.. image:: ../_static/images/ModelViewPresenter/mvc_vs_mvp.png
+<p align="center">
+    <img src="images/ModelViewPresenter/mvc_vs_mvp.png" />
+</p>
 
 The Dolphin Model-View-Presenter (MVP) schema is an evolution of 
 the Application Model approach. Although it is derived from the Taligent/IBM
@@ -40,21 +42,21 @@ Controller in a single entity.
 
 Like the Application Model, the Presenter:
     
-    - holds visual state, and keeps it synchronized against changes in the
-      Domain Model
-    - converts business rules (e.g. engine rpm number too high)
-      into visual representation (e.g. label becomes red)
-    - eventually handles state for selection, and application of actions
-      to the subset of the Model specified by this selection.
+- holds visual state, and keeps it synchronized against changes in the
+  Domain Model
+- converts business rules (e.g. engine rpm number too high)
+  into visual representation (e.g. label becomes red)
+- eventually handles state for selection, and application of actions
+  to the subset of the Model specified by this selection.
 
 and like the Controller, the Presenter:
 
-    - it is tightly coupled to the View
-    - refers to the View directly, and can act on it to alter its 
-      visual aspect.
-    - handles events forwarded by the View, converting them into action through proper logic.
-    - modifies the Domain Model, which contains no visual state
-    - handles View logic according to the View state it contains
+- it is tightly coupled to the View
+- refers to the View directly, and can act on it to alter its 
+  visual aspect.
+- handles events forwarded by the View, converting them into action through proper logic.
+- modifies the Domain Model, which contains no visual state
+- handles View logic according to the View state it contains
 
 The Domain Model is a strict domain model and is unchanged, and is still accessed by the View for data
 extraction and from the Presenter for data modification. The View 
