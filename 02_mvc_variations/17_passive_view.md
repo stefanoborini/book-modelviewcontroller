@@ -22,12 +22,12 @@ left untested.
 
 The mechanism of action is the following:
 
-    #. When the View receives user events, they are forwarded to the Controller
-       as in Traditional MVC.
-    #. The Controller acts on the Model.
-    #. Either immediately, or in response to a Model notification, the
-       Controller now updates the data displayed by the View's widgets,
-       to synchronize them against the new Model contents.
+1. When the View receives user events, they are forwarded to the Controller
+   as in Traditional MVC.
+2. The Controller acts on the Model.
+3. Either immediately, or in response to a Model notification, the
+   Controller now updates the data displayed by the View's widgets,
+   to synchronize them against the new Model contents.
 
 The negative consequence of this approach is the greater burden of complexity
 transferred on the Controller, which now has to deal with visual logic,
