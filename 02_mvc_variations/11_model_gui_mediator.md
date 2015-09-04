@@ -21,73 +21,72 @@ anything about the Controller. All the signal setup is done by the individual
 Controllers. Also, off-the-shelf classes are not implementing the Observer
 pattern
 
-.. code-block:: python
+```python
+class DialController(object):
+   def __init__(self):
+       self._view = None
+       self._model = None
 
-   class DialController(object):
-       def __init__(self):
-           self._view = None
-           self._model = None
+   def setModel(self, model):
+       self._model = model
+       self._model.register(self)
 
-       def setModel(self, model):
-           self._model = model
-           self._model.register(self)
+   def setView(self, view):
+       self._view = view
+       self._view.setRange(0,10000)
+       self._view.connect(self._view, 
+                          QtCore.SIGNAL("valueChanged(int)"),
+                          self.changeRpm)
 
-       def setView(self, view):
-           self._view = view
-           self._view.setRange(0,10000)
-           self._view.connect(self._view, 
-                              QtCore.SIGNAL("valueChanged(int)"),
-                              self.changeRpm)
+   def changeRpm(self, rpm):
+       if self._model:
+           self._model.setRpm(rpm)
 
-       def changeRpm(self, rpm):
-           if self._model:
-               self._model.setRpm(rpm)
-
-       def notify(self):
-           if self._view:
-               self._view.setValue(self._model.rpm())
-
+   def notify(self):
+       if self._view:
+           self._view.setValue(self._model.rpm())
+```
 
 And for the Slider it would be 
 
-.. code-block:: python
+```python
+class SliderController(object):
+   def __init__(self):
+       self._view = None
+       self._model = None
 
-   class SliderController(object):
-       def __init__(self):
-           self._view = None
-           self._model = None
+   def setModel(self, model):
+       self._model = model
+       self._model.register(self)
 
-       def setModel(self, model):
-           self._model = model
-           self._model.register(self)
+   def setView(self, view):
+       self._view = view
+       self._view.setRange(0,10)
+       self._view.connect(self._view, 
+                          QtCore.SIGNAL("valueChanged(int)"),
+                          self.changeRpm)
 
-       def setView(self, view):
-           self._view = view
-           self._view.setRange(0,10)
-           self._view.connect(self._view, 
-                              QtCore.SIGNAL("valueChanged(int)"),
-                              self.changeRpm)
+   def changeRpm(self, rpm):
+       if self._model:
+           self._model.setRpm(rpm*1000)
 
-       def changeRpm(self, rpm):
-           if self._model:
-               self._model.setRpm(rpm*1000)
-
-       def notify(self):
-           self._view.setValue(self._model.rpm()/1000)
+   def notify(self):
+       self._view.setValue(self._model.rpm()/1000)
+```
 
 The setup now can simply make use of off-the-shelf QDial and QSlider instances
 
-.. code-block:: python
+```python
+dial = QtGui.QDial(container)
+dial_controller = DialController()
+dial_controller.setView(dial)
+dial_controller.setModel(engine)
 
-   dial = QtGui.QDial(container)
-   dial_controller = DialController()
-   dial_controller.setView(dial)
-   dial_controller.setModel(engine)
-
-   slider = QtGui.QSlider(container)
-   slider_controller = SliderController()
-   slider_controller.setView(slider)
-   slider_controller.setModel(engine)
+slider = QtGui.QSlider(container)
+slider_controller = SliderController()
+slider_controller.setView(slider)
+slider_controller.setModel(engine)
+```
 
 The Model-GUI-Mediator approach basically has the Controller adapt the
 off-the-shelf widget to be aware of the Model. This requires no subclassing. In
