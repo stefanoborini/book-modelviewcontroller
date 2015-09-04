@@ -1,5 +1,5 @@
-Signals
--------
+Signal
+------
 
 A signal extracts the notification logic in a separate object. 
 Listeners register onto the signal instance. The model triggers
