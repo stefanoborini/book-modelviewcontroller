@@ -9,48 +9,50 @@ Model**, also known as Presentation Model. Its submodel, called **Domain Model**
 will be kept unaware of such state. To present a practical example. imagine
 having a Domain Model representing an engine 
 
-.. code-block:: python
+```python
+class Engine(BaseModel):
+   def __init__(self): 
+       super(Engine, self).__init__()  
+       self._rpm = 0 
 
-   class Engine(BaseModel):
-       def __init__(self): 
-           super(Engine, self).__init__()  
-           self._rpm = 0 
+   def setRpm(self, rpm):
+       if rpm != self._rpm:
+           self._rpm = rpm
+           self._notifyListeners()
 
-       def setRpm(self, rpm):
-           if rpm != self._rpm:
-               self._rpm = rpm
-               self._notifyListeners()
-
-       def rpm(self):
-           return self._rpm
+   def rpm(self):
+       return self._rpm
+```
 
 Initial specifications require to control the revolution per minute (rpm) value
 through two Views: a Slider and a Dial. Two View/Controller pairs observe and
 act on a single Model 
 
-.. image:: ../_static/images/DomainModelApplicationModel/basic_layout.png
-   :align: center
+<p align="center">
+    <img src="images/DomainModelApplicationModel/basic_layout.png"/>
+</p>
 
 Suppose an additional requirement is added to this simple application: the Dial
 should be colored red for potentially damaging rpm values above 8000 rpm, and
 green otherwise.
 
-.. image:: ../_static/images/DomainModelApplicationModel/application_screenshot.png
-   :align: center
+<p align="center">
+    <img src="images/DomainModelApplicationModel/application_screenshot.png" />
+</p>
 
 We could violate Traditional MVC and add visual information to the Model,
 specifically the color 
 
-.. code-block:: python
+```python
+class Engine(BaseModel):
+  # <proper adaptations to init method>
 
-   class Engine(BaseModel):
-      # <proper adaptations to init method>
-
-      def dialColor(self):
-         if self._rpm > 8000:
-            return Qt.red
-         else:
-            return Qt.green
+  def dialColor(self):
+     if self._rpm > 8000:
+        return Qt.red
+     else:
+        return Qt.green
+```
 
 With this setup, when the Dial receives a change notification, it can inquire
 for both the rpm value to adjust its position and for the color to paint itself
@@ -65,19 +67,19 @@ modified.
 An alternative solution is to let the Dial View decide the color
 when notified, like this 
 
-.. code-block:: python
+```python
+class Dial(View):
+   def notify(self):
+       self.setValue(self._model.rpm())
+       palette = QtGui.Qpalette()
 
-   class Dial(View):
-       def notify(self):
-           self.setValue(self._model.rpm())
-           palette = QtGui.Qpalette()
+       color = Qt.green
+       if self._model.rpm() > 8000:
+           color = Qt.red
 
-           color = Qt.green
-           if self._model.rpm() > 8000:
-               color = Qt.red
-
-           palette.setColor(QtGui.Qpalette.Button, color)
-           self.setPalette(palette)
+       palette.setColor(QtGui.Qpalette.Button, color)
+       self.setPalette(palette)
+```
 
 Once again, this solution is impractical, and for a complementary reason: the
 View has to know what is a dangerous rpm amount, a business-related concern
@@ -95,24 +97,24 @@ that can know what rpm value is too high. It has to provide this information,
 leaving its visual representation strategy to the View.  A better design
 provides a query method ``isOverRpmLimit`` 
 
-.. code-block:: python
-
-   class Engine(BaseModel):
-       <...>
-       def isOverRpmLimit(self):
-           return self._rpm > 8000
+```python
+class Engine(BaseModel):
+   <...>
+   def isOverRpmLimit(self):
+       return self._rpm > 8000
+```
 
 The View can now query the Model for the information and render it appropriately 
 
-.. code-block:: python
+```python
+class Dial(View):
+   def notify(self):
+       <...>
+       color = Qt.red if self._model.isOverRpmLimit() else Qt.green
 
-   class Dial(View):
-       def notify(self):
-           <...>
-           color = Qt.red if self._model.isOverRpmLimit() else Qt.green
-
-           palette.setColor(QtGui.QPalette.Button, color)
-           self.setPalette(palette)
+       palette.setColor(QtGui.QPalette.Button, color)
+       self.setPalette(palette)
+```
 
 This solution respects the semantic level of the business object, and allows to
 keep the knowledge about excessive rpm values in the proper place. It is an
@@ -122,8 +124,9 @@ With this implementation in place we can
 now extract logic and state from Dial View into the Application Model
 DialEngine. The resulting design is known as Model-Model-View-Controller
 
-.. image:: ../_static/images/DomainModelApplicationModel/model_model_view_controller.png
-   :align: center
+<p align="center">
+    <img src="images/DomainModelApplicationModel/model_model_view_controller.png" />
+</p>
 
 The DialEngine will handle state about the Dial color, while delegating the rpm
 value to the Domain Model. View and Controller will interact with the
@@ -131,35 +134,35 @@ Application Model and listen to its notifications.  Our Application Model will
 be implemented as follows. In the initializer, we register for notifications on
 the Domain Model, and initialize the color 
 
-.. code-block:: python
-
-   class DialEngine(BaseModel):
-     def __init__(self, engine):
-       super(DialEngine, self).__init__()
-       self._dial_color = Qt.green
-       self._engine = engine
-       self._engine.register(self)
+```python
+class DialEngine(BaseModel):
+ def __init__(self, engine):
+   super(DialEngine, self).__init__()
+   self._dial_color = Qt.green
+   self._engine = engine
+   self._engine.register(self)
+```
 
 The accessor method for the color just returns the current value 
 
-.. code-block:: python
-
-   class DialEngine(BaseModel):
-        # ...
-        def dialColor(self):
-            return self._dial_color
+```python
+class DialEngine(BaseModel):
+    # ...
+    def dialColor(self):
+        return self._dial_color
+```
 
 The two accessors for the rpm value trivially delegate to the Domain Model
 
-.. code-block:: python
+```python
+class DialEngine(BaseModel):
+    # ...
+    def setRpm(self, rpm):
+        self._engine.setRpm(rpm)
 
-   class DialEngine(BaseModel):
-        # ...
-        def setRpm(self, rpm):
-            self._engine.setRpm(rpm)
-
-        def rpm(self):
-            return self._engine.rpm()
+    def rpm(self):
+        return self._engine.rpm()
+```
 
 When the ``DialController`` issues a change to the Application Model through the
 above accessor methods, this request will be forwarded and will generate a
@@ -168,34 +171,33 @@ this notification on their method notify. The Slider will change its position,
 and the Application Model will change its color and reissue a change
 notification 
 
-.. code-block:: python
+```python
+class DialEngine(BaseModel):
+    # ...
+    def notify(self):
+        if self._engine.isOverRpmLimit():  
+          self._dial_color = Qt.red
+        else: 
+          self._dial_color = Qt.green
 
-   class DialEngine(BaseModel):
-        # ...
-        def notify(self):
-            if self._engine.isOverRpmLimit():  
-              self._dial_color = Qt.red
-            else: 
-              self._dial_color = Qt.green
-
-            self._notifyListeners() 
+        self._notifyListeners() 
+```
 
 The DialView will handle this notification, query the Application Model (both
 the rpm value and the color) and repaint itself. Note that changing the
 ``self._dial_color`` in ``DialEngine.setRpm``, as in 
 
-.. code-block:: python
+```python
+class DialEngine(BaseModel):
+    # ...
+    def setRpm(self, rpm):
+        self._engine.setRpm(rpm)
 
-   class DialEngine(BaseModel):
-        # ...
-        def setRpm(self, rpm):
-            self._engine.setRpm(rpm)
-
-            if self._engine.isOverRpmLimit():  
-                self._dial_color = Qt.red
-            else: 
-                self._dial_color = Qt.green
-
+        if self._engine.isOverRpmLimit():  
+            self._dial_color = Qt.red
+        else: 
+            self._dial_color = Qt.green
+```
 
 instead of using the ``notify`` solution given before, would introduce the
 following problems: 

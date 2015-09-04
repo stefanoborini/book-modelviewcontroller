@@ -11,49 +11,49 @@ functionality. The View depends on both Models
 
 Obviously, the Application Model keeps registering itself on the Domain model
 
-.. code-block:: python
+```python
+class DialViewModel(BaseModel):
+  def __init__(self, engine):
+  super(DialViewModel, self).__init__()
+     self._dial_color = Qt.green
+     self._engine = engine
+     self._engine.register(self)
 
-   class DialViewModel(BaseModel):
-      def __init__(self, engine):
-      super(DialViewModel, self).__init__()
-         self._dial_color = Qt.green
-         self._engine = engine
-         self._engine.register(self)
-
-      def color(self):
-         return self._dial_color
-      
-      def notify(self):
-         if self._engine.isOverRpmLimit():
-            self._dial_color = Qt.red
-         else:
-            self._dial_color = Qt.green
-         self._notifyListeners()
+  def color(self):
+     return self._dial_color
+  
+  def notify(self):
+     if self._engine.isOverRpmLimit():
+        self._dial_color = Qt.red
+     else:
+        self._dial_color = Qt.green
+     self._notifyListeners()
+```
 
 The dial now registers to both Models, and listens to notifications from both.
 
-.. code-block:: python
+```python
+class Dial(QtGui.QDial):
+  # <....>
+  def setModels(self, model, view_model):
+     if self._model:
+        self._model.unregister(self)
+     if self._view_model:
+        self._view_model.unregister(self)
 
-   class Dial(QtGui.QDial):
-      # <....>
-      def setModels(self, model, view_model):
-         if self._model:
-            self._model.unregister(self)
-         if self._view_model:
-            self._view_model.unregister(self)
+     self._model = model
+     self._view_model = view_model
 
-         self._model = model
-         self._view_model = view_model
+     self._controller.setModel(model)
+     self._model.register(self)
+     self._view_model.register(self)
 
-         self._controller.setModel(model)
-         self._model.register(self)
-         self._view_model.register(self)
-
-      def notify(self):
-         self.setValue(self._model.rpm())  
-         palette = QtGui.QPalette() 
-         palette.setColor(QtGui.Qpalette.Button,self._view_model.color())
-         self.setPalette(palette)
+  def notify(self):
+     self.setValue(self._model.rpm())  
+     palette = QtGui.QPalette() 
+     palette.setColor(QtGui.Qpalette.Button,self._view_model.color())
+     self.setPalette(palette)
+```
 
 Note how the Dial cannot differentiate which of the two Models is delivering
 the message, and how in particular it will be potentially notified twice: once
