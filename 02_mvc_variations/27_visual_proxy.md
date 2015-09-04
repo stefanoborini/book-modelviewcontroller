@@ -25,39 +25,44 @@ but definitely contains interesting ideas. Holub argues the following:
 
 
 For the above reasons, Holub proposes that Model objects should create their
-own UI for their own attributes::
+own UI for their own attributes
 
-    class Employee:
-        def __init__(self):
-            self._name = ""
+```python
 
-        def visualProxy(self, attribute, read_only):
-            # One can of course get creative with attribute lookup here 
-            if attribute == "name":
-                if read_only:
-                    widget = QLabel()
-                    widget.setText(self._name)
-                else:
-                    widget = QLineEdit()
-                    widget.setText(self._name)
-                    widget.textChanged.connect(self._updateName)
+class Employee:
+    def __init__(self):
+        self._name = ""
 
-                return widget
-            
-            raise AttributeError("Unknown attribute %s" % attribute)
+    def visualProxy(self, attribute, read_only):
+        # One can of course get creative with attribute lookup here 
+        if attribute == "name":
+            if read_only:
+                widget = QLabel()
+                widget.setText(self._name)
+            else:
+                widget = QLineEdit()
+                widget.setText(self._name)
+                widget.textChanged.connect(self._updateName)
+
+            return widget
         
-        def _updateName(self, name):
-            self._name = name
+        raise AttributeError("Unknown attribute %s" % attribute)
+    
+    def _updateName(self, name):
+        self._name = name
+```
 
 A PAC control object will request the Visual Proxy and install it in
 the window, effectively embedding them in its widget::
 
-    class Control:
+```python
+class Control:
+    # ...
+    def build(self):
         # ...
-        def build(self):
-            # ...
-            self._window.addWidget(self._employee.visualProxy("name", False))
-            # ...
+        self._window.addWidget(self._employee.visualProxy("name", False))
+        # ...
+```
 
 
 This approach does not violate encapsulation as a get/set Model did, and
@@ -75,13 +80,13 @@ window are concerned with this transaction. They just respectively coordinate
 the creation and hold the visual rendering of the Visual Proxy object.
 
 The main shortcoming of this approach are the following:
-    - the Model is completely and utterly dependent on the GUI toolkit. 
-      This may have deep implications for testability, scriptability and reuse. 
-    - If the visual proxy contains static parts (such as the "Name" label
-      followed by the line editor) the Model objects may also have to deal with
-      localization.
-    - Logical dependencies between visual components (*e.g.* when this value is
-      1, enable that checkbox) must also be moved to the model layer.
+- the Model is completely and utterly dependent on the GUI toolkit. 
+  This may have deep implications for testability, scriptability and reuse. 
+- If the visual proxy contains static parts (such as the "Name" label
+  followed by the line editor) the Model objects may also have to deal with
+  localization.
+- Logical dependencies between visual components (*e.g.* when this value is
+  1, enable that checkbox) must also be moved to the model layer.
 
 
 
