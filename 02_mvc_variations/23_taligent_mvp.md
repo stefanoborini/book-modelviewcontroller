@@ -11,7 +11,9 @@ the Dolphin Model-View-Presenter, which will be introduced later.  At first,
 MVP seems complex, but in reality is a little step from what already introduced
 in the previous sections. 
 
-.. image:: taligent_mvp.png
+<p align="center">
+    <img src="images/TaligentMVP/taligent_mvp.png" />
+</p>
 
 The aim is to divide responsibilities in simple, testable entities while moving
 all logic away from the part that is most difficult to test, which is the View.
@@ -20,17 +22,17 @@ Taligent MVP organizes entities so that they can be divided into three classes:
 A data oriented class, a GUI oriented class, and the Presenter.
 The Data oriented class is composed of the following parts:
 
-   - A **Model**, whose role is purely of business.
-   - A **Selection**, holding information about the subset of the Model that will be affected by user's actions
-   - A set of **Commands**, encapsulating operations that can be performed on
-     the Model according to the Selection, and supporting undo/redo semantics.
+- A **Model**, whose role is purely of business.
+- A **Selection**, holding information about the subset of the Model that will be affected by user's actions
+- A set of **Commands**, encapsulating operations that can be performed on
+  the Model according to the Selection, and supporting undo/redo semantics.
 
 The GUI oriented class is instead composed of
 
-   - a View, representing the content of the Model, and accessing the Model directly.
-   - Interactors, mapping UI events at either low (mouse click, keyboard
-     press) or high level (menu entry choice, click and drag selection) into actual
-     commands to execute on the model. 
+- a View, representing the content of the Model, and accessing the Model directly.
+- Interactors, mapping UI events at either low (mouse click, keyboard
+  press) or high level (menu entry choice, click and drag selection) into actual
+  commands to execute on the model. 
 
 Finally, the Presenter class only contains the Presenter, which is an
 overarching director object orchestrating the interaction of the above objects.
