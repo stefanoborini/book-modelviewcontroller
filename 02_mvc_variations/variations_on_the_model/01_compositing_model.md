@@ -1,4 +1,4 @@
-## Compositing Model
+# Compositing Model
 
 A Compositing Model aggregates data from multiple Model objects so that the
 View has a single and uniform point of interest as its datasource.
