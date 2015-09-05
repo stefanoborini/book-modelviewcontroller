@@ -35,12 +35,12 @@ structure.
 Specialized models provide access to specific data (e.g. sql table, filesystem directory).
 Views are oblivious of the data provider as long as it fulfills the AbstractModel interface.
 
-:: 
-
-    directory = QDirModel()
-    table = QTreeView()
-    tree.setModel(directory)
-    tree.setRootIndex(directory.index("/")
+```python
+directory = QDirModel()
+table = QTreeView()
+tree.setModel(directory)
+tree.setRootIndex(directory.index("/")
+```
 
 
 Model indexes are created on the model, acting as a factory. Indexes can mutate as new elements
