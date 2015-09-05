@@ -12,4 +12,5 @@
    * [Collection Model](34_collection_model.md): Holds and aggregates objects of the same type.
    * [View-aware Model](38_view_aware_model.md): A model that knows its views interface beyond simple notification delivery.
    * [Caching Model](42_caching_model.md): Holds data in local cache to mitigate slow access.
+   * [Data/Metadata Model](50_data_metadata_model.md)
 

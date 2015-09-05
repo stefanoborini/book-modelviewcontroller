@@ -24,6 +24,7 @@
        * [Collection Model](02_mvc_variations/variations_on_the_model/34_collection_model.md)
        * [View-aware Model](02_mvc_variations/variations_on_the_model/38_view_aware_model.md)
        * [Caching Model](02_mvc_variations/variations_on_the_model/42_caching_model.md)
+       * [Data/Metadata Model](02_mvc_variations/variations_on_the_model/50_data_metadata_model.md)
    * [Variations on the Notification Strategy](02_mvc_variations/variations_on_the_notification_strategy/index.md)
        * [Qualified Notification Model](02_mvc_variations/variations_on_the_notification_strategy/05_qualified_notification_model.md)
        * [Passive Model](02_mvc_variations/variations_on_the_notification_strategy/07_passive_model.md)

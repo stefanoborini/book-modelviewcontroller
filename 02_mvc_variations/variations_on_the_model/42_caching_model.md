@@ -99,11 +99,6 @@ Expiration of the cached information: by absolute timeout (e.g. 15 minutes), by 
 
 
 
-Data/Metadata model
-loading only information that is relevant, withholding bulkier
-information, but providing a mechanism to access it once needed.
-(FIXME maybe move to advanced techniques? where does it fit?)
-
 How to outdate the cache?
 timestamp retrieval
 
