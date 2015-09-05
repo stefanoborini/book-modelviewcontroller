@@ -1,5 +1,4 @@
-Model Pipe
-----------
+# Model Pipe
 
 The **Model Pipe** is a variation of the Compositing Model approach. 
 It introduces an additional Model class, called **Pipe**, to intercept
