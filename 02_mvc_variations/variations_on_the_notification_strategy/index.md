@@ -1,11 +1,11 @@
 # Variations on the notification strategy
 
-   * [Qualified Notification Model](02_mvc_variations/05_qualified_notification_model)
-   * [Passive Model](02_mvc_variations/07_passive_model.md)
-   * [Lazy Model](02_mvc_variations/08_lazy_model.md)
-   * [Accumulator](02_mvc_variations/35_accumulator.md)
-   * [Delayed Model](02_mvc_variations/40_delayed_model.md)
-   * [Pre/Post notification](02_mvc_variations/47_pre_post_notification.md)
-   * [Vetoers](02_mvc_variations/48_vetoers.md)
-   * [Notification looping prevention](02_mvc_variations/28_notification_looping_prevention.md)
-   * [Signals](02_mvc_variations/49_signals.md)
+   * [Qualified Notification Model](02_mvc_variations/05_qualified_notification_model): Deliver notification with enhanced semantics.
+   * [Passive Model](02_mvc_variations/07_passive_model.md): A Model without notification features.
+   * [Lazy Model](02_mvc_variations/08_lazy_model.md): A Model delivering its notifications only on request.
+   * [Accumulator](02_mvc_variations/35_accumulator.md): Listens to submodels and squashes multiple notifications into a single one.
+   * [Delayed Model](02_mvc_variations/40_delayed_model.md): Neutralizes fast notifications through a timeout.
+   * [Pre/Post notification](02_mvc_variations/47_pre_post_notification.md): Deliver notifications before or after the change.
+   * [Vetoers](02_mvc_variations/48_vetoers.md): Inquire listeners to approve or deny a change to occur.
+   * [Notification looping prevention](02_mvc_variations/28_notification_looping_prevention.md): Prevent recursive notification events to propagate.
+   * [Signals](02_mvc_variations/49_signals.md): Isolate notification into a separate object.
