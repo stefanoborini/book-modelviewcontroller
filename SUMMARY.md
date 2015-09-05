@@ -62,6 +62,8 @@
        * [Visual Editor](02_mvc_variations/variations_on_the_triad/36_visual_editor.md)
        * [Command Notification](02_mvc_variations/variations_on_the_triad/37_command_notification.md)
        * [Qt MVC](02_mvc_variations/variations_on_the_triad/45_Qt_MVC.md)
+       * [Supervising Presenter](02_mvc_variations/variations_on_the_triad/43_supervising_presenter.md)
+       * [Presentation Model](02_mvc_variations/variations_on_the_triad/44_presentation_model.md)
 * [Hierarchic MVC](03_hierarchic_mvc/index.md)
    * [Controller hierarchy](03_hierarchic_mvc/01_controller_hierarchy.md)
    * [HMVC](03_hierarchic_mvc/02_hmvc.md)
