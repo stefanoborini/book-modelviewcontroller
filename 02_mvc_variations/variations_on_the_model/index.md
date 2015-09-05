@@ -1,4 +1,4 @@
-# Variations on the model
+# Variations on the Model
 
    * [Compositing Model](02_mvc_variations/01_compositing_model.md)
    * [Model Pipe](02_mvc_variations/02_model_pipe.md)
