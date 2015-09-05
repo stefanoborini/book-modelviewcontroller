@@ -16,3 +16,7 @@ information useful for a picture browser, and `data()` which retrieves
 the bulk of the picture data from the disk and makes it available for
 processing. When instantiated, `Picture` retrieves just the lightweight 
 information from its backend.
+
+The same approach can be used to differentiate information
+requiring reduced network access from information requiring large data transfers.
+
