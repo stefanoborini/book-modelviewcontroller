@@ -25,24 +25,24 @@ However, caching comes with a set of liabilities:
 
 
 This is of particular importance
+In multi-user applications or web applications, it's important that some type of cached entries are not delivered to a user they were not intended for. Some critical information may be into it.
 
 ## Design
 
-
-<p align="center">
-    <img src="images/caching_model/caching_model.png">
-</p>
-
-The typical design of a Caching Model involves the following steps while getting data:
+The typical design of a Caching Model involves the following steps to
+retrieve the data from a data source:
 
 1. The View attempts to retrieve some information from the Model.
 2. The Model first attempts to obtain this information from the Cache.
 3. If the desired information is not found, the Model will perform
-   a query to the slow data source, obtain the result, add it to
+   a query to the data source, obtain the result, add it to
    the Cache, and return it to the View.
 4. Additional attempts to retrieve the same information from the Model
    will extract data from the Cache.
 
+<p align="center">
+    <img src="images/caching_model/caching_model.png">
+</p>
 
 When parameters are passed during the `get` request, the cache must 
 have an index over these parameters to guarantee a retrieval of the
@@ -50,7 +50,7 @@ intended information. For example, if a Model class `UserRepository`
 has a method `get_user_data(user_id)`, this method must use the
 parameter `user_id` to perform the intended retrieval from the cache.
 
-When setting data on the Model, the possible strategies are 
+To set data on the Model, two strategies are possible:
 
 1. always perform the changing action on the slow data source, 
    followed by either a similar update on the cached data, or an
@@ -84,37 +84,36 @@ of application crash or network failure where the changed content
 is only partially submitted or not at all.
 
 Interested listeners of the Model may or may not need to be aware 
-of the existence of a cache. 
+of the existence of a cache. If the listener can behave appropriately 
+by ignoring the existence of the cache Several strategies are possible to handle this 
 
 ## Caching strategies
 
-Choosing an appropriate Caching strategy is a complex topic 
-and outside the scope of this book. A trivial strategy
-is to discard the Least Recently Used (LRU) data and replace it
-with new data. This approach constraints the size of the cache 
-to a given value and keeps the most recently used data in the cache, 
-but does not provide a predictable expiration strategy.
+Choosing an appropriate caching strategy is a complex topic 
+well outside the scope of this book. Several factors may need to be kept into
+account, such as data access patterns, specific requirements of the design 
+and the application behavior, and data consistency.
 
-Expiration of the cached information: by absolute timeout (e.g. 15 minutes), by sliding timeout (e.g. 5 minutes, but reset the timer if requested again. potentially never refreshed), or by external event (e.g. method call that forces cleanup).
+To present a few among many possibilities, the most trivial strategy
+is to simply perform memoization of the result. A Model using memoization
+effectively uses a cache whose entries never expire. The cache size can be
+kept under control by discarding the Least Recently Used (LRU) data.
+This approach constraints the size of the cache and keeps the most recently 
+used data in the cache, but does not provide a predictable expiration strategy.
 
+Predictable expiration may be a requirement for some applications. For example,
+a News Ticker application retrieving information from a website may want to
+invalidate the cached data and perform a new retrieval, hopefully to obtain
+updated information, after a fixed absolute timeout (e.g. 15 minutes).
+Other applications may prefer cached data to expire only if not accessed 
+within a given amount of time (e.g. 5 minutes, but the countdown resets 
+to zero if requested again), or when an explicit method call is issued 
+on the Model object. Smarter strategies may use a small payload request
+to ask the remote service if new or changed data are available, and act
+accordingly by either retrieving the new data or return the cached information.
 
+Additional optimization may come from preemptive caching of model data
+that is likely to be accessed soon. For example, while retrieving information about a given user from a social networking website, a smart caching engine 
+may decide to retrieve its most recent pictures and populate the cache of the
+picture Model objects.
 
-How to outdate the cache?
-timestamp retrieval
-
-preemptive caching.
-
-
-Aim at a trade off between memory and processor usage, caching only the minimal information to save cache space, whenever possible, at the cost of some processor usage. 
-
-
-In multi-user applications or web applications, it's important that some type of cached
-entries are not delivered to a user they were not intended for. Some critical
-information may be into it.
-
-
-Memoization is probably the most trivial form of Caching Model.
-
-However, considerations about time to generate
-may also be important. Better to throw away more disk retrieved data in favour of keeping
-a network retrieved data.
