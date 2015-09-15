@@ -55,7 +55,7 @@ application is a simple Qt ListWidget with one name and telephone number per
 each row
 
 <p align="center">
-    <img src="images/CompositingModel/compositingmodel-screenshot.png" /> 
+    <img src="images/compositing_model/compositingmodel-screenshot.png" /> 
 </p>
 
 The Model layer is composed of three classes: two of them provide readonly
@@ -64,7 +64,7 @@ manipulating the data for more convenient handling, in this case merging. The
 resulting class ``AddressBook`` is a Compositing Model.
 
 <p align="center">
-    <img src="images/CompositingModel/compositingmodel.png" />
+    <img src="images/compositing_model/compositingmodel.png" />
 </p>
 
 The code for class ``AddressBookCSV`` is here shown to illustrate the rather
