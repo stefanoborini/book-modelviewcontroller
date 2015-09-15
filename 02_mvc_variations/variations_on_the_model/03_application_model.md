@@ -1,5 +1,8 @@
-Application Model (MMVC)
-------------------------
+# Application Model (MMVC)
+
+### Motivation
+
+### Design
 
 In Traditional MVC we pointed out that a Model object should not contain GUI
 state. In practice, some applications need to preserve and manage state that is
