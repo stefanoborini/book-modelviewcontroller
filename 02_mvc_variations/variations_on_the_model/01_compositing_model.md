@@ -1,43 +1,55 @@
 # Compositing Model
 
+### Motivation
+
 A Compositing Model aggregates data from multiple Model objects so that the
-View has a single and uniform point of access for its data source.
+View has a single and uniform point of access for its data source. 
+A typical use case is to perform union of homogeneous
+information originating from different sources, or to extract relevant
+information from different Models and present them in an easy to query Façade.
+These Compositing Models are normally conceived to simplify access for a View with specific presentation objectives. 
+
+A Compositing Model can also compose objects of different nature that need 
+to be joined through a complex relation. For example, a `CustomerHistory` 
+Model could combine Models `Customers` and `Orders`, returning the combined information to the View.
+
+In this sense, the Model follows the needs of the View, because
+the existence of this Model object is implied by the specific View 
+needs to represent this particular data aggregate.
+
+### Design
+
+The Compositing Model acts both as listener and notifier. It holds references to its SubModels, and registers on them as a listener. The Compositing Model 
+life cycle can be temporary. SubModels can have an independent life cycle.
+The View interacts only with the Compositing Model. Other Views 
+(or Controllers) can interact directly with the SubModels.
 
 <p align="center">
     <img src="images/compositing_model/compositing_model_design.png" /> 
 </p>
 
+Notifications from individual SubModels are received and re-issued by the
+Compositing Model to notify the View. Vice-versa, data requests issued by 
+the View on the Compositing Model are routed to the appropriate SubModel. 
 
-Notifications from individual submodels are received by the Compositing Model,
-and re-issued for View's consumption. Data requests that the View isses to the
-Compositing Model are forwarded to the appropriate submodel.
+<p align="center">
+    <img src="images/compositing_model/compositing_model_view_interaction.png" /> 
+</p>
 
 Controllers can act either on the Compositing Model, or any of the Submodels.
-In the first case, the Compositing Model must forward the modification request
-to the appropriate Submodel according to some criteria. The Submodel will then
-issue the notification. The Compositing Model is therefore acting as a
-surrogate Controller.  In the second case, the operation will involve only the
-Submodel, and the Compositing Model will simply forward the Submodel's
-notification to the View.
+In the first case, the Compositing Model forwards the modification request
+to the appropriate Submodel according to some criteria. The Compositing Model 
+is therefore acting as a surrogate Controller. The SubModel will then issue 
+the notification, which is propagated as explained above. 
 
-A typical use case for a Compositing Model is to perform union of homogeneous
-information originating from different sources, or to extract relevant
-information from different Models and present them in an easy to query Façade.
-These Compositing Models are normally conceived to simplify access for a View with
-specific presentation objectives. 
-
-A Compositing Model can also compose objects of different nature that need to be joined
-through a complex relation. For example, a CustomerHistory Model could combine two Models:
-Customer and Orders. In this sense, the Model may follow the needs of the View, because
-the existence of this Model object is implied by the specific View needs to represent
-this particular data aggregate.
-
+If a Controller instead acts on a SubModel, the Compositing Model will 
+simply forward the Submodel's notification to the View.
 
 ### Practical example
 
 As a practical example of the Compositing Model, we will create a trivial address book application whose data sources are two
 comma-separated (CSV) files and one XML file. The objective is to have a View
-that can display data regardless of the number of sources, and that allows
+that can display data regardless of the sources, and that allows
 extension to other storage formats without excessive modifications. The final
 application is a simple Qt ListWidget with one name and telephone number per
 each row
@@ -49,8 +61,7 @@ each row
 The Model layer is composed of three classes: two of them provide readonly
 access to each file format (CSV or XML). The third uses the previous two,
 manipulating the data for more convenient handling, in this case merging. The
-resulting class AddressBook is a Compositing Model: it acts both as a Model for
-its View (the ``AddressBookView``) and as a View for its submodels instances
+resulting class ``AddressBook`` is a Compositing Model.
 
 <p align="center">
     <img src="images/CompositingModel/compositingmodel.png" />
@@ -58,8 +69,8 @@ its View (the ``AddressBookView``) and as a View for its submodels instances
 
 The code for class ``AddressBookCSV`` is here shown to illustrate the rather
 trivial interface supported by all Model objects. The common base class
-BaseModel provides notification services by implementing the well known methods
-``register``, ``unregister``, ``notifyListeners``, and the listeners set, as shown in Traditional MVC
+``BaseModel`` provides notification services by implementing
+``register``, ``unregister``, ``notifyListeners``, and the listeners set.
 
 ```python
 class AddressBookCSV(BaseModel):
