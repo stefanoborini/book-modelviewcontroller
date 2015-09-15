@@ -1,7 +1,13 @@
 # Compositing Model
 
 A Compositing Model aggregates data from multiple Model objects so that the
-View has a single and uniform point of interest as its datasource.
+View has a single and uniform point of access for its data source.
+
+<p align="center">
+    <img src="images/compositing_model/compositing_model_design.png" /> 
+</p>
+
+
 Notifications from individual submodels are received by the Compositing Model,
 and re-issued for View's consumption. Data requests that the View isses to the
 Compositing Model are forwarded to the appropriate submodel.
