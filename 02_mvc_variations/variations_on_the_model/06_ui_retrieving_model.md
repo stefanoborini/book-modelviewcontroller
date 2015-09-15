@@ -1,10 +1,11 @@
-UI Retrieving Model
--------------------
+# UI Retrieving Model
 
-This small variation of the model is limited to very specific cases. One
-important constraint about the model that we stressed throughout the book
-is that it should never be involved in GUI related business. UI Retrieving
-Model breaks this rule. Credit for this approach goes to Scott Miller.
+### Motivation
+
+This small variation of the Model is limited to very specific cases. One
+important constraint about the Model that we stressed throughout the book
+is that it should never be involved in GUI related business. **UI Retrieving
+Model** breaks this rule. Credit for this approach goes to Scott Miller.
 
 The role of the Model is to retrieve information. In general, the backend
 retrieval is performed from a file, memory, or a database. However, the Model
@@ -26,6 +27,3 @@ If the password is incorrect, the presenter will ask the Model user to reset
 the password field, and the user will be prompted again for the password, otherwise
 any additional request will use the cached password without additional requests
 to the user.
-
-
- 
