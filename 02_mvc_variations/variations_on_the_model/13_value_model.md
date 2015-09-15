@@ -8,39 +8,41 @@ notification. It centralizes the logic of adaptation and data manipulation from
 the complex Model. Both the View and the Controller can be extremely simple or off-the-shelf, basically limited to calling ``model.value()`` and
 ``model.setValue()``. 
 
+The concept behind the Value Model is that View and Controller can only deal
+with a generic, minimalist ``value/setValue()`` interface, disregarding the
+underlying nature of the passed object, and leaving the specific ValueModel to
+take care of the details.
+
 # Design
 
 The ValueModel class acts as an adapter
 
+<p align="center">
+    <img src="images/value_model/value_model.png" width=200 />
+</p>
 
-
-
-
+A trivial implementation would look like the following code:
 
 ```python
 class ValueModel(Model):
     def __init__(self, model_object):
         self._model_object = model_object
     
-    def value(self):
-        # do potentially complex logic on self._model_object
-        # to extract a single value
-    
     def setValue(self, value):
         # do potentially complex logic on self._model_object
         # to appropriately manipulate the passed value
         # This method triggers a valueChanged notification.
+        
+    def value(self):
+        # do potentially complex logic on self._model_object
+        # to extract a single value
+    
 ```
 
 This mechanism can be extended to alter any particular and potentially complex 
 aspect of an object to a trivial interface defining a value. For example, one
-could define a ValueModel to accept a string containing an street address.
+could define a ValueModel to accept a string containing a street address.
 The ValueModel could parse the string, lookup the street address according to
 the parsed information, obtain a canonical format of the address according
 to the city directory, and associate it to the current object.
 
-The concept behind the Value Model is that View and Controller can only deal
-with a generic, minimalist ``value/setValue()`` interface, disregarding the
-underlying nature of the passed object, and leaving the specific ValueModel to
-take care of the details.
- 
