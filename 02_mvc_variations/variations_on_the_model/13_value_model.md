@@ -12,6 +12,11 @@ the complex Model. Both the View and the Controller can be extremely simple or o
 
 The ValueModel class acts as an adapter
 
+
+
+
+
+
 ```python
 class ValueModel(Model):
     def __init__(self, model_object):
