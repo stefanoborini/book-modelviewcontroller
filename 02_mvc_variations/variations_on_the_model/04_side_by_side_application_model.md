@@ -1,5 +1,6 @@
-Side-by-Side Application Model - Selection Model
-------------------------------------------------
+# Side-by-Side Application Model - Selection Model
+
+### Motivation
 
 **Addressed Need: Keep View state in a separate Model, not wrapping the Domain Model.**
 
