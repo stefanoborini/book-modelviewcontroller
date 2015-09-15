@@ -8,6 +8,13 @@ the data flow between Model and View and add flexibility for data manipulation
 while in transit. Its concept is similar to a UNIX pipe, and its most common
 use is for filtering and sorting.
 
+The Pipe class encapsulates the transformation logic in a dedicated,
+potentially reusable Model class. Different Pipe classes can be created, each
+with specific capabilities. To be compatible with the View, a Pipe should
+implement the same interface of the submodel, eventually extending it for the
+additional state it might contain. Pipes can also be chained together to
+perform sequential reduction of data.
+
 ### Design
 
 The Pipe class encapsulates the transformation logic in a dedicated,
@@ -15,11 +22,15 @@ potentially reusable Model class. Different Pipe classes can be created, each
 with specific capabilities. Pipes can also be chained together to perform
 sequential reduction of data. 
 
+<p align="center">
+    <img src="images/model_pipe/model_pipe_design.png" width="200" />
+</p>
+
 To be compatible with the View, a Pipe should implement the same interface 
 of the SubModel, eventually extending it for the additional state it might
 contain. For example, a filtering Pipe may host data about the current filter.
-Controllers acting on the Pipe class generally involve manipulation of this
-state, while the manipulation of the SubModel's data will be performed 
+Controllers acting on the Pipe class act on this
+state. while the manipulation of the SubModel's data is performed 
 directly on the SubModel itself. 
 
 The Pipe generates notification events either when the Submodel contents 
@@ -30,9 +41,11 @@ resulting data.
 
 An additional need that may emerge from our addressbook application is to
 filter out names and sort them alphabetically. A possible design approach would
-be to include this logic directly into the AddressBook Model, but this approach
-would not work if we required two Views to observe the  Model, maybe with
-different search criteria for the filter. The next plausible candidate for
+be to include this logic directly into the ``AddressBook`` class, but 
+this approach would not work if we required two Views to observe the Model, maybe with
+different search criteria for the filter. 
+
+The next plausible candidate for
 hosting this logic is the View, but this can also lead to problems. The View
 might have a visual understanding of the semantic of the data, for example it
 knows how to extract a name from the Model and knows where it should go in the
@@ -41,24 +54,10 @@ or be the most appropriate place to perform extravagant manipulations. Despite
 the shortcomings, both approaches may be a good compromise depending on the
 circumstances. 
 
-An alternative approach that cuts through the problem is a
-**Model Pipe** design, a variation of the Compositing Model
-approach. It introduces an additional Model class, called **Pipe**, to intercept
-the data flow between Model and View and add flexibility for data manipulation
-while in transit. Its concept is similar to a UNIX pipe, and its most common
-use is for filtering and sorting. 
-
-The Pipe class encapsulates the transformation logic in a dedicated,
-potentially reusable Model class. Different Pipe classes can be created, each
-with specific capabilities. To be compatible with the View, a Pipe should
-implement the same interface of the submodel, eventually extending it for the
-additional state it might contain. Pipes can also be chained together to
-perform sequential reduction of data.
-
-To present a real case implementation of Model-Pipe-View-Controller, we will
+It is therefore a better strategy to use a Model Pipe design. We
 add two new Pipe classes to the Model layer introduced in the earlier section:
 one for filtering (``AddressBookFilter``) and for sorting
-(``AddressBookSorter``), as represented in Figure 
+(``AddressBookSorter``), as represented in figure 
 
 <p align="center">
     <img src="images/ModelPipe/modelpipe-schema.png" />
