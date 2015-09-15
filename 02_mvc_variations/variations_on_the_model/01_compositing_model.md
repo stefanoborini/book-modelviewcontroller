@@ -4,8 +4,8 @@
 
 A Compositing Model aggregates data from multiple Model objects so that the
 View has a single and uniform point of access for its data source. 
-A typical use case is to perform union of homogeneous
-information originating from different sources, or to extract relevant
+A typical use case is to perform union of homogeneous information 
+originating from different sources, or to extract relevant
 information from different Models and present them in an easy to query Façade.
 These Compositing Models are normally conceived to simplify access for a View with specific presentation objectives. 
 
