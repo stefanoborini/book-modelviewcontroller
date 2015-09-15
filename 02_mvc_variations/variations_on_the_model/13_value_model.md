@@ -1,9 +1,16 @@
-Value Model
------------
+# Value Model
 
-A Value Model is a technique to render a complex Model object or Model behavior
-into a uniform and trivial interface, containing a getter, a setter, and
-notification services
+### Motivation
+
+A Value Model is a technique to adapt a complex Model object or Model behavior
+into a uniform and trivial interface containing a getter, a setter, and
+notification. It centralizes the logic of adaptation and data manipulation from
+the complex Model. Both the View and the Controller can be extremely simple or off-the-shelf, basically limited to calling ``model.value()`` and
+``model.setValue()``. 
+
+# Design
+
+The ValueModel class acts as an adapter
 
 ```python
 class ValueModel(Model):
