@@ -1,22 +1,30 @@
 # Model Pipe
 
+### Motivation
+
 The **Model Pipe** is a variation of the Compositing Model approach. 
 It introduces an additional Model class, called **Pipe**, to intercept
 the data flow between Model and View and add flexibility for data manipulation
 while in transit. Its concept is similar to a UNIX pipe, and its most common
-use is for filtering and sorting. 
+use is for filtering and sorting.
+
+### Design
 
 The Pipe class encapsulates the transformation logic in a dedicated,
 potentially reusable Model class. Different Pipe classes can be created, each
-with specific capabilities.  Pipes can also be chained together to perform
-sequential reduction of data.  To be compatible with the View, a Pipe should
-implement the same interface of the Submodel, eventually extending it for the
-additional state it might contain. For example, a filtering Pipe may host data
-about the current filter. Controllers acting on the Pipe class generally
-involve manipulation of this state, while the manipulation of the Submodel's
-data will be performed directly on the Submodel itself. The Pipe will generate
-notification events either when the Submodel contents change, or when its internal
-state changes in a way that modifies the resulting data.
+with specific capabilities. Pipes can also be chained together to perform
+sequential reduction of data. 
+
+To be compatible with the View, a Pipe should implement the same interface 
+of the SubModel, eventually extending it for the additional state it might
+contain. For example, a filtering Pipe may host data about the current filter.
+Controllers acting on the Pipe class generally involve manipulation of this
+state, while the manipulation of the SubModel's data will be performed 
+directly on the SubModel itself. 
+
+The Pipe generates notification events either when the Submodel contents 
+change, or when its internal state changes in a way that modifies the 
+resulting data.
 
 ### Practical Example
 
