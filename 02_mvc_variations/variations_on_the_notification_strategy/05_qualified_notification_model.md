@@ -1,5 +1,10 @@
-Qualified notification Model
-----------------------------
+# Qualified Notification Model
+
+### Motivation
+
+
+### Design
+
 
 Inform the View about which model actually changed Prevent a View refresh if
 the model changes on some information that is not displayed due to the state of
