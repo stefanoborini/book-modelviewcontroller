@@ -10,40 +10,33 @@ A Qualified Notification Model opts to complement the coarse grained
 notification with additional information about what has changed in the
 Model. 
 
-
-
 with a more fine grained protocol informs the View about the details of the 
 change by sending messages qualified with additional information about the
 change. 
-OR parametrize the notify method to deliver
-information about the change the model has.  Either the View register itself
-and lists which messages it is interested in (and only if this matches, the
-message is delivered) or it gets all messages and acts only on those who it is
-interested in. Alternatively, fragment the Model into two model objects, so
+parametrize the notify method to deliver
+information about the change the model has.  
+
+
+View gets all messages and acts only on those who it is
+interested in. 
+
+Alternatively, fragment the Model into two model objects, so
 that the View can connect only to the part that is relevant.
-
-### Design
-
-
 
 Prevent a View refresh if
 the model changes on some information that is not displayed due to the state of
 the view Inform the View of what actually changed, instead of asking for a full
 refreshes
 
+### Design
 
+notify() gets called with a qualified flag specifying which change has occurred
+, the previous value and the new value
 
 To prevent excessive refreshes with multiple changes: pass a flag to update(),
 or accumulate changes on the view side and refresh only after a given amount of
 time has passed, or add to a queue the changes, then consume the queue until no
-more changes are needed, then force visual refresh.  notify() gets called with
-a qualified flag, the previous value and the new value.
-
-notify() gets called with a qualified flag specifying which change has occurred
-, the previous value and the next value
-
-The view subscribes to specific events from the model, and 
-receives notifications only when those events actually occur.
+more changes are needed, then force visual refresh.  
 
 case: Model changes, but not in the data relevat to the view.
 
@@ -71,7 +64,6 @@ Disadvantages:
  - transfer stuff that may be useless for that specific view. The view may then subscribe for specific data and receive only those in the data update object
 
 
-
 you can send a changeset object through the signal, with a well defined interface
 for the type and change content
 
@@ -80,4 +72,3 @@ If you want to retain control over the notification in order to
 prevent trashing, you can use a passive model and let the controller do the notification
 once it has performed the modifying action.
 
-Useful to tell the observers which part has actually changed.
