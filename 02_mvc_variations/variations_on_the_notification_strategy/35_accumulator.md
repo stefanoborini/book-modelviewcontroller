@@ -1,5 +1,6 @@
-Accumulator
------------
+# Accumulator
+
+### Motivation
 
 Accumulator is a special variation of the Compositing Model where notifications
 from the submodels are not propagated to the final listener, but are instead
@@ -21,3 +22,4 @@ The Accumulator is useful in the following circumstances:
 
 accumulate notifications in a buffer, then send them out at the end of the transaction.
 
+### Design
