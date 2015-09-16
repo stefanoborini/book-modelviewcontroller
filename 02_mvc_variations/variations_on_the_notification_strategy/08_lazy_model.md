@@ -1,8 +1,11 @@
-Lazy Model
-----------
+# Lazy Model
+
+### Motivation
 
 A Lazy Model is an intermediate solution between Active and Passive Model that retains
 centrality of the notification bookkeeping, but delegates notification triggering. 
+
+### Design
 
 Like an Active solution, listeners register on the Model and await for
 notification; Differently from it, methods that modify the Model do not call
