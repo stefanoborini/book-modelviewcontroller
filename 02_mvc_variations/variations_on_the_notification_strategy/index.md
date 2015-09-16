@@ -1,6 +1,7 @@
 # Variations on the notification strategy
 
    * [Qualified Notification Model](02_mvc_variations/05_qualified_notification_model): Deliver notification with enhanced semantics.
+   * [Qualified Notification Model with Subscribing](02_mvc_variations/05_qualified_notification_model_with_subscribing): View subscribes to specific events and gets notified only when they occur.
    * [Passive Model](02_mvc_variations/07_passive_model.md): A Model without notification features.
    * [Lazy Model](02_mvc_variations/08_lazy_model.md): A Model delivering its notifications only on request.
    * [Accumulator](02_mvc_variations/35_accumulator.md): Listens to submodels and squashes multiple notifications into a single one.
