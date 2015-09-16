@@ -1,5 +1,4 @@
-Collection Model
-================
+# Collection Model
 
 A collection model is similar to the compositing model, with the only
 difference that its role is to hold instances of a specific model class.
