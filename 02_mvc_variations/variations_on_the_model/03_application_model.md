@@ -2,14 +2,18 @@
 
 ### Motivation
 
-### Design
-
 In Traditional MVC we pointed out that a Model object should not contain GUI
 state. In practice, some applications need to preserve and manage state that is
 only relevant for visualization. Traditional MVC has no place for it, but we
 can satisfy this need with a specialized Compositing Model: the **Application
 Model**, also known as Presentation Model. Its submodel, called **Domain Model**,
-will be kept unaware of such state. To present a practical example. imagine
+will be kept unaware of such state. 
+
+### Design
+
+### Practical Example
+
+To present a practical example. imagine
 having a Domain Model representing an engine 
 
 ```python
