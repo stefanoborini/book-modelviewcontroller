@@ -27,7 +27,7 @@
        * [Data/Metadata Model](02_mvc_variations/variations_on_the_model/50_data_metadata_model.md)
    * [Variations on the Notification Strategy](02_mvc_variations/variations_on_the_notification_strategy/index.md)
        * [Qualified Notification Model](02_mvc_variations/variations_on_the_notification_strategy/05_qualified_notification_model.md)
-       * [Qualified Notification Model with Subscribing](02_mvc_variations/variations_on_the_notification_strategy/05_qualified_notification_model_with_subscribing.md)
+       * [Qualified Notification Model with Subscribing](02_mvc_variations/variations_on_the_notification_strategy/50_qualified_notification_model_with_subscribing.md)
        * [Passive Model](02_mvc_variations/variations_on_the_notification_strategy/07_passive_model.md)
        * [Lazy Model](02_mvc_variations/variations_on_the_notification_strategy/08_lazy_model.md)
        * [Accumulator](02_mvc_variations/variations_on_the_notification_strategy/35_accumulator.md)
