@@ -2,23 +2,36 @@
 
 ### Motivation
 
+The most basic form of Model notification just informs the listeners that 
+a change occurred in its state. Listeners must now obtain the new data and
+repaint themselves, an operation that can be wasteful.
 
-### Design
+A Qualified Notification Model opts to complement the coarse grained
+notification with additional information about what has changed in the
+Model. 
 
 
-Inform the View about which model actually changed Prevent a View refresh if
-the model changes on some information that is not displayed due to the state of
-the view Inform the View of what actually changed, instead of asking for a full
-refreshes
 
-
-The Model can send messages qualified with a subject, so to inform the views of
-what kind of change has occurred. OR parametrize the notify method to deliver
+with a more fine grained protocol informs the View about the details of the 
+change by sending messages qualified with additional information about the
+change. 
+OR parametrize the notify method to deliver
 information about the change the model has.  Either the View register itself
 and lists which messages it is interested in (and only if this matches, the
 message is delivered) or it gets all messages and acts only on those who it is
 interested in. Alternatively, fragment the Model into two model objects, so
 that the View can connect only to the part that is relevant.
+
+### Design
+
+
+
+Prevent a View refresh if
+the model changes on some information that is not displayed due to the state of
+the view Inform the View of what actually changed, instead of asking for a full
+refreshes
+
+
 
 To prevent excessive refreshes with multiple changes: pass a flag to update(),
 or accumulate changes on the view side and refresh only after a given amount of
