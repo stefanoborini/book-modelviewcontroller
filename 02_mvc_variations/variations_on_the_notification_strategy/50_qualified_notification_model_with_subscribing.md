@@ -1,6 +1,9 @@
 Qualified notification Model
 ----------------------------
 
+same as before, but the View instead tells which messages is interested in
+when it subscribes, and gets notified only when the relevant message is produced.
+
 Inform the View about which model actually changed Prevent a View refresh if
 the model changes on some information that is not displayed due to the state of
 the view Inform the View of what actually changed, instead of asking for a full
