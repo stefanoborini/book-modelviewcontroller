@@ -1,5 +1,6 @@
-Passive Model
--------------
+# Passive Model
+
+### Motivation
 
 **Addressed Need: Use a Model without notification features.**
 
@@ -15,6 +16,8 @@ performed by the Controller:
 1. The Controller modifies the Model.
 2. The Controller informs the View to update itself.
 3. The View now inquires the Model contents as in the Active case.
+
+### Design
 
 The activity diagram details the steps given above
 
