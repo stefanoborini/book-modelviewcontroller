@@ -1,5 +1,6 @@
-Delayed model
--------------
+# Delayed model
+
+### Motivation
 
 To neutralize fast changes in the model that would hog the View with notifications
 
