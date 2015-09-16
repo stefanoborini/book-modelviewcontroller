@@ -47,10 +47,6 @@ interested in.
 Alternatively, fragment the Model into two model objects, so
 that the View can connect only to the part that is relevant.
 
-Prevent a View refresh if
-the model changes on some information that is not displayed due to the state of
-the view.
-
 Inform the View of what actually changed, instead of asking for a full
 refreshes
 
