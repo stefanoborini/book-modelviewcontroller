@@ -6,9 +6,44 @@ In Traditional MVC we pointed out that a Model object should not contain GUI
 state. In practice, some applications need to preserve and manage state that is
 only relevant for visualization. Traditional MVC has no place for it, but we
 can satisfy this need with a specialized Compositing Model: the **Application
-Model**, also known as Presentation Model. Its submodel, called **Domain Model**,
-will be kept unaware of such state. 
+Model**, also known as Presentation Model. Its submodel, called **Domain Model**, will be kept unaware of such state. 
 
+An Application Model is closer to the View than a Domain Model, and therefore
+able to take into account specific needs of the View it is addressing: in a
+scrollable area, where only a part of the overall Model is visible it can hold
+information about the currently visible portion of the Domain Model, and
+suppress those notifications reporting changes in data currently not visible,
+preventing a useless refresh. It can also be used to distill information from
+multiple Domain Models, producing something that is relevant for its View. For
+example, our Domain Model may be made of objects representing the employees in
+a company, company departments and so on, in a rather elaborate network. If the
+View wants to display a list of employees regardless of the department, maybe
+with a checkbox to select them for further processing, it is convenient to have
+an Application Model presenting data to the View as a list, gathering the
+details from the Domain Model objects (non-graphical information) while at the
+same time keeping track and presenting the checkbox state as well (graphical
+information). As a drawback, it is much less reusable: multiple Views can
+interact with the same Application Model only if they agree on the visual state
+representation (e.g. we want both the Dial and the Slider red when over the rpm
+limit). 
+
+Some implementations of Application Model push its responsibilities even further
+than purely GUI state: it is, quite literally, the model of the application, and it 
+is responsible for modifying application state directly on the application itself.
+For example, it might enable/disable menus, show or hide widgets, validation
+of the events. Most of the visual logic will be responsibility of this model
+object, rather than the controllers. This interpretation has deep implications
+for the Dolphin Model View Presenter, which will be examined later.
+
+FIXME: Application model represents the GUI state without the GUI.
+it contains the logic for enabling/disabling checkboxes, for example.
+FIXME: Application model can contain selection.
+
+
+FIXME: Some logic may not be possible to extract from the View and put into the presentation
+model, especially if this logic is deeply rooted in the graphical characteristics of the
+visual state. Examples are options that depends on the screen resolution, or the visual positioning
+of the mouse within the window. 
 ### Design
 
 ### Practical Example
@@ -36,7 +71,7 @@ through two Views: a Slider and a Dial. Two View/Controller pairs observe and
 act on a single Model 
 
 <p align="center">
-    <img src="images/DomainModelApplicationModel/basic_layout.png"/>
+    <img src="images/application_model/basic_layout.png"/>
 </p>
 
 Suppose an additional requirement is added to this simple application: the Dial
@@ -44,7 +79,7 @@ should be colored red for potentially damaging rpm values above 8000 rpm, and
 green otherwise.
 
 <p align="center">
-    <img src="images/DomainModelApplicationModel/application_screenshot.png" />
+    <img src="images/application_model/application_screenshot.png" />
 </p>
 
 We could violate Traditional MVC and add visual information to the Model,
@@ -132,7 +167,7 @@ now extract logic and state from Dial View into the Application Model
 DialEngine. The resulting design is known as Model-Model-View-Controller
 
 <p align="center">
-    <img src="images/DomainModelApplicationModel/model_model_view_controller.png" />
+    <img src="images/application_model/model_model_view_controller.png" />
 </p>
 
 The DialEngine will handle state about the Dial color, while delegating the rpm
@@ -219,39 +254,3 @@ following problems:
      DialEngine.setRpm will end up producing two notifications when the Domain Model
      does issue a notification.
 
-An Application Model is closer to the View than a Domain Model, and therefore
-able to take into account specific needs of the View it is addressing: in a
-scrollable area, where only a part of the overall Model is visible it can hold
-information about the currently visible portion of the Domain Model, and
-suppress those notifications reporting changes in data currently not visible,
-preventing a useless refresh. It can also be used to distill information from
-multiple Domain Models, producing something that is relevant for its View. For
-example, our Domain Model may be made of objects representing the employees in
-a company, company departments and so on, in a rather elaborate network. If the
-View wants to display a list of employees regardless of the department, maybe
-with a checkbox to select them for further processing, it is convenient to have
-an Application Model presenting data to the View as a list, gathering the
-details from the Domain Model objects (non-graphical information) while at the
-same time keeping track and presenting the checkbox state as well (graphical
-information). As a drawback, it is much less reusable: multiple Views can
-interact with the same Application Model only if they agree on the visual state
-representation (e.g. we want both the Dial and the Slider red when over the rpm
-limit). 
-
-Some implementations of Application Model push its responsibilities even further
-than purely GUI state: it is, quite literally, the model of the application, and it 
-is responsible for modifying application state directly on the application itself.
-For example, it might enable/disable menus, show or hide widgets, validation
-of the events. Most of the visual logic will be responsibility of this model
-object, rather than the controllers. This interpretation has deep implications
-for the Dolphin Model View Presenter, which will be examined later.
-
-FIXME: Application model represents the GUI state without the GUI.
-it contains the logic for enabling/disabling checkboxes, for example.
-FIXME: Application model can contain selection.
-
-
-FIXME: Some logic may not be possible to extract from the View and put into the presentation
-model, especially if this logic is deeply rooted in the graphical characteristics of the
-visual state. Examples are options that depends on the screen resolution, or the visual positioning
-of the mouse within the window. 
