@@ -6,8 +6,7 @@ In Traditional MVC we pointed out that a Model object should not contain GUI
 state. In practice, some applications need to preserve and manage state that is
 only relevant for visualization. Traditional MVC has no place for it, but we
 can satisfy this need with a specialized Compositing Model: the **Application
-Model**, also known as Presentation Model. Its submodel, called **Domain Model**,
-will be kept unaware of such state. 
+Model**, also known as Presentation Model. Its submodel, called **Domain Model**, will be kept unaware of such state. 
 
 An Application Model is closer to the View than a Domain Model, and therefore
 able to take into account specific needs of the View it is addressing: in a
