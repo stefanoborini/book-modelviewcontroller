@@ -23,3 +23,6 @@ The Accumulator is useful in the following circumstances:
 accumulate notifications in a buffer, then send them out at the end of the transaction.
 
 ### Design
+
+Views listen to the accumulator for notifications. The accumulator, on the other hand, listen to its submodels. When the submodels report a change, the accumulator records that a change has occurred, but does not propagate the notification to the View. Instead, it records that a change has happened.
+
