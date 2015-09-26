@@ -27,6 +27,7 @@ data binding: bidirectional vs. monodirectional synchronization. prevents bounci
 
 Keep networks simple and close.
 
+Order of notification can have unexpected consequences on the state of your program.
 
 
 -
