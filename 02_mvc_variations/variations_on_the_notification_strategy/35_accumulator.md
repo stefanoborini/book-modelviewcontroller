@@ -24,5 +24,10 @@ accumulate notifications in a buffer, then send them out at the end of the trans
 
 ### Design
 
-Views listen to the accumulator for notifications. The accumulator, on the other hand, listen to its submodels. When the submodels report a change, the accumulator records that a change has occurred, but does not propagate the notification to the View. Instead, it records that a change has happened.
+Views listen to the accumulator for notifications. The accumulator, on the other hand, listen to its submodels. When the submodels report a change, the accumulator records that a change has occurred, but does not propagate the notification to the View. Instead, it records that a change has happened. Additional changes from the models can be handled by either of the following strategies:
 
+1. additional notifications from any submodel are neutralized.
+2. additional notifications from the same submodel are neutralized. notifications from other submodels are recorded.
+3. all notifications are enqueued.
+
+The accumulator notifies the View only when `notifyListeners()` is issued. Honoring the above strategies, the Accumulator can deliver one or more notifications.
