@@ -25,7 +25,7 @@ write something about preventing garbage collection when pubsub is used.
 
 data binding: bidirectional vs. monodirectional synchronization. prevents bouncing when e.g. coercing into a float.
 
-
+Keep networks simple and close.
 
 
 
