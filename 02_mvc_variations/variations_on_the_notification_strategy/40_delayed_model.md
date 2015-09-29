@@ -3,7 +3,7 @@
 ### Motivation
 
 Every time a Model changes, the View must refresh against the new data.
-this step can be time consuming. If the Model is going through a lot of changes
+This step can be time consuming. If the Model is going through a lot of changes
 in a very short amount of time, shorter than the time needed to refresh the View, we might not want the View to follow through.
 
 We can neutralize these fast changes in the Model either View-side or Model-side. 
@@ -11,6 +11,10 @@ We can neutralize these fast changes in the Model either View-side or Model-side
 # Design
 
 The Model holds a timer. Every time a change is performed on the Model and the Timer is not running, the Timer is started. No notification is issued to the View until the Timer runs out.
+
+<p align="center">
+    <img src="images/delayed_model/delayed_model.png">
+</p>
 
 Being the timer asynchronous, particular care must be taken to guarantee that the event is not delivered when the Model is undergoing another change.
 
