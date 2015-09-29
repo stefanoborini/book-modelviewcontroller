@@ -1,5 +1,7 @@
 # Caching Model
 
+### Motivation
+
 Models may want to cache information when acting as a proxy for 
 data sources that are slow, unreliable, or have an access quota 
 or cost. Typical examples are network services, databases, disk

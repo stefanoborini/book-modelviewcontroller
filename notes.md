@@ -23,9 +23,11 @@ Composite View.[11] [PIC of an example of a hierarchy with real widgets]
 write something about preventing garbage collection when pubsub is used.
 
 
+data binding: bidirectional vs. monodirectional synchronization. prevents bouncing when e.g. coercing into a float.
 
+Keep networks simple and close.
 
-
+Order of notification can have unexpected consequences on the state of your program.
 
 
 -
