@@ -12,7 +12,7 @@ notification; Differently from it, methods that modify the Model do not call
 ``Model.notifyListeners()``. Instead, the Controller issues the call.
 
 <p align="center">
-    <img src="images/LazyModel/lazy_model.png" />
+    <img src="images/lazy_model/lazy_model.png" />
 </p>
 
 A Lazy Model is a good strategy when we want to retain full control on the

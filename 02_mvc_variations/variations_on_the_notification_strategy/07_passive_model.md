@@ -22,7 +22,7 @@ performed by the Controller:
 The activity diagram details the steps given above
 
 <p align="center">
-    <img src="images/PassiveModel/passive_model.png" />
+    <img src="images/passive_model/passive_model.png" />
 </p>
 
 The major shortcoming of a Passive Model is that Views get desynchronized
