@@ -2,16 +2,15 @@
 
 ### Motivation
 
-A Value Model is a technique to adapt a complex Model object or Model behavior
-into a uniform and trivial interface containing a getter, a setter, and
-notification. It centralizes the logic of adaptation and data manipulation from
-the complex Model. Both the View and the Controller can be extremely simple or off-the-shelf, basically limited to calling ``model.value()`` and
-``model.setValue()``. 
+A Value Model is a model class adapting a complex Model into 
+a single value, exposed thought a uniform and trivial interface:
+a getter ``ValueModel.value()``, a setter ``ValueModel.setValue()``, 
+and notification. 
 
-The concept behind the Value Model is that View and Controller can only deal
-with a generic, minimalist ``value/setValue()`` interface, disregarding the
-underlying nature of the passed object, and leaving the specific ValueModel to
-take care of the details.
+Views and Controllers can be extremely simple and off-the-shelf,
+as they only interact with the Value Model's generic and minimalist 
+interface. They can disregard the nature of the adapted Model, 
+leaving to the Value Model the responsibility to take care of the details.
 
 # Design
 
@@ -21,7 +20,13 @@ The ValueModel class acts as an adapter
     <img src="images/value_model/value_model.png" width=200 />
 </p>
 
-A trivial implementation would look like the following code:
+Many different ValueModel classes can be implemented, each one
+adapting a different SubModel, or operating over different parts of a SubModel.
+Views and Controllers interact with the ValueModels through the minimalist interface, and are therefore agnostic of the ValueModel used.
+
+### Example 
+
+A trivial implementation of a ValueModel would be:
 
 ```python
 class ValueModel(Model):
