@@ -20,12 +20,6 @@ The ValueModel class acts as an adapter
     <img src="images/value_model/value_model.png" width=200 />
 </p>
 
-Many different ValueModel classes can be implemented, each one
-adapting a different SubModel, or operating over different parts of a SubModel.
-Views and Controllers interact with the ValueModels through the minimalist interface, and are therefore agnostic of the ValueModel used.
-
-### Example 
-
 A trivial implementation of a ValueModel would be:
 
 ```python
@@ -44,10 +38,38 @@ class ValueModel(Model):
     
 ```
 
-This mechanism can be extended to alter any particular and potentially complex 
-aspect of an object to a trivial interface defining a value. For example, one
-could define a ValueModel to accept a string containing a street address.
-The ValueModel could parse the string, lookup the street address according to
-the parsed information, obtain a canonical format of the address according
-to the city directory, and associate it to the current object.
+Many different ValueModel classes can be implemented, each one
+adapting a different SubModel, or operating over different parts of a SubModel.
+Views and Controllers interact with the ValueModels through the minimalist interface, and are therefore agnostic of the ValueModel used.
+
+### Practical Example
+
+One could adapt an ``Customer`` object through two ValueModels: ``NameValueModel`` and ``SurnameValueModel``. 
+
+```python
+class NameValueModel(Model):
+    def __init__(self, customer):
+        self._customer = customer
+    
+    def setValue(self, value):
+        self._customer.name = value
+        self.notifyObservers()
+        
+    def value(self):
+        return self._customer.name
+        
+class SurnameValueModel(Model):
+    def __init__(self, customer):
+        self._customer = customer
+    
+    def setValue(self, value):
+        self._customer.surname = value
+        self.notifyObservers()
+        
+    def value(self):
+        return self._customer.surname
+```
+
+Each of these two ValueModels can use an off-the-shelf 
+``StringWidget`` View, agnostic of the actual nature of the ``Customer`` model and retrieving/modifying data through the ValueModel interface.
 
