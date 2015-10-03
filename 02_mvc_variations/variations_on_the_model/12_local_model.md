@@ -1,20 +1,38 @@
-Local Model
------------
+# Local Model
 
+### Motivation
 
-**Addressed Need: Preserve the original Model's state so that changes can be reverted.**
+A common use case of GUI interaction is to spawn a dialog containing configuration options, and let the user apply (through an "Ok" button) or 
+discard (through "Cancel") his changes.
 
-This situation normally occurs when a View must modify a Model, but the View presents
-the option to Cancel the changes. To achieve this functionality, the Model is first
-copied. The View now observes the copied Model, and any changes occur on the copy.
-This guarantees business rules are observed while changes are made on the data.
+A Local Model allows the above use case by letting the Dialog View operate 
+on a copy of the Original Model. 
+The copy can then be either discarded 
+(if "Cancel" is clicked), or merged with the Original Model (if "Ok" 
+is clicked). This approach guarantees that business rules of the Model 
+are enforced observed while changes are made on the data.
 
-When the user clicks on the "Apply" button, the Controller submits the local copy to the
-original Model, which is then in charge of performing the merge, and report notifications
-for any data that may have changed. The Controller can also be in charge of this merging.
-Optionally, the View can also have a "Revert" button which either performs a merge in
-the opposite direction (original onto local) or simply discards the local
-model, creates a new copy, and sets the View to the new copy.
+# Design
 
-If the user clicks "Cancel", the local model is simply discarded. 
+Models needing support for this strategy generally implement:
+- a `copy()` method (or similar), creating and returning a copy of 
+  itself.
+- an `update(local_model)` or `merge(local_model)` method, updating 
+  the Original Model's data with the Local Model data.
+
+When the Dialog is requested by a user operation, the Original Model is 
+copied. This copy (Local Model) is passed as a Model to the Dialog. 
+User's operations on the Dialog are applied to the Local Model, and 
+these changes must not influence the rest of the application, meaning that listeners must not be copied.
+
+If the user dismisses the Dialog with "Cancel", the Dialog is closed and the 
+Local Model is simply discarded. When the user clicks on "Ok", 
+the controlling code submits the Local Model to the Original Model 
+via `update()`. Changes are verified and merged, and if actual changes 
+exist the Original Model notifies its listeners.
+
+Optionally, the View can also have a "Revert" button which either 
+performs a merge in the opposite direction (Original onto Local) or 
+simply discards the Local Model, creates a new copy, and sets the Dialog
+to observe the new copy.
 
