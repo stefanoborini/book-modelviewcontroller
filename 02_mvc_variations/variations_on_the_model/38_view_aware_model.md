@@ -1,14 +1,16 @@
-View-aware Model
-----------------
+# View-aware Model
 
-This unconventional design breaks a fundamental rule of MVC: the Model acts on
-the View to populate it, rather than the View getting the data from the Model
-and displaying to the user. From previous discussion, this design comes with
-a hefty price of dependency of the Model towards the different Views' interfaces.
+# Motivation
 
-This price can be mitigated by having an intermediate, generic interface
-GenericViewInterface that abstracts individual View's differences. The Model knows about
-this generic interface and only invokes its methods. Implementations of this
+This unconventional design breaks a fundamental rule of MVC: 
+rather than having the View getting data from the Model, the Model acts 
+on the View to populate it.
+
+This design comes with a hefty price of dependency of the Model 
+towards the different Views' interfaces. This price can be mitigated 
+by having a generic interface ``GenericViewInterface`` that abstracts 
+individual View's differences. The Model knows about this generic 
+interface and only invokes its methods. Implementations of this
 interface are on their associated View and transform the Model's generic
 setting invocation into a specific action on the View.
 
@@ -21,3 +23,4 @@ class, and the individual state of the resulting Mock object can be inquired aft
 passed to the Model.
 
 
+The Model can even create the View. See Holub's.
