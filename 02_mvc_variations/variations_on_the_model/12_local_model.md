@@ -1,6 +1,7 @@
 Local Model
 -----------
 
+
 **Addressed Need: Preserve the original Model's state so that changes can be reverted.**
 
 This situation normally occurs when a View must modify a Model, but the View presents
