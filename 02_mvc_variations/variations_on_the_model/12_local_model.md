@@ -25,6 +25,11 @@ copied. This copy (Local Model) is passed as a Model to the Dialog.
 User's operations on the Dialog are applied to the Local Model, and 
 these changes must not influence the rest of the application, meaning that listeners must not be copied.
 
+<p align="center">
+    <img src="images/local_model/local_model.png">
+</p>
+
+
 If the user dismisses the Dialog with "Cancel", the Dialog is closed and the 
 Local Model is simply discarded. When the user clicks on "Ok", 
 the controlling code submits the Local Model to the Original Model 
@@ -33,6 +38,6 @@ exist the Original Model notifies its listeners.
 
 Optionally, the View can also have a "Revert" button which either 
 performs a merge in the opposite direction (Original onto Local) or 
-simply discards the Local Model, creates a new copy, and sets the Dialog
-to observe the new copy.
+simply creates a new copy of the Original Model, discards the old 
+Local Model, and sets the Dialog to observe the new copy.
 
