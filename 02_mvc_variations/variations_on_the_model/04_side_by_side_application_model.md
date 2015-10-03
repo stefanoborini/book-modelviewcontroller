@@ -113,3 +113,4 @@ When the selection receives notification of change from its model, it needs to
 check if it's still consistent against it. If not, it needs to recover by invalidating
 its state.
 
+needs model to model communication to keep consistency.

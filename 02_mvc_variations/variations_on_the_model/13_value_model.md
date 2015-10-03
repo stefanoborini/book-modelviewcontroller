@@ -2,16 +2,15 @@
 
 ### Motivation
 
-A Value Model is a technique to adapt a complex Model object or Model behavior
-into a uniform and trivial interface containing a getter, a setter, and
-notification. It centralizes the logic of adaptation and data manipulation from
-the complex Model. Both the View and the Controller can be extremely simple or off-the-shelf, basically limited to calling ``model.value()`` and
-``model.setValue()``. 
+A Value Model is a model class adapting a complex Model into 
+a single value, exposed thought a uniform and trivial interface:
+a getter ``ValueModel.value()``, a setter ``ValueModel.setValue()``, 
+and notification. 
 
-The concept behind the Value Model is that View and Controller can only deal
-with a generic, minimalist ``value/setValue()`` interface, disregarding the
-underlying nature of the passed object, and leaving the specific ValueModel to
-take care of the details.
+Views and Controllers can be extremely simple and off-the-shelf,
+as they only interact with the Value Model's generic and minimalist 
+interface. They can disregard the nature of the adapted Model, 
+leaving to the Value Model the responsibility to take care of the details.
 
 # Design
 
@@ -21,7 +20,7 @@ The ValueModel class acts as an adapter
     <img src="images/value_model/value_model.png" width=200 />
 </p>
 
-A trivial implementation would look like the following code:
+A trivial implementation of a ValueModel would be:
 
 ```python
 class ValueModel(Model):
@@ -39,10 +38,38 @@ class ValueModel(Model):
     
 ```
 
-This mechanism can be extended to alter any particular and potentially complex 
-aspect of an object to a trivial interface defining a value. For example, one
-could define a ValueModel to accept a string containing a street address.
-The ValueModel could parse the string, lookup the street address according to
-the parsed information, obtain a canonical format of the address according
-to the city directory, and associate it to the current object.
+Many different ValueModel classes can be implemented, each one
+adapting a different SubModel, or operating over different parts of a SubModel.
+Views and Controllers interact with the ValueModels through the minimalist interface, and are therefore agnostic of the ValueModel used.
+
+### Practical Example
+
+One could adapt an ``Customer`` object through two ValueModels: ``NameValueModel`` and ``SurnameValueModel``. 
+
+```python
+class NameValueModel(Model):
+    def __init__(self, customer):
+        self._customer = customer
+    
+    def setValue(self, value):
+        self._customer.name = value
+        self.notifyObservers()
+        
+    def value(self):
+        return self._customer.name
+        
+class SurnameValueModel(Model):
+    def __init__(self, customer):
+        self._customer = customer
+    
+    def setValue(self, value):
+        self._customer.surname = value
+        self.notifyObservers()
+        
+    def value(self):
+        return self._customer.surname
+```
+
+Each of these two ValueModels can use an off-the-shelf 
+``StringWidget`` View, agnostic of the actual nature of the ``Customer`` model and retrieving/modifying data through the ValueModel interface.
 
