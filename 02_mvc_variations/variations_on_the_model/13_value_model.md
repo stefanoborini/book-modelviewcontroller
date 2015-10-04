@@ -12,7 +12,7 @@ as they only interact with the Value Model's generic and minimalist
 interface. They can disregard the nature of the adapted Model, 
 leaving to the Value Model the responsibility to take care of the details.
 
-# Design
+### Design
 
 The ValueModel class acts as an adapter
 
