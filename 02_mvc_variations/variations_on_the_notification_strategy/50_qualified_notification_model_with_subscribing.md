@@ -1,5 +1,6 @@
-Qualified notification Model
-----------------------------
+# Qualified notification Model
+
+### Motivation
 
 same as before, but the View instead tells which messages is interested in
 when it subscribes, and gets notified only when the relevant message is produced.
