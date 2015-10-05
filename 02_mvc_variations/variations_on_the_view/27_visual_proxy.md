@@ -1,5 +1,4 @@
-Visual Proxy
-------------
+# Visual Proxy
 
 Visual Proxy is an approach first presented by Allen Holub in 1999. It
 derives from PAC, and it is wildly different from the previous approaches, 
