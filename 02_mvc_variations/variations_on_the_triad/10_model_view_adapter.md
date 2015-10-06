@@ -1,14 +1,43 @@
-Model-View-Adapter (MVA, Mediated MVC, Model-Mediator-View)
------------------------------------------------------------
+# Model-View-Adapter (MVA, Mediated MVC, Model-Mediator-View)
 
-**Addressed Need:**
+### Motivation
 
 Model-View-Adapter is a variation of Traditional MVC and common in Apple OSX
-Cocoa Framework. In MVA, all communication must flow through Controllers. The
-Model and the View don't have references to each other, and they don't exchange
-data or interact directly. This design is an implementation of the Mediator
-pattern, and for this reason Controllers are generally referred as Adapters or
-Mediators.  This approach might appears excessively strict, but has some
+Cocoa Framework. In MVA, all communication must flow through Controllers. This
+is in contrast to direct Model-to-View communication.
+This approach might appears excessively strict, but has some
+advantages: the communication network is artificially constrained, making it
+easier to evaluate and debug. 
+
+The orchestration is heavily centralized: the Controller becomes a
+communication hub, taking signals from either the Model objects 
+(change notifications) or the View (user events) and acting accordingly.
+
+# Design
+
+The Model and the View don't have references to each other, they 
+don't exchange data nor interact directly. 
+
+This design is an implementation of the Mediator pattern, and for 
+this reason Controllers are generally referred as Adapters or
+Mediators.  
+
+The pattern of communication in MVA can be represented with the following
+interaction diagram
+
+[picture]
+
+
+Which can be described with the following steps
+1. The View receives a User action. It calls an appropriate method on the Controller.
+2. The Controller sets the value on the Model.
+3. The Model notifies its listeners of the change, among which is the Controller itself.
+4. The Controller receives the change in its notify() method, where it updates the Views.
+5. The Views are updated to fit the new Model value
+
+
+
+This approach might appears excessively strict, but has some
 advantages: the communication network is artificially constrained, making it
 easier to evaluate and debug. The orchestration is heavily centralized:
 Controller becomes the communication hub, taking signals from either the Model
@@ -21,7 +50,11 @@ aware its API.
 With the Controller in full control on the dialog between the two remaining
 parties, smart tricks can be performed on the “in transit” data: for example,
 the Controller could be responsible for formatting,  translating or ordering
-the data from the Model.  Let's examine the code for our standard example. The
+the data from the Model.  
+
+### Practical Example
+
+Let's examine the code for our standard example. The
 Model is unchanged: stores rotations per minute information and notifies about
 changes 
 
@@ -124,18 +157,4 @@ class Controller(object):
        for view in self._views:
            view.setRpmValue(self._model.rpm())
 ```
-
-The pattern of communication in MVA can be represented with the following
-interaction diagram
-
-[picture]
-
-
-Which can be described with the following steps
-1. The View receives a User action. It calls an appropriate method on the Controller.
-2. The Controller sets the value on the Model.
-3. The Model notifies its listeners of the change, among which is the Controller itself.
-4. The Controller receives the change in its notify() method, where it updates the Views.
-5. The Views are updated to fit the new Model value
-
 
