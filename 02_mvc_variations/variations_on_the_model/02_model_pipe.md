@@ -60,7 +60,7 @@ one for filtering (``AddressBookFilter``) and for sorting
 (``AddressBookSorter``), as represented in figure 
 
 <p align="center">
-    <img src="images/ModelPipe/modelpipe-schema.png" />
+    <img src="images/model_pipe/modelpipe-schema.png" />
 </p>
 
 The implementation will also require two separated Views, both contained in the same window: the ``AddressBookView`` was introduced in the previous section and will be connected to the Sorter Model as the end point of the Model chain; The ``FilterView`` will instead display and modify the filter string, and will connect to the ``AddressBookFilter`` Model.  We will explain the motivations for this design later in the explanation. 
