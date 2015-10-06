@@ -1,5 +1,4 @@
-Presenter-Adapter-View
-----------------------
+# Presenter-Adapter-View
 
 Sometimes, in the management of the visual aspect of the view, it pays off to extract some of
 the code of the presenter and isolate it into a separate adapter object. This adapter
