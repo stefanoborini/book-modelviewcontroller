@@ -1,8 +1,9 @@
-Signal
-------
+# Signals
 
-A signal extracts the notification logic in a separate object. 
-Listeners register onto the signal instance. The model triggers
+### Motivation
+
+A Signal aggregates the notification logic as a separate object. 
+Listeners register onto the signal instance. The Model triggers
 the signal via an emit() method.
 
 You can have multiple signals, creating multiple notification queues.

@@ -1,10 +1,11 @@
-Passive View
-------------
+# Passive View
+
+### Motivation
 
 A major problem resulting from a complex View is the difficulty of testing.
-Visual components tend to be more complex to test, requiring events to be
+Visual components tend to be more complex to test, because events need to be
 dispatched correctly and asynchronously. Using an approach where all the logic
-of the View is moved to non-GUI objects would greatly improve ease of
+of the View is moved to non-GUI objects greatly improves ease of
 testability. The **Passive View** (also referred as **Humble Dialog** or
 **Humble View**) approach has exactly this objective.
 
@@ -19,6 +20,8 @@ of the View's contents, either through the View's set/get methods, or
 directly on the widgets. The Controller and all its logic can be tested
 effectively against a mock View. The actual View, having no logic, can be 
 left untested.
+
+### Design
 
 The mechanism of action is the following:
 

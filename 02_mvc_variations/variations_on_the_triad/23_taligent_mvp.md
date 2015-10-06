@@ -1,5 +1,4 @@
-Taligent/IBM Model-View-Presenter (MVP)
----------------------------------------
+# Taligent/IBM Model-View-Presenter (MVP)
 
 **Addressed Need: Formalize the strategies given above for modern applications.**
 
@@ -12,7 +11,7 @@ MVP seems complex, but in reality is a little step from what already introduced
 in the previous sections. 
 
 <p align="center">
-    <img src="images/TaligentMVP/taligent_mvp.png" />
+    <img src="images/taligent_mvp/taligent_mvp.png" />
 </p>
 
 The aim is to divide responsibilities in simple, testable entities while moving

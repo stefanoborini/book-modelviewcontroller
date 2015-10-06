@@ -1,5 +1,4 @@
-Visibility Allowed Notifications
---------------------------------
+# Visibility Allowed Notifications
 
 An interesting optimization for the View is that it can prevent
 refreshing if not visible. When not visible, instead of performing

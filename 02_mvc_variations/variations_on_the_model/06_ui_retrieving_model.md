@@ -6,16 +6,16 @@ An important constraint about the Model that we stressed throughout the book
 is that it should never be involved in GUI-related business. **UI Retrieving
 Model** breaks this rule. Credit for this approach goes to Scott Miller.
 
-One of the roles of the Model is to retrieve information from a data
+One of the tasks of the Model is to retrieve information from a data
 source, such as a file, memory, or database. In some cases, the Model
-may have to retrieve information that only a direct session with the user 
+may have to retrieve information that only a direct session with the User 
 can provide. We can break the rules and let the Model pop up a GUI dialog 
 to request this information. The Model is considering the User as a database,
 whose API involves the use of graphical widgets.
 
 ### Design
 
-The design of a UI retrieving Model is depicted in Figure
+The interaction diagram design of a UI retrieving Model is depicted in Figure
 
 <p align="center">
     <img src="images/ui_retrieving/ui_retrieving.png" />
@@ -31,9 +31,6 @@ Once the dialog is closed, the value is gathered and returned
 to the requesting client. Depending on the nature of the retrieved 
 information, it might be useful for the Model to cache it instead 
 of prompting the User again.
-
-
-, but can be pushed to interesting extremes.
 
 ### Practical example
 

@@ -1,5 +1,6 @@
-Data Dialog
------------
+# Data Dialog
+
+### Motivation
 
 **Need: Fire and forget dialog to get information from the user**
 
@@ -30,3 +31,7 @@ With "Cancel", the gathered information is simply discarded.
 This strategy is extremely effective for scenarios matching the conditions
 above. Its major flaw is in testability, requiring automated interaction
 with the widgets to test correct data transfer and validation.
+
+Note: different from the Local Model. The Dialog contains the data and it's extracted by it.
+
+# Design

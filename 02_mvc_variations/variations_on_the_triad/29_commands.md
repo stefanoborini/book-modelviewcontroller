@@ -1,5 +1,4 @@
-Commands
---------
+# Commands
 
 **Addressed Need: Undo/Redo and alternative notification strategy.**
 

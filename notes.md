@@ -32,3 +32,5 @@ Order of notification can have unexpected consequences on the state of your prog
 
 -
 
+FIXME: pluggable view is overloaded as a term. Detail.
+

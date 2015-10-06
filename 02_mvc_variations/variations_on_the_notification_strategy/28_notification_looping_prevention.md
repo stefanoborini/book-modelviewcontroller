@@ -1,7 +1,4 @@
-Notification looping prevention
--------------------------------
-
-**Addressed Need:**
+# Notification looping prevention
 
 Notification messages from the Model can become problematic for a series of
 reason
