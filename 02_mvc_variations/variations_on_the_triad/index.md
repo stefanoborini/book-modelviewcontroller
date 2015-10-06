@@ -1,7 +1,6 @@
 # Variations on the Triad
    * [Model View Adapter](10_model_view_adapter.md)
    * [Model GUI Mediator](11_model_gui_mediator.md)
-   * [Model View Notification Decoupling](15_model_view_notification_decoupling.md)
    * [Application Controller](16_application_controller.md)
    * [Push vs. Pull](19_push_vs_pull.md)
    * [Reenskaug MVC](20_reenskaug_mvc.md)
