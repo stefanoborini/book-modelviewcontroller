@@ -1,5 +1,4 @@
-Presenter First
----------------
+# Presenter First
 
 More than a design, **Presenter First** is a discipline for coding a Dolphin
 MVP. As briefly stated in the closing remarks of the previous section, it is possible
