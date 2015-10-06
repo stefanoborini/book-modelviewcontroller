@@ -1,6 +1,6 @@
 # View-aware Model
 
-# Motivation
+### Motivation
 
 This unconventional design breaks a fundamental rule of MVC: 
 rather than having the View getting data from the Model, the Model acts 
