@@ -3,37 +3,70 @@
 ### Motivation
 
 A problem carried over from the traditional MVC approach is 
-the dependency of the Model toward the Views for 
-notification purposes. When the Model changes, there's a 
-need for the Views to know this change occurred, but 
-can we devise a strategy to prevent the model to know about 
-the Views? 
+the need for the Model to hold a collection of its listeners
+for notification purposes. This introduces a dependency between
+the Model and the listener interface that all Views must 
+implement.
 
-The answer is to decouple the dependency through a 
-notification system, acting as an intermediate between 
-Models and Views. 
+The design presented in this section decouples this dependency
+between Models and Views, extracting the Traditional MVC 
+notification system in a separate object acting as an intermediary 
+between the two. 
 
-With a notification system, we
-substitute the model dependency against the View with a dependency against the
-notification system. Qt is an example of such strategy in place: a basic
-strategy for Model objects is to make them derived classes of QObject. This Qt
-core object provides “fire and forget” notifications to the Model: Qt signals.
-The model does not need to know who is interested in these signals, and the
-bookkeeping and invocation of the listeners' methods (Qt slots) is performed by
-the notification system.  The clear advantage is that the notification system
-is not a GUI object, allowing the Model to be tested without involving the GUI.
-The model is also allowed to have multiple notification signals for different
-conditions. Implementing the same with the traditional MVC approach would imply
+Althought not immediately apparent, the benefit of this new 
+design are important: 
 
-A Signal aggregates the notification logic as a separate object. 
-Listeners register onto the signal instance. The Model triggers
-the signal via an emit() method.
+- Different Signals can represent different changes, providing the
+  flexibility of a qualified notification.
+- Signals can be made to call specific View's methods, instead of a
+  generic `notify()`
 
-You can have multiple signals, creating multiple notification queues.
-Each listener can subscribe to the signal they are interested in.
+### Design
+
+A Signal class holds the notification infrastructure previously held by the Model:
+a list of listeners, and methods for listeners to register and unregister. 
+The Signal class also possess an ``emit()`` method, which triggers notification
+to the registered listeners.
+
+The Model defines its signalling capabilities by defining member variables
+of type Signal. These member variables are given appropriate names to convey
+the nature of each reported event. Each listener can subscribe to the signals
+they are interested in.
+
+When a change of the appropriate type occurs, the Model triggers the
+notification by calling ``emit()`` on the signal object, which in turn
+will notify each individual listener.
+
+### Variations
+
+A basic implementation just delivers the message to the listeners.
+Increased flexibility can be obtained by allowing the passing of arguments
+to the ``emit()`` method, allowing qualification of the emitted signal.
+
+The Signal can be configurable and hold state. 
+A better signal class could implement three strategies:
+
+- open: the message is delivered as soon as triggered.
+- closed: the message is not delivered and is ignored
+- hold: the message is not delivered, but it is retained for later. 
+
+
+### Practical examples
+
+The most notable example of such infrastructure can be found in Boost.Signal2
+which is as described. Boost.Signal2 allows registration of arbitrary methods
+that are then when the signal is emitted. The emit functionality is implemented
+through ``operator()``.
+
+Another example of Signal design is Qt Signal/Slot mechanism, although the internals
+do not make use of a literal Signal object.
+
+
+
 
 With signals, you might have to adapt the signals that your model emits
-to the specific needs of your views. A coarse grained signal that forces
+to the specific needs of your views. 
+A coarse grained signal that forces
 a heavy refresh on the view may be better split into a separate signal
 specific to the area of the model that actually affects the view. In 
 practice, the model communication pattern may have to adapt to the View's
@@ -44,29 +77,4 @@ subscribing to a contentChanged signal may require a recalculation of the number
 of lines at every character inserted. It may make sense to provide a lineNumberChanged
 signal, so that line number display is updated only when the model actually
 performs a change in the total number of lines.
-
-A basic signal implementation just delivers the message to the listeners.
-However, merging the approach from lazy model, a better signal class could implement three
-strategies:
-
-- open: the message is delivered as soon as triggered.
-- closed: the message is not delivered and is ignored
-- hold and release: the message is not delivered, but it is retained for later. 
-
-Model-View notification decoupling
-----------------------------------
-
-**Addressed Need:**
-
-FIXME
-With a notification system, interested views are notified of the occurred
-changes in the model, so they can update their state against the Model. 
-
-With the model not knowing details about the other roles, with the exception of
-a vague interface, there's no requirement for the model to understand special
-semantics that are not his concern, such as the “GUI talk” that the View uses.
-The model simply provides services about its state. it does not request
-services to the other roles.  If needed, this data can eventually be persisted
-and retrieved from external storage, like a file on the disk or a database. We
-will examine design strategies for persistence later in this document.
 
