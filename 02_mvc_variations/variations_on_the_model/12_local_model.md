@@ -2,7 +2,8 @@
 
 ### Motivation
 
-A common use case of GUI interaction is to spawn a dialog containing configuration options, and let the user apply (through an "Ok" button) or 
+A common use case of GUI interaction is to spawn a dialog containing 
+configuration options, and let the user apply (through an "Ok" button) or 
 discard (through "Cancel") his changes.
 
 A Local Model allows the above use case by letting the Dialog View operate 
