@@ -1,5 +1,4 @@
-Basics of MVC: From Smart-UI to Traditional MVC
-===============================================
+# Basics of MVC: From Smart-UI to Traditional MVC
 
 The aim of GUI programming is to provide an interactive and updated visual
 representation of the current state of the application. A typical set of
