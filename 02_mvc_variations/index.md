@@ -1,5 +1,4 @@
-MVC Variation
-=============
+# MVC Variation
 
 Traditional MVC is excellent as a starting point for discussion, but by no
 means it must be considered the one and only proper way of doing MVC. In fact,

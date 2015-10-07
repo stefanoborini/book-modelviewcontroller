@@ -1,5 +1,4 @@
-Advanced MVC
-============
+# Advanced MVC
 
 Event bus / PubSub
 ------------------
