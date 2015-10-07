@@ -1,6 +1,6 @@
 # Summary
 
-* [Preface][preface.md]
+* [Preface](preface.md)
 * [Introduction](README.md)
 * [From SmartUI to Traditional MVC](01_from_smartui_to_traditional_mvc/index.md)
    * [Smart UI](01_from_smartui_to_traditional_mvc/01_smart_ui.md)
