@@ -9,7 +9,6 @@ A confusing characteristic of MVC literature is that different names are used to
 
 ----
 
-
 The Smart UI approach uses a single class to handle all responsibilities we expect from a GUI program:
 
    - Receives user driven events, such as mouse clicks and keyboard input
