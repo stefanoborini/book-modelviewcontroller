@@ -9,8 +9,8 @@ readability, and performance.
 
 **Should I use a simple container approach (e.g. key/value dictionary with notifications) as a model, instead of a full-fledged object?**
 
-    A simple container like a key/value dictionary can technically be used as a
-    model, often enriched with notification features. Typically, these Models
+A simple container like a key/value dictionary can technically be used as a
+   model, often enriched with notification features. Typically, these Models
     have an agreed convention on the key, normally a string.
     This solution is fine for trivial Models, but as the amount of stored data grows,
     its unstructured nature and mode of access will lead to entangled, inconsistent 
