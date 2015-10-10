@@ -30,6 +30,8 @@ Keep networks simple and close.
 Order of notification can have unexpected consequences on the state of your program.
 
 
+keep your views able to deal with missing model or invalid data.
+
 -
 
 FIXME: pluggable view is overloaded as a term. Detail.
