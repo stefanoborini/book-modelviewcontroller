@@ -179,8 +179,7 @@ updated with the current value in the Document.
 [^2] When registration of the View on the Document is done in the View's
 initializer, as we are doing here, it should be done only when the
 initialization is completed, so that notify can be called on a fully
-initialized object. An alternative strategy is to delay this setup and perform
-it through a `View.setDocument` method.
+initialized object. An alternative strategy is to delay this setup and perform it through a `View.setDocument` method.
 
 -----
 
