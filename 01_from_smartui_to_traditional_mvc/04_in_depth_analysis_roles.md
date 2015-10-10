@@ -1,5 +1,4 @@
-An in-depth analysis of Traditional MVC roles and components
-------------------------------------------------------------
+# An in-depth analysis of Traditional MVC roles and components
 
 In the previous sections we performed a progressive refactoring from Smart-UI, 
 to Document-View, and finally to Traditional MVC. This refactoring was driven
