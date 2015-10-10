@@ -1,5 +1,4 @@
-The Model
-~~~~~~~~~
+# The Model
 
 Entities taking the Model role are responsible for holding the running state
 and business functionality of the application, either as a whole or as the part
