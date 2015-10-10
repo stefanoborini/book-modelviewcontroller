@@ -6,8 +6,7 @@ application. In Smart UI, these three roles happen to be assigned to the same
 class, but we can reorganize our code so that the business logic part is kept
 separated.
 
-The resulting design is a two-class system known in literature as **Document
-View** or **Model Delegate**
+The resulting design is a two-class system known in literature as **Document View** or **Model Delegate**
 
 <p align="center">
   <img src="images/DocumentViewDesign.png"/>
