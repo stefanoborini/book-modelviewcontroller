@@ -21,4 +21,5 @@ the controller takes a different approach. Backbone uses Routers.
 Study javascript mvc in more details.
 
 
+backbone synchronization with CRUD operations against a JSON/REST model.  
 

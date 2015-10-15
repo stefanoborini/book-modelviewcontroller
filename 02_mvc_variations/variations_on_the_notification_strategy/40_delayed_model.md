@@ -4,9 +4,10 @@
 
 Every time a Model changes, the View must refresh against the new data.
 This step can be time consuming. If the Model is going through a lot of changes
-in a very short amount of time, shorter than the time needed to refresh the View, we might not want the View to follow through.
+in a very short amount of time, shorter than the time needed to refresh the View, we might not want the View to follow through. This mechanism is known as "debouncing".
 
 We can neutralize these fast changes in the Model either View-side or Model-side. 
+
 
 # Design
 

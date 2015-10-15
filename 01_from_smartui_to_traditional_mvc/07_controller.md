@@ -1,5 +1,4 @@
-The Controller
-~~~~~~~~~~~~~~
+# The Controller
 
 The last of the components of MVC, the Controller, has the heavy duty task to
 make things happen by gathering, validating, and processing User events to

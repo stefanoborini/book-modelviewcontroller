@@ -1,5 +1,4 @@
-Smart-UI: A single class with many responsibilities
----------------------------------------------------
+# Smart-UI: A single class with many responsibilities
 
 We start this exploration toward MVC with the most trivial and simplistic design: **Smart UI**, also known as **Autonomous View**. 
 
@@ -9,7 +8,6 @@ We start this exploration toward MVC with the most trivial and simplistic design
 A confusing characteristic of MVC literature is that different names are used to express the same concepts. Vice-versa, it is also common that the same name is used to express totally different concepts. We accept this by proposing the most common names, reporting "also known as" names, and stressing differences when appropriate.
 
 ----
-
 
 The Smart UI approach uses a single class to handle all responsibilities we expect from a GUI program:
 

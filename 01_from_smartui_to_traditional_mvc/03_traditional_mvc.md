@@ -1,16 +1,16 @@
-Traditional MVC
----------------
+# Traditional MVC
 
 With the Document-View design we successfully extracted state from an initial
 Smart-UI design. The next objective is to extract the code that converts the
 primary event (in this case, a mouse click on the button) into the execution of
 the logic that modifies the state (addition of one to the value). The final
-result of this refactoring will be a **Traditional MVC** design.  
+result of this refactoring will be a **Traditional MVC** design[^1].
 
-In Traditional MVC, the Document is called **Model**, and its role and structure is
-unchanged: it stores state and delivers change notifications. The View part
-is divided into two classes, the **Controller** and the **View**. Once instantiated and
-connected, Model, View, and Controller form a so-called **MVC triad**.
+In Traditional MVC, the Document is called **Model**, and its role 
+and structure is unchanged: it stores state and delivers change
+notifications. The View part is divided into two classes, the
+**Controller** and the **View**. Once instantiated and connected, 
+Model, View, and Controller form a so-called **MVC triad**.
 
 <p align="center">
   <img src="images/mvc_triad.png" />
@@ -108,11 +108,12 @@ The direct connection between View and Controller is needed for:
 creation
 2) the currently active controller can be found by traversing the view hierarchy
 
-FIXME
-combining two or more roles on the same class can be an acceptable compromise,
-whose cost is a reduction in flexibility and clarity, and whose advantage is a
-more streamlined approach for simple cases. Note that mixing the roles does not
-imply that the code responsible for each of these roles should mix as well. it
-is in fact good practice to keep the code performing each role in separate
-routines. This simplifies both understanding and future refactoring, if the
-needs emerges. 
+
+[^1] The more knowledgeable reader may recognize that this MVC model 
+is not the original MVC as intended in its first implementation. 
+We will go into detail of the differences in later chapters. 
+What is presented here is the  modern reinterpretation of the 
+original MVC, and the one most likely to be intended when talking 
+about "MVC". To clarify the overloaded nomenclature, I chose to 
+refer to the original '70s design as  "Reenskaug MVC", and its 
+modern reinterpretation here presented as "Traditional MVC".

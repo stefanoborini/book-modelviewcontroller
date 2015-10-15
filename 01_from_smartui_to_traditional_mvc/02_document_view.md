@@ -1,5 +1,4 @@
-Document-View: dividing state from GUI
---------------------------------------
+# Document-View: dividing state from GUI
 
 To solve the shortcomings of Smart UI, we take advantage of the intrinsic
 division into visual rendering, interaction and business logic expressed by a GUI
@@ -7,8 +6,7 @@ application. In Smart UI, these three roles happen to be assigned to the same
 class, but we can reorganize our code so that the business logic part is kept
 separated.
 
-The resulting design is a two-class system known in literature as **Document
-View** or **Model Delegate**
+The resulting design is a two-class system known in literature as **Document View** or **Model Delegate**
 
 <p align="center">
   <img src="images/DocumentViewDesign.png"/>
@@ -37,9 +35,7 @@ accessed programmatically by issuing calls to its methods. This object is now
 independent and can work and manipulated with different Views, if desired. An
 additional price in complexity is introduced in having to keep the View (or Views) notified of changes to the Document.
 
-
 ## Implementation example
-
 
 We can implement this design to our Click counter application through progressive refactorings. The first step is to partition out the data, represented by the ``self._value`` variable, into the Document class. For our system to continue to work, the visual part View must now be informed of changes to this data. The Document will therefore not only hold ``self._value``, but also provide an interface to query and modify this data and a strategy to notify other objects when changes occur. This is expressed in the following implementation code  
 
@@ -183,16 +179,12 @@ updated with the current value in the Document.
 [^2] When registration of the View on the Document is done in the View's
 initializer, as we are doing here, it should be done only when the
 initialization is completed, so that notify can be called on a fully
-initialized object. An alternative strategy is to delay this setup and perform
-it through a `View.setDocument` method.
-
+initialized object. An alternative strategy is to delay this setup and perform it through a `View.setDocument` method.
 
 -----
 
-**Note**
-
 **Notification system in strongly typed languages**
-   
+
 A possible implementation of the notification system in strongly typed
 languages uses an interface class `ListenerInterface` with one abstract method
 `notify()`. For example, in C++ we could write the following code

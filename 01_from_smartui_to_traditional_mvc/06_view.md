@@ -1,5 +1,4 @@
-The View
-~~~~~~~~
+# The View
 
 We introduced the View as the component of our application whose role is to
 interact with the User, by accepting its input and showing the contents of 
