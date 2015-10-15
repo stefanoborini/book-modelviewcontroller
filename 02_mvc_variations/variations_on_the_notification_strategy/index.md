@@ -6,6 +6,7 @@
    * [Lazy Model](02_mvc_variations/08_lazy_model.md): A Model delivering its notifications only on request.
    * [Accumulator](02_mvc_variations/35_accumulator.md): Listens to submodels and squashes multiple notifications into a single one.
    * [Delayed Model](02_mvc_variations/40_delayed_model.md): Neutralizes fast notifications through a timeout.
+   * [Throttling](02_mvc_variations/41_throttling.md): Neutralizes fast notifications, but issue a change immediately.
    * [Pre/Post notification](02_mvc_variations/47_pre_post_notification.md): Deliver notifications before or after the change.
    * [Vetoers](02_mvc_variations/48_vetoers.md): Inquire listeners to approve or deny a change to occur.
    * [Notification looping prevention](02_mvc_variations/28_notification_looping_prevention.md): Prevent recursive notification events to propagate.

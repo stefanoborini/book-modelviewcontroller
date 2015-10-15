@@ -34,6 +34,7 @@
        * [Lazy Model](02_mvc_variations/variations_on_the_notification_strategy/08_lazy_model.md)
        * [Accumulator](02_mvc_variations/variations_on_the_notification_strategy/35_accumulator.md)
        * [Delayed Model](02_mvc_variations/variations_on_the_notification_strategy/40_delayed_model.md)
+       * [Throttling](02_mvc_variations/variations_on_the_notification_strategy/41_throttling.md)
        * [Pre/Post notification](02_mvc_variations/variations_on_the_notification_strategy/47_pre_post_notification.md)
        * [Vetoers](02_mvc_variations/variations_on_the_notification_strategy/48_vetoers.md)
        * [Notification looping prevention](02_mvc_variations/variations_on_the_notification_strategy/28_notification_looping_prevention.md)
