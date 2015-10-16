@@ -17,4 +17,5 @@
    * [Qt MVC](45_Qt_MVC.md)
    * [Supervising Presenter](43_supervising_presenter.md)
    * [Presentation Model](44_presentation_model.md)
+   * [Data Binding](46_data_binding.md)
 

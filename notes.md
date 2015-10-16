@@ -23,8 +23,6 @@ Composite View.[11] [PIC of an example of a hierarchy with real widgets]
 write something about preventing garbage collection when pubsub is used.
 
 
-data binding: bidirectional vs. monodirectional synchronization. prevents bouncing when e.g. coercing into a float.
-
 Keep networks simple and close.
 
 Order of notification can have unexpected consequences on the state of your program.
@@ -35,4 +33,10 @@ keep your views able to deal with missing model or invalid data.
 -
 
 FIXME: pluggable view is overloaded as a term. Detail.
+
+Naturally evolving toward a more declarative style
+
+define your models as having atomic operations, be careful of uncontrolled notifications.
+
+
 
