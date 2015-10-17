@@ -24,11 +24,14 @@ dependency, since it must interact with the View and the GUI events.
 This dependency might prevent its reuse outside of the GUI
 application. 
 
-Finally, a ModelController makes difficult to handle multiple Views, 
-because the Controller part would have to handle GUI events coming 
-from multiple Views, introducing the need to differentiate them.
+Finally, a ModelController makes difficult to handle multiple Views.
+The motivation is twofold: first, the Controller part would have to 
+handle GUI events coming from multiple Views, introducing the need 
+to differentiate them. Second, different Views may generate different
+events from different widgets. The ModelController interface would have 
+to deal with the nomenclature and behavior of each individual View and
+accommodate each of them. The resulting ModelController interface would 
+potentially become bloated and hard to understand.
 
-This design are not necessarily wrong, but they tend to become
-brittle and are therefore limited to simple cases.
-
-
+A ModelController design is not necessarily wrong, but tends to become
+brittle and is therefore limited to straightforward cases.
