@@ -11,7 +11,6 @@
    * [Model View Viewmodel](25_model_view_viewmodel.md)
    * [View Controller View](26_view_controller_view.md)
    * [Commands](29_commands.md)
-   * [Event Filter](33_event_filter.md)
    * [Visual Editor](36_visual_editor.md)
    * [Command Notification](37_command_notification.md)
    * [Qt MVC](45_Qt_MVC.md)
