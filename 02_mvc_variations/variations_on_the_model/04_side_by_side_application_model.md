@@ -2,11 +2,28 @@
 
 ### Motivation
 
-**Addressed Need: Keep View state in a separate Model, not wrapping the Domain Model.**
+An alternative approach to the previously described Application Model
+is to keep View state in a separate Model that is not wrapping the 
+Domain Model, but is instead complementing it as an additional Model. 
+The View depends and listens to both Models. This setup is commonly encountered when dealing with selection: the Domain Model may contain 
+a list of items, with the View showing this list as selectable 
+entities. Changing the selection will not modify the Domain Model, 
+but will instead act on the Selection Model by including or removing
+items from the Selection Model.
 
-An alternative approach to Application Model is possible: instead of wrapping
-the Domain model, the Application Model provides only visual state and
-functionality. The View depends on both Models
+Having a View dependent on two Models generally introduces no issues,
+provided that the two Models represent independent data. In the case 
+of Selection Model, it is not the case, and particular care must be 
+taken to handle proper synchronization and event handling.  When the Domain Model changes,  these changes can influence the validity of 
+the Selection Model. For this reason, Model-to-Model communication 
+from the Domain to the Selection Model to keep this validity.
+
+Consider as an example the following scenario: a Domain model contains three items A, B, and C. The Selection Model might contain ordinal selection for the second element, that is, B. If however a new element A2 is inserted between A and B, the selection must be updated to refer to the third element. If selection was based on a unique identifier of the item, instead of a numeric position, the synchronization would not be needed. However, a similar problem would happen if item B is removed. The selection would now refer to an unexistent item, and must be removed.
+These scenarios require extensive discussion that will be presented later in this section.
+
+The Selection Model can also be observed or modified by other Views or Controllers, granting a relevant amount of flexibility for complex
+selection scenarios. For example, a controller associated to a menu action may want to select all elements whose name matches a regular expression.
+ 
 
 [picture]
 
