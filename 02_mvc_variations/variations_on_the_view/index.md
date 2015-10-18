@@ -1,6 +1,6 @@
 # Variations on the Notification Strategy
 
-   * [Pluggable View](14_mvc_pluggable_view.md)
+   * [Pluggable View](14_mvc_pluggable_view.md): specify controller code as passed in routines.
    * [Passive View](17_passive_view.md)
    * [Widget level vs. Container level View](18_widget_level_container_level.md)
    * [Visual Proxy](27_visual_proxy.md)
