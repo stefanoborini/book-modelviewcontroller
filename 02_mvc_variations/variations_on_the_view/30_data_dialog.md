@@ -2,8 +2,6 @@
 
 ### Motivation
 
-**Need: Fire and forget dialog to get information from the user**
-
 Data Dialog is a simplified design to obtain information from the User.
 It can normally be used for preferences dialogs. The optimal set of requirements
 for the design simplify GUI interaction considerably, giving the Data Dialog 
