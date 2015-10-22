@@ -1,5 +1,7 @@
 # Visual Proxy
 
+### Motivation
+
 Visual Proxy is an approach first presented by Allen Holub in 1999. It
 derives from PAC, and it is wildly different from the previous approaches, 
 but definitely contains interesting ideas. Holub argues the following:
@@ -22,9 +24,9 @@ but definitely contains interesting ideas. Holub argues the following:
     requests to one another, with the data staying put. The previous designs
     instead focus on data transfer from the view to the model, and *vice-versa*.
 
+### Design
 
-For the above reasons, Holub proposes that Model objects should create their
-own UI for their own attributes
+Model objects create their own UI for their own attributes
 
 ```python
 
@@ -88,5 +90,5 @@ The main shortcoming of this approach are the following:
   1, enable that checkbox) must also be moved to the model layer.
 
 
-Example: Enthought traits.
+Example: Enthought traits/traitsui.
 
