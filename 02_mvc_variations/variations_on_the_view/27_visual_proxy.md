@@ -88,4 +88,5 @@ The main shortcoming of this approach are the following:
   1, enable that checkbox) must also be moved to the model layer.
 
 
+Example: Enthought traits.
 
