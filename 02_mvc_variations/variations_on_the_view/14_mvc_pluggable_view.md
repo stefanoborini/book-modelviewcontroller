@@ -21,7 +21,6 @@ The View's constructor accepts a function object containing the data
 extraction logic. This function accepts the Model object and returns
 the relevant data needed by the View.
 
-
 The View listens to the Model for change notifications. When a change occurs,
 the View calls the function object passing the Model, and obtains the relevant
 information as a return value.
