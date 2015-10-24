@@ -9,9 +9,10 @@ Your Model has multiple settable attributes, each one listened independently by 
  3. Set B attribute on the Model
  4. Views are notified of B change
 
-During step 2, listeners will be notified of the change and sync against a Model where only one of the attributes has been changed. Depending on the specific details of your Model and Views, this state may be inconsistent or not representable by your Views. 
+During step 2, listeners will be notified of the change and sync against a Model where only one of the attributes has been changed. Depending on the specific details of your Model and Views, this state may be inconsistent or not representable by the Views. 
 
-What is needed is to perform notification of the changes only when all set operations have been performed, 
+What is needed is to perform notification of the changes only when all set operations 
+have been performed. 
 
 
     Set A
