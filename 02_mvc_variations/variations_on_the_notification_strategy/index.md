@@ -11,3 +11,4 @@
    * [Vetoers](02_mvc_variations/48_vetoers.md): Inquire listeners to approve or deny a change to occur.
    * [Notification looping prevention](02_mvc_variations/28_notification_looping_prevention.md): Prevent recursive notification events to propagate.
    * [Signals](02_mvc_variations/49_signals.md): Isolate notification into a separate object.
+   * [Request for Interest](02_mvc_variations/60_request_for_interest.md): The Model notifies the listeners only if they must actually react to the change.
