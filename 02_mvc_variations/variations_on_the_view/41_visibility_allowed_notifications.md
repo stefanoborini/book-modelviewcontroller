@@ -1,15 +1,22 @@
 # Visibility Allowed Notifications
 
-An interesting optimization for the View is that it can prevent
-refreshing if not visible. When not visible, instead of performing
-potentially elaborate operations in response to the modified model,
-the view can simply set a flag.
+### Motivation
 
-When the view is made visible again (and we assume the view preserves
-its visual state even when hidden), the flag is checked. If the flag has been
-modified, it means that the model and the View are not synchronized and the View has to
-perform the refresh. Otherwise, it just presents the old visual appearance.
+Views that are hidden to the User generally do not need to be notified 
+of Model changes: depending on the nature of the View, this can result in
+performance degradation from mild to severe. Machine cycles can be saved 
+by ignoring the notification altogether.
 
-Prevent a View refresh if
-the model changes on some information that is not displayed due to the state of
-the view.
+When the View becomes visible again, synchronization with the Model must occur, 
+but only if an actual change has taken place. Failure to do so would slow down the
+return of the View without reason.
+
+### Design
+
+When a notification is delivered to the View, the View checks for its visibility.
+If not visible, it simply sets a `needs_update` flag.
+
+When the View is made visible again, and assuming the View preserves
+its visual state even when hidden, the `needs_update` flag is checked. 
+If the flag is set, the View resynchronizes against the Model contents,
+otherwise, it just presents the old visual appearance.
