@@ -8,12 +8,12 @@
 ### Motivation
 
 We want to access an external resource, such as one provided by an HTTP 
-server or a database. Proxy Model encapsulate the logic to perform the
-following tasks:
+server or a database. Proxy Model encapsulate the logic needed to access 
+the remote service, specifically:
 
 - issue the request to the remote service
-- handle errors
-- convert the received data into a format useful for consumption.
+- handle error conditions
+- convert received data into a representation useful for the client code.
 
 Additionally, the Proxy Model can:
 
