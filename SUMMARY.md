@@ -39,6 +39,7 @@
        * [Vetoers](02_mvc_variations/variations_on_the_notification_strategy/48_vetoers.md)
        * [Notification looping prevention](02_mvc_variations/variations_on_the_notification_strategy/28_notification_looping_prevention.md)
        * [Signals](02_mvc_variations/variations_on_the_notification_strategy/49_signal.md)
+       * [Request for Interest](02_mvc_variations/variations_on_the_notification_strategy/60_request_for_interest.md)
    * [Variations on the View](02_mvc_variations/variations_on_the_view/index.md)
        * [Pluggable View](02_mvc_variations/variations_on_the_view/14_mvc_pluggable_view.md)
        * [Passive View](02_mvc_variations/variations_on_the_view/17_passive_view.md)
