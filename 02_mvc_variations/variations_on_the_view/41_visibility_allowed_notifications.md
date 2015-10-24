@@ -1,9 +1,9 @@
-# Visibility Allowed Notifications
+# Visibility Allowed Notification
 
 ### Motivation
 
-Views that are hidden to the User generally do not need to be notified 
-of Model changes: depending on the nature of the View, this can result in
+Views that are hidden to the User generally do not need to react to notifications
+from the Model: depending on the nature of the View, this can result in
 performance degradation from mild to severe. Machine cycles can be saved 
 by ignoring the notification altogether.
 
@@ -12,6 +12,10 @@ but only if an actual change has taken place. Failure to do so would slow down t
 return of the View without reason.
 
 ### Design
+
+<p align="center">
+    <img src="images/visibility_allowed_notifications/visibility_allowed_notifications.png">
+</p>
 
 When a notification is delivered to the View, the View checks for its visibility.
 If not visible, it simply sets a `needs_update` flag.
