@@ -100,3 +100,4 @@ FIXME: Make clearer the fact that the model does not encapsulates only state, bu
 process.
 FIXME: Clarify that this is an active model, and we will examine a variation (passive) later on.
 FIXME: clarify that an active model allows notifications regardless of the source of the change
+FIXME: Scriptability. Modification of the model programmatically can enable scripting.

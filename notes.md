@@ -39,4 +39,9 @@ Naturally evolving toward a more declarative style
 define your models as having atomic operations, be careful of uncontrolled notifications.
 
 
+Problem with double notification if one notification is a subset of another.
+e.g. contentChanged/lineMetaChanged and contentChanged/lineAdded. How to handle
+the double notification? Pass an "event id" in the signal so that the client 
+realizes that it's the same change that delivers two messages?
+
 
