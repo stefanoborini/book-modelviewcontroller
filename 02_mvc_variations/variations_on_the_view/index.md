@@ -7,4 +7,3 @@
    * [Data dialog](30_data_dialog.md): "Fire and forget" dialog to accept information from the user.
    * [Visibility allowed notifications](41_visibility_allowed_notifications.md)
    * [Synchronization View state](46_synchronization_view_state.md)
-   * [Event Filter](33_event_filter.md): preemptively examine, and potentially handle, UI events before the View.

@@ -1,4 +1,5 @@
 # Variations on the Controller
 
-    * [Supervising controller](02_mvc_variations/variations_on_the_controller/39_supervising_controller.md)
+    * [Supervising controller](39_supervising_controller.md)
+    * [Event Filter](33_event_filter.md): preemptively examine, and potentially handle, UI events before the View.
 
