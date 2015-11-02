@@ -10,7 +10,7 @@ parts of your application need to interact while staying as loosely coupled as
 possible. How this is accomplished in practice depends on the particular MVC
 incarnation.
 
-MVC is implemented through an aggregation of more fundamental design patterns
+MVC can be seen as an aggregation of more fundamental design patterns
 such as Composite, Mediator and Observer/Notifier. The complexity and variation
 in style of MVC arises from all the possible uses and variations of these
 independent patterns to satisfy the potentially elaborate requirements of a
@@ -27,28 +27,31 @@ intermediate objects to gain more flexibility and satisfy peculiar use cases.
 
 This book is structured as follows:
 
-- The first chapter will start from the simplest form of GUI with state: the
-  Smart-UI. We will then progressively refactor Smart-UI into a
-  “Traditional MVC”, followed by a definition of its components, roles,
-  and communication patterns.
+- The first chapter will be a gentle introduction to MVC through code examples, 
+  with the objective of deploying a common vocabulary. It will start from the 
+  simplest form of GUI with state, the Smart-UI, and progressively refactor it 
+  into a “Traditional MVC”. The chapter will continue with a definition of 
+  the MVC components, roles, and communication patterns, and close with a remark
+  about the outdated nature of the "Traditional MVC" in modern software development.
 
 - Once equipped with nomenclature, the second chapter will introduce
   variations of Traditional MVC to address specific constraints and
-  practical needs.
+  practical needs. It will focus on variations of the three protagonists of MVC
+  (Model, View, and Controller) and their interaction.
 
 - The third chapter will expand the concept of MVC to hierarchical MVC schemes.
 
-- In the fourth chapter we will focus on special collateral techniques that
-  may emerge from a complex modern GUI.
+- The fourth chapter will focus on special techniques that emerge from a 
+  complex modern GUI.
 
 - In the fifth and final chapter, we will specifically focus on Web MVC and
   its implementations.
 
 Throughout the book, some example code in Python will be used to clarify design
 ideas. GUI rendering will make use of the excellent Qt toolkit, through PyQt4.
-Qt provides pre-made mechanisms to address most of our needs, but in the
-upcoming code these mechanisms will occasionally be skipped on purpose to
-demonstrate a more general approach.
+Qt provides pre-made mechanisms to address some MVC needs, but in the
+upcoming code these mechanisms will be skipped on purpose to demonstrate the
+presented concepts.
 
 ### Acknowledgements and motivations
 
