@@ -13,7 +13,7 @@ The copy can then be either discarded
 is clicked). This approach guarantees that business rules of the Model 
 are enforced observed while changes are made on the data.
 
-# Design
+### Design
 
 Models needing support for this strategy generally implement:
 - a `copy()` method (or similar), creating and returning a copy of 
