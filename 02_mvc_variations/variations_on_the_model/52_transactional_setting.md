@@ -64,6 +64,10 @@ Without the `setHostAndPort()` method, reconnecting from `http://one.example.com
 `http://one.example.com:8080` (when `setPort(8080)` is called) or to 
 `http://two.example.com:80/` (when `setHost("two.example.com")` is called).
 
+Note how the `setHostAndPort()` method cannot, for obvious reasons, call the 
+independent setters, but must reimplement the setting logic. If this logic is complex,
+it might be good practice to factor it out in a separate "silent setter" method.
+
 ### Variation 1: qualified notification
 
 If the Model performs qualified notification, the behavior in absence of transactional setting
