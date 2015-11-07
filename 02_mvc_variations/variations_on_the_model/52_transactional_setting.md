@@ -12,6 +12,7 @@ notification. The behavior would be
 3. Set B attribute on the Model
 4. Views are notified of change
 
+
 During step 2, listeners will be notified of the change and sync against a
 Model where only one of the attributes has been changed. Depending on the
 specific details of your Model and Views, this state may be inconsistent or not
