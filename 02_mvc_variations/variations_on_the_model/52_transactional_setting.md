@@ -7,10 +7,10 @@ Views. You want to change the Model state, and the logic needs to do so
 requires to set many of these attributes. Every set operation would trigger a
 notification. The behavior would be
 
-1. Set A attribute on the Model
-2. Views are notified of change
-3. Set B attribute on the Model
-4. Views are notified of change
+    1. Set A attribute on the Model
+    2. Views are notified of change
+    3. Set B attribute on the Model
+    4. Views are notified of change
 
 During step 2, listeners will be notified of the change and sync against a
 Model where only one of the attributes has been changed. Depending on the
@@ -44,7 +44,6 @@ network connection, the notification should be delivered only when the
 Model contains correct host information.
 
 ```python
-
 class Connection(Model):
     def setHost(self, host):
         self._host = host
@@ -58,7 +57,6 @@ class Connection(Model):
         self._host = host
         self._port = port
         self.notifyListeners()
-
 ```
 
 Without the `setHostAndPort()` method, reconnecting from `http://one.example.com:80` to
