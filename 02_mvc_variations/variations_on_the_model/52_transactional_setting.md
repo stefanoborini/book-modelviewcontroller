@@ -49,7 +49,7 @@ class Connection(Model):
         self._host = host
         self.notifyListeners()
 
-    def setPort(self, port)
+    def setPort(self, port):
         self._port = port
         self.notifyListeners()
 
