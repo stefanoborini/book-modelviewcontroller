@@ -41,31 +41,31 @@ the UI, and must know how to handle the UI Event interface.
 
 ### Practical Example
 
-The Qt toolkit offers a clear example of an Event Filter.  The following
-program illustrates the concept
+The Qt toolkit offers a clear example of an Event Filter. A class `EventFilter` 
+derived from `QObject` reimplements the method `QObject.eventFilter()`. 
+An instance of `EventFilter` is then installed onto a target object through `installEventFilter()`. 
+
+The following program illustrates the concept
 
 ```python
-    import sys                                                                                                                                            
-    from PySide import QtGui, QtCore                                                                                                                      
-                                                                                                                                                          
-    app = QtGui.QApplication(sys.argv)                                                                                                                    
-                                                                                                                                                          
-    class EventFilter(QtCore.QObject):                                                                                                                    
-        def eventFilter(self, receiver, event):                                                                                                            
-            print(type(receiver), type(event))                                                                                                             
-            return False                                                                                                                                  
-                                                                                                                                                          
-    event_filter = EventFilter()                                                                                                                          
-    button = QtGui.QPushButton("hello")                                                                                                                   
-    button.installEventFilter(event_filter)                                                                                                               
-    button.show()                                                                                                                                         
-    app.exec_()       
+import sys
+from PySide import QtGui, QtCore
+app = QtGui.QApplication(sys.argv)
+
+class EventFilter(QtCore.QObject):
+    def eventFilter(self, receiver, event):
+        print(type(receiver), type(event))
+        return False
+        
+event_filter = EventFilter()
+button = QtGui.QPushButton("hello")
+button.installEventFilter(event_filter)
+button.show()
+
+app.exec_()
 ```
 
-Qt allows any QObject to act as an event filter, by reimplementing
-`eventFilter()` and installing the class instance on another object through
-`installEventFilter()`. The example creates a PushButton, but any event
-occurring to this widget (mouse events, as well as show/hide, resize
-events etc.) is first delivered to the event filter.
-
-
+The example creates a `QPushButton` and installs an `EventFilter` instance on it.
+UI events (mouse movements and clicks, key presses, show/hide, resize, repaint etc.)
+that are meant for the `QPushButton` are first dispatched to `EventFilter.eventFilter()`,
+then to the `QPushButton` if and only if the `eventFilter` method returns `False`
