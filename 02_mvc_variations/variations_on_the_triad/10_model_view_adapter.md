@@ -2,7 +2,7 @@
 
 ### Motivation
 
-Model-View-Adapter is a variation of Traditional MVC and common in Apple OSX
+Model-View-Adapter is a variation of Traditional MVC  and common in Apple OSX
 Cocoa Framework. In MVA, all communication must flow through Controllers. This
 is in contrast to direct Model-to-View communication found in Traditional MVC.
 All the orchestration is heavily centralized: the Controller becomes a
