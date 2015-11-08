@@ -4,23 +4,26 @@
 
 Model-View-Adapter is a variation of Traditional MVC and common in Apple OSX
 Cocoa Framework. In MVA, all communication must flow through Controllers. This
-is in contrast to direct Model-to-View communication.
-This approach might appears excessively strict, but has some
-advantages: the communication network is artificially constrained, making it
-easier to evaluate and debug. 
-
-The orchestration is heavily centralized: the Controller becomes a
+is in contrast to direct Model-to-View communication found in Traditional MVC.
+All the orchestration is heavily centralized: the Controller becomes a
 communication hub, taking signals from either the Model objects 
 (change notifications) or the View (user events) and acting accordingly.
 
+This constraint might appear excessively strict, but provides some
+With a communication network artificially constrained, making it
+easier to evaluate and debug. 
+
+This approach might appears excessively strict, but has some
+advantages: the communication network is artificially constrained, making it
+easier to evaluate and debug. The orchestration is heavily centralized:
+
+
 # Design
 
-The Model and the View don't have references to each other, they 
-don't exchange data nor interact directly. 
-
-This design is an implementation of the Mediator pattern, and for 
-this reason Controllers are generally referred as Adapters or
-Mediators.  
+MVA is an implementation of the Mediator pattern. Controllers are 
+generally referred as Adapters or Mediators. The Model and the View 
+do not hold references to each other, they do not exchange data nor 
+interact directly. 
 
 The pattern of communication in MVA can be represented with the following
 interaction diagram
@@ -35,18 +38,16 @@ Which can be described with the following steps
 4. The Controller receives the change in its notify() method, where it updates the Views.
 5. The Views are updated to fit the new Model value
 
+In their role of communication hubs, Controllers accept notifications from 
+either Model (as change notifications) or View (as UI events), 
+and deliver these notifications to the intended receiver after transformation
+into an API call. The consequence of this design is that the MVA Controller 
+must know the API of all the Views and the Models it interacts with. 
 
+In strong contrast to traditional MVC, the MVA View is completely 
+decoupled from the Model, and is therefore not required to be
+aware of its API. This allows the use of generic, "off-the-shelf" Views.
 
-This approach might appears excessively strict, but has some
-advantages: the communication network is artificially constrained, making it
-easier to evaluate and debug. The orchestration is heavily centralized:
-Controller becomes the communication hub, taking signals from either the Model
-objects (change notifications) or the View (user events) and delivering them to
-the intended receiver after transformation into an API call. For this reason,
-the Controller must know the API of all the Views and the Models it interacts
-with. On the other hand, and in strong contrast to traditional MVC, the View is
-now completely decoupled from the Model, and is therefore not required to be
-aware its API.
 With the Controller in full control on the dialog between the two remaining
 parties, smart tricks can be performed on the “in transit” data: for example,
 the Controller could be responsible for formatting,  translating or ordering
