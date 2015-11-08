@@ -7,7 +7,7 @@ Cocoa Framework. In MVA, all communication must flow through Controllers. This
 is in contrast to direct Model-to-View communication found in Traditional MVC.
 All the orchestration is heavily centralized: the Controller becomes a
 communication hub, taking signals from either the Model objects 
-(change notifications) or the View (user events) and acting accordingly.
+(change notifications) or the View (user events) and acts accordingly.
 
 This constraint might appear excessively strict, but provides some
 With a communication network artificially constrained, making it
