@@ -2,21 +2,19 @@
 
 ### Motivation
 
-Model-View-Adapter is a variation of Traditional MVC  and common in Apple OSX
-Cocoa Framework. In MVA, all communication must flow through Controllers. This
-is in contrast to direct Model-to-View communication found in Traditional MVC.
-All the orchestration is heavily centralized: the Controller becomes a
-communication hub, taking signals from either the Model objects 
-(change notifications) or the View (user events) and acts accordingly.
+Model-View-Adapter is a variation of a Traditional MVC triad where
+all communication between Model and View must flow through a Controller. 
+In contrast, Traditional MVC allows direct Model-to-View communication. 
 
-This constraint might appear excessively strict, but provides some
-With a communication network artificially constrained, making it
-easier to evaluate and debug. 
+With an MVA design, orchestration is heavily centralized: the Controller 
+becomes a communication hub, taking signals from either the Model objects 
+(change notifications) or the View (user events) and acting accordingly.
 
-This approach might appears excessively strict, but has some
+The resulting approach might appear excessively strict, but has some
 advantages: the communication network is artificially constrained, making it
-easier to evaluate and debug. The orchestration is heavily centralized:
-
+easier to evaluate and debug. All action happens in the Controller, and the 
+View can be created from off-the-shelf widgets without any Model-specific
+variation.
 
 # Design
 
@@ -159,3 +157,5 @@ class Controller(object):
            view.setRpmValue(self._model.rpm())
 ```
 
+and common in Apple OSX
+Cocoa Framework. 
