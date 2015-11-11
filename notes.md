@@ -45,3 +45,4 @@ the double notification? Pass an "event id" in the signal so that the client
 realizes that it's the same change that delivers two messages?
 
 
+Memory Leak: lapsed listener.
