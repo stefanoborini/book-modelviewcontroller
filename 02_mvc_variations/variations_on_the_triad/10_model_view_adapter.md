@@ -50,8 +50,8 @@ the data from the Model.
 
 common in Apple OSX Cocoa Framework. 
 
-Let's examine the code for our standard example. The
-Model is unchanged: stores rotations per minute information and notifies about
+Let's examine the code for the Engine example. 
+The Model is unchanged: it stores rotations per minute information and notifies about
 changes 
 
 ```python
