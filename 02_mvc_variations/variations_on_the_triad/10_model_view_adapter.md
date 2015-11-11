@@ -48,6 +48,8 @@ the data from the Model.
 
 ### Practical Example
 
+common in Apple OSX Cocoa Framework. 
+
 Let's examine the code for our standard example. The
 Model is unchanged: stores rotations per minute information and notifies about
 changes 
@@ -72,7 +74,7 @@ class Engine(BaseModel):
 
 The two View classes, Dial and Slider, are now unaware of the Model. Instead,
 they know about the Controller, and accept changes to their content through the
-setRpmValue() method.  A matter of taste can decide the semantic level of this
+`setRpmValue()` method.  A matter of taste can decide the semantic level of this
 method. Should it talk “domain language” (i.e. Rpm) or not (i.e. the method
 should just be named setValue). In any case, Views behave differently with
 respect to the issued value, and we don't want this difference to be handled by
@@ -97,7 +99,7 @@ class Dial(QtGui.QDial):
 ```
 
 For the Slider, the interface is similar, but the internal implementation is
-slightly different. Again, the setRpmValue allows the Controller to change the
+slightly different. Again, the `setRpmValue` allows the Controller to change the
 View contents. In this case however, a proper transformation of the data is
 performed to deal with the specifics of the Slider behavior, whose range is
 from 0 to 10.  Similarly, when the User interact with the Slider, the method
@@ -152,5 +154,3 @@ class Controller(object):
            view.setRpmValue(self._model.rpm())
 ```
 
-and common in Apple OSX
-Cocoa Framework. 
