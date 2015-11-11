@@ -23,32 +23,27 @@ generally referred as Adapters or Mediators. The Model and the View
 do not hold references to each other, they do not exchange data nor 
 interact directly. 
 
+<p align="center">
+    <img src="images/model_view_adapter/ModelViewAdapter.png" width="200">
+</p>
+
 The pattern of communication in MVA can be represented with the following
 interaction diagram
 
-[picture]
+<p align="center">
+    <img src="images/model_view_adapter/MVA_Communication.png" />
+</p>
 
+which can be described as
 
-Which can be described with the following steps
 1. The View receives a User action. It calls an appropriate method on the Controller.
 2. The Controller sets the value on the Model.
-3. The Model notifies its listeners of the change, among which is the Controller itself.
-4. The Controller receives the change in its notify() method, where it updates the Views.
-5. The Views are updated to fit the new Model value
-
-In their role of communication hubs, Controllers accept notifications from 
-either Model (as change notifications) or View (as UI events), 
-and deliver these notifications to the intended receiver after transformation
-into an API call. The consequence of this design is that the MVA Controller 
-must know the API of all the Views and the Models it interacts with. 
-
-In strong contrast to traditional MVC, the MVA View is completely 
-decoupled from the Model, and is therefore not required to be
-aware of its API. This allows the use of generic, "off-the-shelf" Views.
+3. The Model notifies its listeners of the change, among which is the Controller itself. As already pointed out, in a MVC approach this notification would be sent to the View. Not so in MVA.
+4. The notified Controller fetches information from the Model and updates the View.
 
 With the Controller in full control on the dialog between the two remaining
 parties, smart tricks can be performed on the “in transit” data: for example,
-the Controller could be responsible for formatting,  translating or ordering
+the Controller could be responsible for formatting, translating or ordering
 the data from the Model.  
 
 ### Practical Example
