@@ -11,19 +11,21 @@ and the need to notify about Model changes coming from external sources.
 
 The Active Model strategy has a counterpart in the **Passive Model**. A Passive
 Model does not perform notification services. Instead, this task is
-performed by the Controller:
-
-1. The Controller modifies the Model.
-2. The Controller informs the View to update itself.
-3. The View now inquires the Model contents as in the Active case.
+performed by the Controller.
 
 ### Design
 
-The activity diagram details the steps given above
+The interaction diagram shows the behavior of a Passive Model
 
 <p align="center">
     <img src="images/passive_model/passive_model.png" />
 </p>
+
+Specifically, the sequence of events is the following:
+
+1. The Controller modifies the Model.
+2. The Controller informs the View to update itself.
+3. The View now inquires the Model contents as in the Active case.
 
 The major shortcoming of a Passive Model is that Views get desynchronized
 if multiple Controllers can modify the Model. Collaboration between Controllers
