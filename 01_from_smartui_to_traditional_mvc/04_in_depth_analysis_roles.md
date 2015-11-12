@@ -9,12 +9,11 @@ finally in any data source the Model may be using to access the data, for
 example a file or a SQL database. The MVC roles help us giving structure to the
 communication traffic needed by this synchronization ballet.
 
-To summarize the scope of each role in
-Traditional MVC:
+To summarize the scope of each role in Traditional MVC:
 
-   - **Model**: holds the application's state and core functionality.
-   - **View**: visually renders the Model to the User.
-   - **Controller**: mediates User actions on the GUI to drive modifications on the Model.
+   - **Model**: holds the application's state and core functionality (Domain logic).
+   - **View**: visually renders the Model to the User (Presentation logic).
+   - **Controller**: mediates User actions on the GUI to drive modifications on the Model (Application logic).
 
 Except for the most trivial applications, multiple classes can be active in the
 same role and are said to belong to a specific **layer** (i.e. Model layer, View
