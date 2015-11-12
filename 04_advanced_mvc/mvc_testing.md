@@ -57,3 +57,5 @@ of these components should be minimal as well.
 
 You can perform tests of graphical components by pushing events into the 
 GUI toolkit event queue, but again, they tend to be brittle and asynchronous.
+
+Watir, WatiN, Selenium 
