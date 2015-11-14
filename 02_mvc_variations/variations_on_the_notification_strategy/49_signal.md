@@ -28,6 +28,9 @@ a list of listeners, and methods for listeners to register and unregister.
 The Signal class also possess an ``emit()`` method, which triggers notification
 to the registered listeners.
 
+<p align="center">
+    <img src="images/signal/signal.png" />
+</p>
 The Model defines its signalling capabilities by defining member variables
 of type Signal. These member variables are given appropriate names to convey
 the nature of each reported event. Each listener can subscribe to the signals
