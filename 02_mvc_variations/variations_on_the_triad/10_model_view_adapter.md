@@ -23,39 +23,36 @@ generally referred as Adapters or Mediators. The Model and the View
 do not hold references to each other, they do not exchange data nor 
 interact directly. 
 
+<p align="center">
+    <img src="images/model_view_adapter/ModelViewAdapter.png" width="200">
+</p>
+
 The pattern of communication in MVA can be represented with the following
 interaction diagram
 
-[picture]
+<p align="center">
+    <img src="images/model_view_adapter/MVA_Communication.png" />
+</p>
 
+which can be described as
 
-Which can be described with the following steps
 1. The View receives a User action. It calls an appropriate method on the Controller.
 2. The Controller sets the value on the Model.
-3. The Model notifies its listeners of the change, among which is the Controller itself.
-4. The Controller receives the change in its notify() method, where it updates the Views.
-5. The Views are updated to fit the new Model value
-
-In their role of communication hubs, Controllers accept notifications from 
-either Model (as change notifications) or View (as UI events), 
-and deliver these notifications to the intended receiver after transformation
-into an API call. The consequence of this design is that the MVA Controller 
-must know the API of all the Views and the Models it interacts with. 
-
-In strong contrast to traditional MVC, the MVA View is completely 
-decoupled from the Model, and is therefore not required to be
-aware of its API. This allows the use of generic, "off-the-shelf" Views.
+3. The Model notifies its listeners of the change, among which is the Controller itself. As already pointed out, in a MVC approach this notification would be sent to the View. Not so in MVA.
+4. The notified Controller fetches information from the Model and updates the View.
 
 With the Controller in full control on the dialog between the two remaining
 parties, smart tricks can be performed on the “in transit” data: for example,
-the Controller could be responsible for formatting,  translating or ordering
+the Controller could be responsible for formatting, translating or ordering
 the data from the Model.  
 
-### Practical Example
+### Practical Example 1: With Subclassing of the Views
 
-Let's examine the code for our standard example. The
-Model is unchanged: stores rotations per minute information and notifies about
-changes 
+common in Apple OSX Cocoa Framework. 
+
+We examine a MVA implementation of the Engine example in two steps. In the first step, we will keep subclassing the Views, to present the general concept. In the second step, we will remove the need for subclassing the Views.
+
+The Model is unchanged: it stores rotations per minute information and notifies about changes 
 
 ```python
 class Engine(BaseModel):
@@ -75,14 +72,17 @@ class Engine(BaseModel):
        return self._rpm
 ```
 
-The two View classes, Dial and Slider, are now unaware of the Model. Instead,
+The two View classes, `Dial` and `Slider`, are now unaware of the Model. Instead,
 they know about the Controller, and accept changes to their content through the
-setRpmValue() method.  A matter of taste can decide the semantic level of this
+`setRpmValue()` method.  A matter of taste can decide the semantic level of this
 method. Should it talk “domain language” (i.e. Rpm) or not (i.e. the method
 should just be named setValue). In any case, Views behave differently with
-respect to the issued value, and we don't want this difference to be handled by
-the Controller.  When the user interacts with the Dial, the Controller
-changeRpm() method is directly invoked, in this case via the Qt Signal/Slot
+respect to the issued value (the Slider needs its value scaled appropriately). 
+One could handle this difference in the Controller, but this will be considered 
+in the next step.
+
+When the user interacts with the `Dial`, the Controller
+`changeRpm()` method is directly invoked, in this case via the Qt Signal/Slot
 mechanism 
 
 ```python
@@ -90,7 +90,7 @@ class Dial(QtGui.QDial):
    def __init__(self, *args, **kwargs):
        super(Dial, self).__init__(*args, **kwargs)
        self._controller = None
-       self.setRange(0,10000)
+       self.setRange(0, 10000)
 
    def setRpmValue(self, rpm_value):
        self.setValue(rpm_value)
@@ -101,13 +101,13 @@ class Dial(QtGui.QDial):
                           self._controller.changeRpm)
 ```
 
-For the Slider, the interface is similar, but the internal implementation is
-slightly different. Again, the setRpmValue allows the Controller to change the
+For the `Slider`, the interface is the same, but the internal implementation is
+different. Again, the `setRpmValue` allows the Controller to change the
 View contents. In this case however, a proper transformation of the data is
-performed to deal with the specifics of the Slider behavior, whose range is
-from 0 to 10.  Similarly, when the User interact with the Slider, the method
-_valueChanged will be invoked, which in turn will issue a call to the
-Controller'' changeRpm() method, after transformation of the parameter
+performed to deal with the specifics of the `Slider` behavior, whose range is
+from 0 to 10.  Similarly, when the User interact with the `Slider`, the method
+`_valueChanged` will be invoked, which in turn will issue a call to the
+Controller `changeRpm()` method, after transformation of the parameter
 
 ```python
 class Slider(QtGui.QSlider):
@@ -131,7 +131,7 @@ class Slider(QtGui.QSlider):
 
 The Controller class handles the Model and the two Views accordingly. It
 registers for notifications on the Model, and it receives notification from the
-Views on its changeRpm() method, where it modifies the contents of the Model.
+Views on its `changeRpm()` method, where it modifies the contents of the Model.
 When the Model communicates a change, it pushes the new value to the Views
 
 ```python
@@ -157,5 +157,37 @@ class Controller(object):
            view.setRpmValue(self._model.rpm())
 ```
 
-and common in Apple OSX
-Cocoa Framework. 
+### Practical Example 2: With generic Views
+
+In the previous example, removing the dependency of the Views on the Model did not allow us to use generic Views. In this example we will move the value translation logic
+from the Views to the Controller, thus removing the need for subclassing the Views, an important advantage of MVA.
+
+```python
+class Controller(object):
+   def __init__(self, model, slider, dial):
+       self._slider = slider
+       self._dial = dial
+       self.connect(self._slider, QtCore.SIGNAL("valueChanged(int)"),
+                          self._sliderChanged)
+       self.connect(self._dial, QtCore.SIGNAL("valueChanged(int)"),
+                          self._dialChanged)
+       self._model = model
+       model.register(self)
+
+   def changeRpm(self, rpm):
+       if self._model:
+           self._model.setRpm(rpm)
+
+   def notify(self):
+       for view in self._views:
+           view.setRpmValue(self._model.rpm())
+```
+
+
+
+
+### Practical Example 3: With forwarding of Model events
+
+If the Model emits qualified events, the Controller could simply forward them
+to the View.
+
