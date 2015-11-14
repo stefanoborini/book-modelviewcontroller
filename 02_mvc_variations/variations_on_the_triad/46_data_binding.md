@@ -1,6 +1,6 @@
 # Data binding
 
-# Motivation
+### Motivation
 
 We want to reduce boilerplate code to synchronize changes the bidirectional
 communication between the Model and the View.
@@ -23,3 +23,7 @@ a trivial, off the shelf controller that is invisible to us.
 
 Possibility to say how to transform the data as they go back and forth.
 Backbone.js stickit onSet/onGet
+
+### Practical Examples
+
+Cocoa Bindings, TraitsUI
