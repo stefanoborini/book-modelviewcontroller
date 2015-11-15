@@ -34,5 +34,14 @@ way to maintain chaos at bay.
 In this chapter, we will start from the most trivial implementation
 of a GUI application with both visual and non-visual logic: a single class
 responsible for everything. This approach, known as Smart UI, will be our 
-foundation for a progressive refactoring into the three basic components of MVC: Model, View and Controller.
+foundation for a progressive refactoring into the three basic components 
+of MVC: Model, View and Controller.
 
+   * [Smart UI](01_smart_ui.md)
+   * [Document View](02_document_view.md)
+   * [Traditional MVC](03_traditional_mvc.md)
+   * [In depth analysis of MVC roles](04_in_depth_analysis_roles.md)
+       * [Model](05_model.md)
+       * [View](06_view.md)
+       * [Controller](07_controller.md)
+   * [Forces outdating traditional MVC](08_outdating_forces.md)

@@ -85,6 +85,7 @@
     * [Lapsed listener problem](04_advanced_mvc/lapsed_listener_problem.md)
     * [Publisher Subscriber](04_advanced_mvc/publisher_subscriber.md)
     * [Model Distribution](04_advanced_mvc/model_distribution.md)
+    * [Multithreading](multithreading.md)
 * [MVC Implementations](05_mvc_implementations/index.md)
 * [MVC on the Web](06_mvc_on_the_web/index.md)
    * [Front Controller](06_mvc_on_the_web/01_front_controller.md)
