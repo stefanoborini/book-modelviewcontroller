@@ -20,8 +20,6 @@ Composite View.[11] [PIC of an example of a hierarchy with real widgets]
 
 
 
-write something about preventing garbage collection when pubsub is used.
-
 
 Keep networks simple and close.
 
@@ -44,5 +42,3 @@ e.g. contentChanged/lineMetaChanged and contentChanged/lineAdded. How to handle
 the double notification? Pass an "event id" in the signal so that the client 
 realizes that it's the same change that delivers two messages?
 
-
-Memory Leak: lapsed listener.

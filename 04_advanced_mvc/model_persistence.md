@@ -51,8 +51,6 @@ ORM models
 
 
 
-Sharding
-
 The model can be distributed over a network and accessed through proxy classes
 with none or minor changes to the remaining protagonists. 
 

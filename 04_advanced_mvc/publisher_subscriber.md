@@ -38,3 +38,4 @@ handler will receive a message, qualified with the appropriate information
             self.view.setMoney(message.data)
 ```
 
+NSNotificationCenter is a pubsub.
