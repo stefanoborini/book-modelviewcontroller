@@ -1,4 +1,4 @@
-# Variations on the Notification Strategy
+# Variations on the View
 
    * [Pluggable View](14_mvc_pluggable_view.md): inject data extraction and manipulation logic at View's initialization by the client code.  
    * [Passive View](17_passive_view.md): have the View's state fully orchestrated by the Controller.
