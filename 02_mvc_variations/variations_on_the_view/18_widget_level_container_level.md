@@ -2,19 +2,34 @@
 
 ### Motivation
 
-In our previous exploration we defined Views without much attention on the
-scope of their implementation. Should we have multiple minimalistic triads,
-where every widget is a View of its triad, or a single MVC triad whose complex
-View holds and manages dozen of widgets? 
+In our previous exploration we defined Views without any detail on the
+scope of their implementation. Given a window containing a dozen of widgets, 
+two implementations are possible
+- The View is the full window, forming a single MVC triad through a complex,
+dedicated controller, or
+- Each widget is considered a View. There are multiple independent 
+Triads, one per each widget.
 
-Both approaches are possible, and they
-are called Widget-level and Container-level MVC, respectively. 
 
+Both approaches are possible, and they are called Container-level and 
+Widget-level MVC, respectively. Each solution has advantages and 
+disadvantages:
+Widget-level has the strong advantage of reusability. Views are off-the-shelf 
+UI widgets, and Controllers are generic classes tailored to specific widgets. 
+The connection between the widget and the Model property become straightforward,
+albeit prone to produce boilerplate code. With some additional support, the
+boilerplate can be eliminated, leading to the design known as Data Binding.
+
+On the other hand, a Container level approach may be better suited for multiple
+Models and complex cross validation between data, because the cross validation
+can be performed by the specialized Controller. 
 
 ### Design
 
-Widget-level MVC favors minimalistic MVC components. Each View is defined by a single
-widget, which is connected to the Model through a simple, reusable Controller.
+
+
+
+
 
 For
 example, a CheckBoxView could be connected to a simple boolean variable in the
@@ -22,62 +37,24 @@ Model (True/False, honoring the state of the Checkbox) via a
 CheckBoxController. Similar Controllers can be setup for each widget of our
 graphic toolkit.
 
-A widget level implementation has the following advantages:
-- the connection between the GUI component and a Model property is 
-straightforward
-- A relatively limited palette of generic controllers can be
-implemented and reused. Specialized Controllers can be developed to address
+Specialized Controllers can be developed to address
 specific conversions and constraints
 
-but it introduces the following shortcomings:
-- its granularity could lead to boilerplate code for large applications to
-  define the bindings
-- conversion of data between the Model representation (e.g. float) and the View
-representation (e.g. string) could require reimplementation of either the View
-or the Model class in some toolkits, or requires specific controllers handing the conversion
-- it only acts as a data binding mechanism from View to Model and vice-versa for a specific widget. It is limited in scope and vision.
-- The controller may be too trivial in some cases, in particular with complex
-Models (e.g. multiple instances must be handled) or complex Views (e.g.
-different widgets that need to be analyzed by the controller at the same time).
 
-One possible solution to these shortcomings is to aggregate different Views
-into a single class and keep the MVC triads confined there. The aggregated
-class has its own model, and all interaction from outside happens on this local
-model.
-
-
-Widget-level MVC has the disadvantage that leads to class explosion if the
-language requires reimplementation of each specific widget. Also, it
-complicates design by granting a potentially excessive granularity and
-flexibility.
-
-On the other side of the spectrum of Widget-level MVC, Container-level focuses
-on Views at the level of containers, and complex Controllers. A View is, for
-example, a full dialog. This container holds individual widgets, that are
-treated not as individual views, but as a hierarchy of visual components.
-
-Container level is coarse grained, and as such it could become excessively
-large.
-
-Given the two choices, it might seem somewhat challenging to select a
-particular strategy. The best, as often happens, is to find the right
 equilibrium between fine-grained per-widget MVC and coarse-grained
 per-container MVC. You should generally consider aggregation in these cases:
 
    * you have a root widget containing a complex set of child widgets.
-   * you have a single widget providing an advanced functionality that is independent of the functionality of the container.
+   * you have a single widget providing an advanced functionality that is 
+independent of the functionality of the container.
 
-Is better treated as an independent view.
-
-For example, a dialog is best treated as a single view, but if you have a
-dialog containing different tabs, each tab content is probably better treated
-as an individual view. If you have a complex widget showing a document , which
-embeds zoom level (+/-) buttons, they are probably best implemented as either
-two separate views, or as a “ZoomLevel” widget as a view, never as a hidden
-part of the DocumentViewer View.
-
-
-With this approach, the application GUI is sliced into manageable parts, each handling a specific User-system interaction. The coarseness of these slices is a matter of choice, circumstances, complexity, and reuse.
+but it introduces the following shortcomings:
+- conversion of data between the Model representation (e.g. float) and the View
+representation (e.g. string) could require reimplementation of either the View
+or the Model class in some toolkits, or requires specific controllers handing the conversion
+- The controller may be too trivial in some cases, in particular with complex
+Models (e.g. multiple instances must be handled) or complex Views (e.g.
+different widgets that need to be analyzed by the controller at the same time).
 
 ### Practical example
 
