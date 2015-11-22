@@ -24,7 +24,6 @@ the relevant data needed by the View.
 def extractor(model):
     return str(model.get_value())
 
-
 view = View(model, extractor)
 ```
 
@@ -38,7 +37,6 @@ class View:
     def notify(self):
         value = self.extractor(self.model)
         self.setValue(value)
-
 ```
 
 Variations of this solution allow for multiple functions to extract 
