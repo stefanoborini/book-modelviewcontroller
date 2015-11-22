@@ -14,7 +14,6 @@ no awareness of the Model. In fact, the View is not subscribed to Model changes,
 and is not extracting data from it. It is instead the Controller's duty to 
 push data into the View, which is made out of off-the-shelf widgets.
 
-
 ### Design
 
 In a Passive View design, all business code goes in the Controller or the Model.
