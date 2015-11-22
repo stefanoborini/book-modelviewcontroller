@@ -1,7 +1,5 @@
 # References
 
-TODO
-
 # KVO
 
 - [Key-Value Observing Programming Guide](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html)
