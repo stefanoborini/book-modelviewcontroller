@@ -16,7 +16,8 @@ framework. These widgets acts both as Views and as Controllers as originally
 defined, because they can display and position themselves, manage focus,
 receive low-level events and convert them to higher level behavior: a modern
 LineEdit widget handles keyboard input to write text on the screen without any
-additional support.
+additional support. An application-level event loop handles events and dispatches
+them to the appropriate receiver.
 
 The result of this modernization is a reduction of responsibility of the
 Controller, and its role has been adapted with the times.  New interpretations
