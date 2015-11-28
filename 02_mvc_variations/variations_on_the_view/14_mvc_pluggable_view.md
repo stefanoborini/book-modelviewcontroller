@@ -17,7 +17,7 @@ To prevent duplication, three strategies can be considered:
    transforming the Model's complex interface into a trivial getter/setter pair. 
    The resulting View is agnostic of the nature of the Model and the complexity 
    of the extraction logic.
-3. use the approach in this section. In Pluggable View the extraction logic is 
+3. use the Pluggable View approach, explained in this section. The extraction logic is 
    injected at View's initialization by the client code. 
 
 ### Design
