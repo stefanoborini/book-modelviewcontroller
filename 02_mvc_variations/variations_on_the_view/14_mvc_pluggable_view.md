@@ -1,5 +1,11 @@
 # Pluggable View
 
+-----
+
+Note: In the context of the Web framework Flask, Pluggable View refers to a different concept.
+
+-----
+
 ### Motivation
 
 For some applications, different Views may have the same implementation for 
