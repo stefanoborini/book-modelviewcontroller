@@ -7,3 +7,4 @@ the potentially asynchronous interaction among objects, communicating through
 events. The communication network being mutable. This results in extremely 
 complex, hard to understand, hard to debug designs.
 
+Explain The event loop

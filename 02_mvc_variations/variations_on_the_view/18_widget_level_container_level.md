@@ -4,21 +4,17 @@
 
 In our previous exploration we defined Views without any detail on the
 scope of their implementation. Given a window containing a dozen of widgets, 
-two implementations are possible
-- The View is the full window, forming a single MVC triad through a complex,
-dedicated controller, or
+two implementations of the View object are possible:
+- The View is the full window, forming a single MVC Triad through a complex,
+dedicated Controller, or
 - Each widget is considered a View. There are multiple independent 
 Triads, one per each widget.
 
-
-Both approaches are possible, and they are called Container-level and 
-Widget-level MVC, respectively. Each solution has advantages and 
-disadvantages:
-Widget-level has the strong advantage of reusability. Views are off-the-shelf 
-UI widgets, and Controllers are generic classes tailored to specific widgets. 
-The connection between the widget and the Model property become straightforward,
-albeit prone to produce boilerplate code. With some additional support, the
-boilerplate can be eliminated, leading to the design known as Data Binding.
+Both approaches are possible, and they are called **Container-level** and 
+**Widget-level MVC**, respectively. Each solution has advantages and 
+disadvantages: Widget-level has the strong advantage of reusability. Views are off-the-shelf UI widgets, and Controllers are generic classes tailored to 
+specific widgets. The connection between the widget and the Model property become straightforward, albeit prone to produce boilerplate code to set up the connection. 
+With some additional support, the boilerplate can be eliminated, leading to the design known as Data Binding.
 
 On the other hand, a Container level approach may be better suited for multiple
 Models and complex cross validation between data, because the cross validation
@@ -26,20 +22,26 @@ can be performed by the specialized Controller.
 
 ### Design
 
+A Widget-level design requires one specific controller for each widget of the 
+toolkit. Its role is to handle the communication and data conversion between 
+the widget and the Model.
 
 
 
 
 
-For
-example, a CheckBoxView could be connected to a simple boolean variable in the
-Model (True/False, honoring the state of the Checkbox) via a
-CheckBoxController. Similar Controllers can be setup for each widget of our
-graphic toolkit.
 
-Specialized Controllers can be developed to address
-specific conversions and constraints
+is better explained with a practical example
+supporting the explanation: a window contains a LineEdit widget to write a 
+message and a "Send" button to send the message. The resulting design will have 
+two widgets (LineEdit and Button, each of them a View), two specialized 
+Controllers (LineEditController and ButtonController) and a single Model.
 
+
+
+
+
+If you consider widget-level MVC, you should probably investigate Data Binding solutions.
 
 equilibrium between fine-grained per-widget MVC and coarse-grained
 per-container MVC. You should generally consider aggregation in these cases:
