@@ -131,3 +131,6 @@ check if it's still consistent against it. If not, it needs to recover by invali
 its state.
 
 needs model to model communication to keep consistency.
+
+Point out what number of rpm is too high is domain logic, and what color it should be is view logic.
+

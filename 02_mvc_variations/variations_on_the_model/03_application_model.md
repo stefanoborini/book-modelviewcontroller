@@ -254,3 +254,7 @@ following problems:
      DialEngine.setRpm will end up producing two notifications when the Domain Model
      does issue a notification.
 
+
+FIXME In practice, application model is a UI model.
+FIXME VisualWorks. 
+FIXME application model may need to talk to the view or the controller directly, instead of notification.

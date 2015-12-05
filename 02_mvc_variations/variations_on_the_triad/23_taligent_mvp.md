@@ -54,3 +54,9 @@ FIXME excessive confusion and overload of the terms "class", "object", "entity"
 
 Presenter as a coordinator of the process. One presenter per each view.
 
+FIXME: widgets including both view and controller role. Presenter performs 
+the active role in the model modification.
+presenter is basically an application model.
+
+chopped up the old MVC roles and reassigned. It seems like MVC, but its objects
+aggregate different responsibilities.
