@@ -1,5 +1,8 @@
 Notes
 =====
+
+the notification mechanism basically allow to inject code in setters.
+
 Local models, or one global model?
 
 the view should be able to query or inform the controller for action (will, should, did): delegate

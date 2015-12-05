@@ -18,3 +18,8 @@ existence of a reference between two Model objects). The ViewModel is
 responsible of mapping its state (the boolean) to setting the reference, and
 vice-versa.
 
+Similar to Presentation Model/Application Model, however, the ViewModel has
+no explicit reference to the View, nor explicit code to direct the View. 
+Instead, it uses data binding, which offloads the sync task from the developer.
+
+
