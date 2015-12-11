@@ -1,6 +1,9 @@
 Notes
 =====
 
+change in a model is not the only reason why a view must inquire the model for data. 
+The view may have to repaint itself after a show event.
+
 the notification mechanism basically allow to inject code in setters.
 
 Local models, or one global model?

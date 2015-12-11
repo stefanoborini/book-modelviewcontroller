@@ -108,6 +108,10 @@ The direct connection between View and Controller is needed for:
 creation
 2) the currently active controller can be found by traversing the view hierarchy
 
+FIXME: Strictly speaking, the controller does not need to know about the View:
+the controller receives events (from the user) and modifies the model, and the model
+syncs against the view. In practice. the user interacts with a view object, and the associated
+controller handles that operation.
 
 [^1] The more knowledgeable reader may recognize that this MVC model 
 is not the original MVC as intended in its first implementation. 

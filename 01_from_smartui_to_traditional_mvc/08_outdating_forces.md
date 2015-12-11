@@ -37,5 +37,8 @@ development needs.
 
 FIXME:
 off-the-shelf widget sets. Reimplement widgets to define methods for events is annoying. proliferates classes.
-
-
+Controller was in charge of deciding when to relinquish control to other controllers.
+The active controller was the one handling events.
+Modern widgets handle damage control (e.g. due to hiding/showing) by themselves. The view
+is only left the task of updating against a modified model. The toolkit takes care of
+keeping the visual correct.
