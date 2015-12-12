@@ -1,6 +1,10 @@
 # Event bus / PubSub
 
-Full decoupling between publishers and subscribers.
+Full decoupling between publishers and subscribers. 
+Publishers don't know about subscribers, and vice-versa.
+Messages are sender to receiver. The receiver cannot "reply" to the sender.
+
+
 Example, wxpython provides a nice example of pubsub model
 
 ```python
@@ -39,3 +43,21 @@ handler will receive a message, qualified with the appropriate information
 ```
 
 NSNotificationCenter is a pubsub.
+
+- decoupling makes compile time checks useless.
+- delivery network can become complicated. Incorrect setup can lead to unintended listeners to receive
+messages they are not supposed to receive.
+the application flow is hard to understand and debug.
+- from the code alone, it's hard to spot the dependency between a publisher and a subscriber,
+in particularly when the message is emitted and delivered.
+- delivery can be synchronous or asynchronous, but even when synchronous, it's not possible
+to rely on delivery order.
+- message source may not be available to the receiver.
+
+
+use of topics to group message types.
+
+
+
+
+

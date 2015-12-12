@@ -103,4 +103,7 @@ properties must be changed in sequence, as they would trigger multiple useless
 notifications. 
 
 a qualified notification mechanism that gives details of the changeset.
+e.g. old value/new value
+- if at initialization or not
+- if before or after the change
 

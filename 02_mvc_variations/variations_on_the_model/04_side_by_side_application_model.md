@@ -130,7 +130,7 @@ When the selection receives notification of change from its model, it needs to
 check if it's still consistent against it. If not, it needs to recover by invalidating
 its state.
 
-needs model to model communication to keep consistency.
+needs model to model communication to keep consistency, which becomes hard to maintain.
 
 Point out what number of rpm is too high is domain logic, and what color it should be is view logic.
 

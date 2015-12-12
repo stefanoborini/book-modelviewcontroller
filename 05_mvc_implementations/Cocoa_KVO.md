@@ -30,5 +30,4 @@ All you need to do is have every listener register themselves with the observee 
 
 Used in Apple Cocoa. Main problem is that the qualification model now requires to
 check the changed property against a string, which is prone to typos.
-Setters are now basically open to injection of code from outside.
 
