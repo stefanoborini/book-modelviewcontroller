@@ -31,3 +31,7 @@ All you need to do is have every listener register themselves with the observee 
 Used in Apple Cocoa. Main problem is that the qualification model now requires to
 check the changed property against a string, which is prone to typos.
 
+### References
+
+- [Key-Value Observing Programming Guide](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html)
+- [KVO considered harmful](http://khanlou.com/2013/12/kvo-considered-harmful/)
