@@ -7,14 +7,15 @@ activity (routines computing relevant data). They define the protagonists of
 the application's domain, their mechanism of operation and cooperation. Model
 objects can represent, for example, 
 
-   - An interface to a database, filesystem, or low level driver 
-   - Access to a computational backend
-   - Proxies for a remote service
+   - An interface to a database, filesystem, low level driver, hardware machine
+   - Access to a computational backend.
+   - Proxies for a remote service 
    - A representation of business entities such as weather forecast in a
      specific area, people's details in a phonebook, tracks information in a
      music CD, student grades
    - In some designs, graphical state of the GUI, such as selected items, or
      the X-axis scale of a plot. 
+   - A running process.
 
 When implemented, a Model can go from a dictionary-like of key/value pairs to a
 complex network of objects with well defined interfaces. Regardless of the
@@ -65,7 +66,7 @@ Controllers, but a Model can also change due to requests from other subsystems
 (for example, a network layer), from another Model component or because it is
 monitoring a backend (e.g. a database, or a filesystem) and the monitored
 entity changes. The only entities never allowed to issue a change request to
-the Model are the Views.  
+the Model are the Views. 
 
 The Model should enforce integrity of the data, but it does not necessarily
 enforce validity: data might be correct (for example, integers for min/max
@@ -94,10 +95,5 @@ of the Model layer:
     - Value Objects: data objects with particular characteristics so that
       their equivalence depends on their value, rather than their identity.
 
-
-
-FIXME: Make clearer the fact that the model does not encapsulates only state, but also
-process.
-FIXME: Clarify that this is an active model, and we will examine a variation (passive) later on.
-FIXME: clarify that an active model allows notifications regardless of the source of the change
-FIXME: Scriptability. Modification of the model programmatically can enable scripting.
+Keeping the application functionality fully supported by the model allows scriptability.
+The Model can be modified programmatically with a script that replaces the user interaction.

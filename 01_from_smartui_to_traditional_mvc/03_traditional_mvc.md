@@ -16,8 +16,6 @@ Model, View, and Controller form a so-called **MVC triad**.
   <img src="images/mvc_triad.png" />
 </p>
 
-FIXME Put a more appropriate image, expressing the strong and weak association between entities.
-
 The Controller's role is to transform primary events delivered by the View into
 operations on the Model. Depending on the specifics of the application, a Controller may or may not need
 a reference to the View, but it certainly needs the Model to apply changes on
@@ -116,7 +114,7 @@ controller handles that operation.
 [^1] The more knowledgeable reader may recognize that this MVC model 
 is not the original MVC as intended in its first implementation. 
 We will go into detail of the differences in later chapters. 
-What is presented here is the  modern reinterpretation of the 
+What is presented here is the modern reinterpretation of the 
 original MVC, and the one most likely to be intended when talking 
 about "MVC". To clarify the overloaded nomenclature, I chose to 
 refer to the original '70s design as  "Reenskaug MVC", and its 

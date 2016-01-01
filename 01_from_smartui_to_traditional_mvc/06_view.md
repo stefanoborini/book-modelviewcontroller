@@ -41,9 +41,6 @@ some form can be classified as a View. For example, a musical notation Model
 can be observed by two Views: one that shows the musical notation on screen and
 another that plays it on the speakers. 
 
-
-FIXME
-
 View can work also without a model, but of course it cannot display anything.
 It can accept another model. In that case, it will unregister from the previous
 one and register on the new one.

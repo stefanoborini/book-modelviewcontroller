@@ -5,8 +5,8 @@
 Models may want to cache information when acting as a proxy for 
 data sources that are slow, unreliable, or have an access quota 
 or cost. Typical examples are network services, databases, disk
-access, or when long-running computations are needed to generate
-the information. 
+access, or when the information is obtained from long-running 
+computations.
 
 Using a cache generally delivers the following advantages
 
@@ -17,22 +17,20 @@ Using a cache generally delivers the following advantages
 - when accessing a remote resource, prevents repeated requests 
   of the resource (known as "hammering"). Failure to 
   implement caching in this case generally leads to a security 
-  response (throttling, or access ban) from the administrators 
+  response (e.g. throttling, or access ban) from the administrators 
   of the remote resource.
 
 However, caching comes with a set of liabilities:
 
 - Increases memory footprint of the application to store the cached data.
 - the Model may return outdated information to its client. 
+- In multi-user web-applications, cached data may contain critical security
+  information, and must therefore not be leaked to unintended recipients.
 
-
-This is of particular importance
-In multi-user applications or web applications, it's important that some type of cached entries are not delivered to a user they were not intended for. Some critical information may be into it.
-
-## Design
+### Design
 
 The typical design of a Caching Model involves the following steps to
-retrieve the data from a data source:
+retrieve the data from a source:
 
 1. The View attempts to retrieve some information from the Model.
 2. The Model first attempts to obtain this information from the Cache.
@@ -89,7 +87,7 @@ Interested listeners of the Model may or may not need to be aware
 of the existence of a cache. If the listener can behave appropriately 
 by ignoring the existence of the cache Several strategies are possible to handle this 
 
-## Caching strategies
+### Caching strategies
 
 Choosing an appropriate caching strategy is a complex topic 
 well outside the scope of this book. Several factors may need to be kept into
@@ -115,7 +113,8 @@ to ask the remote service if new or changed data are available, and act
 accordingly by either retrieving the new data or return the cached information.
 
 Additional optimization may come from preemptive caching of model data
-that is likely to be accessed soon. For example, while retrieving information about a given user from a social networking website, a smart caching engine 
+that is likely to be accessed soon. For example, while retrieving information 
+about a given user from a social networking website, a smart caching engine 
 may decide to retrieve its most recent pictures and populate the cache of the
 picture Model objects.
 

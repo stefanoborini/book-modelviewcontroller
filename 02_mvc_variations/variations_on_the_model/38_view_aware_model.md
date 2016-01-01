@@ -3,24 +3,33 @@
 ### Motivation
 
 This unconventional design breaks a fundamental rule of MVC: 
-rather than having the View getting data from the Model, the Model acts 
-on the View to populate it.
+rather than having the View get data from the Model, the Model 
+acts on the View to populate it.
+
+A View-aware Model seem to have conceptual closeness to Visual Proxy,
+but they handle different concerns: 
+- Visual Proxy deals with View's creation. The Model acts as a 
+  factory for the View. 
+- View-aware Model deals with data synchronization. THe Model knows
+  about the View and acts on it.
+
+A View-aware Model instead can be seen as a combination of a 
+ModelController and a Passive View.
+
+### Design
+
+The Model holds a reference to the View. When a Model change occurs, 
+it directly calls the View's specific method to change its visual aspect.
+
+<p align="center">
+    <img src="images/view_aware_model/view_aware_model.png" width="200" />
+</p>
 
 This design comes with a hefty price of dependency of the Model 
-towards the different Views' interfaces. This price can be mitigated 
-by having a generic interface ``GenericViewInterface`` that abstracts 
-individual View's differences. The Model knows about this generic 
-interface and only invokes its methods. Implementations of this
-interface are on their associated View and transform the Model's generic
-setting invocation into a specific action on the View.
-
-On Model change, the View will pass its own specific implementation of the GenericViewInterface
-to the Model. The Model will now invoke the GenericViewInterface methods, passing its own content.
-These methods will then act on the Views. 
-
-For testing purposes, the GenericViewInterface can be implemented by a mock
-class, and the individual state of the resulting Mock object can be inquired after being
-passed to the Model.
-
-
-The Model can even create the View. See Holub's.
+towards the View's interface. The consequence is that driving multiple 
+Views with different interfaces becomes cumbersome. 
+This price can be mitigated by having a generic interface that 
+abstracts individual View's differences: the Model knows this generic 
+interface and invokes its methods. Different Views implement it and 
+handle the call into appropriate action on their widgets. During testing, 
+the generic View interface can be implemented by a mock.

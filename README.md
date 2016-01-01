@@ -1,7 +1,7 @@
 # Introduction
 
 Model-View-Controller (MVC) is probably the most used architectural solution
-for User Interface design and web programming; First defined at the end of the
+for User Interface design and web programming; Introduced first in the
 70s, MVC has been progressively adapted and morphed into a wide range of
 subtypes and variations, so much that the plain term "MVC" without additional
 qualifications has lost specificity. As a general interpretation, it is a
@@ -17,27 +17,24 @@ independent patterns to satisfy the potentially elaborate requirements of a
 GUI. 
 
 The objective of this book is to explore variations and nuances of MVC,
-comparing and analyzing them. I will talk about "MVC" generically to refer to
-all its different incarnations, and with a more specific name to refer to
-specific ones. The common point of all variations is to decide “who is
-responsible for what” and “who knows about whom” in the interaction between
-User and Application data. Different MVC variations assign responsibilities in
-a different way, connect or organize protagonists in a different way, or add
-intermediate objects to gain more flexibility and satisfy peculiar use cases.
+comparing and analyzing them. The differentiating characteristic among them 
+is to assign responsibilities to protagonists, specifically “who is responsible for what” 
+and “who knows about whom” in the interaction between the User and the
+application state. MVC variations assign new and old responsibilities in
+different ways, connect or organize protagonists, or add intermediate objects
+to gain more flexibility and satisfy peculiar use cases.
 
 This book is structured as follows:
 
-- The first chapter will be a gentle introduction to MVC through code examples, 
-  with the objective of deploying a common vocabulary. It will start from the 
-  simplest form of GUI with state, the Smart-UI, and progressively refactor it 
-  into a “Traditional MVC”. The chapter will continue with a definition of 
-  the MVC components, roles, and communication patterns, and close with a remark
-  about the outdated nature of the "Traditional MVC" in modern software development.
+- The first chapter will introduce a simple ground-up MVC application through code, 
+  with the objective of deploying a common vocabulary. The chapter will define 
+  components, roles, and communication patterns, and close with a remark on how
+  the resulting formulation is outdated and too simplistic in modern software 
+  development.
 
 - Once equipped with nomenclature, the second chapter will introduce
-  variations of Traditional MVC to address specific constraints and
-  practical needs. It will focus on variations of the three protagonists of MVC
-  (Model, View, and Controller) and their interaction.
+  MVC variations to address specific UI constraints and practical needs, or
+  to improve development efficiency. 
 
 - The third chapter will expand the concept of MVC to hierarchical MVC schemes.
 
@@ -47,8 +44,8 @@ This book is structured as follows:
 - In the fifth and final chapter, we will specifically focus on Web MVC and
   its implementations.
 
-Throughout the book, some example code in Python will be used to clarify design
-ideas. GUI rendering will make use of the excellent Qt toolkit, through PyQt4.
+Throughout the book, example code or actual implementations will be presented 
+to clarify design ideas. GUI rendering will make use of the excellent Qt toolkit.
 Qt provides pre-made mechanisms to address some MVC needs, but in the
 upcoming code these mechanisms will be skipped on purpose to demonstrate the
 presented concepts.

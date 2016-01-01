@@ -4,13 +4,8 @@ To solve the shortcomings of Smart UI, we take advantage of the intrinsic
 division into visual rendering, interaction and business logic expressed by a GUI
 application. In Smart UI, these three roles happen to be assigned to the same
 class, but we can reorganize our code so that the business logic part is kept
-separated.
-
-The resulting design is a two-class system known in literature as **Document View** or **Model Delegate**
-
-<p align="center">
-  <img src="images/DocumentViewDesign.png"/>
-</p>
+separated. The resulting design is a two-class system known in literature as 
+**Document View** or **Model Delegate**.
 
 The **Document** class is responsible for handling the business logic.
 It has no part in dealing with graphical rendering, nor with GUI events. It

@@ -3,9 +3,8 @@
 ### Motivation
 
 Your Model has multiple settable attributes, each one listened independently by
-Views. You want to change the Model state, and the logic needs to do so
-requires to set many of these attributes. Every set operation would trigger a
-notification. The behavior would be
+Views. The business logic requires setting two or more attributes to reach the desired final
+Model state. Each set operation triggers a notification, as shown:
 
   1. Set A attribute on the Model
   2. Views are notified of change
@@ -18,7 +17,7 @@ specific details of your Model and Views, this state may be inconsistent or not
 representable by the Views. However, setting and notification of the individual 
 attributes may still be needed for specific use cases.
 
-What is needed is to trigger notification when all set operations have been 
+The desired goal is to trigger notification only when all set operations have been 
 performed
 
 1. Set A silently
@@ -45,26 +44,26 @@ Model contains correct host information.
 
 ```python
 class Connection(Model):
-    def setHost(self, host):
+    def set_host(self, host):
         self._host = host
-        self.notifyListeners()
+        self.notify_listeners()
 
-    def setPort(self, port):
+    def set_port(self, port):
         self._port = port
-        self.notifyListeners()
+        self.notify_listeners()
 
-    def setHostAndPort(self, host, port):
+    def set_host_and_port(self, host, port):
         self._host = host
         self._port = port
-        self.notifyListeners()
+        self.notify_listeners()
 ```
 
-Without the `setHostAndPort()` method, reconnecting from `http://one.example.com:80` to
+Without the `set_host_and_port()` method, reconnecting from `http://one.example.com:80` to
 `http://two.example.com:8080` would either trigger a rogue connection to 
-`http://one.example.com:8080` (when `setPort(8080)` is called) or to 
-`http://two.example.com:80/` (when `setHost("two.example.com")` is called).
+`http://one.example.com:8080` (when `set_port(8080)` is called) or to 
+`http://two.example.com:80/` (when `set_host("two.example.com")` is called).
 
-Note how the `setHostAndPort()` method cannot, for obvious reasons, call the 
+Note how the `set_host_and_port()` method cannot, for obvious reasons, call the 
 independent setters, but must reimplement the setting logic. If this logic is complex,
 it might be good practice to factor it out in a separate "silent setter" method.
 
@@ -101,10 +100,10 @@ generate a list with one item.
 
 ```python
 class BookCollection(Model):
-    def addBook(self, book):
-        self.addBooks([book])
+    def add_book(self, book):
+        self.add_books([book])
 
-    def addBooks(books):
+    def add_books(books):
         self._books.extend(books)
-        self.notifyListeners()
+        self.notify_listeners()
 ``` 
