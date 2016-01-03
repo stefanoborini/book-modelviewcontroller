@@ -24,10 +24,36 @@ A trivial example of a Collection Model is an `Album` containing `Song` objects.
 
 ### Design
 
-The Collection Model is designed to emit events in two circumstances: when any of its SubModels changes, or when a SubModel is added, removed, or moved. 
+The Collection Model is designed to notify its listeners 
+when a SubModel is added, removed, or moved. In some cases,
+the collection model can also notify listeners when any of its
+SubModels changes.
+
+<p align="center">
+    <img src="images/collection_model/collection_model.png" /> 
+</p>
 
 More complex implementations may want to provide events and an interface 
 for bulk addition, bulk removal, or bulk move of SubModels. Qualified 
 messages can inform the listeners what kind of change has occurred, and 
 which SubModels were affected.
+
+### Practical Example
+
+Backbone.js Collection implements a Collection Model. The following code
+represents an example of the API described above
+
+```javascript
+var album = new Backbone.Collection;
+
+album.on("add", 
+         function(song) {
+            alert("Song added callback executed.");
+         }
+);
+
+album.add([
+  {name: "Mozart collection"},
+]);
+
 
