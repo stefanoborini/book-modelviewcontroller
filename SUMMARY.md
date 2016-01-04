@@ -51,8 +51,9 @@
    * [Variations on the Controller](02_mvc_variations/variations_on_the_controller/index.md)
        * [Supervising controller](02_mvc_variations/variations_on_the_controller/39_supervising_controller.md)
        * [Event Filter](02_mvc_variations/variations_on_the_controller/33_event_filter.md)
-       * [Mediating Controller](mediating_controller.md): Connects widget and properties.
-       * [Coordinating controller](coordinating_controller.md): Controllers managing the lifetime of the application, rather than a specific View.
+       * [Mediating Controller](02_mvc_variations/variations_on_the_controller/mediating_controller.md): Connects widget and properties.
+       * [Coordinating controller](02_mvc_variations/variations_on_the_controller/coordinating_controller.md): Controllers managing the lifetime of the application, rather than a specific View.
+       * [Action](02_mvc_variations/variations_on_the_controller/action.md): Controller with visual representation encapsulating a command.
    * [Variations on the Triad](02_mvc_variations/variations_on_the_triad/index.md)
        * [Model View Adapter](02_mvc_variations/variations_on_the_triad/10_model_view_adapter.md)
        * [Model GUI Mediator](02_mvc_variations/variations_on_the_triad/11_model_gui_mediator.md)
