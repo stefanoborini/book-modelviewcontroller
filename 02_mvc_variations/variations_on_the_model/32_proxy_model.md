@@ -31,6 +31,13 @@ represents. Interfaces are designed to comply with the abstraction of the
 remote service. When the client code asks for data, the Model issues the 
 appropriate request to the service provider.
 
+FIXME:
+
+When the Model implements SQL access to a specific database table, the resulting
+proxy model is normally called Table Data Gateway. Note however, that in this case,
+an instance does not represent a row. It represents the table, and it provides
+methods to perform CRUD operations on it.
+
 ### Practical example
 
 A simple Django Model provides an example of a Proxy Model.
@@ -61,3 +68,7 @@ another_person = Person.objects.get(last_name="Galilei")
 ```
 
 Under the hood, Django Model implementation converts the operations into SQL statements.
+
+### References
+
+- Martin Fowler, "Patterns of Enterprise Application Architecture". Addison-Wesley, 2003.

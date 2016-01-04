@@ -76,3 +76,7 @@ than the mentioned amount of time, it must be executed in a separate thread, or 
 interface responsiveness will suffer.
 Having a separate thread carries its additional quirks: can't normally touch ui code,
 must be synchronized.
+
+Distinguish between Notifications (that are synchronous calls using the observer pattern) 
+vs events (that instead are dispatched through the event loop)
+

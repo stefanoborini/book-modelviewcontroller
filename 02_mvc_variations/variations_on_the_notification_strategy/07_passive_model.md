@@ -48,4 +48,6 @@ Third, Passive Model has its area of excellence in Web-based MVC, where the
 fundamental nature of the HTTP protocol prevents the Model to perform
 notifications to the View. 
 
+### References
 
+- [MSDN documentation: Model-View-Controller](https://msdn.microsoft.com/en-us/library/ff649643.aspx)
