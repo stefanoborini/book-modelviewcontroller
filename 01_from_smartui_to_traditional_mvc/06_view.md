@@ -35,6 +35,10 @@ notifications from the Model. A View adds Model observing capabilities and
 rendering logic to a widget or groups of widgets, either through inheritance or
 composition.
 
+A view responds to Model notifications and repaint itself. This is, however, not
+the only reason why a View may have to inquire the Model for data and repaint itself.
+The view may have to do so after a show event.
+
 MVC is not only limited to GUI representations, and Views are not necessarily
 graphical objects. In fact, anything that can report information to the User in
 some form can be classified as a View. For example, a musical notation Model
