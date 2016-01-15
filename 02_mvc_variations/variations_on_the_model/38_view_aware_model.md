@@ -8,6 +8,7 @@ acts on the View to populate it.
 
 A View-aware Model seem to have conceptual closeness to Visual Proxy,
 but they handle different concerns: 
+
 - Visual Proxy deals with View's creation. The Model acts as a 
   factory for the View. 
 - View-aware Model deals with data synchronization. THe Model knows
@@ -22,7 +23,7 @@ The Model holds a reference to the View. When a Model change occurs,
 it directly calls the View's specific method to change its visual aspect.
 
 <p align="center">
-    <img src="images/view_aware_model/view_aware_model.png" width="200" />
+    <img src="images/view_aware_model/view_aware_model.png" />
 </p>
 
 This design comes with a hefty price of dependency of the Model 
@@ -31,5 +32,7 @@ Views with different interfaces becomes cumbersome.
 This price can be mitigated by having a generic interface that 
 abstracts individual View's differences: the Model knows this generic 
 interface and invokes its methods. Different Views implement it and 
-handle the call into appropriate action on their widgets. During testing, 
-the generic View interface can be implemented by a mock.
+handle the call into appropriate action on their widgets. Although this
+mechanism may seem to become a notification system, observe that 
+in a View-aware Model approach the View does not retrieve the data
+from the Model in response to the call.

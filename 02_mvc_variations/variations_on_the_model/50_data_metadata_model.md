@@ -2,10 +2,10 @@
 
 ### Motivation
 
-A Data/Metadata Model separates information in two classes:
+A Data/Metadata Model separates information in two categories:
 
-    - *data*: slow, heavyweight information that represents the content
-    - *metadata*: fast, lightweight information that describes the content
+- *data*: slow, heavyweight information that represents the content
+- *metadata*: fast, lightweight information that describes the content
 
 This distinction is often driven by the need for a Model object to 
 present lean access to information needed for browsing, and resource consuming
