@@ -3,6 +3,12 @@ MVC Testing
 
 Detail the challenges of asynchronous component in testing
 
+A major problem resulting from a complex View is the difficulty of testing.
+Visual components tend to be more complex to test, because they require
+simulation of User interaction. Toolkits provide techniques to create events
+programmatically, but their handling depends on the event loop being executed.
+The blocking nature of its execution makes it impractical in a test setting.
+
 Testing a GUI application is generally complex, due to the large number of interactions
 that the user may potentially choose to perform. Manual testing is tedious and error-prone,
 and simulating user events can open problems relative to their intrinsic asynchronous nature,

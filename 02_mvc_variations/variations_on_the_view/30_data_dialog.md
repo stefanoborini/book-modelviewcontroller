@@ -2,18 +2,18 @@
 
 ### Motivation
 
-Data Dialog is a simplified design to retrieve information from the User,
-as in the case of Preference dialogs.
-Constraints for the application of this pattern are the following:
+Data Dialog is a simplified and practical design to retrieve information from the User,
+as in the case of preference dialogs. 
 
- - The dialog must be Modal (i.e. when visible, interaction with the rest of the application is forbidden)
- - The dialog allows only Accept ("Ok" button) and Reject ("Cancel" button) strategies, not Apply.
- - It must not need to synchronize with change of status of the application that may occur while the Data Dialog is visible.
+To apply Data Dialog successfully, the following constraints must be respected for the dialog:
 
-Data Dialog is extremely effective on the client side when the above scenario applies
-Its major flaw is in testability of the Data Dialog itself. Client code invoking the
-Data Dialog is instead simplified in testability, being able to replace Data Dialog
-with a mock honoring the same interface.
+ - It must be Modal (i.e. when visible, interaction with the rest of the application is prevented)
+ - It only allows Accept (``Ok`` button) and Reject (``Cancel`` button) operations, not Apply.
+ - It does not need to synchronize with the application state while visible.
+
+Testability of the Data Dialog itself is potentially complex due to its synchronous nature. 
+Client code however can replace Data Dialog with a mock honoring the same interface,
+resulting in easier testability.
 
 ### Design
 

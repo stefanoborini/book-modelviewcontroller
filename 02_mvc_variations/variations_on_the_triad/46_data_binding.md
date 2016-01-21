@@ -24,6 +24,9 @@ a trivial, off the shelf controller that is invisible to us.
 Possibility to say how to transform the data as they go back and forth.
 Backbone.js stickit onSet/onGet
 
+The triad becomes a 1:1 connection between view and model, with the controller
+being invisible and generic.
+
 ### Practical Examples
 
 Cocoa Bindings, TraitsUI
