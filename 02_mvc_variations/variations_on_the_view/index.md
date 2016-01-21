@@ -1,7 +1,7 @@
 # Variations on the View
 
-   * [Pluggable View](14_mvc_pluggable_view.md): inject data extraction and manipulation logic at View's initialization by the client code.  
-   * [Passive View](17_passive_view.md): have the View's state fully orchestrated by the Controller.
+   * [Pluggable View](pluggable_view.md): Client code injects data extraction logic in the View's at initialization.  
+   * [Passive View](17_passive_view.md): View's state is fully orchestrated by the Controller.
    * [Widget level vs. Container level View](18_widget_level_container_level.md)
    * [Visual Proxy](27_visual_proxy.md). 
    * [Data dialog](30_data_dialog.md): "Fire and forget" dialog to accept information from the user.

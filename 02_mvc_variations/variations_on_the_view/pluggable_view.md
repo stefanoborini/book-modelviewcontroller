@@ -1,3 +1,4 @@
+<!--- Done -->
 # Pluggable View
 
 -----
@@ -12,7 +13,7 @@ For some applications, different Views may have the same implementation for
 the UI part, but different implementation for data extraction from the Model.
 To prevent duplication, three strategies can be considered:
 1. implement the common UI logic in a base View class, and have subclasses 
-  reimplementing the data extraction logic.
+   reimplementing the data extraction logic.
 2. use a Value Model, which puts the extraction logic on a Model adapter object, 
    transforming the Model's complex interface into a trivial getter/setter pair. 
    The resulting View is agnostic of the nature of the Model and the complexity 
@@ -42,11 +43,11 @@ class View:
     # <...>
     def notify(self):
         value = self.extractor(self.model)
-        self.setValue(value)
+        self.set_value(value)
 ```
 
 Variations of this solution allow for multiple functions to extract 
 different parts of the Model, or the possibility to swap the function 
-object after construction. More elaborate extractor functions can return 
-"decorated" information, such as return both the value and the text 
+object after construction. More elaborate extractors can return 
+"UI decorated" information, such as returning both the value and the text 
 color to use.
