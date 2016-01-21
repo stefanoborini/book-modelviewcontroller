@@ -22,26 +22,26 @@ if any.
     <img src="images/event_filter/event_filter.png">
 </p>
 
-From the activity diagram, events are routed into the Filter by the View, through a `handle_event(event)` interface.
-The Event Filter can now recognize a specific event and perform operations on the
-Models it is connected to. These Models may or may not be the same that the View is 
-observing.
-
-If the Event Filter handles the Event, 
-The View is notified of this through either a flag on the Event class or a boolean 
-return value for the `handle_event()` method. The event is not handled further.
-
-If the Event Filter call instead returns False, the View handles the Event as usual.
-The Event Filter may decide to return False even if it actually handles the event, to 
-let the View perform its operation as well. This may be an indication of a technical smell,
-but it might be justified if, for example, the Event Filter performs event logging for debugging purposes.
+The interaction diagram details the following steps:
+1. events are routed into the Filter by the View, through a ``handle_event(event)`` interface
+2. The Event Filter can now recognize a specific event and perform operations on the
+   Models it is connected to. These Models may or may not be the same that the View is 
+   observing.
+3. If the Event Filter handles the Event, The View is notified through either a flag on 
+   the Event class or a boolean return value for the ``handle_event()`` method. In the 
+   case presented above, the latter strategy is used. The ``True`` return value implies
+   that the event should not be handled further by the View.
+4. If ``EventFilter.handle_event()`` returns ``False``, the View handles the event as usual.
+   
+Please observe that the Event Filter might choose to handle the event and still
+return ``False``, allowing the View to operate as usual.
 
 As a consequence of its design and purpose, the Event Filter must be dependent on
 the UI, and must know how to handle the UI Event interface. 
 
 ### Practical Example
 
-The Qt toolkit offers a clear example of an Event Filter. A class `EventFilter` 
+The Qt toolkit offers a clear example of an Event Filter. A class ``EventFilter``
 derived from `QObject` reimplements the method `QObject.eventFilter()`. 
 An instance of `EventFilter` is then installed onto a target object through `installEventFilter()`. 
 
