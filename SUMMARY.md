@@ -42,7 +42,7 @@
        * [Request for Interest](02_mvc_variations/variations_on_the_notification_strategy/60_request_for_interest.md)
    * [Variations on the View](02_mvc_variations/variations_on_the_view/index.md)
        * [Pluggable View](02_mvc_variations/variations_on_the_view/pluggable_view.md)
-       * [Passive View](02_mvc_variations/variations_on_the_view/17_passive_view.md)
+       * [Passive View](02_mvc_variations/variations_on_the_view/passive_view.md)
        * [Widget level vs. Container level View](02_mvc_variations/variations_on_the_view/18_widget_level_container_level.md)
        * [Visual Proxy](02_mvc_variations/variations_on_the_view/27_visual_proxy.md)
        * [Data dialog](02_mvc_variations/variations_on_the_view/30_data_dialog.md)
