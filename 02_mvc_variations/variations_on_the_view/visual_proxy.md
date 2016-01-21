@@ -95,7 +95,7 @@ class Person(object):
         return view
         
     def visual_proxy_attribute(self, attribute, read_only=False):
-        method = getattr(self, "create_{}_view".format(attribute))
+        method = getattr(self, "_create_{}_view".format(attribute))
         return method(read_only)
 
     def _update_name(self, name):
