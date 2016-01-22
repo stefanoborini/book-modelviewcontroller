@@ -3,50 +3,49 @@
 
 ### Motivation
 
-A Value Model is a model class adapting a complex Model into 
-a single value, exposed thought a uniform and trivial interface:
-a getter ``ValueModel.value()``, a setter ``ValueModel.set_value()``, 
-and notification. 
+A Value Model is a Model class adapting a complex Model (from now on, SubModel) 
+into a single value, exposed thought a uniform and trivial interface: a getter
+``ValueModel.value()``, a setter ``ValueModel.set_value()``, and notification. 
 
-Views and Controllers can be extremely simple and off-the-shelf,
-as they only interact with the Value Model's generic and minimalist 
-interface. They can disregard the nature of the adapted Model, 
-leaving to the Value Model the responsibility to take care of the details.
+Views and Controllers using a Value Model can be extremely simple and
+off-the-shelf, as they only interact with the Value Model's interface. They can 
+ignore the nature of the adapted SubModel, leaving to the Value Model the
+responsibility of taking care of the details.
 
 ### Design
 
-The ValueModel class acts as an adapter
+The Value Model class acts as an adapter
 
 <p align="center">
     <img src="images/value_model/value_model.png" width=200 />
 </p>
 
-A trivial implementation of a ValueModel would be:
+A trivial implementation of a Value Model would be:
 
 ```python
 class ValueModel(Model):
-    def __init__(self, model_object):
-        self._model_object = model_object
+    def __init__(self, sub_model):
+        self._sub_model = sub_model
     
     def set_value(self, value):
-        # do potentially complex logic on self._model_object
+        # do potentially complex logic on self._sub_model
         # to appropriately manipulate the passed value
-        # This method triggers a value_changed notification.
+        # This method triggers a self.value_changed notification.
         
     def value(self):
-        # do potentially complex logic on self._model_object
+        # do potentially complex logic on self._sub_model
         # to extract a single value
     
 ```
 
-Many different ValueModel classes can be implemented, each one
+Many different Value Model classes can be implemented, each one
 adapting a different SubModel, or operating over different parts of a SubModel.
-Views and Controllers interact with the ValueModels through the minimalist interface, 
-and are therefore agnostic of the ValueModel used.
+Views and Controllers interact with the Value Models through the minimalist interface, 
+and are therefore agnostic of the Value Model used.
 
 ### Practical Example
 
-One could adapt an ``Customer`` object through two ValueModels: ``NameValueModel`` and ``SurnameValueModel``. 
+One could adapt a ``Customer`` object through two Value Models: ``NameValueModel`` and ``SurnameValueModel``. 
 
 ```python
 class NameValueModel(Model):
@@ -73,6 +72,7 @@ class SurnameValueModel(Model):
 ```
 
 Each of these two ValueModels can use an off-the-shelf 
-``StringWidget`` View, agnostic of the actual nature of the ``Customer`` model and 
-retrieving/modifying data through the ValueModel interface.
+``StringWidget`` View, agnostic of the actual nature of the 
+``Customer`` model and retrieving/modifying data through the 
+Value Model interface.
 
