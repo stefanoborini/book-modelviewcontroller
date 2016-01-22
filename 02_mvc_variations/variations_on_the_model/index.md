@@ -7,7 +7,7 @@
    * [UI Retrieving Model](06_ui_retrieving_model.md): Model retrieving information through visual elements.
    * [Model Controller](09_model_controller.md)
    * [Local Model](12_local_model.md): Preserve the original Model state so that changes can be reverted.
-   * [Value Model](13_value_model.md): Trivialize complex model interface to a simple, universal interface.
+   * [Value Model](value_model.md): Trivialize complex Model interface to a simple, universal interface.
    * [Proxy Model](32_proxy_model.md): Acts as proxy for complex access to resources.
    * [Collection Model](34_collection_model.md): Holds and aggregates objects of the same type.
    * [View-aware Model](38_view_aware_model.md): A model that knows its views interface beyond simple notification delivery.

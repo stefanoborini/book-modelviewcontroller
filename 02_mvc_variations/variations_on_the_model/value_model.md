@@ -1,10 +1,11 @@
+<!--- Done -->
 # Value Model
 
 ### Motivation
 
 A Value Model is a model class adapting a complex Model into 
 a single value, exposed thought a uniform and trivial interface:
-a getter ``ValueModel.value()``, a setter ``ValueModel.setValue()``, 
+a getter ``ValueModel.value()``, a setter ``ValueModel.set_value()``, 
 and notification. 
 
 Views and Controllers can be extremely simple and off-the-shelf,
@@ -27,10 +28,10 @@ class ValueModel(Model):
     def __init__(self, model_object):
         self._model_object = model_object
     
-    def setValue(self, value):
+    def set_value(self, value):
         # do potentially complex logic on self._model_object
         # to appropriately manipulate the passed value
-        # This method triggers a valueChanged notification.
+        # This method triggers a value_changed notification.
         
     def value(self):
         # do potentially complex logic on self._model_object
@@ -40,7 +41,8 @@ class ValueModel(Model):
 
 Many different ValueModel classes can be implemented, each one
 adapting a different SubModel, or operating over different parts of a SubModel.
-Views and Controllers interact with the ValueModels through the minimalist interface, and are therefore agnostic of the ValueModel used.
+Views and Controllers interact with the ValueModels through the minimalist interface, 
+and are therefore agnostic of the ValueModel used.
 
 ### Practical Example
 
@@ -51,9 +53,9 @@ class NameValueModel(Model):
     def __init__(self, customer):
         self._customer = customer
     
-    def setValue(self, value):
+    def set_value(self, value):
         self._customer.name = value
-        self.notifyObservers()
+        self.notify_observers()
         
     def value(self):
         return self._customer.name
@@ -62,14 +64,15 @@ class SurnameValueModel(Model):
     def __init__(self, customer):
         self._customer = customer
     
-    def setValue(self, value):
+    def set_value(self, value):
         self._customer.surname = value
-        self.notifyObservers()
+        self.notify_observers()
         
     def value(self):
         return self._customer.surname
 ```
 
 Each of these two ValueModels can use an off-the-shelf 
-``StringWidget`` View, agnostic of the actual nature of the ``Customer`` model and retrieving/modifying data through the ValueModel interface.
+``StringWidget`` View, agnostic of the actual nature of the ``Customer`` model and 
+retrieving/modifying data through the ValueModel interface.
 
