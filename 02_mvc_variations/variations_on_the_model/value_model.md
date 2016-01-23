@@ -3,14 +3,14 @@
 
 ### Motivation
 
-A Value Model is a Model class adapting a complex Model (from now on, SubModel) 
-into a single value, exposed thought a uniform and trivial interface: a getter
+A Value Model is an Adapter class extracting a single value from an adaptee (SubModel).
+The extracted value is exposed thought a uniform and trivial interface: a getter 
 ``ValueModel.value()``, a setter ``ValueModel.set_value()``, and notification. 
 
 Views and Controllers using a Value Model can be extremely simple and
-off-the-shelf, as they only interact with the Value Model's interface. They can 
-ignore the nature of the adapted SubModel, leaving to the Value Model the
-responsibility of taking care of the details.
+off-the-shelf, provided that they can handle the Value Model interface. 
+They can ignore the nature of the adapted SubModel, leaving to the Value 
+Model the responsibility of taking care of the details.
 
 ### Design
 
