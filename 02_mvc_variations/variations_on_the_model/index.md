@@ -14,6 +14,6 @@
    * [Caching Model](42_caching_model.md): Holds data in local cache to mitigate slow access.
    * [Data/Metadata Model](50_data_metadata_model.md): Separate access to slow and bulky data vs. fast, lean and descriptive.
    * [Recording Model](recording_model.md): Record the changes for later consumption.
-   * [Transactional Setting](52_transactional_setting.md): Setting multiple attributes with late notification
+   * [Transactional Setting](transactional_setting.md): Setting multiple attributes at once with late notification.
 
 

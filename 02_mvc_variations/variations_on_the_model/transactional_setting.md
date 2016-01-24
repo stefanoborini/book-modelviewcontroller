@@ -1,3 +1,4 @@
+<!--- Done -->
 # Transactional Setting
 
 ### Motivation
@@ -18,17 +19,17 @@ representable by the Views. However, setting and notification of the individual
 attributes may still be needed for specific use cases.
 
 The desired goal is to trigger notification only when all set operations have been 
-performed
+performed, as follows:
 
-1. Set A silently
-2. Set B silently
-3. Notify change
+1. Set A attribute without notification
+2. Set B attribute without notification
+3. Views are notified of change
 
 ### Design
 
 Transactional setting is the most trivial strategy to achieve 
 the result outlined in the Motivation, the others being using a 
-Lazy Model or an Accumulator. 
+Lazy Model or an Accumulator, examined later.
 
 Transactional setting implements a setter function accepting both
 attributes. This setter function alters the object state and then
@@ -58,14 +59,14 @@ class Connection(Model):
         self.notify_listeners()
 ```
 
-Without the `set_host_and_port()` method, reconnecting from `http://one.example.com:80` to
-`http://two.example.com:8080` would either trigger a rogue connection to 
-`http://one.example.com:8080` (when `set_port(8080)` is called) or to 
-`http://two.example.com:80/` (when `set_host("two.example.com")` is called).
+Without the ``set_host_and_port()`` method, reconnecting from ``http://one.example.com:80`` 
+to ``http://two.example.com:8080`` would either trigger a rogue connection to 
+``http://one.example.com:8080`` (when ``set_port(8080)`` is called) or to 
+``http://two.example.com:80/`` (when ``set_host("two.example.com")`` is called).
 
-Note how the `set_host_and_port()` method cannot, for obvious reasons, call the 
-independent setters, but must reimplement the setting logic. If this logic is complex,
-it might be good practice to factor it out in a separate "silent setter" method.
+For obvious reasons, the ``set_host_and_port()`` cannot reuse the independent setters, and must
+therefore reimplement the setting logic. If this logic is complex, it might be good practice to 
+factor it out in a separate "silent setter" method.
 
 ### Variation 1: qualified notification
 

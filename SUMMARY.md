@@ -26,7 +26,7 @@
        * [Caching Model](02_mvc_variations/variations_on_the_model/42_caching_model.md)
        * [Data/Metadata Model](02_mvc_variations/variations_on_the_model/50_data_metadata_model.md)
        * [Recording Model](02_mvc_variations/variations_on_the_model/recording_model.md)
-       * [Transactional Setting](02_mvc_variations/variations_on_the_model/52_transactional_setting.md)
+       * [Transactional Setting](02_mvc_variations/variations_on_the_model/transactional_setting.md)
    * [Variations on the Notification Strategy](02_mvc_variations/variations_on_the_notification_strategy/index.md)
        * [Qualified Notification Model](02_mvc_variations/variations_on_the_notification_strategy/05_qualified_notification_model.md)
        * [Qualified Notification Model with Subscribing](02_mvc_variations/variations_on_the_notification_strategy/50_qualified_notification_model_with_subscribing.md)
