@@ -27,7 +27,7 @@ class Customer(Model):
         self._surname = None
         self._address = None
 
-    def set_name(self, name)
+    def set_name(self, name):
         old_name = self._name
         self._name = name
         self._changes["name"].append((old_name, name))
