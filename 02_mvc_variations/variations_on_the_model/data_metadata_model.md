@@ -1,3 +1,4 @@
+<!--- Done -->
 # Data/Metadata Model
 
 ### Motivation
@@ -25,8 +26,8 @@ of retrieval.
 
 ### Practical Example
 
-An image processing program may have a `Movie` Model object
-to represent an image file on the disk. 
+An image processing program may have a ``Movie`` Model object
+to represent an image file on disk
 
 ```python
 class Movie(Model):
@@ -47,10 +48,10 @@ class Movie(Model):
         # <...> 
 ```
 
-Properties such as `thumbnail`, `length` and `name` represent lean 
+Properties such as ``thumbnail``, ``length`` and ``name`` represent lean 
 information useful for a movie browser. This information is extracted 
 from the file at object instantiation and kept in memory.
 
-The `contents()` method, on the other hand, retrieves the movie data 
+The ``contents()`` method, on the other hand, retrieves the movie data 
 directly from the disk and makes it available for additional processing 
 (e.g. decoding and displaying).
