@@ -1,3 +1,4 @@
+<!--- DONE -->
 # Recording Model
 
 ### Motivation
@@ -40,10 +41,9 @@ class Customer(Model):
     def clear_changes():
         for changes in self._changes.values():
             del changes[:]
-            
 ```
 
-The setters record the changes in the `self._changes` dictionary. Performing the following operation
+The setters record the changes in the ``self._changes`` dictionary. Performing the following operation
 
 ```python
 c = Customer()
@@ -51,14 +51,14 @@ c.set_name("Rob")
 c.set_name("Robert")
 ```
 
-will produce a `self._changes["name"]` list containing two elements: the first transition `(None, "Rob")`,
-and the second transition `("Rob", "Robert")`.
+will produce a ``self._changes["name"]`` list containing two elements: the first transition ``(None, "Rob")``,
+and the second transition ``("Rob", "Robert")``.
 
-# Variation: record the sequence of changes.
+### Variation: record the sequence of changes
 
 The solution given above does not record if, for example, the surname was changed before or after the name. 
 An alternative implementation can store this information by e.g. using a list instead of a dictionary
-for `self._changes`.
+for ``self._changes``.
 
 ```python
 class Customer(Model):
@@ -75,7 +75,7 @@ class Customer(Model):
         return self._changes
 ```
 
-# Variation: interest only in the last change.
+### Variation: interest only in the last change
 
 The log length can be limited, potentially to a single change, by simply
 replacing the previous change information with the latest.  This approach also
@@ -83,7 +83,7 @@ removes the liability of forgetting to clear the log.
 
 ```python
 class Customer(Model):
-    def __init__(self):
+    de f __init__(self):
         self._last_change = None
         # <...>
 
@@ -95,8 +95,3 @@ class Customer(Model):
     def last_change(self):
         return self._last_change
 ```
-
-
-
-
-
