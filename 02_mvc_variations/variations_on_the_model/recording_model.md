@@ -66,7 +66,7 @@ class Customer(Model):
         self._changes = []
         # <...>
 
-    def set_name(self, name)
+    def set_name(self, name):
         # <...>
         self._changes.append(("name", old_name, name))
         # <...>
@@ -87,7 +87,7 @@ class Customer(Model):
         self._last_change = None
         # <...>
 
-    def set_name(self, name)
+    def set_name(self, name):
         # <...>
         self._last_change = ("name", old_name, name)
         # <...>
