@@ -1,3 +1,4 @@
+<!--- Done -->
 # Collection Model
 
 ### Motivation
@@ -20,7 +21,7 @@ On the other hand, a Collection Model:
   objective of the Collection is not to hide the intrinsic separation of the
   SubModels, rather to refer to them as a group.
 
-A trivial example of a Collection Model is an `Album` containing `Song` objects.
+A trivial example of a Collection Model is an ``Album`` containing ``Song`` objects.
 
 ### Design
 
@@ -55,5 +56,9 @@ album.on("add",
 album.add([
   {name: "Mozart collection"},
 ]);
+```
 
+### References
+
+- Backbone.js - http://backbonejs.org/
 

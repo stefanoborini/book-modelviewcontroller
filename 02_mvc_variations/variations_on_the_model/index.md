@@ -9,7 +9,7 @@
    * [Local Model](12_local_model.md): Preserve the original Model state so that changes can be reverted.
    * [Value Model](value_model.md): Trivialize complex Model interface to a simple, universal interface.
    * [Proxy Model](proxy_model.md): Acts as proxy, hiding complexity to access resources from a backend.
-   * [Collection Model](34_collection_model.md): Holds and aggregates objects of the same type.
+   * [Collection Model](collection_model.md): Holds and aggregates Model objects of the same type.
    * [View-aware Model](38_view_aware_model.md): A model that knows its views interface beyond simple notification delivery.
    * [Caching Model](42_caching_model.md): Holds data in local cache to mitigate slow access.
    * [Data/Metadata Model](data_metadata_model.md): Separate access to slow and bulky data vs. fast, lean and descriptive.
