@@ -1,3 +1,4 @@
+<!--- Done -->
 # Proxy Model
 
 -----------
@@ -79,7 +80,7 @@ service Calculator {
 }
 ```
 
-which is compiled into python to produce the following code
+which is compiled into python to generate the following code
 
 ```python
 class Client(Iface):
@@ -120,7 +121,8 @@ class Client(Iface):
     iprot.readMessageEnd()
     if result.success is not None:
       return result.success
-    raise TApplicationException(TApplicationException.MISSING_RESULT, "add failed: unknown result")
+    raise TApplicationException(TApplicationException.MISSING_RESULT, 
+                                "add failed: unknown result")
 ```
 
 The above Proxy handles the complexity of the network exchange, providing a simple interface to 

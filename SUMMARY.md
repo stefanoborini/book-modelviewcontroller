@@ -20,7 +20,7 @@
        * [Model Controller](02_mvc_variations/variations_on_the_model/09_model_controller.md)
        * [Local Model](02_mvc_variations/variations_on_the_model/12_local_model.md)
        * [Value Model](02_mvc_variations/variations_on_the_model/value_model.md)
-       * [Proxy Model](02_mvc_variations/variations_on_the_model/32_proxy_model.md)
+       * [Proxy Model](02_mvc_variations/variations_on_the_model/proxy_model.md)
        * [Collection Model](02_mvc_variations/variations_on_the_model/34_collection_model.md)
        * [View-aware Model](02_mvc_variations/variations_on_the_model/38_view_aware_model.md)
        * [Caching Model](02_mvc_variations/variations_on_the_model/42_caching_model.md)
