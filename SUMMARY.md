@@ -16,7 +16,7 @@
        * [Model Pipe](02_mvc_variations/variations_on_the_model/02_model_pipe.md)
        * [Application Model](02_mvc_variations/variations_on_the_model/03_application_model.md)
        * [Side-by-Side application model](02_mvc_variations/variations_on_the_model/04_side_by_side_application_model.md)
-       * [UI Retrieving Model](02_mvc_variations/variations_on_the_model/06_ui_retrieving_model.md)
+       * [UI Retrieving Model](02_mvc_variations/variations_on_the_model/ui_retrieving_model.md)
        * [Model Controller](02_mvc_variations/variations_on_the_model/09_model_controller.md)
        * [Local Model](02_mvc_variations/variations_on_the_model/12_local_model.md)
        * [Value Model](02_mvc_variations/variations_on_the_model/value_model.md)
