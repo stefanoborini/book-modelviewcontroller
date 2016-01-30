@@ -151,7 +151,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{259.039, 391.445}, {55, 14}}</string>
+			<string>{{256.039, 391.445}, {61, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -190,7 +190,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
 
-\f0\fs24 \cf0 getValue()}</string>
+\f0\fs24 \cf0 get_value()}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -350,7 +350,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{418, 372}, {55, 14}}</string>
+			<string>{{415, 372}, {61, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -389,7 +389,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
 
-\f0\fs24 \cf0 getValue()}</string>
+\f0\fs24 \cf0 get_value()}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -649,7 +649,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{242.467, 250}, {87, 14}}</string>
+			<string>{{239.467, 250}, {93, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -688,7 +688,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
 
-\f0\fs24 \cf0 addValue(value)}</string>
+\f0\fs24 \cf0 add_value(value)}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -780,7 +780,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{108, 178.5}, {55, 14}}</string>
+			<string>{{105, 178.5}, {61, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -819,7 +819,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
 
-\f0\fs24 \cf0 getValue()}</string>
+\f0\fs24 \cf0 get_value()}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -1092,7 +1092,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{258.467, 112}, {55, 14}}</string>
+			<string>{{255.467, 112}, {61, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1131,7 +1131,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
 
-\f0\fs24 \cf0 getValue()}</string>
+\f0\fs24 \cf0 get_value()}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -1358,7 +1358,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{418, 100}, {55, 14}}</string>
+			<string>{{415, 100}, {61, 14}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -1397,7 +1397,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc\pardirnatural
 
-\f0\fs24 \cf0 getValue()}</string>
+\f0\fs24 \cf0 get_value()}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -1738,7 +1738,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2015-09-05 19:18:20 +0100</string>
+	<string>2016-01-30 20:50:59 +0000</string>
 	<key>Modifier</key>
 	<string>sbo</string>
 	<key>NotesVisible</key>
