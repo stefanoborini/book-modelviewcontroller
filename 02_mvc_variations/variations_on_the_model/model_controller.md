@@ -50,7 +50,7 @@ while at the same time handling events from the View:
 Trivially, a ModelController class holds state, instead of delegating it
 to a Model object
 
-```
+```python
 class ModelController(Model):
     def __init__(self):
         self._value = 0
@@ -62,7 +62,7 @@ class ModelController(Model):
 
 This pattern can be observed, for example, in Enthought Traits
 
-```
+```python
 from traits.api import *
 from traitsui.api import *
 
