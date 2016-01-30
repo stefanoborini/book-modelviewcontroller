@@ -33,6 +33,10 @@ remote service. When the client code asks for data, the Model issues the
 appropriate request to the service provider. Client code is generally 
 unaware of the exact nature of the backend exposed by the Proxy Model.
 
+<p align="center">
+    <img src="images/proxy_model/proxy_model.png" width="400" />
+</p>
+
 When the Model implements SQL access to a specific database table, the resulting
 Proxy Model is normally called **Table Data Gateway**. An instance of this Model
 represents the backend database Table as a whole, not a specific row, and its 
@@ -42,7 +46,7 @@ methods provide access to CRUD operations.
 
 A simple Django Model provides an example of a Proxy Model.
 
-```
+```python
 from django.db import models
 
 class Person(models.Model):
