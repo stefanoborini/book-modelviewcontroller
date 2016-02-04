@@ -8,22 +8,21 @@ or cost. Typical examples are network services, databases, disk
 access, or when the information is obtained from long-running 
 computations.
 
-Using a cache generally delivers the following advantages
+Using a cache generally delivers the following advantages:
 
-- gives a faster response after the first access, improving 
-  the perceived performance of the application.
+- Gives a faster response after the first access, improving 
+  the perceived performance of the application
 - Neutralizes potential temporary failures of the data source,
-  improving perceived reliability.
-- when accessing a remote resource, prevents repeated requests 
-  of the resource (known as "hammering"). Failure to 
-  implement caching in this case generally leads to a security 
-  response (e.g. throttling, or access ban) from the administrators 
-  of the remote resource.
+  improving perceived reliability
+- When accessing a remote resource, prevents repeated and frequent 
+  requests of the resource. Failure to implement caching in this case 
+  generally leads to a security response from the administrators of the
+  remote resource (e.g. throttling, or denied access).
 
 However, caching comes with a set of liabilities:
 
-- Increases memory footprint of the application to store the cached data.
-- the Model may return outdated information to its client. 
+- Increases memory footprint of the application to store the cached data
+- The Model may return outdated information to its client
 - In multi-user web-applications, cached data may contain critical security
   information, and must therefore not be leaked to unintended recipients.
 
@@ -44,48 +43,40 @@ retrieve the data from a source:
     <img src="images/caching_model/caching_model.png">
 </p>
 
-When parameters are passed during the `get` request, the cache must 
+When parameters are passed during the ``get`` request, the cache must 
 have an index over these parameters to guarantee a retrieval of the
-intended information. For example, if a Model class `UserRepository` 
-has a method `get_user_data(user_id)`, this method must use the
-parameter `user_id` to perform the intended retrieval from the cache.
+intended information. For example, if a Model class ``UserRepository``
+has a method ``get_user_data(user_id)``, this method must use the
+parameter ``user_id`` to perform the intended retrieval from the cache.
 
-To set data on the Model, two strategies are possible:
+To perform a ``set`` operation on the Model, two strategies are possible.
+The first one is to apply the changing action on the slow data source, 
+followed by either a similar update on the cached data, or an invalidation 
+of the cached data. This strategy has the following caveats:
 
-1. always perform the changing action on the slow data source, 
-   followed by either a similar update on the cached data, or an
-   invalidation of the cached data.
-2. just update the cached data, delaying the slow data source update
-   until later.
+- If the ``set`` action is expected to change the data source in 
+  a non-trivial way, it may not be possible to perform a sensible 
+  change to the cached data with the same business logic supported 
+  by the remote source. Instead, one should remove the cached data 
+  to promote a fresh retrieval at the next ``get`` operation. 
+- The operation requires a round trip to the slow data source, with
+  consequences both at the UI level (failures must be reported, in-progress
+  operations need to present a sensible progress bar, perceived performance may
+  suffer) and also at the application design level (if repeated ``set``
+  operations are needed, performing a round trip to the data source every time
+  is wasteful and impacts performance).
 
-Both strategies come with caveats. For the first one, 
-if the `set` action is expected to change the data source in 
-a non-trivial way, it may not be possible to perform a sensible 
-change to the cached data with the same business logic supported 
-by the remote source. Instead, one should remove the cached data 
-to promote a fresh retrieval at the next `get` operation. 
+The second possible strategy is to update the cached data, delaying the slow 
+data source update until later, possibly bundling multiple changes into a single
+request. With this solution, the cache must not evict the changed information 
+until it has been committed to the data source. Further issues may exist for
+resources that are shared among clients, or in case of application crash or
+network failure where the changed content is only partially submitted or not at
+all. 
 
-Another caveat is that the operation always requires a round trip to 
-the slow data source. This has consequences both at the UI level
-(failures must be reported, in-progress operations need to present
-a sensible progress bar, perceived performance may suffer) and also
-at the application design level (if repeated `set` operations 
-are needed, performing a round trip to the data source every time
-is wasteful and impacts performance)
-
-The second strategy may seem to solve some of the problems
-given above: changes are kept local to the application when
-actively changed, and the data source access cost is paid 
-later, possibly as a bundled single change request.
-The cache, however, must not evict the changed information 
-until it has been committed to the data source. Further issues
-may exist for resources that are shared among clients, or in case
-of application crash or network failure where the changed content 
-is only partially submitted or not at all.
-
-Interested listeners of the Model may or may not need to be aware 
-of the existence of a cache. If the listener can behave appropriately 
-by ignoring the existence of the cache Several strategies are possible to handle this 
+Interested listeners of the Model may need to be aware of the existence of a
+cache if they want to guarantee up-to-date data, or need to force flushing of
+changes to the remote service.
 
 ### Caching strategies
 

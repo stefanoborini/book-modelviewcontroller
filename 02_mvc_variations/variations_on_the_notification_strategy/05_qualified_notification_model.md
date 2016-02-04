@@ -3,14 +3,14 @@
 ### Motivation
 
 The most basic form of Model notification just informs the listeners that 
-a change occurred in its state. Views must now retrieve the new state and
-repaint themselves. This approach is simple, but it might be too coarse 
-and wasteful. Consider these scenarios:
+a change occurred in its state. In response, Views retrieve the new Model
+state and repaint themselves accordingly. This approach is simple, but 
+often too coarse and wasteful. Consider these scenarios:
 
 - A specific View is only interested in a subset of the Model. 
   The Model changes, but not in the data relevant to the View.
-  The View is now forced to repaint even if none of the data
-  it displays actually changed.
+  The View is forced to repaint even if none of the data
+  it displays actually changed
 
 - A View has additional state which is destroyed by a full repaint.
   For example, a TreeView representing files in a directory keeps state 
@@ -18,8 +18,8 @@ and wasteful. Consider these scenarios:
   is forced to rescan and repaint, the open/closed state is discarded.
 
 - A View takes a very long time to perform a repaint from the full
-  model's content, but it can run faster if it operates only on the
-  change.
+  model's content, but it can run faster if it can operate by knowing 
+  only the change.
 
 These cases demonstrate how an unqualified notification can be wasteful
 or damage the quality of the user interaction.
@@ -30,29 +30,43 @@ protocol carrying information about what has changed in the Model.
 
 ### Design
 
-Qualified Notification is implemented by passing arguments to ``notify()``. method to deliver
-information about the change the model has.  
+Qualified Notification can be implemented by passing arguments to the Views' 
+``notify()`` method. When the Model changes and calls this method on the
+subscribed Views, it passes information about
 
-notify() gets called with a qualified flag specifying which change has occurred
-, the previous value and the new value
-notify can say, for example, what value is changing, the value before and after.
+- The subject of the change (for example, which Model property has changed)
+- The nature of the change (for example, the previous and new values)
 
-View gets all messages and acts only on those who it is
-interested in. 
+The following example implementation trivially satisfies the above design
 
-Add a note on the fact that if the model pushes information, then this information characteristics falls on the signature of the notifyObserver() methods. So, its signature must be somehow generic. The model pretends to know what the view is specifically interested in, something it might not know, so it must simply send itself, and let the view go through it, or have a protocol to specify what changed.
+```python
+class View():
+    def notify(self, name, old_value, new_value):
+        # ...
+```
 
-A model can also pass a data update object to the listeners, and the view can react
-to that update object, instead of resyncing against the new model state.
-you can send a changeset object through the signal, with a well defined interface
-for the type and change content
+but unfortunately restricts the protocol to a single property change.
+It also cannot support multiple Models notifying the same View, as the View
+would not be able to differentiate which Model is reporting the change.
 
+A more flexible approach is given by the following example:
 
+```python
+class View():
+    def notify(self, change_info):
+        # ...
+```
 
+where ``change_info`` is a dictionary or other data object describing the
+change in enhanced detail. Models are responsible for creating and populating 
+this data object so that is meaningful to the receiving View. As a side effect
+of the design, the View does not need to inquire the Model's state anymore.
+Instead, it keeps its synchronization by means of the change information.
 
-More complex scenarios:
-if the View must monitor multiple models, notify must be passed which model is performing the notification, in addition to the change.
-A View can depend on different Models, but this requires the View to know which Model is delivering the notification.
+The resulting design allows a more refined handling of Model changes. Views 
+can skip a refresh cycle if the Model change does not affect the visual 
+appearance, or apply the change information only to the relevant parts of its
+visual state, resulting in improved UI performance.
 
 
 ### Additional comments
@@ -61,19 +75,6 @@ A View can depend on different Models, but this requires the View to know which 
 Alternatively, fragment the Model into two model objects, so
 that the View can connect only to the part that is relevant.
 
-To prevent excessive refreshes with multiple changes: pass a flag to update(),
-or accumulate changes on the view side and refresh only after a given amount of
-time has passed, or add to a queue the changes, then consume the queue until no
-more changes are needed, then force visual refresh.  
-
-
-
-can't a view fetch information from multiple models, and deliver signals to different controllers having different roles?
-Drawback: you may end up implementing a protocol in the notify() method.
-
-The view does not inquire the model through an interface.
-The model is closed to that. it just produces events with
-a data change object, and synchronizes through that.
 
 Advantages: 
  - the data update object may contain logic on how to present itself on the views, especially if this rendering is trivial (e.g. pure text)
@@ -81,11 +82,6 @@ Advantages:
 
 Disadvantages:
  - transfer stuff that may be useless for that specific view. The view may then subscribe for specific data and receive only those in the data update object
-
-
-If you want to retain control over the notification in order to 
-prevent trashing, you can use a passive model and let the controller do the notification once it has performed the modifying action.
-
 
 
 Notification granularity
@@ -106,4 +102,12 @@ a qualified notification mechanism that gives details of the changeset.
 e.g. old value/new value
 - if at initialization or not
 - if before or after the change
+
+
+Add a note on the fact that if the model pushes information, then this
+information characteristics falls on the signature of the notifyObserver()
+methods. So, its signature must be somehow generic. The model pretends to know
+what the view is specifically interested in, something it might not know, so it
+must simply send itself, and let the view go through it, or have a protocol to
+specify what changed.
 

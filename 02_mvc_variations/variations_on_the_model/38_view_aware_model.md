@@ -11,7 +11,7 @@ but they handle different concerns:
 
 - Visual Proxy deals with View's creation. The Model acts as a 
   factory for the View. 
-- View-aware Model deals with data synchronization. THe Model knows
+- View-aware Model deals with data synchronization. The Model knows
   about the View and acts on it.
 
 A View-aware Model instead can be seen as a combination of a 

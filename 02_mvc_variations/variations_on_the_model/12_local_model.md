@@ -27,7 +27,7 @@ User's operations on the Dialog are applied to the Local Model, and
 these changes must not influence the rest of the application, meaning that listeners must not be copied.
 
 <p align="center">
-    <img src="images/local_model/local_model.png">
+    <img src="images/local_model/local_model.png" />
 </p>
 
 

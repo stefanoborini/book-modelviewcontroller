@@ -11,19 +11,22 @@ the View.
 ### Design
 
 Event Filters can be either objects with a specific interface, or function objects 
-with a signature accepting the event. They can be connected to Model objects, and 
-act directly on their interfaces.
+with a signature accepting the event. Views provide an interface to set and unset 
+them. When the View receives an event, its implementation first routes
+the event toward the Event Filter, which is free to respond acting on Models, 
+Views or Controller objects. These objects may or may not be known by the View.
 
-Views supporting Event Filters provide an interface to set (and unset) them. The View
-must be designed so that the event routing is first attempted toward the Event Filter, 
-if any.
+Once the Event Filter completes its execution, it communicates to the View if
+the event should be processed as usual or not. In the latter case, the View
+acts as if the event never occurred.
+
+The interaction diagram explains the design in more concrete terms
 
 <p align="center">
     <img src="images/event_filter/event_filter.png">
 </p>
 
-The interaction diagram details the following steps:
-1. events are routed into the Filter by the View, through a ``handle_event(event)`` interface
+1. Events are routed into the Filter by the View, through a ``handle_event(event)`` interface
 2. The Event Filter can now recognize a specific event and perform operations on the
    Models it is connected to. These Models may or may not be the same that the View is 
    observing.
@@ -42,8 +45,8 @@ the UI, and must know how to handle the UI Event interface.
 ### Practical Example
 
 The Qt toolkit offers a clear example of an Event Filter. A class ``EventFilter``
-derived from `QObject` reimplements the method `QObject.eventFilter()`. 
-An instance of `EventFilter` is then installed onto a target object through `installEventFilter()`. 
+derived from ``QObject`` reimplements the method ``QObject.eventFilter()``. 
+An instance of ``EventFilter`` is then installed onto a target object through ``installEventFilter()``. 
 
 The following program illustrates the concept
 

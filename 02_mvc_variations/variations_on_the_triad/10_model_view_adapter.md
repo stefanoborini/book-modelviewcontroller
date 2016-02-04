@@ -6,9 +6,9 @@ Model-View-Adapter is a variation of a Traditional MVC triad where
 all communication between Model and View must flow through a Controller. 
 In contrast, Traditional MVC allows direct Model-to-View communication. 
 
-With an MVA design, orchestration is heavily centralized: the Controller 
-becomes a communication hub, taking signals from either the Model objects 
-(change notifications) or the View (user events) and acting accordingly.
+With a MVA design, orchestration is heavily centralized: the Controller 
+becomes a communication hub, accepting change notifications from Model objects 
+and UI events from the View.
 
 The resulting approach might appear excessively strict, but has some
 advantages: the communication network is artificially constrained, making it
