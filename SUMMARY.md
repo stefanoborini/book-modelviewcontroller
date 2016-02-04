@@ -31,7 +31,7 @@
        * [Qualified Notification Model](02_mvc_variations/variations_on_the_notification_strategy/05_qualified_notification_model.md)
        * [Qualified Notification Model with Subscribing](02_mvc_variations/variations_on_the_notification_strategy/50_qualified_notification_model_with_subscribing.md)
        * [Passive Model](02_mvc_variations/variations_on_the_notification_strategy/07_passive_model.md)
-       * [Lazy Model](02_mvc_variations/variations_on_the_notification_strategy/08_lazy_model.md)
+       * [Lazy Model](02_mvc_variations/variations_on_the_notification_strategy/lazy_model.md)
        * [Accumulator](02_mvc_variations/variations_on_the_notification_strategy/35_accumulator.md)
        * [Delayed Model](02_mvc_variations/variations_on_the_notification_strategy/40_delayed_model.md)
        * [Throttling](02_mvc_variations/variations_on_the_notification_strategy/41_throttling.md)

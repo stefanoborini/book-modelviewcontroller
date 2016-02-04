@@ -3,7 +3,7 @@
    * [Qualified Notification Model](02_mvc_variations/05_qualified_notification_model.md): Deliver notification with enhanced semantics.
    * [Qualified Notification Model with Subscribing](02_mvc_variations/50_qualified_notification_model_with_subscribing.md): View subscribes to specific events and gets notified only when they occur.
    * [Passive Model](02_mvc_variations/07_passive_model.md): A Model without notification features.
-   * [Lazy Model](02_mvc_variations/08_lazy_model.md): A Model delivering its notifications only on request.
+   * [Lazy Model](02_mvc_variations/lazy_model.md): A Model delivering its notifications on explicit request.
    * [Accumulator](02_mvc_variations/35_accumulator.md): Listens to submodels and squashes multiple notifications into a single one.
    * [Delayed Model](02_mvc_variations/40_delayed_model.md): Neutralizes fast notifications through a timeout.
    * [Throttling](02_mvc_variations/41_throttling.md): Neutralizes fast notifications, but issue a change immediately.
