@@ -47,5 +47,76 @@ the latter is impractical.
 
 ### Practical Example
 
-Qt supports a specific exec() method on the dialog class to make this kind
-of interaction extremely convenient.
+The following example with Qt will show the main concept outlining Data Dialog.
+Both idiomatic python and Qt have been ignored to favor clarity, as usual.
+
+The ``DataDialog`` class implements a Dialog with textual fields, an Ok and Cancel buttons.
+
+```python
+class DataDialog(QDialog):
+    def __init__(self, parent=None, flags=0):
+        super(DataDialog, self).__init__(parent, flags)
+        self._line_edits = {}
+        self._data_fields = ["name", "surname", "age"]
+
+        layout = QGridLayout()
+        for row, field in enumerate(self._data_fields):
+            layout.addWidget(QLabel(field), row, 0)
+
+            line_edit = QLineEdit()
+            layout.addWidget(line_edit, row, 1)
+
+            self._line_edits[field] = line_edit
+
+        ok = QPushButton("Ok")
+        cancel = QPushButton("Cancel")
+        self.connect(ok, SIGNAL("clicked()"), self.accept)
+        self.connect(cancel, SIGNAL("clicked()"), self.reject)
+        layout.addWidget(cancel, len(self._data_fields), 0)
+        layout.addWidget(ok, len(self._data_fields), 1)
+
+        self.setLayout(layout)
+```
+
+The core of the design resides in the ``set_content/get_content`` pair:
+``set_content`` accepts a dictionary with appropriate data for the dialog
+fields, and fills the widgets with its contents. ``get_content`` retrieves
+the data from the widgets and returns them as a dictionary to the client code.
+
+```python
+class DataDialog(QDialog):
+    # <...>
+    def set_content(self, data):
+        for field in self._data_fields:
+            line_edit = self._line_edits[field]
+            if field in data:
+                line_edit.setText(data[field])
+
+    def get_content(self):
+        data = {}
+        for field in self._data_fields:
+            line_edit = self._line_edits[field]
+            data[field] = line_edit.text()
+
+        return data
+```
+
+The client code interacts with the dialog by setting and retrieving the
+data through these two methods:
+
+```python
+data = {"name": "Albert",
+        "surname": "Einstein",
+        }
+
+data_dialog = DataDialog()
+data_dialog.set_content(data)
+
+if data_dialog.exec_() == QDialog.Accepted:
+    print("Dialog Accepted. Content:")
+    print(data_dialog.get_content())
+else:
+    print("Dialog Canceled.")
+```
+
+
