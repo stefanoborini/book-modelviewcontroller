@@ -51,8 +51,8 @@ parameter ``user_id`` to perform the intended retrieval from the cache.
 
 To perform a ``set`` operation on the Model, two strategies are possible.
 The first one is to apply the changing action on the slow data source, 
-followed by either a similar update on the cached data, or an invalidation 
-of the cached data. This strategy has the following caveats:
+followed by either a similar update or an invalidation of the cached data.
+This strategy has the following caveats:
 
 - If the ``set`` action is expected to change the data source in 
   a non-trivial way, it may not be possible to perform a sensible 
@@ -66,17 +66,17 @@ of the cached data. This strategy has the following caveats:
   operations are needed, performing a round trip to the data source every time
   is wasteful and impacts performance).
 
-The second possible strategy is to update the cached data, delaying the slow 
-data source update until later, possibly bundling multiple changes into a single
+The second possible strategy is to update the cached data and postpone the 
+data source update, possibly bundling multiple changes into a single
 request. With this solution, the cache must not evict the changed information 
 until it has been committed to the data source. Further issues may exist for
 resources that are shared among clients, or in case of application crash or
 network failure where the changed content is only partially submitted or not at
 all. 
 
-Interested listeners of the Model may need to be aware of the existence of a
-cache if they want to guarantee up-to-date data, or need to force flushing of
-changes to the remote service.
+Clients of the Model may need to be aware of the existence of a cache if they
+want to guarantee up-to-date data, or need to force flushing of changes to the
+remote service.
 
 ### Caching strategies
 
@@ -90,17 +90,17 @@ is to simply perform memoization of the result. A Model using memoization
 effectively uses a cache whose entries never expire. The cache size can be
 kept under control by discarding the Least Recently Used (LRU) data.
 This approach constraints the size of the cache and keeps the most recently 
-used data in the cache, but does not provide a predictable expiration strategy.
+used data, but does not provide a predictable expiration strategy.
 
 Predictable expiration may be a requirement for some applications. For example,
 a News Ticker application retrieving information from a website may want to
 invalidate the cached data and perform a new retrieval, hopefully to obtain
 updated information, after a fixed absolute timeout (e.g. 15 minutes).
-Other applications may prefer cached data to expire only if not accessed 
-within a given amount of time (e.g. 5 minutes, but the countdown resets 
-to zero if requested again), or when an explicit method call is issued 
-on the Model object. Smarter strategies may use a small payload request
-to ask the remote service if new or changed data are available, and act
+Other applications may prefer a sliding expiration strategy: cached data expire
+only if not accessed within a given amount of time (e.g. 5 minutes, but the
+countdown resets to zero if requested again), or when an explicit method call
+is issued on the Model object. Smarter strategies may use a small payload
+request to ask the remote service if new or changed data are available, and act
 accordingly by either retrieving the new data or return the cached information.
 
 Additional optimization may come from preemptive caching of model data
@@ -108,4 +108,8 @@ that is likely to be accessed soon. For example, while retrieving information
 about a given user from a social networking website, a smart caching engine 
 may decide to retrieve its most recent pictures and populate the cache of the
 picture Model objects.
+
+Priority caching may remove data that are of low priority before high priority
+if the available cache space is running low.
+
 

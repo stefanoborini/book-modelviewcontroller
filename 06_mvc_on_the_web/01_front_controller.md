@@ -1,10 +1,11 @@
 Front controller
 ----------------
 
-The front controller is the first point of entry for the request. It handles the overall
-dispatch to the relevant controller, and deals with common needs such as authentication,
-session management, security, redirection. It contains logic that all requests
-must consider, reducing code duplication. It also adds data to the execution context.
+The front controller (sometimes called Application) is the first point of entry
+for the request. It handles the overall dispatch to the relevant controller,
+and deals with common needs such as authentication, session management,
+security, redirection. It contains logic that all requests must consider,
+reducing code duplication. It also adds data to the execution context.
 
 Dispatch to the front controller is performed directly from the webserver.
 
