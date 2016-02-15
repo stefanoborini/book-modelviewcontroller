@@ -1,3 +1,4 @@
+<!-- Done -->
 # Data Dialog
 
 ### Motivation
@@ -21,7 +22,7 @@ a trivial representation.
 
 Data Dialog object is instantiated, and its widgets are populated through an 
 appropriate method call ``set_content``. Data is passed in a trivial representation 
-(e.g. a properly keyed dictionary) as an argument of this method.
+(*e.g.* a properly keyed dictionary) as an argument of this method.
 
 <p align="center">
     <img src="images/data_dialog/data_dialog.png" width="400"/>

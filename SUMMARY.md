@@ -45,7 +45,7 @@
        * [Passive View](02_mvc_variations/variations_on_the_view/passive_view.md)
        * [Widget level vs. Container level View](02_mvc_variations/variations_on_the_view/18_widget_level_container_level.md)
        * [Visual Proxy](02_mvc_variations/variations_on_the_view/visual_proxy.md)
-       * [Data dialog](02_mvc_variations/variations_on_the_view/30_data_dialog.md)
+       * [Data Dialog](02_mvc_variations/variations_on_the_view/data_dialog.md)
        * [Visibility allowed notifications](02_mvc_variations/variations_on_the_view/41_visibility_allowed_notifications.md)
        * [Synchronization View state](02_mvc_variations/variations_on_the_view/46_synchronization_view_state.md)
    * [Variations on the Controller](02_mvc_variations/variations_on_the_controller/index.md)
