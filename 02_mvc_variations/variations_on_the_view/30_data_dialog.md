@@ -3,47 +3,43 @@
 ### Motivation
 
 Data Dialog is a simplified and practical design to retrieve information from the User
-by means of a Dialog. It is generally used for Preference dialogs.
+by means of a Dialog. It is generally used to retrieve Preference information.
 
 To use a Data Dialog, the following constraints must be respected:
 
  - It must be Modal (i.e. when visible, interaction with the rest of the application is prevented)
- - It only allows Accept (``Ok`` button) and Reject (``Cancel`` button) operations, not Apply.
+ - It only allows Accept (``Ok`` button) and Reject (``Cancel`` button) operations, not Apply
  - It does not need to synchronize with the application state while visible.
 
 Testability of the Data Dialog itself is potentially complex due to its synchronous nature.
 Client code however can replace Data Dialog with a mock honoring the same interface,
 resulting in easier testability of this part of the application.
 
-This design is different from the Local Model.
-A local model is a real Model that is connected to the View through notification,
-but has simply been copied to preserve its older state in case the changes are
-reverted. Data dialog, on the other hand, is simply a View with an API to
-accept data to populate its widgets, or retrieve their content in a trivial
-representation.
+Data Dialog is different from Local Model. A Local Model is a real Model that is 
+connected to the View through notification, but has simply been copied to preserve 
+its initial state if changes are reverted. Data dialog, on the other hand, is simply 
+a View with an API to accept data to populate its widgets, or retrieve their content 
+in a trivial representation.
 
 ### Design
 
-Data dialog's widgets are populated through an appropriate method call, passing
-data with a trivial representation.
-The Data Dialog ``show`` operation must be blocking on the invoking code.
-Once invoked, Data Dialog extracts the information from the passed Model and
-populates its widgets accordingly.
+Data Dialog object is instantiated, and its widgets are populated through an 
+appropriate method call ``set_content``. Data is passed in a trivial representation 
+(e.g. a properly keyed dictionary) as an argument of this method.
 
-Next, a DataDialog object is instantiated, and the gathered data
-is passed at initialization; Widgets in the DataDialog are populated
-accordingly with the passed data, and the dialog is then shown modally to the
-User.
+<p align="center">
+    <img src="images/data_dialog/data_dialog.png" />
+</p>
 
-With the dialog now visible, the User can modify the presented values, with
-validation performed on the Dialog class. Eventually, the User will issue
-either an "Ok" or "Cancel". With an "Ok", the new data is gathered from the
-Dialog, processed by the backend and applied to match the changed options.
-With "Cancel", the gathered information is simply discarded.
+The dialog is then shown to the User. As explained in the Motivation, the ``show`` 
+operation must block and produce a modal dialog. The User can interact with it
+and modify the presented values. Basic validation can be performed and reported. 
 
-Alternative designs can return the changed information only, or
-let the client code extract the information from the dialog's widgets, although
-the latter is impractical.
+Eventually, the User will issue either an "Ok" or "Cancel". With an "Ok", the new 
+data is gathered from the Dialog through a ``get_content`` method returning the
+same trivial representation. The client code will then process this 
+information appropriately. If the User issues a "Cancel", the gathered information 
+is simply discarded.
 
 ### Practical Example
 
