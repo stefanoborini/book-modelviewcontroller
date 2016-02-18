@@ -40,6 +40,7 @@
        * [Notification looping prevention](02_mvc_variations/variations_on_the_notification_strategy/28_notification_looping_prevention.md)
        * [Signals](02_mvc_variations/variations_on_the_notification_strategy/49_signal.md)
        * [Request for Interest](02_mvc_variations/variations_on_the_notification_strategy/60_request_for_interest.md)
+       * [Multiple Notification Entry Points](02_mvc_variations/variations_on_the_notification_strategy/multiple_notification_entry_points.md): Notifications can be delivered to arbitrary methods.
    * [Variations on the View](02_mvc_variations/variations_on_the_view/index.md)
        * [Pluggable View](02_mvc_variations/variations_on_the_view/pluggable_view.md)
        * [Passive View](02_mvc_variations/variations_on_the_view/passive_view.md)

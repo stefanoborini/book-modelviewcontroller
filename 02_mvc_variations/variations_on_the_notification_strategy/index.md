@@ -12,3 +12,4 @@
    * [Notification looping prevention](02_mvc_variations/28_notification_looping_prevention.md): Prevent recursive notification events to propagate.
    * [Signals](02_mvc_variations/49_signals.md): Isolate notification into a separate object.
    * [Request for Interest](02_mvc_variations/60_request_for_interest.md): The Model notifies the listeners only if they must actually react to the change.
+   * [Multiple Notification Entry Points](02_mvc_variations/multiple_notification_entry_points.md): Notifications can be delivered to arbitrary methods.
