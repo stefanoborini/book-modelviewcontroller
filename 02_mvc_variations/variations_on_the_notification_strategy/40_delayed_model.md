@@ -1,4 +1,4 @@
-# Delayed model
+# Delayed Model
 
 ### Motivation
 

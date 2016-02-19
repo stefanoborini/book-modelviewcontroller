@@ -47,6 +47,21 @@ Despite the disadvantage, the Passive Model has the following important advantag
   Active Model strategy due to the intrinsic separation of Models from 
   rendered Views.
 
+### Code Example: Django MVC
+
+The web framework Django is our choice to present a simple case of Passive Model.
+A Model in Django is specified as a python class with appropriate descriptors
+
+```python
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+```
+
+This model is unable to deliver notifications. Everything is orchestrated by the controller
+
+
+
 ### References
 
 - [MSDN documentation: Model-View-Controller](https://msdn.microsoft.com/en-us/library/ff649643.aspx)
