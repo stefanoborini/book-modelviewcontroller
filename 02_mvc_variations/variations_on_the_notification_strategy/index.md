@@ -1,6 +1,6 @@
 # Variations on the notification strategy
 
-   * [Qualified Notification Model](05_qualified_notification_model.md): Deliver notification with enhanced semantics.
+   * [Qualified Notification](qualified_notification.md): Deliver notification with enhanced semantics to inform listeners about what has changed.
    * [Qualified Notification Model with Subscribing](50_qualified_notification_model_with_subscribing.md): View subscribes to specific events and gets notified only when they occur.
    * [Passive Model](07_passive_model.md): A Model without notification features.
    * [Lazy Model](lazy_model.md): A Model delivering its notifications on explicit request.

@@ -1,3 +1,4 @@
+<!--- Done -->
 # Qualified Notification
 
 ### Motivation
@@ -61,8 +62,6 @@ change in enhanced detail. Models are responsible for creating and populating
 this data object so that is meaningful to the receiving View. As a side effect
 of the design, the View does not need to inquire the Model's state anymore.
 Instead, it keeps its synchronization by means of the change information.
-
-### Additional comments
 
 Most modern MVC frameworks provide qualified notifications in one form or another (e.g.
 bound properties or signals). An unqualified reporting is uncommon but not completely 
