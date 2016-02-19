@@ -14,3 +14,4 @@ with the real world.
 * [Publisher Subscriber](publisher_subscriber.md)
 * [Model Distribution](model_distribution.md)
 * [Multithreading](multithreading.md)
+* [Notification looping prevention](28_notification_looping_prevention.md): Prevent recursive notification events to propagate.

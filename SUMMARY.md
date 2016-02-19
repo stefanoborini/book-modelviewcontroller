@@ -37,7 +37,6 @@
        * [Throttling](02_mvc_variations/variations_on_the_notification_strategy/41_throttling.md)
        * [Pre/Post notification](02_mvc_variations/variations_on_the_notification_strategy/47_pre_post_notification.md)
        * [Vetoers](02_mvc_variations/variations_on_the_notification_strategy/48_vetoers.md)
-       * [Notification looping prevention](02_mvc_variations/variations_on_the_notification_strategy/28_notification_looping_prevention.md)
        * [Signals](02_mvc_variations/variations_on_the_notification_strategy/49_signal.md)
        * [Request for Interest](02_mvc_variations/variations_on_the_notification_strategy/60_request_for_interest.md)
        * [Multiple Notification Entry Points](02_mvc_variations/variations_on_the_notification_strategy/multiple_notification_entry_points.md): Notifications can be delivered to arbitrary methods.
@@ -89,7 +88,8 @@
     * [Lapsed listener problem](04_advanced_mvc/lapsed_listener_problem.md)
     * [Publisher Subscriber](04_advanced_mvc/publisher_subscriber.md)
     * [Model Distribution](04_advanced_mvc/model_distribution.md)
-    * [Multithreading](multithreading.md)
+    * [Multithreading](04_advanced_mvc/multithreading.md)
+    * [Notification looping prevention](04_advanced_mvc/28_notification_looping_prevention.md)
 * [MVC Implementations](05_mvc_implementations/index.md)
 * [MVC on the Web](06_mvc_on_the_web/index.md)
    * [Front Controller](06_mvc_on_the_web/01_front_controller.md)
