@@ -1,23 +1,40 @@
-Reenskaug MVC
--------------
+# Reenskaug MVC
+
+### Motivation
 
 Trygve Reenskaug formulated MVC first in 1979. His original approach is
-different from modern forms of MVC. According to Reenskaug [1] [2], MVC has the
-following characteristics: The Model represents knowledge about our data. No
-difference here from traditional MVC The View visually represents the Model,
-selecting what is relevant and what is not from the Model. The View knows the
-Model and gets the information from the Model by invoking its methods. It is
-also responsible for modifying the Model, again by invoking Model methods. The
-View therefore “speaks the language” of the Model.  The Controller has both
-layouting and event handling duties: it links the User to the system by
-arranging and presenting the View on the screen and translating low-level user
-events (e.g. mouse clicks) into high-level operations onto the View.  The
-Editor is an extension to a Controller brought into existence on demand, and
-used to modify data in response to User action. The controller asks the View
-for an Editor, which is returned and presented to the User. The Editor accepts
-the User events, and deliver them (after translation) to the View to applying
-the changes to the Model.  As you can note, there are a few important
-differences from traditional MVC. The first is in the roles of the Controller
+different from modern forms of MVC, and for all purposes obsolete. It is
+presented here for historical context and to communicate the overall concepts
+of the original formulation of MVC.
+
+### Design
+
+Like in Traditional MVC, Reenskaug MVC has:
+- A Model representing knowledge about our data. 
+- The View visually represents the Model, obtaining information by invoking 
+  its methods. 
+- The Controller has UI event handling duties, but for different reasons.
+
+Differently from Traditional MVC, in Reenskaug MVC:
+
+- The View is responsible for modifying the Model through its methods. 
+- The Controller is responsible for UI layouting. It also performs
+  event handling duties: it links the
+  User to the system by arranging and presenting the View on the screen and
+translating low-level user events (e.g. mouse clicks) into high-level
+operations onto the View.  
+
+- An additional entity exist: the Editor.  an extension to a Controller brought
+into existence on demand, and used to modify data in response to User action.
+The controller asks the View for an Editor, which is returned and presented to
+the User. The Editor accepts the User events, and deliver them (after
+translation) to the View to applying the changes to the Model.  
+
+
+As you can observe, there are crucial important differences from traditional MVC,
+dictated by the technical environment of the time.
+
+The first is in the roles of the Controller
 and the View: in Reenskaug MVC, the View is in charge of modifying the Model
 under instruction of the Controller and Editor, while in traditional MVC the
 View knows the Model but only in “read only”: all operations that modify the
