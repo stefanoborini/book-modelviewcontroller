@@ -30,7 +30,7 @@ The Model supports an `addObserver` method, whose signature allows to specify
 the property the listener is interested in, and the type of change. For example, a 
 listener registers for changes on the Model property `my_property` with the following call 
 
-```Objective-C
+```objective-c
 [model addObserver:destination
        forKeyPath:@"my_property"
        options:NSKeyValueChangeNewKey
