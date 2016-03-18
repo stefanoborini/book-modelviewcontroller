@@ -1,5 +1,4 @@
-Presentation Model
-------------------
+# Presentation Model
 
 A model, non visual representation of the view. It incorporates logic and state of the
 View. The View observes the Presentation Model and updates accordingly when events are

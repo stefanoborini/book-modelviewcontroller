@@ -1,7 +1,4 @@
-Dolphin Model-View-Presenter
-----------------------------
-
-**Additional Need: Rationalize Application model into a more active role**
+# Dolphin Model-View-Presenter
 
 <p align="center">
     <img src="images/ModelViewPresenter/mvc_vs_mvp.png" />

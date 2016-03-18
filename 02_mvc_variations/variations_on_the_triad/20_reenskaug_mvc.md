@@ -4,52 +4,55 @@
 
 Trygve Reenskaug formulated MVC first in 1979. His original approach is
 different from modern forms of MVC, and for all purposes obsolete. It is
-presented here for historical context and to communicate the overall concepts
-of the original formulation of MVC.
+presented here to explain the historical formulation of MVC and its
+motivations.
+
 
 ### Design
 
-Like in Traditional MVC, Reenskaug MVC has:
+The best way to present Reenskaug MVC is to compare it against a 
+Traditional MVC design. Like in Traditional MVC, Reenskaug MVC has:
+
 - A Model representing knowledge about our data. 
 - The View visually represents the Model, obtaining information by invoking 
   its methods. 
 - The Controller has UI event handling duties, but for different reasons.
 
-Differently from Traditional MVC, in Reenskaug MVC:
+Crucial differences exist in the Controller, the View, and in a specialized 
+object absent from Traditional MVC, the Editor:
 
-- The View is responsible for modifying the Model through its methods. 
-- The Controller is responsible for UI layouting. It also performs
-  event handling duties: it links the
-  User to the system by arranging and presenting the View on the screen and
-translating low-level user events (e.g. mouse clicks) into high-level
-operations onto the View.  
+- Reenskaug Controller handles UI visual layouting and UI primary events,
+  converting these events into operations on the View. In Traditional MVC, 
+  this is done by the View.
+- Reenskaug View directly modifies the Model through Model methods calls.
+  It does so with the assistance of an Editor. In Traditional MVC, this 
+  is done by the Controller.
 
-- An additional entity exist: the Editor.  an extension to a Controller brought
-into existence on demand, and used to modify data in response to User action.
-The controller asks the View for an Editor, which is returned and presented to
-the User. The Editor accepts the User events, and deliver them (after
-translation) to the View to applying the changes to the Model.  
+This design is a consequence of the technical environment of the time: Views' widgets
+were simple renderings on the screen, with no functionality to receive and
+process events from input devices. This task was assigned to Controllers.
+At any given time, only one Controller was considered active
+and would receive UI events from the event loop. Controllers were
+organized in a hierarchy and had to negotiate the active status among
+themselves in response to UI events and the expectations of the User/UI 
+interaction. If a Controller found itself not authoritative to handle
+a specific event, it would delegate to the Controller above in the hierarchy.
 
+With the Controller performing layout/event handling duties, the
+responsibility for Model modification was handled through an additional
+player, the Editor, with cross-functional demands and dependencies.
 
-As you can observe, there are crucial important differences from traditional MVC,
-dictated by the technical environment of the time.
+An Editor is brought into existence on demand: the Controller asks the 
+View for an Editor, which is presented to the User. UI events from the 
+Controller are routed to the Editor, which converts these events in 
+method invocations onto the View's API. Finally, the View modifies 
+the Model.
 
-The first is in the roles of the Controller
-and the View: in Reenskaug MVC, the View is in charge of modifying the Model
-under instruction of the Controller and Editor, while in traditional MVC the
-View knows the Model but only in “read only”: all operations that modify the
-Model are issued by the Controller.  One advantage of Reenskaug's MVC is that
-User action can be emulated by replacing the standard Controller with a mock
-Controller performing stress-test operations, something extremely useful for
-testing. 
-A second difference is in the Controller: Reenskaug's Controller performs
-operations such as layouting the Views on the screen, converting primary events
-into operations on the View. The View is not supposed to know about primary
-events. In other words, most of the task initially assigned to a Reenskaug's
-Controller are now taken care of by an underlying GUI framework. This
-difference is a child of its time: widgets were just a form of pure visual
-rendering, with no functionality to receive and process events from input
-devices.  The third difference is the presence of the Editor as a
+### Reenskaug Controller 
+
+With the introduction of smarter Views able to handle events,
+
+ The third difference is the presence of the Editor as a
 “View-extension helper” that the Controller uses in order to perform its task.
 The reason for this design is that the Controller must have a View-contextual
 entity to present to the User. For example, a GUI Label might require a
@@ -57,13 +60,12 @@ TextEdit field as an Editor, if the text is “free form”, but a ComboBox if t
 label can only contain discrete values. Only the View part can know its
 appropriate Editor.
 
-Only one model per view.
 
-View initializes its controller
 
-only one controller is active at a time, because only one controller is technically
-able to receive the input from the user. It is assumed that there is a coordination
-of the controllers, typically in a hierarchy, so that if the current one is not authoritative
-to handle a specific event, it delegates it to the upper controller.
+into operations on the View. The View is not supposed to know about primary
+events. 
 
-Similar to a unix architecture, with stdin (controller) and stdout (view)
+Since then, widgets gained ability to handle events
+In other words, most of the task initially assigned to a Reenskaug's
+Controller are now taken care of by an underlying GUI framework. 
+

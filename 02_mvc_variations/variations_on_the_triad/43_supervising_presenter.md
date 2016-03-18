@@ -1,5 +1,4 @@
-Supervising presenter
----------------------
+# Supervising presenter
 
 Supervising presenter is a simple partition of the Smart UI into logic and state classes.
 All state stays in the View, and all logic stays in the Supervising Presenter. 

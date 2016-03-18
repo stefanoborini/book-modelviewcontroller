@@ -1,13 +1,13 @@
-Model-GUI-Mediator
-------------------
+# Model-GUI-Mediator
 
-**Addressed Need:**
+One problem with Model-View-Adapter is that it assumes Views are derived
+classes, each implementing specific behavior. 
 
-One problem with Model-View-Adapter is that it assumes the Views are derived
-classes, each implementing specific behavior. In the previous example, each
+In the previous example, each
 View performed a specific transformation to the data before displaying: the
-Dial left it as is, while the Slider divided it by 1000. In the
-Model-GUI-Mediator, the desire is not to reimplement the toolkit's widgets,
+Dial left it as is, while the Slider divided it by 1000. 
+
+In the Model-GUI-Mediator, the desire is not to subclass the toolkit's widgets,
 because it generally leads to proliferation of View classes. Instead, widgets
 are used as they are, off-the-shelf from the toolkit. The obvious consequence
 is that logic that is pertinent to the conversion of data for visualization

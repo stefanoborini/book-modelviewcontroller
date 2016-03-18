@@ -1,7 +1,4 @@
-View-Controller-View
---------------------
-
-**Addressed Need:**
+# View-Controller-View
 
 A View-Controller-View is basically a Model-Controller-View where one of the
 Views is playing the part of the Model for a specific interaction. This occurs

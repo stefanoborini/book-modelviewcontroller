@@ -1,6 +1,5 @@
 # Taligent/IBM Model-View-Presenter (MVP)
 
-**Addressed Need: Formalize the strategies given above for modern applications.**
 
 Until now, we saw several strategies to address modern requirements such as
 undo/redo, selection, and View-related state. Taligent, a subsidiary company of

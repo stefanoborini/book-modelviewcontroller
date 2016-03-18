@@ -1,8 +1,6 @@
 Model-View-ViewModel (Model-View-Binder)
 ----------------------------------------
 
-**Addressed Need:**
-
 The MVVM is a specialization of the Presentation Model. It is rather popular in
 the Windows world, particularly WPF and Silverlight.
 

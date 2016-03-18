@@ -1,7 +1,5 @@
 # Commands
 
-**Addressed Need: Undo/Redo and alternative notification strategy.**
-
 Graphical interfaces generally provide Undo/Redo capabilities. This is
 generally and easily implemented with the Command pattern. The controller,
 instead of directly performing an operation on the Model, will instantiate a
@@ -55,4 +53,6 @@ The command can also acts as a notification agent (e.g. syncs the view) instead 
 and can also act as a change object.
 
 
+
+FIXME Command is a general design pattern, we will present it here in the context of a MVC need.
 

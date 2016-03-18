@@ -1,3 +1,2 @@
-Application Controller
-----------------------
+# Application Controller
 

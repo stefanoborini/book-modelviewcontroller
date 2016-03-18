@@ -4,9 +4,9 @@
    * [Application Controller](16_application_controller.md)
    * [Push vs. Pull](19_push_vs_pull.md)
    * [Reenskaug MVC](20_reenskaug_mvc.md)
-   * [Dolphin MVP](21_dolphin_mvp.md)
+   * [Dolphin MVP](21_dolphin_mvp.md): Rationalize Application model into a more active role.
    * [Presenter First](22_presenter_first.md)
-   * [Taligent MVP](23_taligent_mvp.md)
+   * [Taligent MVP](23_taligent_mvp.md): Defines a broad set of protagonists to define the most common needs of a generic application.
    * [Presenter Adapter View](24_presenter_adapter_view.md)
    * [Model View Viewmodel](25_model_view_viewmodel.md)
    * [View Controller View](26_view_controller_view.md)
