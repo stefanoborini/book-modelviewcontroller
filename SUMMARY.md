@@ -29,7 +29,7 @@
        * [Transactional Setting](02_mvc_variations/variations_on_the_model/transactional_setting.md)
    * [Variations on the Notification Strategy](02_mvc_variations/variations_on_the_notification_strategy/index.md)
        * [Qualified Notification](02_mvc_variations/variations_on_the_notification_strategy/qualified_notification.md)
-       * [Qualified Notification Model with Subscribing](02_mvc_variations/variations_on_the_notification_strategy/50_qualified_notification_model_with_subscribing.md)
+       * [Qualified Notification Model with Subscribing](02_mvc_variations/variations_on_the_notification_strategy/qualified_notification_model_with_subscribing.md)
        * [Passive Model](02_mvc_variations/variations_on_the_notification_strategy/07_passive_model.md)
        * [Lazy Model](02_mvc_variations/variations_on_the_notification_strategy/lazy_model.md)
        * [Accumulator](02_mvc_variations/variations_on_the_notification_strategy/35_accumulator.md)
