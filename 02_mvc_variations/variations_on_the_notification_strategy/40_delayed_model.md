@@ -1,6 +1,9 @@
 # Delayed Model
 
+FIXME: Asynchronous.  Move this one to advanced patterns. 
+
 ### Motivation
+
 
 Every time a Model changes, the View must refresh against the new data.
 This step can be time consuming. If the Model is going through a lot of changes
