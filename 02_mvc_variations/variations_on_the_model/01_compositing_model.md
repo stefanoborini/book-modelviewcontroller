@@ -68,10 +68,10 @@ csv2_model = AddressBookCSV("file2.csv")
 address_book = AddressBook([csv1_model, xml_model, csv2_model])
 ```
 
-The code ``AddressBookCSV`` is here shown to illustrate the rather
-trivial interface supported by all Model objects. The common base class
-``BaseModel`` provides notification services by implementing
-``register``, ``unregister``, ``notify_listeners``, and the listeners set.
+A naive implementation for ``AddressBookCSV`` is here shown to illustrate its
+interface. The common base class ``BaseModel`` provides notification services
+by implementing ``register``, ``unregister``, ``notify_listeners``, and the
+listeners set
 
 ```python
 class AddressBookCSV(BaseModel):
@@ -94,9 +94,8 @@ class AddressBookCSV(BaseModel):
            raise IndexError("Invalid entry %d" % entry_number)
 ```
 
-The ``AddressBook`` class implements the same interface of the SubModels. This
-opens the possibility to display either the Compositing Model or any of the SubModels
-through the View, but it is not a requirement of the Compositing Model.
+The ``AddressBook`` class is a Union Compositing Model implementing the same interface
+of the SubModels
 
 ```python
 class AddressBook(BaseModel):
@@ -124,11 +123,11 @@ class AddressBook(BaseModel):
         self.notify_listeners()
 ```
 
-The constructor accepts an arbitrary number of Models at initialization, and
+The class accepts an arbitrary number of SubModels at initialization, and
 registers as a listener on each of them. The same interface is implemented,
-deriving the data from the composition of the SubModels: the number of entries
-is the sum of the entries for the SubModels, and the ``get_entry`` method
-returns the appropriate entry after mapping it to the appropriate SubModel.
-Finally, when any of the SubModels notify a change, the Compositing Model
-forwards the notification to its listeners.
+deriving data from the composition of SubModels: the number of entries is 
+the sum of the entries for the SubModels, and the ``get_entry`` method returns
+the appropriate entry after mapping it to the appropriate SubModel.  Finally,
+when any of the SubModels notify a change, the Compositing Model forwards the
+notification to its listeners.
 

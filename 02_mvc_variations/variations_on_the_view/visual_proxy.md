@@ -52,6 +52,11 @@ a short-lived UI for that specific retrieval. Visual Proxy, on the
 other hand, is a full fledged foundation of all Model objects 
 to provide their own View as implicitly described by their data.
 
+Visual Proxy should also not be confused with View-aware Model,
+as they handle different concerns: Visual Proxy deals with 
+View's creation. View-aware Model deals with Model-View 
+synchronization. 
+
 ### Design
 
 Model objects act as factories for the UI of their own attributes

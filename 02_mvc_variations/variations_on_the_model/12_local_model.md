@@ -7,11 +7,10 @@ configuration options, and let the user apply (through an "Ok" button) or
 discard (through "Cancel") his changes.
 
 A Local Model allows the above use case by letting the Dialog View operate 
-on a copy of the Original Model. 
-The copy can then be either discarded 
-(if "Cancel" is clicked), or merged with the Original Model (if "Ok" 
+on a copy of the Original Model. The copy can then be either discarded 
+(if "Cancel" is clicked), or merged with the original Model (if "Ok" 
 is clicked). This approach guarantees that business rules of the Model 
-are enforced observed while changes are made on the data.
+are enforced while changes are made on the data.
 
 ### Design
 

@@ -28,3 +28,6 @@ than the mentioned amount of time, it must be executed in a separate thread, or 
 interface responsiveness will suffer.
 Having a separate thread carries its additional quirks: can't normally touch ui code,
 must be synchronized.
+
+FIXME do comparison with asynchronous single threaded programming. Put a useful picture
+

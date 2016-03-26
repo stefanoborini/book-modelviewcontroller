@@ -6,16 +6,8 @@ This unconventional design breaks a fundamental rule of MVC:
 rather than having the View get data from the Model, the Model 
 acts on the View to populate it.
 
-A View-aware Model seem to have conceptual closeness to Visual Proxy,
-but they handle different concerns: 
-
-- Visual Proxy deals with View's creation. The Model acts as a 
-  factory for the View. 
-- View-aware Model deals with data synchronization. The Model knows
-  about the View and acts on it.
-
-A View-aware Model instead can be seen as a combination of a 
-ModelController and a Passive View.
+A View-aware Model can be seen as a combination of two patterns
+presenter later: ModelController and Passive View.
 
 ### Design
 
