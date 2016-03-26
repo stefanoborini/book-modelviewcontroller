@@ -15,3 +15,5 @@ with the real world.
 * [Model Distribution](model_distribution.md)
 * [Multithreading](multithreading.md)
 * [Notification looping prevention](28_notification_looping_prevention.md): Prevent recursive notification events to propagate.
+* [Delayed Model](40_delayed_model.md): Neutralizes fast notifications through a timeout.
+* [Throttling](41_throttling.md): Neutralizes fast notifications, but issue a change immediately.
