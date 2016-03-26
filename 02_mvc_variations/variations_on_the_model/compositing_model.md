@@ -1,3 +1,4 @@
+<!--- Done -->
 # Compositing Model
 
 ### Motivation
