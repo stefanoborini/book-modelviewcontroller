@@ -69,48 +69,57 @@ address_book = AddressBook([csv1_model, xml_model, csv2_model])
 ```
 
 A naive implementation for ``AddressBookCSV`` is here shown to illustrate its
-interface. The common base class ``BaseModel`` provides notification services
+interface. The common base class ``Model`` provides notification services
 by implementing ``register``, ``unregister``, ``notify_listeners``, and the
 listeners set
 
 ```python
-class AddressBookCSV(BaseModel):
-   def __init__(self, filename):
-       super(AddressBookCSV, self).__init__()
-       self._filename = filename
+class AddressBookCSV(Model):
+    def __init__(self, filename):
+        super(AddressBookCSV, self).__init__()
+        self._filename = filename
 
-   def num_entries(self):
-       try:
-           return len(open(self._filename, "r").readlines())
-       except:
-           return 0
+    def num_entries(self):
+        try:
+            return len(open(self._filename, "r").readlines())
+        except:
+            return 0
 
-   def get_entry(self, entry_number):
-       try:
-           line = open(self._filename, "r").readlines()[entry_number]
-           name, phone = line.split(',')
-           return { 'name' : name.strip(), 'phone' : phone.strip()}
-       except:
-           raise IndexError("Invalid entry %d" % entry_number)
+    def get_entry(self, entry_number):
+        try:
+            with open(self._filename, "r") as f:
+                line = f.readlines()[entry_number]
+                name, phone = line.split(',')
+                return { 'name' : name.strip(), 'phone' : phone.strip()}
+        except:
+            raise IndexError("Invalid entry %d" % entry_number)
+
+    def append_entry(self, name, phone):
+        with open(self._filename, "a") as f:
+            f.write('{},{}\n'.format(name, phone))
+
+        self.notify_listeners()
+
 ```
 
 The ``AddressBook`` class is a Union Compositing Model implementing the same interface
 of the SubModels
 
 ```python
-class AddressBook(BaseModel):
-   def __init__(self, sub_models):
-       super(AddressBook, self).__init__()
+class AddressBook(Model):
+    def __init__(self, sub_models):
+        super(AddressBook, self).__init__()
 
-       self._sub_models = sub_models
+        self._sub_models = sub_models
 
-       for m in self._sub_models:
-           m.register(self)
+        for m in self._sub_models:
+            m.register(self)
 
     def num_entries(self):
         return sum([m.num_entries() for m in self._sub_models])
 
     def get_entry(self, entry_number):
+    
         accumulated = itertools.accumulate(
             [m.num_entries() for m in self._sub_models])
 
@@ -119,15 +128,19 @@ class AddressBook(BaseModel):
         return self._sub_models[source_idx].get_entry(
                                entry_number - accumulated[source_idx])
 
+    def append_entry(self, name, phone):
+        self._sub_models[-1].append_entry(name, phone)
+       
     def notify(self):
         self.notify_listeners()
 ```
 
 The class accepts an arbitrary number of SubModels at initialization, and
-registers as a listener on each of them. The same interface is implemented,
-deriving data from the composition of SubModels: the number of entries is 
-the sum of the entries for the SubModels, and the ``get_entry`` method returns
-the appropriate entry after mapping it to the appropriate SubModel.  Finally,
-when any of the SubModels notify a change, the Compositing Model forwards the
-notification to its listeners.
+registers as a listener on each of them. It implements the same interface,
+retrieving data from the SubModels: the number of entries is the sum of the
+SubModel entries, and the ``get_entry`` method returns the entry from the 
+appropriate SubModel. ``append_entry`` is used to add a new entry to the models.
+In this case, the new entry is added to the last SubModel. Note how the
+issuing of the notification is left to the SubModel. The notification from the
+SubModel is then forwarded by the Compositing Model it to its listeners.
 
