@@ -5,7 +5,7 @@
 A Vetoer is a special Model listener that provides pluggable, encapsulated 
 validation of Model changes. When a Model content needs to change,
 the Vetoers are inquired first. If any Vetoer denies the change, the Model
-does not alter its state.
+keeps the old state and discards the change request.
 
 ### Design
 
