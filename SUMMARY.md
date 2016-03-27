@@ -30,14 +30,14 @@
    * [Variations on the Notification Strategy](02_mvc_variations/variations_on_the_notification_strategy/index.md)
        * [Qualified Notification](02_mvc_variations/variations_on_the_notification_strategy/qualified_notification.md)
        * [Qualified Notification Model with Subscribing](02_mvc_variations/variations_on_the_notification_strategy/qualified_notification_model_with_subscribing.md)
-       * [Passive Model](02_mvc_variations/variations_on_the_notification_strategy/07_passive_model.md)
+       * [Passive Model](02_mvc_variations/variations_on_the_notification_strategy/passive_model.md)
        * [Lazy Model](02_mvc_variations/variations_on_the_notification_strategy/lazy_model.md)
        * [Accumulator](02_mvc_variations/variations_on_the_notification_strategy/35_accumulator.md)
        * [Pre/Post notification](02_mvc_variations/variations_on_the_notification_strategy/47_pre_post_notification.md)
        * [Vetoers](02_mvc_variations/variations_on_the_notification_strategy/48_vetoers.md)
        * [Signals](02_mvc_variations/variations_on_the_notification_strategy/49_signal.md)
        * [Request for Interest](02_mvc_variations/variations_on_the_notification_strategy/60_request_for_interest.md)
-       * [Multiple Notification Entry Points](02_mvc_variations/variations_on_the_notification_strategy/multiple_notification_entry_points.md): Notifications can be delivered to arbitrary methods.
+       * [Multiple Notification Entry Points](02_mvc_variations/variations_on_the_notification_strategy/multiple_notification_entry_points.md)
    * [Variations on the View](02_mvc_variations/variations_on_the_view/index.md)
        * [Pluggable View](02_mvc_variations/variations_on_the_view/pluggable_view.md)
        * [Passive View](02_mvc_variations/variations_on_the_view/passive_view.md)
@@ -49,10 +49,10 @@
    * [Variations on the Controller](02_mvc_variations/variations_on_the_controller/index.md)
        * [Supervising controller](02_mvc_variations/variations_on_the_controller/39_supervising_controller.md)
        * [Event Filter](02_mvc_variations/variations_on_the_controller/33_event_filter.md)
-       * [Mediating Controller](02_mvc_variations/variations_on_the_controller/mediating_controller.md): Connects widget and properties.
-       * [Coordinating controller](02_mvc_variations/variations_on_the_controller/coordinating_controller.md): Controllers managing the lifetime of the application, rather than a specific View.
-       * [Action](02_mvc_variations/variations_on_the_controller/action.md): Controller with visual representation encapsulating a command.
-       * [Action Filter](action_filter.md): Perform behavior before or after the execution of a Controller action.
+       * [Mediating Controller](02_mvc_variations/variations_on_the_controller/mediating_controller.md)
+       * [Coordinating controller](02_mvc_variations/variations_on_the_controller/coordinating_controller.md)
+       * [Action](02_mvc_variations/variations_on_the_controller/action.md)
+       * [Action Filter](action_filter.md)
    * [Variations on the Triad](02_mvc_variations/variations_on_the_triad/index.md)
        * [Model View Adapter](02_mvc_variations/variations_on_the_triad/10_model_view_adapter.md)
        * [Model GUI Mediator](02_mvc_variations/variations_on_the_triad/11_model_gui_mediator.md)

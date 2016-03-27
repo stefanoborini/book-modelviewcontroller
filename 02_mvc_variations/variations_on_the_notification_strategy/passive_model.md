@@ -1,3 +1,4 @@
+<!--- Done -->
 # Passive Model
 
 ### Motivation
@@ -45,7 +46,7 @@ Despite the disadvantage, the Passive Model has the following important advantag
   Active Model strategy due to the intrinsic separation of Models from 
   rendered Views.
 
-### Code Example: Django MVC
+### Practical Example: Django MVC
 
 The web framework Django is our choice to present a simple case of Passive
 Model. Please note that this example is not meant to be considered orthodox
@@ -106,4 +107,4 @@ The appropriate strategy might depend on browser-side choices.
 
 ### References
 
-- [MSDN documentation: Model-View-Controller](https://msdn.microsoft.com/en-us/library/ff649643.aspx)
+- [MSDN documentation: Model-View-Controller. Passive Model](https://msdn.microsoft.com/en-us/library/ff649643.aspx)
