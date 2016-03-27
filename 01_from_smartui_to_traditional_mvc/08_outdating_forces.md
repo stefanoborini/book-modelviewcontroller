@@ -42,3 +42,5 @@ The active controller was the one handling events.
 Modern widgets handle damage control (e.g. due to hiding/showing) by themselves. The view
 is only left the task of updating against a modified model. The toolkit takes care of
 keeping the visual correct.
+
+Explain widget as a UI element which has no connection to a model.
