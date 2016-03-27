@@ -10,7 +10,7 @@ must implement.
 
 The design presented in this section decouples this dependency
 between Models and Views, extracting the notification system in 
-a separate object acting as an intermediary between the two. 
+a separate object, the Signal, acting as a relay between the two. 
 Althought not immediately apparent, the benefits of this approach 
 are important: 
 
@@ -29,35 +29,34 @@ Notification to listeners is triggered via a ``Signal.emit()`` method.
     <img src="images/signal/signal.png" />
 </p>
 
-The Model defines its signalling capabilities by defining member variables
+The Model defines its signalling capabilities by exposing member variables
 of type Signal. These member variables are given appropriate names to convey
-the nature of each reported event. Each listener can subscribe to the signals
+the nature of each reported event. Listeners subscribe to the signals
 they are interested in.
 
 When a change of the appropriate type occurs, the Model triggers the
-notification by calling ``emit()`` on the signal object, which in turn
+notification by calling ``emit()`` on the Signal object, which in turn
 will notify each individual listener.
 
-### Variations
+### Variation: additional flexibility to notification
 
-A basic implementation just delivers the message to the listeners.
-Increased flexibility can be obtained by allowing the passing of arguments
-to the ``emit()`` method, allowing qualification of the emitted signal.
+A basic implementation just notifies the listeners.  Increased flexibility can
+be obtained by allowing the passing of arguments to the ``emit()`` method,
+allowing further qualification of the emitted signal.
 
-The Signal can be configurable and hold state to configure its functionality.
-A better Signal class could for example implement three strategies for message
-delivery:
+The Signal can be made configurable in its functionality.  A Signal class could
+for example implement three strategies for notification:
 
-- open: the message is delivered as soon as triggered.
-- closed: the message is not delivered and is ignored.
-- hold: the message is not delivered, but it is retained for later (i.e. an Accumulator-like behavior)
+- open: the notification is performed as soon as triggered.
+- closed: the notification is silenced.
+- hold: the notification is not delivered, but it is retained for later (i.e. an Accumulator-like behavior)
 
 ### Practical examples
 
 A Signal implementation conforming to the above design can be found in Boost.Signal2. 
 In the following example, we demonstrate the registration of an arbitrary method
 ``print_sum`` to a Signal object and its execution when the signal is emitted. 
-The ``emit`` functionality is implemented through ``operator()``. Observe how
+The ``emit`` functionality is implemented through ``operator()``. Note how
 parameters can be passed to the connected functions.
 
 ```c++
@@ -77,22 +76,51 @@ void main() {
 ```
 
 Another example of Signal design is Qt Signal/Slot mechanism, although the internals
-do not make use of a literal Signal object.
+do not make use of a literal Signal object, and the mechanism requires the support from
+a special preprocessor
+
+```c++
+class Model : public QObject
+{
+    Q_OBJECT
+
+public:
+    Model() { value = 0; }
+    int value() const { return value; }
+
+public slots:
+    void setValue(int new_value) {
+        if (new_value != value) {
+            value = new_value;
+            emit valueChanged(new_value);
+        }
+    }
+
+signals:
+    void valueChanged(int new_value);
+
+private:
+    int value;
+};
+```
+
+The special signal ``valueChanged()`` is emitted every time a new value is set. Receiving
+objects can subscribe to the Signal and guarantee synchronization
+
+```c++
+Model *model1 = new Model()
+Model *model2 = new Model()
+QObject::connect(model1, SIGNAL(valueChanged(int)), model2, SLOT(setValue(int)))
+model1->setValue(42)
+```
+
+In the above code, ``model2->setValue`` will be called when model1 ``valueChanged`` signal is
+emitted. This will synchronize the two objects to hold the same value.
 
 
+### Practical example variation: notifying Views
 
-
-With signals, you might have to adapt the signals that your model emits
-to the specific needs of your views. 
-A coarse grained signal that forces
-a heavy refresh on the view may be better split into a separate signal
-specific to the area of the model that actually affects the view. In 
-practice, the model communication pattern may have to adapt to the View's
-implementation details to guarantee responsiveness.
-
-For example, if you have a view displaying the number of lines in a document,
-subscribing to a contentChanged signal may require a recalculation of the number
-of lines at every character inserted. It may make sense to provide a lineNumberChanged
-signal, so that line number display is updated only when the model actually
-performs a change in the total number of lines.
-
+One important feature of Qt signals is that they are not only found on Models,
+but also on Widgets and Views. Buttons, for example, emit a ``clicked()``
+Signal when clicked. Signals can therefore be used as a generic notification
+mechanism applicable to any context where decoupling is desired.
