@@ -4,33 +4,51 @@
 
 User interfaces often require a given operation to be available from different points of
 access: the menubar, contextual menus, toolbars, and keyboard accelerators. 
-An effective design choice to handle this use case encapsulates the operation into a 
-pluggable entity, the **Action**. The action encapsulates both Controller behavior
-
-It is similar to a Command, but with the substantial differences:
-
-- Command generally acts only on the Model. An action can perform UI operations 
-  (such as showing a dialog).
-- Command is generally Model support, and holds no UI concerns. Action must support
-  purely UI concerns (e.g. the Icon to put in the toolbar, or the keyboard accelerator,
-  if it's enabled or not)
-
-Special controller that has different visual aspects and takes care of performing
-actions on models. Typically used for menu + toolbar icon. "command-like" together
-with pluggable aspect details (icon, text)
+An effective design choice to handle this use case is to define an **Action**,
+a pluggable entity encapsulating Command behavior and visual/UI related information,
+such as its icon, tooltip, keyboard accelerator, enabled status and so on.
 
 ### Design
 
-An action is similar in design to a Command: an abstract method ``triggered()`` 
-can be reimplemented to provide the required Controller behavior. Alternative strategies
-not requiring subclassing allow to register a callback that is executed when the action
-is triggered.
+An Action is peculiar in design characteristic, combining design features of 
+Command, Controller, and Model. 
 
+Like a Command, an Action normally provides an abstract method ``triggered()``
+to reimplement with the required behavior.  Alternative strategies not
+requiring subclassing allow to register a callback that is executed when the
+action is triggered. Differently from a Command, the Action is more liberal in
+performing UI operations, such as showing a dialog.  Commands generally tend to
+act exclusively on Models, because they might be part of the Model interaction
+strategy. 
+
+Actions are also Controllers in nature. Different Views accept the same Action 
+and visually represent it in a different way: a MenuBar might represent it as
+an icon followed by a title; a ToolBar might display just the icon and a
+tooltip; the application as a whole might not represent it visually at all, and
+activate it when its keyboard shortcut accelerator is invoked. Information
+about the visual aspect of the Action are contained in the Action itself,
+fulfilling a Model-like role for this information.
 
 ### Practical Example
 
-Qt supports a regular example of Action with the QAction. Instead of allowing
-to reimplement the behavior, QAction exposes a Signal that is emitted when the
-action is triggered. This Signal can then connected to any slot callback, where
-actual Controller behavior takes place.
+Qt supports a regular example of Action with the QAction class. 
+QAction exposes a ``triggered`` Signal that is emitted when the Action is 
+activated. This Signal can then connected to any slot callback, where actual
+Controller behavior takes place.
 
+```python
+menubar = self.menuBar()
+toolbar = self.addToolBar('Toolbar')
+file_menu = menubar.addMenu('&File')
+
+quit_action = QAction(QtGui.QIcon('quit.png'), '&Quit', self)        
+quit_action.setShortcut('Ctrl+Q')
+quit_action.triggered.connect(qApp.quit)
+
+file_menu.addAction(quit_action)
+toolbar.addAction(quit_action)
+```
+
+In this example, we created an Action for quitting the application, then add it
+to both the File menu entry and the toolbar. Clicking on either entry, or using
+the Ctrl+Q accelerator, will invoke qApp.quit() and quit the application.
