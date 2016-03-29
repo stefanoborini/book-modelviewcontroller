@@ -48,7 +48,7 @@
        * [Synchronization View state](02_mvc_variations/variations_on_the_view/46_synchronization_view_state.md)
    * [Variations on the Controller](02_mvc_variations/variations_on_the_controller/index.md)
        * [Supervising controller](02_mvc_variations/variations_on_the_controller/39_supervising_controller.md)
-       * [Event Filter](02_mvc_variations/variations_on_the_controller/33_event_filter.md)
+       * [Event Filter](02_mvc_variations/variations_on_the_controller/event_filter.md)
        * [Mediating Controller](02_mvc_variations/variations_on_the_controller/mediating_controller.md)
        * [Coordinating controller](02_mvc_variations/variations_on_the_controller/coordinating_controller.md)
        * [Action](02_mvc_variations/variations_on_the_controller/action.md)

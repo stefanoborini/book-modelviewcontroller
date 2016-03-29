@@ -1,3 +1,4 @@
+<!--- Done -->
 # Event Filter
 
 ### Motivation
@@ -11,17 +12,16 @@ they never reach the View.
 ### Design
 
 Event Filters can be designed either as objects with a specific interface, or 
-as function objects with a signature accepting the event. 
-They are generally designed to be pluggable at runtime, therefore Views 
-provide an interface to set and unset them. 
+as function objects with a signature accepting the event.  They are generally
+designed to be pluggable at runtime through an appropriate interface on the
+View.  
 
-When the View receives an event, its implementation first routes the event
-toward the Event Filter, which is free to respond acting on Models, Views or
-Controller objects. These objects may or may not be known by the View.
-
-Once the Event Filter completes its execution, it communicates to the View if
-the event should be processed as usual or not. In the latter case, the View
-acts as if the event never occurred.
+Before being handled by the View, a UI event is dispatched to the View's
+registered Event Filter, if present. The Event Filter is free to respond to the
+event by acting on Models, Views or Controller objects which may or may not be
+known by the View. Once the Event Filter completes its execution, 
+it communicates to the View if the event should be processed as usual or not.
+In the latter case, the View acts as if the event never occurred.
 
 <p align="center">
     <img src="images/event_filter/event_filter.png">
