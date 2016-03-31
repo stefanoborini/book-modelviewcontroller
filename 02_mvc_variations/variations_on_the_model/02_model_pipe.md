@@ -2,96 +2,89 @@
 
 ### Motivation
 
-The **Model Pipe** is a variation of the Compositing Model approach. 
-It introduces an additional Model class, called **Pipe**, to intercept
-the data flow between Model and View and add flexibility for data manipulation
-while in transit. Its concept is similar to a UNIX pipe, and its most common
-use is for filtering and sorting.
-
-The Pipe class encapsulates the transformation logic in a dedicated,
-potentially reusable Model class. Different Pipe classes can be created, each
-with specific capabilities. To be compatible with the View, a Pipe should
-implement the same interface of the submodel, eventually extending it for the
-additional state it might contain. Pipes can also be chained together to
-perform sequential reduction of data.
+The **Model Pipe** is a variation of the Compositing Model approach,
+and similar in concept to a UNIX pipe: it intercepts and
+manipulates the data flowing from Model to View. Like in a UNIX pipe, 
+Model Pipes with different manipulation logic can be chained together 
+to perform sequential alteration of data.  Typical application of Model Pipe 
+are for filtering and sorting.
 
 ### Design
 
-The Pipe class encapsulates the transformation logic in a dedicated,
-potentially reusable Model class. Different Pipe classes can be created, each
-with specific capabilities. Pipes can also be chained together to perform
-sequential reduction of data. 
+The Model Pipe encapsulates data transformation logic in a dedicated,
+reusable class. Different Pipe classes can be created, each
+with specific capabilities. 
 
 <p align="center">
     <img src="images/model_pipe/model_pipe_design.png" width="200" />
 </p>
 
-To be compatible with the View, a Pipe should implement the same interface 
-of the SubModel, eventually extending it for the additional state it might
-contain. For example, a filtering Pipe may host data about the current filter.
-Controllers acting on the Pipe class act on this
-state. while the manipulation of the SubModel's data is performed 
+To be compatible with the View, a Model Pipe implements the same interface 
+of the SubModel, eventually extending it to provide access to additional state 
+it might contain. For example, a filtering Model Pipe will host data about the
+current filter string. Controllers acting on the Model Pipe act on this state. 
+
+The Model Pipe is a listener of the SubModel and forwards its events. In
+addition, it performs notification when its internal state changes in a way
+that modifies the resulting data.
+
+while the manipulation of the SubModel's data is performed 
 directly on the SubModel itself. 
 
-The Pipe generates notification events either when the Submodel contents 
-change, or when its internal state changes in a way that modifies the 
-resulting data.
+### Practical Example: Qt QSortFilterProxyModel
 
-### Practical Example
+Qt provides a Pipe Model with sorting and filtering functionality: ``QSortFilterProxyModel``.
+It is worth noting that Qt calls this Model "Proxy Model", but in the context of this book, 
+Proxy Model refers to a different Model design.
 
-An additional need that may emerge from our addressbook application is to
-filter out names and sort them alphabetically. A possible design approach would
-be to include this logic directly into the ``AddressBook`` class, but 
-this approach would not work if we required two Views to observe the Model, maybe with
-different search criteria for the filter. 
+The implementation sets up a Pipe Model connection between ``MyModel`` and a Tree View.
+The Tree View observes the Pipe Model, which in turns uses ``MyModel`` as a data source.
 
-The next plausible candidate for
-hosting this logic is the View, but this can also lead to problems. The View
-might have a visual understanding of the semantic of the data, for example it
-knows how to extract a name from the Model and knows where it should go in the
-GUI, but does not necessarily possess enough logical understanding of the Model
-or be the most appropriate place to perform extravagant manipulations. Despite
-the shortcomings, both approaches may be a good compromise depending on the
-circumstances. 
+```python
+tree_view = QTreeView()
+model = MyModel()
+pipe_model = QSortFilterProxyModel()
+pipe_model.setSourceModel(model)
+tree_view.setModel(pipe_model)
+```
 
-It is therefore a better strategy to use a Model Pipe design. We
-add two new Pipe classes to the Model layer introduced in the earlier section:
-one for filtering (``AddressBookFilter``) and for sorting
-(``AddressBookSorter``), as represented in figure 
+The Model Pipe provides an appropriate interface to configure the filter, like
+``setFilterRegExp``, and mapping routines ``mapToSource()`` and ``mapFromSource()`` 
+to convert between index of an Item in the Model and index of that Item 
+in the View. 
+
+
+### Practical Example: manual implementation
+
+This example will show a trivial implementation of a Filter Model
+
 
 <p align="center">
     <img src="images/model_pipe/modelpipe-schema.png" />
 </p>
 
-The implementation will also require two separated Views, both contained in the same window: the ``AddressBookView`` was introduced in the previous section and will be connected to the Sorter Model as the end point of the Model chain; The ``FilterView`` will instead display and modify the filter string, and will connect to the ``AddressBookFilter`` Model.  We will explain the motivations for this design later in the explanation. 
+The implementation will also require two separated Views, both contained in the
+same window: the ``AddressBookView`` was introduced in the previous section and
+will be connected to the Filter Model as the end point of the Model chain; The
+``FilterView`` will instead display and modify the filter string, and will
+connect to the ``AddressBookFilter`` Model.  We will explain the motivations
+for this design later in the explanation. 
 
 The ``AddressBookFilter`` registers on the filtered Model and holds the current
 filter string
 
 ```python
-class AddressBookFilter(BaseModel):
+class AddressBookFilter(Model):
    def __init__(self, model):
        super(AddressBookFilter, self).__init__()
        self._filter_string = ""
        self._model = model
        self._model.register(self)
-```
 
-To modify the filter string, we need a ``setFilter`` method. When a new string is
-set, the product of the ``AddressBookFilter`` Model is expected to change, so
-``_notifyListeners`` is called. 
-
-```python
     def setFilter(self, string):
         self._filter_string = string
         self._notifyListeners()
-```
 
-The actual filtering is performed on the fly on the underlying data in the
-``numEntries`` and ``getEntry`` methods, which is the usual interface for the
-Model in the address book application 
-
-```python
     def numEntries(self):
         entries = 0
         for i in xrange(self._model.numEntries()):
@@ -111,68 +104,21 @@ Model in the address book application
                 entries += 1
     
         raise IndexError("Invalid entry %d" % entry_number)
+
+    def notify(self):
+        self._notifyListeners()
+
 ```
+
+To modify the filter string, we need a ``setFilter`` method. When a new string is
+set, the product of the ``AddressBookFilter`` Model is expected to change, so
+``_notifyListeners`` is called. 
+
+The actual filtering is performed on the fly on the underlying data in the
+``numEntries`` and ``getEntry`` methods, which is the usual interface for the
+Model in the address book application 
 
 Finally, the Filter forwards notifications from its submodel to its listeners 
-
-```python
-    def notify(self):
-        self._notifyListeners()
-```
-
-Similarly, the ``AddressBookSorter`` is defined to register on a Model for
-notifications. The current implementation supports only a simple A-z
-alphabetical sorting, and as such does not need to expose state for changes.
-Typical examples of possible state would be ascending vs. descending or the
-sorting key.  The Sorter would then expose setters for all these values, and
-the View would have to provide supporting widgets to modify them 
-
-```python
-class AddressBookSorter(BaseModel):
-   def __init__(self, model):
-       super(AddressBookSorter, self).__init__()
-       self._model = model
-       self._model.register(self)
-       self._rebuildOrderMap()
-
-   def numEntries(self):
-       return self._model.numEntries()
-```
-
-We implement the sorting naively, by walking through the underlying data and
-building an index-to-index mapping 
-
-```python
-    def _rebuildOrderMap(self):
-        values = []
-
-        for i in range(self._model.numEntries()):
-            values.append( (i, self._model.getEntry(i)["name"]) )
-
-        self._order_map = map(lambda x: x[0], 
-                              sorted(values, key=operator.itemgetter(1))
-                             )
-```
-
-The mapping is internal state that does not need to be exposed to the View, but
-must stay synchronized at all times with the underlying Model. Consequently, it
-must be recomputed every time the underlying Model reports a change 
-
-```python
-    def notify(self):
-        self._rebuildOrderMap()
-        self._notifyListeners()
-```
-
-We will then use the order map to extract entries in the appropriate order from the underlying Model 
-
-```python
-    def getEntry(self, entry_number):
-        try:
-            return self._model.getEntry(self._order_map[entry_number])
-        except:
-            raise IndexError("Invalid entry %d" % entry_number)
-```
 
 Finally, we need a View and Controller to modify the filter string. The View is
 a QLineEdit with some layouting and labeling. Its signal ``textChanged`` triggers the Controller's ``applyFilter`` method, so that as new characters are typed in, the Controller will change the filter string. Note how ``FilterView`` does not need a ``notify`` method: we don't expect the filter string to change from external sources, and ``QLineEdit`` is an autonomous widget which keeps its own state and representation synchronized 
@@ -247,14 +193,8 @@ class ContainerWidget(QtGui.QWidget):
        self._vlayout.addWidget(self.addressbookview)
 ```
 
-To set up the application, there is little variation from the Compositing Model
-example: we set up the ``AddressBook`` Model from the individual submodels. 
-
 ```python
-csv1_model = AddressBookCSV("../Common/file1.csv")
-xml_model = AddressBookXML("../Common/file.xml")
-csv2_model = AddressBookCSV("../Common/file2.csv")
-address_book = AddressBook([csv1_model, xml_model, csv2_model])
+address_book = AddressBook()
 ```
 
 The Pipes are then created and chained one after another 
@@ -298,10 +238,3 @@ Pipe chain.
    old Model, or it will keep sending change notifications. We skip this step
    because we never register for notifications in the first place.
 
-FIXME
-
-The Pipe monitors the real data source, forwarding the events.
-
-FIXME: Index remapping 
-
-FIXME: prevent unnecessary copying.
