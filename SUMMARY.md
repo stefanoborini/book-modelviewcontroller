@@ -33,7 +33,7 @@
        * [Passive Model](02_mvc_variations/variations_on_the_notification_strategy/passive_model.md)
        * [Lazy Model](02_mvc_variations/variations_on_the_notification_strategy/lazy_model.md)
        * [Accumulator](02_mvc_variations/variations_on_the_notification_strategy/35_accumulator.md)
-       * [Pre/Post notification](02_mvc_variations/variations_on_the_notification_strategy/47_pre_post_notification.md)
+       * [Pre/Post notification](02_mvc_variations/variations_on_the_notification_strategy/pre_post_notification.md)
        * [Vetoers](02_mvc_variations/variations_on_the_notification_strategy/48_vetoers.md)
        * [Signal](02_mvc_variations/variations_on_the_notification_strategy/signal.md)
        * [Multiple Notification Entry Points](02_mvc_variations/variations_on_the_notification_strategy/multiple_notification_entry_points.md)
