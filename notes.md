@@ -47,6 +47,8 @@ the double notification? Pass an "event id" in the signal so that the client
 realizes that it's the same change that delivers two messages?
 
 
+FIXME: MVC Notifications are always considered to be synchronous. They invoke methods directly
+and wait for them to return.
 
 
 Typical situation

@@ -12,16 +12,17 @@ To implement Pre/Post notification, the Model simply issues two different
 notifications, one before changing the Model state, and one after.
 These notifications must be qualified, otherwise the interested listeners
 would not be able to differentiate the pre-vs-post nature of the received 
-notification.  For example, a Model could issue "aboutToChange", apply the
-change, and finally issue "changed".  Both the old and new value are also
+notification.  For example, a Model could issue ``about_to_change``, apply the
+change, and finally issue ``changed``.  Both the old and new value are also
 generally passed as part of the notification.
 
 ### Practical Example
 
 Although other implementation approaches could be used to handle this specific
-need, pre-notifications can be useful in keeping a Selection Model synchronized.
+need, pre-notifications can be useful in keeping a Selection Model synchronized
+when the View in not collaborative in handling 
 
-Our example has a Domain Model containing a list of items, and a Selection Model 
+Our example has a Model containing a list of items, and a Selection Model 
 holding information about which items in the Domain Model are selected. 
 We assume that the View is unable to handle entries in the Selection Model 
 that are not present in the Domain Model. Due to this implementation detail,

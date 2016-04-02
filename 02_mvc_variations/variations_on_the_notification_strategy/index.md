@@ -8,5 +8,4 @@
    * [Pre/Post notification](47_pre_post_notification.md): Deliver notifications before or after the change.
    * [Vetoers](48_vetoers.md): Inquire listeners to approve or deny a change to occur.
    * [Signals](signals.md): Isolate notification into a separate object.
-   * [Request for Interest](60_request_for_interest.md): The Model notifies the listeners only if they must actually react to the change.
    * [Multiple Notification Entry Points](multiple_notification_entry_points.md): Notifications can be delivered to arbitrary methods.
