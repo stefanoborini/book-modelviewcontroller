@@ -35,7 +35,7 @@
        * [Accumulator](02_mvc_variations/variations_on_the_notification_strategy/35_accumulator.md)
        * [Pre/Post notification](02_mvc_variations/variations_on_the_notification_strategy/47_pre_post_notification.md)
        * [Vetoers](02_mvc_variations/variations_on_the_notification_strategy/48_vetoers.md)
-       * [Signals](02_mvc_variations/variations_on_the_notification_strategy/49_signal.md)
+       * [Signal](02_mvc_variations/variations_on_the_notification_strategy/signal.md)
        * [Request for Interest](02_mvc_variations/variations_on_the_notification_strategy/60_request_for_interest.md)
        * [Multiple Notification Entry Points](02_mvc_variations/variations_on_the_notification_strategy/multiple_notification_entry_points.md)
    * [Variations on the View](02_mvc_variations/variations_on_the_view/index.md)
