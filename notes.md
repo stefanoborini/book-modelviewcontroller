@@ -79,3 +79,10 @@ of lines at every character inserted. It may make sense to provide a lineNumberC
 signal, so that line number display is updated only when the model actually
 performs a change in the total number of lines.
 
+
+Some toolkit and libraries allow you to define the network dynamically.
+Other allow you to define the network statically. The network cannot be changed.
+
+
+How to handle null values.
+
