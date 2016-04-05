@@ -30,3 +30,33 @@ its visual state even when hidden, the `needs_update` flag is checked.
 If the flag is set, the View resynchronizes against the Model contents,
 otherwise, it just presents the old visual appearance.
 
+### Practical Example
+
+Implementation of this feature is trivial:
+
+```python
+    def notify(self):
+        if not self.isVisible():
+            self.needs_update = True
+            return
+
+        self.refresh_from_model()
+
+    def showEvent(event):
+        if self.needs_update:
+            self.refresh_from_model()
+            self.needs_update = False
+
+        super().showEvent(event)
+```
+
+We resync against the Model in ``refresh_from_model``. This method is called at
+``showEvent()``, the Qt method for handling widget show events. We save an
+additional resync against the Model by explicitly checking for the
+``needs_update`` flag.
+
+The ``notify()`` method called by the Model checks visibility first and sets
+the ``needs_update`` flag if the window is not visible, saving a
+``refresh_from_model`` call.
+        
+            
