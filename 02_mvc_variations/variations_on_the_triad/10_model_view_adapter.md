@@ -2,19 +2,15 @@
 
 ### Motivation
 
-Model-View-Adapter is a variation of a Traditional MVC triad where
-all communication between Model and View must flow through a Controller. 
-In contrast, Traditional MVC allows direct Model-to-View communication. 
+Model-View-Adapter is a variation of the Triad where all communication between
+Model and View must flow through a Controller, instead of interacting directly
+as in a Traditional MVC Triad.  The Controller becomes a communication hub,
+accepting change notifications from Model objects and UI events from the View.
 
-With a MVA design, orchestration is heavily centralized: the Controller 
-becomes a communication hub, accepting change notifications from Model objects 
-and UI events from the View.
-
-The resulting approach might appear excessively strict, but has some
-advantages: the communication network is artificially constrained, making it
-easier to evaluate and debug. All action happens in the Controller, and the 
-View can be created from off-the-shelf widgets without any Model-specific
-variation.
+This approach might appear excessively strict, but has some advantages: the
+communication network is artificially constrained, making it easier to evaluate
+and debug. All action happens in the Controller, and the View can be created
+from off-the-shelf widgets without any Model-specific variation.
 
 # Design
 
@@ -36,9 +32,10 @@ interaction diagram
 
 which can be described as
 
-1. The View receives a User action. It calls an appropriate method on the Controller.
+1. The View receives a UI event. It calls an appropriate method on the Controller.
 2. The Controller sets the value on the Model.
-3. The Model notifies its listeners of the change, among which is the Controller itself. As already pointed out, in a MVC approach this notification would be sent to the View. Not so in MVA.
+3. The Model notifies its listeners of the change, among which is the Controller itself. 
+   As already pointed out, in a MVC approach this notification would be sent to the View. 
 4. The notified Controller fetches information from the Model and updates the View.
 
 With the Controller in full control on the dialog between the two remaining
