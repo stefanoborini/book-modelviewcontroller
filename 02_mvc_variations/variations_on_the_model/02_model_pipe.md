@@ -2,12 +2,11 @@
 
 ### Motivation
 
-The **Model Pipe** is a variation of the Compositing Model approach,
-and similar in concept to a UNIX pipe: it intercepts and
-manipulates the data flowing from Model to View. Like in a UNIX pipe, 
-Model Pipes with different manipulation logic can be chained together 
-to perform sequential alteration of data.  Typical application of Model Pipe 
-are for filtering and sorting.
+The **Model Pipe** is a variation similar in concept to a UNIX pipe: it
+intercepts and manipulates the data flowing from Model to View. Like in a UNIX
+pipe, Model Pipes with different manipulation logic can be chained together to
+perform sequential alteration of data.  Typical application of Model Pipe are
+for filtering and sorting.
 
 ### Design
 
@@ -27,6 +26,10 @@ current filter string. Controllers acting on the Model Pipe act on this state.
 The Model Pipe is a listener of the SubModel and forwards its events. In
 addition, it performs notification when its internal state changes in a way
 that modifies the resulting data.
+
+<p align="center">
+    <img src="images/model_pipe/model_pipe.png" width="200" />
+</p>
 
 while the manipulation of the SubModel's data is performed 
 directly on the SubModel itself. 
