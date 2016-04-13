@@ -13,7 +13,7 @@
 * [MVC variations](02_mvc_variations/index.md)
    * [Variations on the Model](02_mvc_variations/variations_on_the_model/index.md)
        * [Compositing Model](02_mvc_variations/variations_on_the_model/compositing_model.md)
-       * [Model Pipe](02_mvc_variations/variations_on_the_model/02_model_pipe.md)
+       * [Model Pipe](02_mvc_variations/variations_on_the_model/model_pipe.md)
        * [Application Model](02_mvc_variations/variations_on_the_model/03_application_model.md)
        * [Side-by-Side application model](02_mvc_variations/variations_on_the_model/04_side_by_side_application_model.md)
        * [UI Retrieving Model](02_mvc_variations/variations_on_the_model/ui_retrieving_model.md)

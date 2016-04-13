@@ -1,3 +1,4 @@
+<!--- Done -->
 # Model Pipe
 
 ### Motivation
@@ -28,11 +29,11 @@ addition, it performs notification when its internal state changes in a way
 that modifies the resulting data.
 
 <p align="center">
-    <img src="images/model_pipe/model_pipe.png" width="200" />
+    <img src="images/model_pipe/model_pipe.png" />
 </p>
 
-while the manipulation of the SubModel's data is performed 
-directly on the SubModel itself. 
+while the manipulation of the SubModel's data is performed directly on the
+SubModel itself. 
 
 ### Practical Example: Qt QSortFilterProxyModel
 

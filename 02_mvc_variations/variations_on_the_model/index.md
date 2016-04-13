@@ -1,7 +1,7 @@
 # Variations on the Model
 
    * [Compositing Model](compositing_model.md): Aggregate data from multiple Models, providing a single point of access to the View.
-   * [Model Pipe](02_model_pipe.md): Intercept, modify, and filter data flow between Model and View.
+   * [Model Pipe](model_pipe.md): Intercept, modify, and filter data flow between Model and View.
    * [Application Model](03_application_model.md): Holds visual state to complement business logic state.
    * [Side-by-Side application model](04_side_by_side_application_model.md): Holds complementary information to the current model.
    * [UI Retrieving Model](ui_retrieving_model.md): Model retrieves information from the User through UI elements.
