@@ -11,7 +11,7 @@
    * [Proxy Model](proxy_model.md): Acts as proxy, hiding complexity to access resources from a backend.
    * [Collection Model](collection_model.md): Holds and aggregates Model objects of the same type.
    * [View-aware Model](38_view_aware_model.md): A model that knows its views interface beyond simple notification delivery.
-   * [Caching Model](42_caching_model.md): Holds data in local cache to mitigate slow access.
+   * [Caching Model](caching_model.md): Holds data in local cache to mitigate slow access.
    * [Data/Metadata Model](data_metadata_model.md): Separate access to slow and bulky data vs. fast, lean and descriptive.
    * [Recording Model](recording_model.md): Record the changes for later consumption.
    * [Transactional Setting](transactional_setting.md): Setting multiple attributes at once with late notification.

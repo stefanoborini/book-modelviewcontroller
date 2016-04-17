@@ -1,3 +1,4 @@
+<!--- Done -->
 # Caching Model
 
 ### Motivation
@@ -89,10 +90,10 @@ To present a few among many possibilities, the most trivial strategy
 is to simply perform memoization of the result. A Model using memoization
 effectively uses a cache whose entries never expire. The cache size can be
 kept under control by discarding the Least Recently Used (LRU) data.
-This approach constraints the size of the cache and keeps the most recently 
-used data, but does not provide a predictable expiration strategy.
 
-Predictable expiration may be a requirement for some applications. For example,
+LRU constraint the size of the cache and keeps the most recently 
+used data, but does not provide a predictable expiration strategy,
+something that may be required for some applications. For example,
 a News Ticker application retrieving information from a website may want to
 invalidate the cached data and perform a new retrieval, hopefully to obtain
 updated information, after a fixed absolute timeout (e.g. 15 minutes).
@@ -103,13 +104,11 @@ is issued on the Model object. Smarter strategies may use a small payload
 request to ask the remote service if new or changed data are available, and act
 accordingly by either retrieving the new data or return the cached information.
 
-Additional optimization may come from preemptive caching of model data
-that is likely to be accessed soon. For example, while retrieving information 
-about a given user from a social networking website, a smart caching engine 
-may decide to retrieve its most recent pictures and populate the cache of the
-picture Model objects.
-
-Priority caching may remove data that are of low priority before high priority
-if the available cache space is running low.
-
+Additional optimizations that are frequently used are preemptive caching and priority caching.
+Preemptive caching stores Model data that is likely to be accessed soon, even when not directly
+requested. For example, while retrieving information about a given user from a
+social networking website, a smart caching engine may decide to retrieve its
+most recent pictures and populate the cache of the picture Model objects;
+Priority caching allows to consider different levels of likelihood for
+eviction, removing low priority before high priority data.
 
