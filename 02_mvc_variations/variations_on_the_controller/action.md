@@ -1,3 +1,4 @@
+<!-- Done -->
 # Action
 
 ### Motivation
@@ -17,17 +18,20 @@ Like a Command, an Action normally provides an abstract method ``triggered()``
 to reimplement with the required behavior.  Alternative strategies not
 requiring subclassing allow to register a callback that is executed when the
 action is triggered. Differently from a Command, the Action is more liberal in
-performing UI operations, such as showing a dialog.  Commands generally tend to
-act exclusively on Models, because they might be part of the Model interaction
-strategy. 
+performing UI operations, such as showing a dialog, while Commands generally
+act exclusively on Models.
 
-Actions are also Controllers in nature. Different Views accept the same Action 
-and visually represent it in a different way: a MenuBar might represent it as
-an icon followed by a title; a ToolBar might display just the icon and a
-tooltip; the application as a whole might not represent it visually at all, and
-activate it when its keyboard shortcut accelerator is invoked. Information
-about the visual aspect of the Action are contained in the Action itself,
-fulfilling a Model-like role for this information.
+Actions are also both Controllers and visual Models: different Views accept the
+same Action and visually represent it in a different way. For example, a
+MenuBar might represent it as an icon followed by a title, a ToolBar might
+display just the icon and a tooltip, and the application as a whole might not
+represent it visually, but activate it when its keyboard shortcut
+accelerator is invoked.  Information about the visual aspect of the Action are
+contained in the Action itself, fulfilling a Model-like role for this
+information. 
+
+Views supporting Actions are generally a form of visual container (e.g.
+Menubar, Toolbar) and provide an interface to add and remove them.
 
 ### Practical Example
 
