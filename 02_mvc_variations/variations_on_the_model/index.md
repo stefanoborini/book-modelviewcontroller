@@ -6,7 +6,7 @@
    * [Side-by-Side application model](04_side_by_side_application_model.md): Holds complementary information to the current model.
    * [UI Retrieving Model](ui_retrieving_model.md): Model retrieves information from the User through UI elements.
    * [ModelController](model_controller.md): Aggregates Model and Controller logic in a single object.
-   * [Local Model](12_local_model.md): Preserve the original Model state so that changes can be reverted.
+   * [Local Model](local_model.md): Preserve the original Model state so that changes can be reverted.
    * [Value Model](value_model.md): Trivialize complex Model interface to a simple, universal interface.
    * [Proxy Model](proxy_model.md): Acts as proxy, hiding complexity to access resources from a backend.
    * [Collection Model](collection_model.md): Holds and aggregates Model objects of the same type.
