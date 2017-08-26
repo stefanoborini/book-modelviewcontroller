@@ -8,4 +8,3 @@
    * [Pre/Post notification](pre_post_notification.md): Deliver notifications before or after the change.
    * [Vetoers](vetoers.md): Inquire listeners to approve or deny a change to occur.
    * [Signals](signals.md): Isolate notification into a separate object.
-   * [Multiple Notification Entry Points](multiple_notification_entry_points.md): Notifications can be delivered to arbitrary methods.
