@@ -3,13 +3,13 @@
 
 ### Motivation
 
-A major difficulty resulting from a complex View is the difficulty of automated
-testing. Visual components require User interaction, which depends on 
+A major issue arising from a complex View is automated testing. 
+Visual components require User interaction, which depends on 
 the creation of events programmatically and the execution of an event loop
-to dispatch them. Both requirements present challenges.
+to dispatch them. Both requirements may present challenges.
 
 The **Passive View** (also referred as **Humble Dialog** or
-**Humble View**) approach eases testability by moving all View logic from the
+**Humble View**) eases testability by moving all View logic from the
 View to the Controller. This results in a View humble in logic and with 
 no awareness of the Model. In fact, the View is not subscribed to Model changes,
 and is not extracting data from it. It is instead the Controller's duty to 
