@@ -60,9 +60,4 @@ operation.  Without the existence of the pre-notification, we would have to
 rely on the order of notification of the post-notification to notify the
 Selection Model first, then the View. In general, it is not good practice to
 rely on ordering of different listeners on the same notification channel,
-because the order may not be guaranteed by the notification framework, or it
-may change due to refactorings.
-
-
-
-
+because the order may not be guaranteed by the notification framework.
