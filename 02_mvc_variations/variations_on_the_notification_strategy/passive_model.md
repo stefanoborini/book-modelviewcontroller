@@ -10,7 +10,9 @@ by the Controller.
 
 Passive Model has its area of excellence in Web-based MVC, where the
 fundamental nature of the HTTP protocol prevents the Model to 
-notify the View. 
+notify the View. It is also relevant for all those cases where notifications 
+cannot be produced because the data source is unable to provide this service,
+such as most databases or a plain file.
 
 ### Design
 
@@ -50,8 +52,8 @@ Despite the disadvantage, the Passive Model has the following important advantag
 
 The web framework Django is our choice to present a simple case of Passive
 Model. Please note that this example is not meant to be considered orthodox
-Django style, and has been stripped beyond the bare minimum to focus on the
-relevant concept.
+Django style, and has been stripped beyond the bare minimum to illustrate 
+the topic.
 
 A Model in Django is specified as a python class with appropriate descriptors
 
@@ -61,9 +63,13 @@ class Article(models.Model):
     text = models.CharField()
 ```
 
-Being a Passive Model, notification is absent. The Controller negotiates the
-View's refresh. In Django, the Controller is generally an entry point routine 
-such as the following
+This model is backed by a database, which stores the actual state. It is unable to
+deliver notification in case of database content changes, and is therefore a
+Passive Model. In the trivial case of Web MVC here presented, the need for 
+notification does not emerge because the refreshing of the View is triggered
+by an explicit browser request. The Controller handles this request,
+retrieves the Model, performs any required action, and renders the View with the
+updated data.
 
 ```python
 def modify_article(request, article_id):
@@ -76,15 +82,6 @@ def modify_article(request, article_id):
     # Persist the replaced data.
     article.save()
 
-    return HttpResponseRedirect(reverse('article', args=(article.id,)))
-```
-
-The View is a HTML document that is displayed by the User's web browser, and is
-returned by a different Controller routine
-
-```
-def get_article(request, article_id):
-    # Render the View.
     template = Template("<html><body>"
                         "<h1>{{ article.title }}</h1>"
                         "<p>{{ article.text }}</p>"
@@ -93,17 +90,7 @@ def get_article(request, article_id):
     html_doc = template.render(context)
 
     return HttpResponse(html_doc)
-``` 
-
-The Controller ``modify_article`` retrieves and modifies the ``article`` Model object.
-Once the operation is completed, the Controller informs the View to retrieve the new data
-through a HTTP redirection. This redirection invokes the ``get_article`` Controller, which 
-renders the HTML document and returns it to the browser.
-
-As an alternative solution, the ``modify_article`` Controller could perform both 
-the Model change and the article rendering, "pushing" the updated View data to the
-browser instead of asking to "pull" through the redirection to ``get_article``. 
-The appropriate strategy might depend on browser-side choices.
+```
 
 ### References
 
