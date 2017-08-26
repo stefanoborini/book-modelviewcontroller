@@ -40,8 +40,22 @@ routes or an incorrectly configured Validator.
 
 ### Practical example: JavaBean constrained properties
 
-An example of this mechanism is the "constrained property" in javabeans.  
+An example of this mechanism is the "constrained property" in javabeans. Vetoers
+implement the ``VetoableChangeListener`` interface:
 
+```java
+    class MyVetoer implements VetoableChangeListener {
+        @Override
+        public void vetoableChange(PropertyChangeEvent evt) 
+                    throws PropertyVetoException { 
+        }
+    }
+```
+
+MyVetoer will invoke the vetoing logic in ``vetoableChange``, which is invoked 
+when a vetoable change is about to occur and raises ``PropertyVetoException`` if
+it disagrees with the change. The ``MyVetoer`` instance is registered as a
+listener with ``addVetoableChangeListener(new MyVetoer())``
 
 ### References
 
