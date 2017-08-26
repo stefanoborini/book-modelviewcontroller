@@ -2,12 +2,14 @@
 
 ### Motivation
 
-This unconventional design breaks a fundamental rule of MVC: 
+This unconventional pattern breaks a fundamental rule of MVC: 
 rather than having the View get data from the Model, the Model 
-acts on the View to populate it.
+acts on the View to populate it, by pushing its data through the View
+interface.
 
-A View-aware Model can be seen as a combination of two patterns
-presenter later: ModelController and Passive View.
+A View-aware Model can be seen as a combination of two patterns:
+ModelController and Passive View. It is a pattern of limited  
+practical use, but can be useful to recognise.
 
 ### Design
 
@@ -24,7 +26,5 @@ Views with different interfaces becomes cumbersome.
 This price can be mitigated by having a generic interface that 
 abstracts individual View's differences: the Model knows this generic 
 interface and invokes its methods. Different Views implement it and 
-handle the call into appropriate action on their widgets. Although this
-mechanism may seem to become a notification system, observe that 
-in a View-aware Model approach the View does not retrieve the data
-from the Model in response to the call.
+handle the call into appropriate action on their widgets. 
+

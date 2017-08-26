@@ -86,3 +86,22 @@ Other allow you to define the network statically. The network cannot be changed.
 
 How to handle null values.
 
+
+### Practical Example: Monitoring file contents
+
+A Model that represents the contents of a file is unable to trigger any notification if
+changes from an external source are performed in the file. [^1]
+the Model can be implemented so that the Controller occasionally requests (e.g. with a timer) 
+to verify if changed occurred. When such changes are found, the Controller can act
+to update the View. Alternatively, the Model can perform notification to the listening Views
+as in an Active Model 
+
+
+- or by having an Active Model that uses a secondary thread to monitor for changes in the file, and issues notification
+when such changes are found
+
+
+unless an appropriate implementation handles 
+
+[^1] In this discussion, we ignore the problem to obtain a consistent state while reading a potentially incomplete file.
+

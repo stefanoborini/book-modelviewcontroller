@@ -10,7 +10,7 @@
    * [Value Model](value_model.md): Trivialize complex Model interface to a simple, universal interface.
    * [Proxy Model](proxy_model.md): Acts as proxy, hiding complexity to access resources from a backend.
    * [Collection Model](collection_model.md): Holds and aggregates Model objects of the same type.
-   * [View-aware Model](38_view_aware_model.md): A model that knows its views interface beyond simple notification delivery.
+   * [View-aware Model](view_aware_model.md): A model that knows its views interface beyond simple notification delivery.
    * [Caching Model](caching_model.md): Holds data in local cache to mitigate slow access.
    * [Data/Metadata Model](data_metadata_model.md): Separate access to slow and bulky data vs. fast, lean and descriptive.
    * [Recording Model](recording_model.md): Record the changes for later consumption.
