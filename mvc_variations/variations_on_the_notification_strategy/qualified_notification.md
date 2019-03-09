@@ -1,7 +1,6 @@
 ---
 parent: Variations on the notification strategy
 ---
-<!--- Done -->
 # Qualified Notification
 
 ### Motivation

@@ -1,7 +1,6 @@
 ---
 parent: Variations on the View
 ---
-<!--- Done -->
 # Visual Proxy
 
 ### Motivation

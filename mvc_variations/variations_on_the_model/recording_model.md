@@ -2,7 +2,6 @@
 parent: Variations on the Model
 nav_order: 1
 ---
-<!--- DONE -->
 # Recording Model
 
 ### Motivation

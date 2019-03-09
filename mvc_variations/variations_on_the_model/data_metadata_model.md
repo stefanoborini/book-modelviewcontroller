@@ -2,7 +2,6 @@
 parent: Variations on the Model
 nav_order: 1
 ---
-<!--- Done -->
 # Data/Metadata Model
 
 ### Motivation
