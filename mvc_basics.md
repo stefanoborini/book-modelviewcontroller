@@ -1,6 +1,6 @@
 ---
 title: Basics of MVC
-nav_order: 1
+nav_order: 2
 has_children: true
 ---
 # Basics of MVC: From Smart-UI to Traditional MVC
