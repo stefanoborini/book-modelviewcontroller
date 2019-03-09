@@ -1,4 +1,7 @@
-<!--- Done -->
+---
+parent: Variations on the Controller
+nav_order: 5
+---
 # Event Filter
 
 ### Motivation

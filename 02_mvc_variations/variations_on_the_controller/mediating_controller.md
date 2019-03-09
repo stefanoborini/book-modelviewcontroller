@@ -1,3 +1,7 @@
+---
+parent: Variations on the Controller
+nav_order: 2
+---
 # Mediating controller
 
 ### Motivation

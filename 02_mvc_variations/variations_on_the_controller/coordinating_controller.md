@@ -1,3 +1,7 @@
+---
+parent: Variations on the Controller
+nav_order: 4
+---
 # Coordinating controller
 
 ### Motivation
