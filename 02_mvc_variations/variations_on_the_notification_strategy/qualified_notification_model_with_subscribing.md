@@ -1,3 +1,6 @@
+---
+parent: Variations on the notification strategy
+---
 # Qualified Notification with Subscribing
 
 ### Motivation

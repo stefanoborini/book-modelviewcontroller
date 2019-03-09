@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Commands
 
 Graphical interfaces generally provide Undo/Redo capabilities. This is

@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Model-GUI-Mediator
 
 One problem with Model-View-Adapter is that it assumes Views are derived

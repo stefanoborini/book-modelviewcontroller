@@ -1,3 +1,8 @@
+---
+parent: MVC Variations
+title: Variations on the View
+has_children: true
+---
 # Variations on the View
 
    * [Pluggable View](pluggable_view.md): Client code injects data extraction logic in the View's at initialization.  

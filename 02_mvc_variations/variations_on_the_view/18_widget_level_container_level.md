@@ -1,3 +1,6 @@
+---
+parent: Variations on the View
+---
 # Widget-level vs Container-level MVC
 
 ### Motivation

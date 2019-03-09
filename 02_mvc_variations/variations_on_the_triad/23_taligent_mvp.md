@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Taligent/IBM Model-View-Presenter (MVP)
 
 

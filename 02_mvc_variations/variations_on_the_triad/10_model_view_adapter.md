@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Model-View-Adapter (MVA, Mediated MVC, Model-Mediator-View)
 
 ### Motivation

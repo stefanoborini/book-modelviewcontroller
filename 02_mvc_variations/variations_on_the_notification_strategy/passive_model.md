@@ -1,3 +1,6 @@
+---
+parent: Variations on the notification strategy
+---
 <!--- Done -->
 # Passive Model
 

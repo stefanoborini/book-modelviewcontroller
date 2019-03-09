@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Presenter First
 
 More than a design, **Presenter First** is a discipline for coding a Dolphin

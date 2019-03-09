@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Command notifications
 
 Notification performed by the altering entities (commands)

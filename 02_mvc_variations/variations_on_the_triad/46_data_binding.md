@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Data binding
 
 ### Motivation

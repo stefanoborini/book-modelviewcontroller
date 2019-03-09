@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Reenskaug MVC
 
 ### Motivation

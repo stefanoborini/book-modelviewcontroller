@@ -1,3 +1,8 @@
+---
+title: Variations on the notification strategy
+parent: MVC Variations
+has_children: true
+---
 # Variations on the notification strategy
 
    * [Qualified Notification](qualified_notification.md): Deliver notification with enhanced semantics to inform listeners about what has changed.

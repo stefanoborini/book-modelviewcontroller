@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Presenter-Adapter-View
 
 Sometimes, in the management of the visual aspect of the view, it pays off to extract some of

@@ -1,3 +1,8 @@
+---
+title: Variations on the triad
+parent: MVC variations
+has_children: true
+---
 # Variations on the Triad
    * [Model View Adapter](10_model_view_adapter.md)
    * [Model GUI Mediator](11_model_gui_mediator.md)

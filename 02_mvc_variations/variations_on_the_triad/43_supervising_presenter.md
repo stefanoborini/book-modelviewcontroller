@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Supervising presenter
 
 Supervising presenter is a simple partition of the Smart UI into logic and state classes.

@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Presentation Model
 
 A model, non visual representation of the view. It incorporates logic and state of the

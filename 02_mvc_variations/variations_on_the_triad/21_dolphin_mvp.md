@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # Dolphin Model-View-Presenter
 
 <p align="center">

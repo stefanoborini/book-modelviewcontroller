@@ -1,3 +1,6 @@
+---
+parent: Variations on the View
+---
 Synchronization of view state
 -----------------------------
 

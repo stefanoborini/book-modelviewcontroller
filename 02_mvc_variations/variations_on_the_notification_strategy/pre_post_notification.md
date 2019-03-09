@@ -1,3 +1,6 @@
+---
+parent: Variations on the notification strategy
+---
 # Pre/Post notification
 
 ### Motivation

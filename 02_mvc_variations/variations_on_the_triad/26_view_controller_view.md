@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 # View-Controller-View
 
 A View-Controller-View is basically a Model-Controller-View where one of the

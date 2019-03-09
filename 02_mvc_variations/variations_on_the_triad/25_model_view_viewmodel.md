@@ -1,3 +1,6 @@
+---
+parent: Variations on the triad
+---
 Model-View-ViewModel (Model-View-Binder)
 ----------------------------------------
 
