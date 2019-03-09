@@ -1,7 +1,0 @@
-{
-    "plugins": ["include"],
-    "pluginsConfig": {},
-    "title": "Understanding Model-View-Controller",
-    "description": "Understanding the Model-View-Controller architecture.",
-    "version": "1.0"
-}
