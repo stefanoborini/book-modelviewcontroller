@@ -1,5 +1,5 @@
 ---
-title: Title
+title: Understanding Model View Controller
 nav_order: 0
 permalink: /
 ---
