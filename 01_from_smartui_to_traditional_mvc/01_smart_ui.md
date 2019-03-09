@@ -1,3 +1,7 @@
+---
+nav_order: 1
+parent: Basics of MVC
+---
 # Smart-UI: A single class with many responsibilities
 
 We start this exploration toward MVC with the most trivial and simplistic design: **Smart UI**, also known as **Autonomous View**. 

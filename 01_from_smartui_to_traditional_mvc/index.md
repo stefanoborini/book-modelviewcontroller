@@ -1,3 +1,8 @@
+---
+title: Basics of MVC
+nav_order: 1
+has_children: true
+---
 # Basics of MVC: From Smart-UI to Traditional MVC
 
 The aim of GUI programming is to provide an interactive and updated visual
