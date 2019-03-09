@@ -1,3 +1,6 @@
+---
+parent: MVC Implementations
+---
 # Backbone JS
 
 Backbone is a JavaScript library providing MVC for Web development.

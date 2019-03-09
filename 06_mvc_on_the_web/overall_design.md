@@ -1,4 +1,6 @@
-
+---
+parent: MVC on the web
+---
 Models should:
 
 - handle communication with the data source

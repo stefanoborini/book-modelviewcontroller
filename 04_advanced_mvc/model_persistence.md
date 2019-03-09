@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 Model persistence
 -----------------
 

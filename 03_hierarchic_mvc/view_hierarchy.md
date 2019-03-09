@@ -1,3 +1,7 @@
+---
+parent: Hierarchic MVC
+---
+
 # View Hierarchy
 
 Views have a natural containment relationship. One View (the superview) may contain other "sub-Views". The hierarchy is,

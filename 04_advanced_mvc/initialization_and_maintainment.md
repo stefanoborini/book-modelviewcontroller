@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 # Initialization vs Maintainment
 
 Views generally need to initialize themselves against the model, and then keep themselves synced against

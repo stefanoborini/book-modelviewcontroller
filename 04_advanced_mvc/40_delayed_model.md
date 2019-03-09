@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 # Delayed Model
 
 FIXME: Asynchronous.  Move this one to advanced patterns. 

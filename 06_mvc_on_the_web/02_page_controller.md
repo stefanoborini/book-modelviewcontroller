@@ -1,3 +1,6 @@
+---
+parent: MVC on the web
+---
 Page controller
 ---------------
 

@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 # Synchronous vs. Asynchronous Model
 
 In general, it's better to have a synchronous model. Blocking allows you to decide the threading policy.

@@ -1,3 +1,6 @@
+---
+parent: Hierarchic MVC
+---
 Controller hierarchy in Traditional MVC
 ---------------------------------------
 

@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 # Event bus / PubSub
 
 Full decoupling between publishers and subscribers. 

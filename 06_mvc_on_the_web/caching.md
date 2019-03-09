@@ -1,3 +1,6 @@
+---
+parent: MVC on the web
+---
 # Caching strategies
 
 Change the cache according to variables in the request, such as the GET/POST parameters,

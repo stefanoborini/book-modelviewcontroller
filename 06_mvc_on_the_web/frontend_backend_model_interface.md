@@ -1,3 +1,6 @@
+---
+parent: MVC on the web
+---
 # Frontend/Backend interfaces
 
 Web models tend to have two responsibilities:

@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 # Notification looping prevention
 
 Notification messages from the Model can become problematic for a series of

@@ -1,3 +1,6 @@
+---
+parent: Hierarchic MVC
+---
 Hierarchic Model View Controller (HMVC, Recursive MVC)
 ------------------------------------------------------
 

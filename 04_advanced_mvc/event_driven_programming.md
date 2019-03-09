@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 # Interaction with the event loop
 
 Until now, very limited mention was made about the event dispatch mechanism

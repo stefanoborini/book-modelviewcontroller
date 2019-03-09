@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 # Lapsed Listener Problem
 
 A notification system introduces a potential for memory leaks known as

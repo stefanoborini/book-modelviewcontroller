@@ -1,3 +1,6 @@
+---
+parent: Hierarchic MVC
+---
 Presentation Abstraction Control (PAC)
 --------------------------------------
 

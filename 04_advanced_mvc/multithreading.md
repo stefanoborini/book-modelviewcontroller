@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 # Multithreading
 
 Problem with multiple threads.

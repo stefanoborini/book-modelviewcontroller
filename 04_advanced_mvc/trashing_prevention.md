@@ -1,3 +1,6 @@
+---
+parent: Advanced MVC
+---
 To prevent trashing with many notifications, there are three strategies:
 
     - disable notifications, to the operations, re-enable the notifications.
