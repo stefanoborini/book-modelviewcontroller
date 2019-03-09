@@ -1,6 +1,7 @@
 ---
 parent: Variations on the Controller
 nav_order: 4
+summary: Controllers managing the lifetime of the application, rather than a specific View.
 ---
 # Coordinating controller
 
