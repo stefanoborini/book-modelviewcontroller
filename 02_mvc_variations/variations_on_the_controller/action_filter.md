@@ -1,6 +1,7 @@
 ---
 parent: Variations on the Controller
 nav_order: 3
+summary: Perform behavior before or after the execution of a Controller action.
 ---
 # Action Filter
 
