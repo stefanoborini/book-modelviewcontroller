@@ -1,3 +1,7 @@
+---
+nav_order: 2
+parent: Basics of MVC
+---
 # Document-View: dividing state from GUI
 
 To solve the shortcomings of Smart UI, we take advantage of the intrinsic

@@ -1,3 +1,7 @@
+---
+nav_order: 2
+has_children: true
+---
 # MVC Variation
 
 Traditional MVC is excellent as a starting point for discussion, but by no

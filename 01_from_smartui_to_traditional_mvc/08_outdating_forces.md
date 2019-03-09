@@ -1,3 +1,7 @@
+---
+nav_order: 8
+parent: Basics of MVC
+---
 # Forces outdating Traditional MVC
 
 The Traditional MVC design presented in the previous section is a modern

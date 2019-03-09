@@ -1,3 +1,7 @@
+---
+nav_order: 4
+has_children: true
+---
 # Advanced MVC
 
 Until now, the main focus was on the basic patterns of MVC. In this chapter,

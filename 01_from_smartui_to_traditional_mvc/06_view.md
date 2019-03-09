@@ -1,3 +1,7 @@
+---
+nav_order: 6
+parent: Basics of MVC
+---
 # The View
 
 We introduced the View as the component of our application whose role is to

@@ -1,3 +1,8 @@
+---
+nav_order: 5
+parent: Basics of MVC
+---
+
 # The Model
 
 Entities taking the Model role are responsible for holding the running state

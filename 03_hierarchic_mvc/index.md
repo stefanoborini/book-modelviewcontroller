@@ -1,3 +1,7 @@
+---
+nav_order: 3
+has_children: true
+---
 # Hierarchic MVC
 
 Until now, we have seen MVC applied to a single triad. This works well for

@@ -1,3 +1,8 @@
+---
+nav_order: 6
+has_children: true
+permalink: /docs/ui-components
+---
 MVC On the web
 ==============
 

@@ -1,3 +1,7 @@
+---
+nav_order: 7
+parent: Basics of MVC
+---
 # The Controller
 
 The last of the components of MVC, the Controller, has the heavy duty task to

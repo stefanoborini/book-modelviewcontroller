@@ -1,3 +1,7 @@
+---
+nav_order: 3
+parent: Basics of MVC
+---
 # Traditional MVC
 
 With the Document-View design we successfully extracted state from an initial
