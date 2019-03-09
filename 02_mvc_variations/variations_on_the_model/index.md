@@ -1,3 +1,9 @@
+---
+parent: MVC Variations
+nav_order: 2
+title: Variations on the Model
+has_children: true
+---
 # Variations on the Model
 
    * [Compositing Model](compositing_model.md): Aggregate data from multiple Models, providing a single point of access to the View.
