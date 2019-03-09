@@ -1,5 +1,6 @@
 ---
 parent: Variations on the Controller
+summary: Examine and potentially handle UI events before they reach the View.
 nav_order: 5
 ---
 # Event Filter
