@@ -1,6 +1,7 @@
 ---
 parent: Variations on the Controller
 nav_order: 2
+summary: Connects widgets and properties
 ---
 # Mediating controller
 
