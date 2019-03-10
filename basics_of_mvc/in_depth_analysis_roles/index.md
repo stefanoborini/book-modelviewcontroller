@@ -1,5 +1,5 @@
 ---
-title: In-depth analysis of MVC roles
+title: In depth analysis of MVC roles
 nav_order: 4
 parent: Basics of MVC
 ---
