@@ -1,12 +1,13 @@
 ---
 title: Introduction
 nav_order: 1
+permalink: /introduction
 ---
 # Introduction
 
 Model-View-Controller (MVC) is probably the most used architectural solution
 for User Interface design and web programming; Introduced first in the
-70s, MVC has been progressively adapted and morphed into a wide range of
+70s, MVC has been progressively adapted into a wide range of
 subtypes and variations, so much that the plain term "MVC" without additional
 qualifications has lost specificity. As a general interpretation, it is a
 rather loose guideline for organizing your code when the data and visualization
@@ -86,16 +87,10 @@ reasons
    and design, and I am proud to focus on a personal project to increase my
    competences.
 
-That said, I gladly accept donations:
-
- - on [GratiPay](https://gratipay.com/StefanoBorini/)
- - on [bitcoin](bitcoin:13RQmVjRKVbQnVmuVsFxHjycgo7cTaaZ3w)
- - on PayPal (using my email address stefano.borini at ferrara dot linux dot it)
-
 The sources of this book are available as a github repository at the following
 URL:
 
-https://github.com/stefanoborini/modelviewcontroller-src
+https://github.com/stefanoborini/book-modelviewcontroller
 
-I also have a personal website at http://forthescience.org where you can find
+I also have a personal website at http://stefanoborini.com where you can find
 more information about me, my curriculum and activities.

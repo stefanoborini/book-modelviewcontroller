@@ -1,6 +1,6 @@
 ---
-nav_order: 6
-parent: Basics of MVC
+nav_order: 2
+parent: In-depth analysis of MVC roles
 ---
 # The View
 

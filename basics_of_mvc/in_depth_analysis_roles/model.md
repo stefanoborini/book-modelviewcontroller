@@ -1,6 +1,6 @@
 ---
-nav_order: 5
-parent: Basics of MVC
+nav_order: 1
+parent: In-depth analysis of MVC roles
 ---
 
 # The Model

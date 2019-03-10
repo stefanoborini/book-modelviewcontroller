@@ -1,6 +1,6 @@
 ---
-nav_order: 7
-parent: Basics of MVC
+nav_order: 3
+parent: In-depth analysis of MVC roles
 ---
 # The Controller
 
