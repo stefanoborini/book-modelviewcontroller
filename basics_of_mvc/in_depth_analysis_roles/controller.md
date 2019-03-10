@@ -1,6 +1,6 @@
 ---
 nav_order: 3
-parent: In-depth analysis of MVC roles
+parent: In depth analysis of MVC roles
 ---
 # The Controller
 
