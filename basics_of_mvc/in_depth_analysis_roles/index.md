@@ -2,6 +2,7 @@
 title: In depth analysis of MVC roles
 nav_order: 4
 parent: Basics of MVC
+has_children: true
 ---
 # An in-depth analysis of Traditional MVC roles and components
 
