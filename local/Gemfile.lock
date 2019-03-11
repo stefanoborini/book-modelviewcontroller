@@ -256,6 +256,7 @@ PLATFORMS
 DEPENDENCIES
   github-pages
   jekyll-pdf!
+  jekyll-remote-theme
 
 BUNDLED WITH
    2.0.1

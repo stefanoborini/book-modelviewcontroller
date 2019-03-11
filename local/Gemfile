@@ -1,3 +1,4 @@
-gem 'github-pages'
+gem 'github-pages', group: :jekyll_plugins
+gem "jekyll-remote-theme"
 gem 'jekyll-pdf', :git => 'git://github.com/m1racoli/jekyll-pdf', :branch => 'fix-digest-gem'
 source 'https://rubygems.org'
