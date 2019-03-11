@@ -2,6 +2,8 @@
 parent: Advanced MVC
 nav_order: 5
 ---
+# Trashing prevention
+
 To prevent trashing with many notifications, there are three strategies:
 
     - disable notifications, to the operations, re-enable the notifications.
