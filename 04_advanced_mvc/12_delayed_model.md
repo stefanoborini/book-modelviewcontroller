@@ -1,5 +1,7 @@
 ---
 parent: Advanced MVC
+summary: Neutralises fast notifications with a timeout.
+nav_order: 12
 ---
 # Delayed Model
 

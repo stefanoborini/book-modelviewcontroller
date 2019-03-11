@@ -1,5 +1,6 @@
 ---
 parent: Hierarchic MVC
+nav_order: 2
 ---
 Hierarchic Model View Controller (HMVC, Recursive MVC)
 ------------------------------------------------------

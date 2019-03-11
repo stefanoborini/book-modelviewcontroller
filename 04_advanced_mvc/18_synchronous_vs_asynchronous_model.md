@@ -1,5 +1,6 @@
 ---
 parent: Advanced MVC
+nav_order: 18
 ---
 # Synchronous vs. Asynchronous Model
 

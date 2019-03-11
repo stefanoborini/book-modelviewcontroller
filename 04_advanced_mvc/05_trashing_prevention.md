@@ -1,5 +1,6 @@
 ---
 parent: Advanced MVC
+nav_order: 5
 ---
 To prevent trashing with many notifications, there are three strategies:
 

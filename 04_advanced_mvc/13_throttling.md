@@ -1,5 +1,7 @@
 ---
 parent: Advanced MVC
+summary: Neutralizes fast notifications, but issue a change immediately.
+nav_order: 13
 ---
 # Throttling
 

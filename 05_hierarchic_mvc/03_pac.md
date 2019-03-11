@@ -1,5 +1,6 @@
 ---
 parent: Hierarchic MVC
+nav_order: 3
 ---
 Presentation Abstraction Control (PAC)
 --------------------------------------

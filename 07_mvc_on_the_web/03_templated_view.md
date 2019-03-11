@@ -1,5 +1,6 @@
 ---
 parent: MVC on the web
+nav_order: 3
 ---
 Templated View
 --------------

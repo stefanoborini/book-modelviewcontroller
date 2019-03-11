@@ -1,5 +1,6 @@
 ---
 parent: Hierarchic MVC
+nav_order: 1
 ---
 Controller hierarchy in Traditional MVC
 ---------------------------------------
