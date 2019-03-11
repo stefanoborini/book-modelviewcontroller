@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 13
+summary: Separate access to slow and bulky data vs. fast, lean and descriptive.
 ---
 # Data/Metadata Model
 

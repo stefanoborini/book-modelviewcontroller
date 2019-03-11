@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 2
+summary: Intercept, modify, and filter data flow between Model and View.
 ---
 # Model Pipe
 

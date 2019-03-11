@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the View
 nav_order: 4
+summary: The Model acts as a factory of its own View, choosing the appropriate representation for its data.
 ---
 # Visual Proxy
 

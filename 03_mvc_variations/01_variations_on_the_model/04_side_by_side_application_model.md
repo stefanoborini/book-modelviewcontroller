@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 4
+summary: Holds complementary information to the current model.
 ---
 # Side-by-Side Application Model - Selection Model
 

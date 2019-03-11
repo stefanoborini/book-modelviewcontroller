@@ -1,8 +1,8 @@
 ---
 grand_parent: MVC Variations
 parent: Variations on the Controller
-summary: Controller with visual representation encapsulating a command.
 nav_order: 2
+summary: Controller with visual representation encapsulating a command.
 ---
 # Action
 

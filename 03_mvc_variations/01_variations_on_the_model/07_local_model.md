@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 7
+summary: Preserve the original Model state so that changes can be reverted.
 ---
 # Local Model
 

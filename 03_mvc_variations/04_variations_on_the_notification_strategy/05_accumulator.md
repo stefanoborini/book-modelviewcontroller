@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the notification strategy
 nav_order: 5
+summary: Listens to submodels and squashes multiple notifications into a single one.
 ---
 # Accumulator
 

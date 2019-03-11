@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 5
+summary: Model retrieves information from the User through UI elements.
 ---
 # UI Retrieving Model
 

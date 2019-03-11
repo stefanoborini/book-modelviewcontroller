@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the View
 nav_order: 6
+summary: Prevents notifications to influence the View if it is not visible.
 ---
 # Visibility Allowed Notification
 

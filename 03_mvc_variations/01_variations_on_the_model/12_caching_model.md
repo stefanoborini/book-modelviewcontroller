@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 12
+summary: Holds data in local cache to mitigate slow access.
 ---
 # Caching Model
 

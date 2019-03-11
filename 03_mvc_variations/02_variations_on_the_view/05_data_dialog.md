@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the View
 nav_order: 5
+summary: "Fire and forget" dialog to accept information from the user.
 ---
 # Data Dialog
 

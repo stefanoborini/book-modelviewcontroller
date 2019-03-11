@@ -1,5 +1,6 @@
 ---
 parent: Variations on the triad
+summary: Defines a broad set of protagonists to define the most common needs of a generic application.
 ---
 # Taligent/IBM Model-View-Presenter (MVP)
 

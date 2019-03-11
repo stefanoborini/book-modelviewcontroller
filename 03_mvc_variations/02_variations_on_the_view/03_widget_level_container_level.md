@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the View
 nav_order: 3
+summary: Organise MVC at a coarse or fine level of subdivision.
 ---
 # Widget-level vs Container-level MVC
 

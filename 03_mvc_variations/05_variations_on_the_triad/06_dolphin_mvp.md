@@ -1,5 +1,6 @@
 ---
 parent: Variations on the triad
+summary: Rationalize Application model into a more active role.
 ---
 # Dolphin Model-View-Presenter
 

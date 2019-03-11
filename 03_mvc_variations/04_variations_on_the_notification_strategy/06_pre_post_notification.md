@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the notification strategy
 nav_order: 6
+summary: Deliver notifications before or after the change.
 ---
 # Pre/Post notification
 

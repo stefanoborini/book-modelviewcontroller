@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the notification strategy
 nav_order: 1
+summary: Deliver notification with enhanced semantics to inform listeners about what has changed.
 ---
 # Qualified Notification
 

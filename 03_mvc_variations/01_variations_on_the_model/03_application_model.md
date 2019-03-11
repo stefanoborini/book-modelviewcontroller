@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 3
+summary: Holds visual state to complement business logic state.
 ---
 # Application Model (MMVC)
 

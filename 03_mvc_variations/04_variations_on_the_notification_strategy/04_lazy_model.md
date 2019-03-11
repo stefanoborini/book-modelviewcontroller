@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the notification strategy
 nav_order: 4
+summary: Model delivering its notifications on explicit request.
 ---
 # Lazy Model
 

@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 11
+summary: A model that knows its views interface beyond simple notification delivery.
 ---
 # View-aware Model
 

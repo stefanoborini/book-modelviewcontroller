@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the View
 nav_order: 1
+summary: Client code injects data extraction logic in the View's at initialization.  
 ---
 # Pluggable View
 

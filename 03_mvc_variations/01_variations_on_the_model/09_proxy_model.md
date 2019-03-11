@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 9
+summary: Acts as proxy, hiding complexity to access resources from a backend.
 ---
 # Proxy Model
 

@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the notification strategy
 nav_order: 8
+summary: Isolate notification into a separate object.
 ---
 # Signals
 

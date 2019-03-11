@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the notification strategy
 nav_order: 3
+summary: A Model without notification features.
 ---
 # Passive Model
 

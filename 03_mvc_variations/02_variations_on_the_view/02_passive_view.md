@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the View
 nav_order: 2
+summary: View's state is fully orchestrated by the Controller.
 ---
 # Passive View
 

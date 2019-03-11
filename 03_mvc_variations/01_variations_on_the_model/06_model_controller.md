@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 6
+summary: Aggregates Model and Controller logic in a single object.
 ---
 # ModelController
 

@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Controller
 nav_order: 1
+summary: FIXME
 ---
 # Supervising Controller
 

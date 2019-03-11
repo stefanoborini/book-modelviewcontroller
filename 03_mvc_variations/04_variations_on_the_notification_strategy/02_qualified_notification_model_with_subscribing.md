@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the notification strategy
 nav_order: 2
+summary: View subscribes to specific events and gets notified only when they occur.
 ---
 # Qualified Notification with Subscribing
 

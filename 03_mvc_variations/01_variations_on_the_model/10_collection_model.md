@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 10
+summary: Holds and aggregates Model objects of the same type.
 ---
 # Collection Model
 

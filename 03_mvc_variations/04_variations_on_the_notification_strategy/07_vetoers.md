@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the notification strategy
 nav_order: 7
+summary: Inquire listeners to approve or deny a change to occur.
 ---
 # Vetoers
 

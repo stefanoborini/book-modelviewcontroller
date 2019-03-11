@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the View
 nav_order: 7
+summary: FIXME
 ---
 Synchronization of view state
 -----------------------------

@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 8
+summary: Trivialize complex Model interface to a simple, universal interface.
 ---
 # Value Model
 

@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 14
+summary: Record the changes for later consumption.
 ---
 # Recording Model
 

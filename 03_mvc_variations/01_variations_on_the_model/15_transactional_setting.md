@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 15
+summary: Setting multiple attributes at once with late notification.
 ---
 # Transactional Setting
 
