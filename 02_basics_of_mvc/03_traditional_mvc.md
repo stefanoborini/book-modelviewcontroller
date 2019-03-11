@@ -1,6 +1,7 @@
 ---
 parent: Basics of MVC
 nav_order: 3
+permalink: /basics-of-mvc/traditional-mvc/
 ---
 # Traditional MVC
 

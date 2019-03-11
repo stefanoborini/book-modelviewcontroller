@@ -1,6 +1,7 @@
 ---
 parent: Basics of MVC
 nav_order: 2
+permalink: /basics-of-mvc/document-view/
 ---
 # Document-View: dividing state from GUI
 
