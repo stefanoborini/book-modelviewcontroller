@@ -2,6 +2,8 @@
 parent: MVC on the web
 nav_order: 8
 ---
+# Overall design
+
 Models should:
 
 - handle communication with the data source
