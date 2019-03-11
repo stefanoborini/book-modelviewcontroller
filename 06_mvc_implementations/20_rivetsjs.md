@@ -1,5 +1,6 @@
 ---
 parent: MVC Implementations
+nav_order: 20
 ---
 # RivetsJS
 
