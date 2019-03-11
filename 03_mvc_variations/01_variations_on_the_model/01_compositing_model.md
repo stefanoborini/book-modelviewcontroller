@@ -2,6 +2,7 @@
 grand_parent: MVC Variations
 parent: Variations on the Model
 nav_order: 1
+summary: Aggregate data from multiple Models, providing a single point of access to the View.
 ---
 # Compositing Model
 
