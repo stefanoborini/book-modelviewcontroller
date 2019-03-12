@@ -2,7 +2,7 @@
 title: Hierarchic MVC
 nav_order: 4
 has_children: true
-permalink: /05-hierarchic-mvc/
+permalink: /04-hierarchic-mvc/
 ---
 # Hierarchic MVC
 
