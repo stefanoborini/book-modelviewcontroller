@@ -3,7 +3,7 @@ title: In depth analysis of MVC roles
 parent: Basics of MVC
 nav_order: 4
 has_children: true
-permalink: /basics-of-mvc/in-depth-analysis-of-mvc-roles/
+permalink: /02-basics-of-mvc/04-in-depth-analysis-of-mvc-roles/
 ---
 # In depth analysis of MVC roles
 
