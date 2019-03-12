@@ -2,7 +2,7 @@
 title: Basics of MVC
 nav_order: 2
 has_children: true
-permalink: /basics-of-mvc/
+permalink: /02-basics-of-mvc/
 ---
 # Basics of MVC: From Smart-UI to Traditional MVC
 
