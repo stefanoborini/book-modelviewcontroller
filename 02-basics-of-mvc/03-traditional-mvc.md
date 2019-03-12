@@ -2,7 +2,7 @@
 parent: Basics of MVC
 nav_order: 3
 ---
-# Traditional MVC
+# 2.3 Traditional MVC
 
 With the Document-View design we successfully extracted state from an initial
 Smart-UI design. The next objective is to extract the code that converts the

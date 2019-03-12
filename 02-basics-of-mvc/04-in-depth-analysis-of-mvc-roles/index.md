@@ -5,7 +5,7 @@ nav_order: 4
 has_children: true
 permalink: /02-basics-of-mvc/04-in-depth-analysis-of-mvc-roles/
 ---
-# In depth analysis of MVC roles
+# 2.4 In depth analysis of MVC roles
 
 In the previous sections we performed a progressive refactoring from Smart-UI, 
 to Document-View, and finally to Traditional MVC. This refactoring was driven

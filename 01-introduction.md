@@ -2,7 +2,7 @@
 title: Introduction
 nav_order: 1
 ---
-# Introduction
+# 1. Introduction
 
 Model-View-Controller (MVC) is probably the most used architectural solution
 for User Interface design and web programming; Introduced first in the
@@ -54,7 +54,7 @@ Qt provides pre-made mechanisms to address some MVC needs, but in the
 upcoming code these mechanisms will be skipped on purpose to demonstrate the
 presented concepts.
 
-### Acknowledgements and motivations
+## 1.1 Acknowledgements and motivations
 
 I started writing this book as an accident. Initially, I wanted to write a
 series of blog posts to describe Model View Controller and a few related

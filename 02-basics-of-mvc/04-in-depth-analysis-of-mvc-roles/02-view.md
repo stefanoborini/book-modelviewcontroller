@@ -3,7 +3,7 @@ grand_parent: Basics of MVC
 parent: In depth analysis of MVC roles
 nav_order: 2
 ---
-# The View
+# 2.4.2 The View
 
 We introduced the View as the component of our application whose role is to
 interact with the User, by accepting its input and showing the contents of 

@@ -2,7 +2,7 @@
 parent: Basics of MVC
 nav_order: 5
 ---
-# Forces outdating Traditional MVC
+# 2.5 Forces outdating Traditional MVC
 
 The Traditional MVC design presented in the previous section is a modern
 reinterpretation of the MVC as described by Reenskaug in the 70s. The original

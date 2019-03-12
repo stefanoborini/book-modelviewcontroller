@@ -4,7 +4,7 @@ parent: In depth analysis of MVC roles
 nav_order: 1
 ---
 
-# The Model
+# 2.4.1 The Model
 
 Entities taking the Model role are responsible for holding the running state
 and business functionality of the application, either as a whole or as the part

@@ -3,7 +3,7 @@ grand_parent: Basics of MVC
 parent: In depth analysis of MVC roles
 nav_order: 3
 ---
-# The Controller
+# 2.4.3 The Controller
 
 The last of the components of MVC, the Controller, has the heavy duty task to
 make things happen by gathering, validating, and processing User events to
