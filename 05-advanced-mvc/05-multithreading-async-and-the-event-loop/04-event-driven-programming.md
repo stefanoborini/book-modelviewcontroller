@@ -1,5 +1,6 @@
 ---
-parent: Advanced MVC
+grand_parent: Advanced MVC
+parent: Multithreading, async and the event loop
 nav_order: 4
 ---
 # Interaction with the event loop

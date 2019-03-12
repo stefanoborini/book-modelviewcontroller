@@ -1,6 +1,6 @@
 ---
-parent: Advanced MVC
-summary: Neutralizes fast notifications, but issue a change immediately.
+grand_parent: Advanced MVC
+parent: Multithreading, async and the event loop
 nav_order: 13
 ---
 # Throttling

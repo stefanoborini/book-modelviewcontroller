@@ -1,5 +1,6 @@
 ---
-parent: Advanced MVC
+grand_parent: Advanced MVC
+parent: Advanced Model Patterns
 summary: Neutralises fast notifications with a timeout.
 nav_order: 12
 ---

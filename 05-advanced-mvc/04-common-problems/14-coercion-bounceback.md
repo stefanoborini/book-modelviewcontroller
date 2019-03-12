@@ -1,5 +1,6 @@
 ---
-parent: Advanced MVC
+grand_parent: Advanced MVC
+parent: Common Problems
 nav_order: 14
 ---
 # Conversion Bounce

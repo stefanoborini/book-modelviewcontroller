@@ -1,5 +1,6 @@
 ---
-parent: Advanced MVC
+grand_parent: Advanced MVC
+parent: Testing and debugging
 nav_order: 2
 ---
 MVC Testing

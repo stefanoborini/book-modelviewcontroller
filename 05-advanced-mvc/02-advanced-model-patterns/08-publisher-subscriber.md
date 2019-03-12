@@ -1,5 +1,6 @@
 ---
-parent: Advanced MVC
+grand_parent: Advanced MVC
+parent: Advanced Model Patterns
 nav_order: 8
 ---
 # Event bus / PubSub

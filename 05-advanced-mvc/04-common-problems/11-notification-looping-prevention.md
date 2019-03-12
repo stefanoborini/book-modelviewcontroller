@@ -1,7 +1,8 @@
 ---
-parent: Advanced MVC
-summary: Prevent recursive notifications to propagate
+grand_parent: Advanced MVC
+parent: Common Problems
 nav_order: 11
+summary: Prevent recursive notifications to propagate
 ---
 # Notification looping prevention
 

@@ -1,5 +1,6 @@
 ---
-parent: Advanced MVC
+grand_parent: Advanced MVC
+parent: Common Problems
 nav_order: 7
 ---
 # Lapsed Listener Problem
