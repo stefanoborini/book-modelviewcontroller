@@ -2,8 +2,15 @@
 parent: Advanced MVC
 nav_order: 1
 ---
-Model persistence
------------------
+# Service layer
+
+Service
+Provides functionality to access and synchronize against non-local state
+Used by Model, Controller and Command. Never by View.
+Typical Examples
+Access to database, Docker, svn, git,
+JSON serialization, REST client, process management.
+
 
  Domain Model objects 
 
