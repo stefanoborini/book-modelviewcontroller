@@ -1,6 +1,8 @@
 ---
+grand_parent: MVC Variations
 parent: Variations on the triad
 summary: Rationalize Application model into a more active role.
+nav_order: 6
 ---
 # Dolphin Model-View-Presenter
 

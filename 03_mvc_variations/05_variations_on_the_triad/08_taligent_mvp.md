@@ -1,6 +1,8 @@
 ---
+grand_parent: MVC Variations
 parent: Variations on the triad
 summary: Defines a broad set of protagonists to define the most common needs of a generic application.
+nav_order: 8
 ---
 # Taligent/IBM Model-View-Presenter (MVP)
 

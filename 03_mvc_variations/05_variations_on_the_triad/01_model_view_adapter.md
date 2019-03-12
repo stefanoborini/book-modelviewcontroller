@@ -1,5 +1,7 @@
 ---
+grand_parent: MVC Variations
 parent: Variations on the triad
+nav_order: 1
 ---
 # Model-View-Adapter (MVA, Mediated MVC, Model-Mediator-View)
 
