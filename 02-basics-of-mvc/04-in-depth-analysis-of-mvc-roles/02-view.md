@@ -2,7 +2,6 @@
 grand_parent: Basics of MVC
 parent: In depth analysis of MVC roles
 nav_order: 2
-permalink: /basics-of-mvc/in-depth-analysis-of-mvc-roles/view/
 ---
 # The View
 

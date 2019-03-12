@@ -2,6 +2,7 @@
 title: MVC on the web
 nav_order: 7
 has_children: true
+permalink: /07-mvc-on-the-web/
 ---
 MVC on the web
 ==============

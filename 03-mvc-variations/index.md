@@ -2,7 +2,7 @@
 title: MVC Variations 
 nav_order: 3
 has_children: true
-permalink: /mvc-variations/
+permalink: /03-mvc-variations/
 ---
 # MVC Variations
 

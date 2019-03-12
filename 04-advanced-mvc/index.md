@@ -2,6 +2,7 @@
 title: Advanced MVC
 nav_order: 5
 has_children: true
+permalink: /04-advanced-mvc/
 ---
 # Advanced MVC
 
