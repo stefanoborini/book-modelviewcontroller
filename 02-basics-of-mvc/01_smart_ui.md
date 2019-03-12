@@ -1,7 +1,6 @@
 ---
 parent: Basics of MVC
 nav_order: 1
-permalink: /basics-of-mvc/smart-ui/
 ---
 # Smart-UI: A single class with many responsibilities
 

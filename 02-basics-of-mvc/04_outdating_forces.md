@@ -1,7 +1,6 @@
 ---
 parent: Basics of MVC
 nav_order: 4
-permalink: /basics-of-mvc/outdating-forces/
 ---
 # Forces outdating Traditional MVC
 
