@@ -1,5 +1,5 @@
 ---
-title: Basics of MVC
+title: 2. Basics of MVC
 nav_order: 2
 has_children: true
 permalink: /02-basics-of-mvc/

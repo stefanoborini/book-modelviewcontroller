@@ -1,6 +1,6 @@
 ---
 grand_parent: Basics of MVC
-parent: In depth analysis of MVC roles
+parent: 2.4 In depth analysis of MVC roles
 nav_order: 2
 ---
 # 2.4.2 The View

@@ -1,5 +1,5 @@
 ---
-parent: Basics of MVC
+parent: 2. Basics of MVC
 nav_order: 3
 ---
 # 2.3 Traditional MVC

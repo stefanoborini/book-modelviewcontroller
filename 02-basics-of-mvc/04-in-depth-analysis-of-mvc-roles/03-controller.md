@@ -1,6 +1,6 @@
 ---
 grand_parent: Basics of MVC
-parent: In depth analysis of MVC roles
+parent: 2.4 In depth analysis of MVC roles
 nav_order: 3
 ---
 # 2.4.3 The Controller
