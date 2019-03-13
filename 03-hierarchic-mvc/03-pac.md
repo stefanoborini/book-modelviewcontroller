@@ -1,9 +1,8 @@
 ---
-parent: Hierarchic MVC
+parent: 3 Hierarchic MVC
 nav_order: 3
 ---
-Presentation Abstraction Control (PAC)
---------------------------------------
+# 3.3 Presentation Abstraction Control (PAC)
 
 PAC is an older scheme, very similar to HMVC. Similar to MVC, PAC defines a
 triad (Agent in PAC terminology) as follows: Presentation, responsible for

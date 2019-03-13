@@ -1,9 +1,8 @@
 ---
-parent: Hierarchic MVC
+parent: 3 Hierarchic MVC
 nav_order: 1
 ---
-Controller hierarchy in Traditional MVC
----------------------------------------
+# 3.1 Controller hierarchy in Traditional MVC
 
 In order to handle the user events, traditional MVC had to organize controllers
 in a hierarchy. When a View received an event, it was handed out to its controller

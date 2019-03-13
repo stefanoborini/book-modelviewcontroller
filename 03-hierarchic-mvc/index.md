@@ -1,10 +1,10 @@
 ---
-title: Hierarchic MVC
-nav_order: 4
+title: 3 Hierarchic MVC
+nav_order: 3
 has_children: true
-permalink: /04-hierarchic-mvc/
+permalink: /03-hierarchic-mvc/
 ---
-# Hierarchic MVC
+# 3 Hierarchic MVC
 
 Until now, we have seen MVC applied to a single triad. This works well for
 individual widgets and dialogs, but how do we apply and scale MVC to an

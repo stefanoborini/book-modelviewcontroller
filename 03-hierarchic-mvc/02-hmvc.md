@@ -1,9 +1,8 @@
 ---
-parent: Hierarchic MVC
+parent: 3 Hierarchic MVC
 nav_order: 2
 ---
-Hierarchic Model View Controller (HMVC, Recursive MVC)
-------------------------------------------------------
+# 3.2 Hierarchic Model View Controller (HMVC, Recursive MVC)
 
 Hierarchic MVC is a strategy to apply MVC in large applications while keeping
 control of the granularity of data and communication. HMVC deploys a hierarchy
