@@ -1,8 +1,8 @@
 ---
-title: 1. Introduction
+title: 1 Introduction
 nav_order: 1
 ---
-# 1. Introduction
+# 1 Introduction
 
 Model-View-Controller (MVC) is probably the most used architectural solution
 for User Interface design and web programming; Introduced first in the
