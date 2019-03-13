@@ -1,10 +1,10 @@
 ---
-title: 2 Basics of MVC
+title: 1 Basics of MVC
 nav_order: 2
 has_children: true
 permalink: /02-basics-of-mvc/
 ---
-# 2 Basics of MVC: From Smart-UI to Traditional MVC
+# 1 Basics of MVC: From Smart-UI to Traditional MVC
 
 The aim of GUI programming is to provide an interactive and updated visual
 representation of the current state of the application. A typical set of
@@ -44,3 +44,15 @@ foundation for a progressive refactoring into the three basic components
 of MVC: Model, View and Controller. We will call the result a “traditional MVC” 
 design.
 
+----
+**Note**
+    
+Throughout this book, example code will be presented to clarify design ideas with concrete implementation.
+All implementation will make use of the python programming language, and all GUI rendering will be performed via
+the excellent Qt toolkit and its python bindings.
+
+It is important to note that all the examples presented are not meant to act as a Qt programming tutorial.
+Qt provides mechanisms to address some MVC needs in an effective and idiomatic way, but in the upcoming code 
+these mechanisms will be skipped on purpose to demonstrate concepts in a clear, simplified and unencumbered way.
+
+----

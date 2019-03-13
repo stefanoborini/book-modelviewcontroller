@@ -1,9 +1,10 @@
 ---
-parent: 2 Basics of MVC
+parent: 1 Basics of MVC
 nav_order: 2
+summary: Divide application state from its UI representation 
 ---
-# 2.2 Document-View: dividing state from GUI
-
+# 1.2 Document-View
+ 
 To solve the shortcomings of Smart UI, we take advantage of the intrinsic
 division into visual rendering, interaction and business logic expressed by a GUI
 application. In Smart UI, these three roles happen to be assigned to the same

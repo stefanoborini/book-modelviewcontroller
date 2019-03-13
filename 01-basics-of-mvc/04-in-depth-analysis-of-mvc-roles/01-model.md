@@ -1,10 +1,10 @@
 ---
-grand_parent: 2 Basics of MVC
-parent: 2.4 In depth analysis of MVC roles
+grand_parent: 1 Basics of MVC
+parent: 1.4 In depth analysis of MVC roles
 nav_order: 1
 ---
 
-# 2.4.1 The Model
+# 1.4.1 The Model
 
 Entities taking the Model role are responsible for holding the running state
 and business functionality of the application, either as a whole or as the part

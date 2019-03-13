@@ -1,8 +1,8 @@
 ---
-title: 1 Introduction
-nav_order: 1
+title: Introduction
+nav_order: 0
 ---
-# 1 Introduction
+# Introduction
 
 Model-View-Controller (MVC) is probably the most used architectural solution
 for User Interface design and web programming; Introduced first in the
@@ -31,7 +31,7 @@ to gain more flexibility and satisfy peculiar use cases.
 This book is structured as follows:
 
 - The first chapter will introduce a simple ground-up MVC application through code, 
-  with the objective of deploying a common vocabulary. The chapter will define 
+  with the objective of defining the terms of the MVC vocabulary. The chapter will define 
   components, roles, and communication patterns, and close with a remark on how
   the resulting formulation is outdated and too simplistic in modern software 
   development.
@@ -48,13 +48,8 @@ This book is structured as follows:
 - In the fifth and final chapter, we will specifically focus on Web MVC and
   its implementations.
 
-Throughout the book, example code or actual implementations will be presented 
-to clarify design ideas. GUI rendering will make use of the excellent Qt toolkit.
-Qt provides pre-made mechanisms to address some MVC needs, but in the
-upcoming code these mechanisms will be skipped on purpose to demonstrate the
-presented concepts.
 
-## 1.1 Acknowledgements and motivations
+## Acknowledgements and motivations
 
 I started writing this book as an accident. Initially, I wanted to write a
 series of blog posts to describe Model View Controller and a few related

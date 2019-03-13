@@ -1,9 +1,9 @@
 ---
-grand_parent: 2 Basics of MVC
-parent: 2.4 In depth analysis of MVC roles
+grand_parent: 1 Basics of MVC
+parent: 1.4 In depth analysis of MVC roles
 nav_order: 2
 ---
-# 2.4.2 The View
+# 1.4.2 The View
 
 We introduced the View as the component of our application whose role is to
 interact with the User, by accepting its input and showing the contents of 
