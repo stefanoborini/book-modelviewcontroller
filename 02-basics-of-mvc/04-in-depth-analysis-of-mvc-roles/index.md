@@ -1,6 +1,6 @@
 ---
 title: 2.4 In depth analysis of MVC roles
-parent: Basics of MVC
+parent: 2 Basics of MVC
 nav_order: 4
 has_children: true
 permalink: /02-basics-of-mvc/04-in-depth-analysis-of-mvc-roles/

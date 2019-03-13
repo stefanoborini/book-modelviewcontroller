@@ -1,5 +1,5 @@
 ---
-parent: 2. Basics of MVC
+parent: 2 Basics of MVC
 nav_order: 2
 ---
 # 2.2 Document-View: dividing state from GUI

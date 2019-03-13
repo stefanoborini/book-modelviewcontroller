@@ -1,5 +1,5 @@
 ---
-parent: 2. Basics of MVC
+parent: 2 Basics of MVC
 nav_order: 1
 ---
 # 2.1 Smart-UI: A single class with many responsibilities
