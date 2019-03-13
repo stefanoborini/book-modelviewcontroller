@@ -1,5 +1,6 @@
 ---
-parent: 5 MVC on the web
+grand_parent: 5 MVC on the web
+parent: 5.2 Frontend MVC
 nav_order: 7
 ---
 # 5.7 Frontend/Backend interfaces

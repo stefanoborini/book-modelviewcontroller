@@ -1,8 +1,9 @@
 ---
-parent: 5 MVC on the web
+grand_parent: 5 MVC on the web
+parent: 5.1 Backend MVC
 nav_order: 2
 ---
-5.2 Page controller
+# 5.2 Page controller
 
 A page controller handles a specific request on the server, by combining model and view and send back to the client the rendered view. Normally, it is bound to a specific URL.
 

@@ -1,5 +1,6 @@
 ---
-parent: 5 MVC on the web
+grand_parent: 5 MVC on the web
+parent: 5.1 Backend MVC
 nav_order: 1
 ---
 # 5.1 Front controller
