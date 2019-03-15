@@ -3,7 +3,7 @@ grand_parent: 4 Advanced MVC
 parent: 4.4 Common Problems
 nav_order: 5
 ---
-# Trashing prevention
+# 4.4.1 Trashing prevention
 
 To prevent trashing with many notifications, there are three strategies:
 

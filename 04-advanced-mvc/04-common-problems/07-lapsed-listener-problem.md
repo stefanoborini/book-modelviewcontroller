@@ -3,7 +3,7 @@ grand_parent: 4 Advanced MVC
 parent: 4.4 Common Problems
 nav_order: 7
 ---
-# Lapsed Listener Problem
+# 4.4.2 Lapsed Listener Problem
 
 A notification system introduces a potential for memory leaks known as
 "Lapsed listener problem". It occurs when a listener registers to a

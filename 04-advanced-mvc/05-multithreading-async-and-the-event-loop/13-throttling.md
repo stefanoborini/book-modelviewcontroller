@@ -3,7 +3,7 @@ grand_parent: 4 Advanced MVC
 parent: 4.5 Multithreading, async and the event loop
 nav_order: 13
 ---
-# Throttling
+# 4.5.3 Throttling
 
 ### Motivation
 

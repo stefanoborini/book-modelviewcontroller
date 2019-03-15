@@ -3,8 +3,7 @@ grand_parent: 4 Advanced MVC
 parent: 4.6 Testing and debugging
 nav_order: 2
 ---
-MVC Testing
------------
+# 4.6.1 MVC Testing
 
 Detail the challenges of asynchronous component in testing
 

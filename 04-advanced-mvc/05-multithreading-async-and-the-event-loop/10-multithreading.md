@@ -3,7 +3,7 @@ grand_parent: 4 Advanced MVC
 parent: 4.5 Multithreading, async and the event loop
 nav_order: 10
 ---
-# Multithreading
+# 4.5.2 Multithreading
 
 Problem with multiple threads.
 Sending notifications that are delivered as the same thread.

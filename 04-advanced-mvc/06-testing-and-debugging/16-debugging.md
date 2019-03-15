@@ -3,7 +3,7 @@ grand_parent: 4 Advanced MVC
 parent: 4.6 Testing and debugging
 nav_order: 16
 ---
-# Debugging
+# 4.6.2 Debugging
 
 Hard because:
 - Can't see the chain of events. Once the event is delivered and the event loop dispatches it,

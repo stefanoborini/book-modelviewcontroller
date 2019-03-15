@@ -4,7 +4,7 @@ parent: 4.2 Advanced Model Patterns
 summary: Neutralises fast notifications with a timeout.
 nav_order: 12
 ---
-# Delayed Model
+# 4.2.2 Delayed Model
 
 FIXME: Asynchronous.  Move this one to advanced patterns. 
 

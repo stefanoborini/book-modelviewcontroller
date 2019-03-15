@@ -4,7 +4,7 @@ parent: 4.4 Common Problems
 nav_order: 11
 summary: Prevent recursive notifications to propagate
 ---
-# Notification looping prevention
+# 4.4.3 Notification looping prevention
 
 Notification messages from the Model can become problematic for a series of
 reason

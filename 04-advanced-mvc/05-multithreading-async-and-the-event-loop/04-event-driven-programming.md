@@ -3,7 +3,7 @@ grand_parent: 4 Advanced MVC
 parent: 4.5 Multithreading, async and the event loop
 nav_order: 4
 ---
-# Interaction with the event loop
+# 4.5.1 Interaction with the event loop
 
 Until now, very limited mention was made about the event dispatch mechanism
 and the event loop: we remained oblivious of how UI events were delivered to the
