@@ -1,6 +1,7 @@
 ---
 parent: 1 Basics of MVC
 nav_order: 3
+summary: The basic form of Model View Controller
 ---
 # 1.3 Traditional MVC
 

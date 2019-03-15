@@ -6,7 +6,9 @@ permalink: /05-mvc-on-the-web/
 ---
 # 5 MVC on the web
 
-Explain uniqueness of HTTP.
+In the previous chapters, we focused exclusively on desktop applications.
+This chapter will be dedicated to web programming and the application of
+Model View Controller to web programming.
 
 On the web, we have two entities interacting: the server and the client.
 The server is the only responsible to hold the model.
@@ -15,6 +17,10 @@ These requests are channeled properly, trigger changes in the model,
 and give origin to a response that the client renders to the user.
 Some interaction (e.g. scrolling a list of entries) may not involve 
 the server at all.
+
+Deployment is easier.
+
+Explain uniqueness of HTTP.
 
 
 

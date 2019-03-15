@@ -4,6 +4,7 @@ parent: 1 Basics of MVC
 nav_order: 4
 has_children: true
 permalink: /01-basics-of-mvc/04-in-depth-analysis-of-mvc-roles/
+summary: Explaining Model, View, and Controller individual responsibilities
 ---
 # 1.4 In depth analysis of MVC roles
 

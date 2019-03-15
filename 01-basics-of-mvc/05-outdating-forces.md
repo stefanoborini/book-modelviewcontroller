@@ -1,6 +1,7 @@
 ---
 parent: 1 Basics of MVC
 nav_order: 5
+summary: How traditional explicit decomposition may be outdated by modern design
 ---
 # 1.5 Forces outdating Traditional MVC
 
