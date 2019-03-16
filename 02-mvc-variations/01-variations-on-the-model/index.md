@@ -7,3 +7,4 @@ permalink: /02-mvc-variations/01-variations-on-the-model/
 ---
 # 2.1 Variations on the Model
 
+This chapter will focus on frequently encountered variations on the Model. 

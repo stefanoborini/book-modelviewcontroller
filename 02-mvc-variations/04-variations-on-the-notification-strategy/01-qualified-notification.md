@@ -44,7 +44,7 @@ subscribed Views, it passes information about
 The following example implementation trivially satisfies the above design
 
 ```python
-class View():
+class View(object):
     def notify(self, name, old_value, new_value):
         # ...
 ```
@@ -57,18 +57,11 @@ Model is reporting the change.
 A more flexible approach is given by the following implementation
 
 ```python
-class View():
+class View(object):
     def notify(self, change_info):
         # ...
 ```
 
 where ``change_info`` is a dictionary or other data object describing the
 change in enhanced detail. Models are responsible for creating and populating 
-this data object so that is meaningful to the receiving View. As a side effect
-of the design, the View does not need to inquire the Model's state anymore.
-Instead, it keeps its synchronization by means of the change information.
-
-Most modern MVC frameworks provide qualified notifications in one form or another (e.g.
-bound properties or signals). An unqualified reporting is uncommon but not completely 
-dismissable as a strategy, especially for cases where there is no granularity in the 
-Model to be exploited, or the View cannot take advantage of a fine-level notification.
+this data object so that is meaningful to the receiving View. 

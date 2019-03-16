@@ -17,3 +17,6 @@ with the real world. We will analyse the following:
 - Techniques for debugging and testing of MVC applications
 
 
+
+Additionally you might have to fight your toolkit because it prefers a specific
+implementation of MVC.

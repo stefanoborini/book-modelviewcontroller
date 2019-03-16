@@ -13,9 +13,10 @@ result of this refactoring will be a **Traditional MVC** design[^1].
 
 In Traditional MVC, the Document is called **Model**, and its role 
 and structure is unchanged: it stores state and delivers change
-notifications. The View part is divided into two classes, the
-**Controller** and the **View**. Once instantiated and connected, 
-Model, View, and Controller form a so-called **MVC triad**.
+notifications. The View part in Document-View is instead removed 
+of some of its responsibilities, that are given to a **Controller**. 
+Once instantiated and connected, Model, View, and Controller form a 
+so-called **MVC triad**.
 
 <p align="center">
   <img src="images/mvc_triad.png" />
@@ -32,7 +33,7 @@ class Controller(object):
        self._view = view
 ```
 
-The method ``addOne`` performs the specific task of transforming a primary event
+The method ``add_one`` performs the specific task of transforming a primary event
 into a Model operation, adding one to the current value.  Obviously, the
 Controller does so through the Model interface. This operation will trigger a
 Model notification to its listeners 
@@ -40,8 +41,8 @@ Model notification to its listeners
 ```python
 class Controller(object):
     # ...
-    def addOne(self):
-        self._model.setValue(self._model.value()+1)
+    def add_one(self):
+        self._model.value += 1 
 ```
 
 At initialization, the View instantiates its associated Controller, passing
@@ -73,7 +74,7 @@ class View(QtGui.QPushButton):
         self.setText(unicode(self._model.value()))   
 ```
 
-Clicking on the View button will result in a call to ``Controller.addOne``, in
+Clicking on the View button will result in a call to ``Controller.add_one``, in
 turn triggering a call to ``notify`` that updates the text label. The activity
 diagram shows the dance of calls presented above. Note how the Model-View
 synchronization does not involve the Controller
@@ -101,26 +102,15 @@ The activity diagram shows the setup code given above
   <img src="images/activity_diagram_setup.png">
 </p>
 
-This schema assumes that the controller is initialized by the View. This is generally
-desirable, given that View and Controller are so dependent and tailored to each
-other that passing the Controller from outside is not profitable. 
+---
+**Note**
 
-FIXME
-The direct connection between View and Controller is needed for:
-1) the View initializes the controller with an instance of itself at
-creation
-2) the currently active controller can be found by traversing the view hierarchy
-
-FIXME: Strictly speaking, the controller does not need to know about the View:
-the controller receives events (from the user) and modifies the model, and the model
-syncs against the view. In practice. the user interacts with a view object, and the associated
-controller handles that operation.
-
-[^1] The more knowledgeable reader may recognize that this MVC model 
-is not the original MVC as intended in its first implementation. 
+The more knowledgeable reader may recognize that this MVC model 
+is not the original MVC as intended in its original implementation. 
 We will go into detail of the differences in later chapters. 
 What is presented here is the modern reinterpretation of the 
 original MVC, and the one most likely to be intended when talking 
 about "MVC". To clarify the overloaded nomenclature, I chose to 
 refer to the original '70s design as  "Reenskaug MVC", and its 
 modern reinterpretation here presented as "Traditional MVC".
+----

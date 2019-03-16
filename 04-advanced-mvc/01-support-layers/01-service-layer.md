@@ -69,3 +69,15 @@ with none or minor changes to the remaining protagonists.
 Persistency layer: aimed exclusively at services for persistence of models
 (so that they don't contain this logic themselves)
 
+Not all Model objects are the same. We can generally distinguish three subclassifications
+of the Model layer:
+
+    - Service Model (Domain Model): the actual part of the Model that describes the
+      business rules and objects.
+    - Data access: responsible for serialization and deserialization of the
+      Service Model objects and persistence.
+    - Value Objects: data objects with particular characteristics so that
+      their equivalence depends on their value, rather than their identity.
+
+Keeping the application functionality fully supported by the model allows scriptability.
+The Model can be modified programmatically with a script that replaces the user interaction.

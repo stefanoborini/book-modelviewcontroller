@@ -70,7 +70,7 @@ class Article(models.Model):
 
 This model is backed by a database, which stores the actual state. It is unable to
 deliver notification in case of database content changes, and is therefore a
-Passive Model. In the trivial case of Web MVC here presented, the need for 
+Passive Model. In the trivial case of Web backend MVC here presented, the need for 
 notification does not emerge because the refreshing of the View is triggered
 by an explicit browser request. The Controller handles this request,
 retrieves the Model, performs any required action, and renders the View with the

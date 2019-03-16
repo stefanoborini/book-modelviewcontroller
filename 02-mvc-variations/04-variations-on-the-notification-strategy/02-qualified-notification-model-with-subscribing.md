@@ -21,7 +21,7 @@ honoring the listener's registration instructions.
 For a Qualified Notification with Subscribing, the Model must support:
 
 - an appropriate signature for the `register()` method, allowing to specify the type
-of modification a listener is interested in.
+  of modification a listener is interested in.
 - preservation of the passed information in an internal registry, which will be
   used during notification.
 

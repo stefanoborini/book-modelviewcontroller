@@ -20,9 +20,8 @@ in style of MVC arises from all the possible uses and variations of these
 independent patterns to satisfy the potentially elaborate requirements of a
 GUI. 
 
-The objective of this book is to explore variations and nuances of MVC,
-comparing and analyzing them. The differentiating characteristic among them 
-is to assign responsibilities to protagonists, specifically “who is responsible for what” 
+The objective of this book is to explore the many variations of MVC,
+generally arising from the need to decide “who is responsible for what” 
 and “who knows about whom” in the interaction between the User and the
 application state. MVC variations assign new and old responsibilities in
 different ways, connect or organize protagonists, or add intermediate objects
@@ -30,22 +29,19 @@ to gain more flexibility and satisfy peculiar use cases.
 
 This book is structured as follows:
 
-- The first chapter will introduce a simple ground-up MVC application through code, 
+- The first chapter will introduce a basic MVC application through implementation code, 
   with the objective of defining the terms of the MVC vocabulary. The chapter will define 
-  components, roles, and communication patterns, and close with a remark on how
-  the resulting formulation is outdated and too simplistic in modern software 
-  development.
+  the fundamentals of components, roles, and communication patterns.
 
-- Once equipped with nomenclature, the second chapter will introduce
-  MVC variations to address specific UI constraints and practical needs, or
-  to improve development efficiency. 
+- the second chapter will introduce MVC variations to address specific UI constraints 
+  and practical needs, or to improve development efficiency. 
 
 - The third chapter will expand the concept of MVC to hierarchical MVC schemes.
 
 - The fourth chapter will focus on special techniques that emerge from a 
   complex modern GUI.
 
-- In the fifth and final chapter, we will specifically focus on Web MVC and
+- The fifth and final chapter will specifically focus on Web MVC and
   its implementations.
 
 

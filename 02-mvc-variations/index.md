@@ -11,7 +11,8 @@ means it must be considered the one and only proper way of doing MVC. In fact,
 we saw how Traditional MVC is outdated within the context of modern UI
 development. New patterns have emerged, built around fundamental MVC concepts 
 and nomenclature, but with additional tricks, extensions and alternative design
-choices to satisfy modern requirements, such as the following:
+choices to shorten development time and satisfy modern UI requirements, such as 
+the following:
 
    - a modal dialog must allow changing values, but revert them when the Cancel
      button is pressed.
@@ -31,14 +32,11 @@ patterns emerge in the form of bugs or application freezes. Keeping this
 communication network well organized and confined by enforcing a structure is
 of paramount importance.
 
-Additionally you might have to fight your toolkit because it prefers a specific
-implementation of MVC.
-
 Design aims at managing complexity. The MVC details given in this book are
 guidelines, but need to consider the actual real problem at hand. Some
 flexibility is needed. Strict compliance generally produces a benefit, and has
-better communicative consistency within the development team, but may not scale
-up to specific cases. In that case, reconsider the design, or relax some
+better communicative consistency within the development team, but may not always 
+be appropriate for specific cases. In that case, reconsider the design, or relax some
 constraints, but aim at keeping logic encapsulated and object interaction
 simple and straightforward.
 

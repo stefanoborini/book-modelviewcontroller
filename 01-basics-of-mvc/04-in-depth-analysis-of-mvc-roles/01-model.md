@@ -19,14 +19,13 @@ objects can represent, for example,
    - A representation of business entities such as weather forecast in a
      specific area, people's details in a phonebook, tracks information in a
      music CD, student grades
-   - In some designs, graphical state of the GUI, such as selected items, or
+   - In some designs, information related to the GUI, such as selected items, or
      the X-axis scale of a plot. 
    - A running process.
 
 When implemented, a Model can go from a dictionary-like of key/value pairs to a
 complex network of objects with well defined interfaces. Regardless of the
-implementation, Models in Traditional MVC must provide the following three
-services: 
+implementation, Models must provide the following three services: 
 
 **Querying**: to inquire about their current state, either represented by
 high-level domain objects (Object Oriented approach), or through an IO
@@ -39,24 +38,24 @@ represents. In the Data Oriented approach, the routines “speak the domain
 language” and have high-level semantics to access the data, generally from a
 data storage (e.g. disk).
 
-**Altering**: to modify the current state. The Model interface provides set
+**Altering**: to modify the current state. The Model interface provides setter
 methods or routines to modify its state. The Model performs consistency
 checks about the data it handles, enforcing fundamental integrity: for example,
 it can raise an exception or ignore the passed data if a method
-setCurrentTemperature is called passing a string instead of a float, or a
-method setLength is called with a negative value. 
+``set_current_temperature`` is called passing a string instead of a float, or a
+method ``set_length`` is called with a negative value. 
 
 **Notifying**: to inform interested parties that a change has occurred in its
-state. The Model allows interested objects to register themselves for
-notifications. When a change occurs, these objects will be notified of this
+state. The Model allows interested objects to listen for change notifications. 
+When a change occurs, these objects will be notified of this
 fact and can act accordingly, normally by synchronizing themselves against the
 Model's new contents. 
 
 Model objects should provide core application functionality through a clear and
-self-documented interface, exposing what can be done with the program's state.
+self-documenting interface, exposing what can be done with the program's state.
 To operate, they can depend only on other Model objects or other components of
-the application that don't involve presentation, like an IO layer. The
-relationship among Model objects is that of a **strong dependency**.  
+the application that don't involve presentation, like an IO or Service layer. 
+The relationship among Model objects is that of a **strong dependency**.  
 
 On the other hand, a Model should not contain nor be dependent for its
 functionality on any graphical entity, nor contain formatting/visual logic for
@@ -69,13 +68,13 @@ notification generic interface.
 For data modification, all the Model does is to process incoming requests in
 the form of method calls.  Normally these requests are performed by
 Controllers, but a Model can also change due to requests from other subsystems
-(for example, a network layer), from another Model component or because it is
-monitoring a backend (e.g. a database, or a filesystem) and the monitored
-entity changes. The only entities never allowed to issue a change request to
-the Model are the Views. 
+(for example, a subprocess executing in the background), from another Model 
+component or because it is monitoring a backend (e.g. a database, or a filesystem) 
+and the monitored entity changes. The only entities never allowed to issue a 
+change request to the Model are the Views. 
 
-The Model should enforce integrity of the data, but it does not necessarily
-enforce validity: data might be correct (for example, integers for min/max
+The Model should enforce **integrity** of the data, but it does not necessarily
+enforce **validity**: data might be correct (for example, integers for min/max
 values) but overall invalid for computation (for example, if min > max). While
 integrity should be enforced, storing invalid data can be acceptable: depending
 on the application, invalid data may be marked as such in the Model by the part
@@ -91,15 +90,3 @@ tested independently from the rest of the application, and it opens itself to
 scripting, allowing the User to change the Model programmatically instead of
 through the GUI. 
 
-Not all Model objects are the same. We can generally distinguish three subclassifications
-of the Model layer:
-
-    - Service Model (Domain Model): the actual part of the Model that describes the
-      business rules and objects.
-    - Data access: responsible for serialization and deserialization of the
-      Service Model objects and persistence.
-    - Value Objects: data objects with particular characteristics so that
-      their equivalence depends on their value, rather than their identity.
-
-Keeping the application functionality fully supported by the model allows scriptability.
-The Model can be modified programmatically with a script that replaces the user interaction.

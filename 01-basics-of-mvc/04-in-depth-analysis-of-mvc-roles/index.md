@@ -8,14 +8,12 @@ summary: Explaining Model, View, and Controller individual responsibilities
 ---
 # 1.4 In depth analysis of MVC roles
 
-In the previous sections we performed a progressive refactoring from Smart-UI, 
+In the previous sections we performed a progressive refactoring from Smart UI, 
 to Document-View, and finally to Traditional MVC. This refactoring was driven
 by the need for additional flexibility, separation of concerns and
-clarification of the different roles. MVC is, at its core, an exercise in data
-synchronization: the same data must be present in the GUI, the Model, and
-finally in any data source the Model may be using to access the data, for
-example a file or a SQL database. The MVC roles help us giving structure to the
-communication traffic needed by this synchronization ballet.
+clarification of the different roles. **MVC is, at its core, an exercise in data
+synchronization between the Model and the View.** The MVC roles help us giving 
+structure to the communication traffic needed by this synchronization ballet.
 
 To summarize the scope of each role in Traditional MVC:
 
@@ -25,8 +23,8 @@ To summarize the scope of each role in Traditional MVC:
 
 Except for the most trivial applications, multiple classes can be active in the
 same role and are said to belong to a specific **layer** (i.e. Model layer, View
-layer and Controller layer). Objects from these layers are composed into MVC
-Triads that give rise to the final application's behavior and aspect.  This
+layer and Controller layer). Objects from these layers are composed into **MVC
+Triads** that give rise to the final application's behavior and aspect.  This
 design is blessed with technical advantages: 
 
    - The clear separation of concerns between data storage, data handling, data
@@ -63,11 +61,4 @@ Additionally, MVC accelerates development, improves readability and communicatio
 
 A large application is composed of many different triads, each ideally
 decoupled from the others, except at the Model level.
-
-The view uses the controller as a "strategy" for its handling policy with respect
-to user events. While technically the view could change Controller in agreement
-to the Strategy pattern, in practice this never happens. View and controller are
-tightly connected and remain so for the whole lifetime of the triad. Eventually,
-the controller is acted upon to modify its behavior, but it is never replaced altogether
-for a different one.
 
