@@ -2,3 +2,4 @@ plugins:
   - jekyll-remote-theme
 name: Understanding Model View Controller
 remote_theme: stefanoborini/just-the-docs
+ga_tracking: UA-137605838-1
