@@ -83,4 +83,4 @@ URL:
 https://github.com/stefanoborini/book-modelviewcontroller
 
 I also have a personal website at http://stefanoborini.com where you can find
-more information about me, my curriculum and activities.
+more information.
