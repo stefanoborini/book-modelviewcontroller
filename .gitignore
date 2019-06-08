@@ -3,3 +3,6 @@ build/doctrees
 build/html
 build/latex
 notes
+.idea
+.DS_Store
+.sass-cache
